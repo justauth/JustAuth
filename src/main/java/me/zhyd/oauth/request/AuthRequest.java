@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
 
@@ -18,30 +17,26 @@ public interface AuthRequest {
     /**
      * 自动跳转到认证页面
      *
-     * @param config   授权的配置，对应不同平台
      * @param response response
      */
-    default void authorize(AuthConfig config, HttpServletResponse response) {
+    default void authorize(HttpServletResponse response) {
         throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
     }
 
     /**
      * 返回认证url，可自行跳转页面
-     *
-     * @param config 授权的配置，对应不同平台
      */
-    default String authorize(AuthConfig config) {
+    default String authorize() {
         throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
     }
 
     /**
      * 第三方登录
      *
-     * @param config 授权的配置，对应不同平台
-     * @param code   通过authorize换回的code
+     * @param code 通过authorize换回的code
      * @return 返回登陆成功后的用户信息
      */
-    default AuthResponse login(AuthConfig config, String code) {
+    default AuthResponse login(String code) {
         throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
     }
 }
