@@ -16,7 +16,6 @@ import me.zhyd.oauth.utils.UrlBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.InetAddress;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -28,11 +27,11 @@ import java.net.InetAddress;
 public class AuthWeiboRequest implements AuthRequest {
 
     @Override
-    public void authorize(HttpServletResponse response) {
+    public void authorize(AuthConfig config, HttpServletResponse response) {
         if (!AuthConfigChecker.isSupportedWeibo()) {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
-        String authorizeUrl = UrlBuilder.getWeiboAuthorizeUrl(AuthConfig.weiboClientId, AuthConfig.weiboRedirectUri);
+        String authorizeUrl = UrlBuilder.getWeiboAuthorizeUrl(config.getClientId(), config.getRedirectUri());
         try {
             response.sendRedirect(authorizeUrl);
         } catch (IOException e) {
@@ -41,22 +40,22 @@ public class AuthWeiboRequest implements AuthRequest {
     }
 
     @Override
-    public String authorize() {
+    public String authorize(AuthConfig config) {
         if (!AuthConfigChecker.isSupportedWeibo()) {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
-        return UrlBuilder.getWeiboAuthorizeUrl(AuthConfig.weiboClientId, AuthConfig.weiboRedirectUri);
+        return UrlBuilder.getWeiboAuthorizeUrl(config.getClientId(), config.getRedirectUri());
     }
 
     @Override
-    public AuthResponse login(String code) {
+    public AuthResponse login(AuthConfig config, String code) {
         if (!AuthConfigChecker.isSupportedWeibo()) {
             return AuthResponse.builder()
                     .code(ResponseStatus.UNSUPPORTED.getCode())
                     .msg(ResponseStatus.UNSUPPORTED.getMsg())
                     .build();
         }
-        String accessTokenUrl = UrlBuilder.getWeiboAccessTokenUrl(AuthConfig.weiboClientId, AuthConfig.weiboClientSecret, code, AuthConfig.weiboRedirectUri);
+        String accessTokenUrl = UrlBuilder.getWeiboAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         String accessTokenStr = response.body();
         JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);

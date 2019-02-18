@@ -24,11 +24,11 @@ import java.io.IOException;
 public class AuthGithubRequest implements AuthRequest {
 
     @Override
-    public void authorize(HttpServletResponse response) {
+    public void authorize(AuthConfig config, HttpServletResponse response) {
         if (!AuthConfigChecker.isSupportedGithub()) {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
-        String authorizeUrl = UrlBuilder.getGithubAuthorizeUrl(AuthConfig.githubClientId, AuthConfig.githubRedirectUri);
+        String authorizeUrl = UrlBuilder.getGithubAuthorizeUrl(config.getClientId(), config.getRedirectUri());
         try {
             response.sendRedirect(authorizeUrl);
         } catch (IOException e) {
@@ -37,22 +37,22 @@ public class AuthGithubRequest implements AuthRequest {
     }
 
     @Override
-    public String authorize() {
+    public String authorize(AuthConfig config) {
         if (!AuthConfigChecker.isSupportedGithub()) {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
-        return UrlBuilder.getGithubAuthorizeUrl(AuthConfig.githubClientId, AuthConfig.githubRedirectUri);
+        return UrlBuilder.getGithubAuthorizeUrl(config.getClientId(), config.getRedirectUri());
     }
 
     @Override
-    public AuthResponse login(String code) {
+    public AuthResponse login(AuthConfig config, String code) {
         if (!AuthConfigChecker.isSupportedGithub()) {
             return AuthResponse.builder()
                     .code(ResponseStatus.UNSUPPORTED.getCode())
                     .msg(ResponseStatus.UNSUPPORTED.getMsg())
                     .build();
         }
-        String accessTokenUrl = UrlBuilder.getGithubAccessTokenUrl(AuthConfig.githubClientId, AuthConfig.githubClientSecret, code, AuthConfig.githubRedirectUri);
+        String accessTokenUrl = UrlBuilder.getGithubAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         String accessTokenStr = response.body();
         String accessToken = accessTokenStr.split("&")[0];
