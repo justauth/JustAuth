@@ -21,10 +21,14 @@ import java.io.IOException;
  * @date 2019/1/31 16:31
  * @since 1.8
  */
-public class AuthGithubRequest implements AuthRequest {
+public class AuthGithubRequest extends BaseAuthRequest implements AuthRequest {
+
+    public AuthGithubRequest(AuthConfig config) {
+        super(config);
+    }
 
     @Override
-    public void authorize(AuthConfig config, HttpServletResponse response) {
+    public void authorize(HttpServletResponse response) {
         if (!AuthConfigChecker.isSupportedGithub()) {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
@@ -37,7 +41,7 @@ public class AuthGithubRequest implements AuthRequest {
     }
 
     @Override
-    public String authorize(AuthConfig config) {
+    public String authorize() {
         if (!AuthConfigChecker.isSupportedGithub()) {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
@@ -45,7 +49,7 @@ public class AuthGithubRequest implements AuthRequest {
     }
 
     @Override
-    public AuthResponse login(AuthConfig config, String code) {
+    public AuthResponse login(String code) {
         if (!AuthConfigChecker.isSupportedGithub()) {
             return AuthResponse.builder()
                     .code(ResponseStatus.UNSUPPORTED.getCode())
