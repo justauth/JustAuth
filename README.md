@@ -19,9 +19,32 @@
 -------------------------------------------------------------------------------
 
 
-| <a href="https://gitee.com/"><img src="https://gitee.com/logo_icon.png" width="30"></a> |[![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png)](https://github.com) | [![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/weibo.png)](https://weibo.com) | [![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png)](https://www.csdn.net/)| [![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/dingding.png)](https://www.dingtalk.com)| [![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png)](https://connect.qq.com/devuser.html#/)|[![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechats.png)](https://mp.weixin.qq.com/cgi-bin/loginpage?t=wxm2-login&lang=zh_CN)|    
-| :----------------: | :-----------------: | :---------: | :---------: | :---------: | :---------:| :---------:|    
-| [Gitee](#Gitee) | [Github](#Github)|[Weibo](#Weibo) | [CSDN](#CSDN) |[钉钉](#钉钉)|[QQ](#QQ)| [微信](#微信) |
+<center>
+    <table>
+        <thead>
+            <tr>
+                <td align="center"><a href="https://gitee.com/"><img src="https://gitee.com/logo_icon.png" width="30"></a></td>
+                <td align="center"><a href="https://github.com"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png" width="30"></a></td>
+                <td align="center"><a href="https://weibo.com"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/weibo.png" width="30"></a></td>
+                <td align="center"><a href="https://www.csdn.net/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="30"></a></td>
+                <td align="center"><a href="https://www.dingtalk.com"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/dingding.png" width="30"></a></td>
+                <td align="center"><a href="https://connect.qq.com/devuser.html#/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="30"></a></td>
+                <td align="center"><a href="https://mp.weixin.qq.com/cgi-bin/loginpage?t=wxm2-login&lang=zh_CN"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechats.png" width="30"></a></td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td align="center"><a href="#Gitee">Gitee</a></td>
+                <td align="center"><a href="#Github">Github</a></td>
+                <td align="center"><a href="#Weibo">Weibo</a></td>
+                <td align="center"><a href="#CSDN">CSDN</a></td>
+                <td align="center"><a href="#钉钉">钉钉</a></td>
+                <td align="center"><a href="#QQ">QQ</a></td>
+                <td align="center"><a href="#微信">微信</a></td>
+            </tr>
+        </tbody>
+    </table>
+</center>
 
 JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具类库**，它可以让我们脱离繁琐的第三方登录SDK，让登录变得**So easy!**
 
