@@ -71,7 +71,7 @@ authRequest.authorize();
 ```
 
 #### API列表
-|  :computer:平台  |  API类:coffee:  |  :page_facing_up:SDK  |
+|  :computer:平台  |  :coffee:API类  |  :page_facing_up:SDK  |
 |:------:|:-------:|:-------:|
 |  <img src="https://gitee.com/logo_icon.png" width="20">  |  [AuthGiteeRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthGiteeRequest.java)  | [https://github.com/settings/developers](https://github.com/settings/developers) |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png" width="20">  |  [AuthGithubRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthGiteeRequest.java)  | [https://gitee.com/api/v5/oauth_doc#list_1](https://gitee.com/api/v5/oauth_doc#list_1)  |
