@@ -29,6 +29,8 @@ public class AuthRequestTest {
         authRequest.authorize(response);
         // 返回授权页面，可自行调整
         authRequest.authorize();
+        // 授权登陆后会返回一个code，用这个code进行登录
+        authRequest.login("code");
     }
 
     @Test
@@ -42,6 +44,8 @@ public class AuthRequestTest {
         authRequest.authorize(response);
         // 返回授权页面，可自行调整
         authRequest.authorize();
+        // 授权登陆后会返回一个code，用这个code进行登录
+        authRequest.login("code");
     }
 
     @Test
@@ -55,5 +59,7 @@ public class AuthRequestTest {
         authRequest.authorize(response);
         // 返回授权页面，可自行调整
         authRequest.authorize();
+        // 授权登陆后会返回一个code，用这个code进行登录
+        authRequest.login("code");
     }
 }
