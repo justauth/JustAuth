@@ -16,6 +16,10 @@
 	</a>
 </p>
 
+| <a href="https://gitee.com/"><img src="https://gitee.com/logo_icon.png" width="30"></a> |[![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png)](https://github.com) | [![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/weibo.png)](https://weibo.com) | [![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png)](https://www.csdn.net/)| [![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/dingding.png)](https://www.dingtalk.com)| [![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png)](https://connect.qq.com/devuser.html#/)|[![](https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechats.png)](https://mp.weixin.qq.com/cgi-bin/loginpage?t=wxm2-login&lang=zh_CN)|    
+| :--------: | :---------: | :---------: | :---------: | :---------: | :---------:| :---------:|    
+| [Gitee](#Gitee) | [Github](#Github)|[Weibo](#Weibo) | [CSDN](#CSDN) |[钉钉](#钉钉)|[QQ](#QQ)| [微信](#微信) |
+
 -------------------------------------------------------------------------------
 
 JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具类库**，它可以让我们脱离繁琐的第三方登录SDK，让登录变得**So easy!**
