@@ -12,49 +12,11 @@ import me.zhyd.oauth.config.AuthConfig;
 public class AuthConfigChecker {
 
     /**
-     * 是否支持微博
+     * 是否支持第三方登录
      *
      * @return true or false
      */
-    public static boolean isSupportedWeibo() {
-        return StringUtils.isNotEmpty(AuthConfig.weiboClientId) && StringUtils.isNotEmpty(AuthConfig.weiboClientSecret) && StringUtils.isNotEmpty(AuthConfig.weiboRedirectUri);
-    }
-
-    /**
-     * 是否支持Github
-     *
-     * @return true or false
-     */
-    public static boolean isSupportedGithub() {
-        return StringUtils.isNotEmpty(AuthConfig.githubClientId) && StringUtils.isNotEmpty(AuthConfig.githubClientSecret) && StringUtils.isNotEmpty(AuthConfig.githubRedirectUri);
-    }
-
-    /**
-     * 是否支持Gitee
-     *
-     * @return true or false
-     */
-    public static boolean isSupportedGitee() {
-        return StringUtils.isNotEmpty(AuthConfig.giteeClientId) && StringUtils.isNotEmpty(AuthConfig.giteeClientSecret) && StringUtils.isNotEmpty(AuthConfig.giteeRedirectUri);
-    }
-
-    /**
-     * 是否支持QQ
-     *
-     * @return true or false
-     */
-    @Deprecated
-    public static boolean isSupportedQq() {
-        return false;
-    }
-
-    /**
-     * 是否支持微信
-     *
-     * @return true or false
-     */
-    @Deprecated
-    public static boolean isSupportedWeixin() {
-        return false;
+    public static boolean isSupportedAuth(AuthConfig config) {
+        return StringUtils.isNotEmpty(config.getClientId()) && StringUtils.isNotEmpty(config.getClientSecret()) && StringUtils.isNotEmpty(config.getRedirectUri());
     }
 }

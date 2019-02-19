@@ -48,7 +48,7 @@
 
 JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具类库**，它可以让我们脱离繁琐的第三方登录SDK，让登录变得**So easy!**
 
-## 快速使用
+## 快速开始
 - 引入依赖
 ```xml
 <dependency>
@@ -66,9 +66,9 @@ AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
         .build());
 // 自动跳转到授权页面
 authRequest.authorize(response);
-// 返回授权页面，可自行调整
+// 返回授权页面，可自行跳转
 authRequest.authorize();
-// 授权登陆后会返回一个code，用这个code进行登录
+// 授权登录后会返回一个code，用这个code进行登录
 authRequest.login("code");
 ```
 
@@ -79,6 +79,6 @@ authRequest.login("code");
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png" width="20">  |  [AuthGithubRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthGiteeRequest.java)  | [https://gitee.com/api/v5/oauth_doc#list_1](https://gitee.com/api/v5/oauth_doc#list_1)  |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/weibo.png" width="20">  |  [AuthWeiboRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthGiteeRequest.java)  |  [https://open.weibo.com/apps](https://open.weibo.com/apps)  |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20">  |  AuthCsdnRequest  |  [https://connect.qq.com/](https://connect.qq.com/)  |
-|  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/dingding.png" width="20">  |  AuthDingTalkRequest  |  待续  |
+|  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/dingding.png" width="20">  |  [AuthDingTalkRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthDingTalkRequest.java)  |  [https://open-doc.dingtalk.com/microapp/serverapi2/kymkv6](https://open-doc.dingtalk.com/microapp/serverapi2/kymkv6)  |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="20">  |  AuthQqRequest  |  待续  |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechats.png" width="20">  |  AuthWechatRequest  |  待续  |

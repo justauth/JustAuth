@@ -16,7 +16,7 @@ public class AuthConfig {
     private String clientId;
     private String clientSecret;
     /**
-     * 登陆成功后的回调地址
+     * 登录成功后的回调地址
      */
     private String redirectUri;
 }

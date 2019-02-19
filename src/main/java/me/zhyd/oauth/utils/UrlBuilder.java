@@ -27,6 +27,9 @@ public class UrlBuilder {
     private static final String GITEE_USER_INFO_PATTERN = "{0}?access_token={1}";
     private static final String GITEE_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
 
+    private static final String DING_TALK_QRCONNECT_PATTERN = "{0}?appid={1}&response_type=code&scope=snsapi_login&state=STATE&redirect_uri={2}";
+    private static final String DING_TALK_USER_INFO_PATTERN = "{0}?signature={1}&timestamp={2}&accessKey={3}";
+
     /**
      * 获取githubtoken的接口地址
      *
@@ -34,7 +37,7 @@ public class UrlBuilder {
      * @param clientSecret github应用的Client Secret
      * @param code         github授权前的code，用来换token
      * @param redirectUri  待跳转的页面
-     * @return 换取github授权token的真实地址
+     * @return full url
      */
     public static String getGithubAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
         return MessageFormat.format(GITHUB_ACCESS_TOKEN_PATTERN, ApiUrlConst.GITHUB_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
@@ -44,7 +47,7 @@ public class UrlBuilder {
      * 获取github用户详情的接口地址
      *
      * @param token github 应用的token
-     * @return json
+     * @return full url
      */
     public static String getGithubUserInfoUrl(String token) {
         return MessageFormat.format(GITHUB_USER_INFO_PATTERN, ApiUrlConst.GITHUB_USER_INFO_URL, token);
@@ -55,7 +58,7 @@ public class UrlBuilder {
      *
      * @param clientId    github 应用的Client ID
      * @param redirectUrl github 应用授权成功后的回调地址
-     * @return json
+     * @return full url
      */
     public static String getGithubAuthorizeUrl(String clientId, String redirectUrl) {
         return MessageFormat.format(GITHUB_AUTHORIZE_PATTERN, ApiUrlConst.GITHUB_AUTHORIZE_URL, clientId, redirectUrl);
@@ -68,7 +71,7 @@ public class UrlBuilder {
      * @param clientSecret weibo应用的App Secret
      * @param code         weibo授权前的code，用来换token
      * @param redirectUri  待跳转的页面
-     * @return 换取weibo授权token的真实地址
+     * @return full url
      */
     public static String getWeiboAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
         return MessageFormat.format(WEIBO_ACCESS_TOKEN_PATTERN, ApiUrlConst.WEIBO_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
@@ -79,7 +82,7 @@ public class UrlBuilder {
      *
      * @param uid   用户id
      * @param token weibo 应用的token
-     * @return json
+     * @return full url
      */
     public static String getWeiboUserInfoUrl(String uid, String token) {
         return MessageFormat.format(WEIBO_USER_INFO_PATTERN, ApiUrlConst.WEIBO_USER_INFO_URL, uid, token);
@@ -90,7 +93,7 @@ public class UrlBuilder {
      *
      * @param clientId    weibo 应用的Client ID
      * @param redirectUrl weibo 应用授权成功后的回调地址
-     * @return json
+     * @return full url
      */
     public static String getWeiboAuthorizeUrl(String clientId, String redirectUrl) {
         return MessageFormat.format(WEIBO_AUTHORIZE_PATTERN, ApiUrlConst.WEIBO_AUTHORIZE_URL, clientId, redirectUrl);
@@ -103,7 +106,7 @@ public class UrlBuilder {
      * @param clientSecret gitee应用的Client Secret
      * @param code         gitee授权前的code，用来换token
      * @param redirectUri  待跳转的页面
-     * @return 换取gitee授权token的真实地址
+     * @return full url
      */
     public static String getGiteeAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
         return MessageFormat.format(GITEE_ACCESS_TOKEN_PATTERN, ApiUrlConst.GITEE_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
@@ -113,7 +116,7 @@ public class UrlBuilder {
      * 获取gitee用户详情的接口地址
      *
      * @param token gitee 应用的token
-     * @return json
+     * @return full url
      */
     public static String getGiteeUserInfoUrl(String token) {
         return MessageFormat.format(GITEE_USER_INFO_PATTERN, ApiUrlConst.GITEE_USER_INFO_URL, token);
@@ -128,5 +131,28 @@ public class UrlBuilder {
      */
     public static String getGiteeAuthorizeUrl(String clientId, String redirectUrl) {
         return MessageFormat.format(GITEE_AUTHORIZE_PATTERN, ApiUrlConst.GITEE_AUTHORIZE_URL, clientId, redirectUrl);
+    }
+
+    /**
+     * 获取钉钉登录二维码的地址
+     *
+     * @param clientId    钉钉 应用的App Id
+     * @param redirectUrl 钉钉 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getDingTalkQrConnectUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(DING_TALK_QRCONNECT_PATTERN, ApiUrlConst.DING_TALK_QRCONNECT_URL, clientId, redirectUrl);
+    }
+
+    /**
+     * 获取钉钉用户信息的地址
+     *
+     * @param signature 通过appSecret计算出来的签名值，签名计算方法：https://open-doc.dingtalk.com/microapp/faquestions/hxs5v9
+     * @param timestamp 当前时间戳，单位是毫秒
+     * @param accessKey 钉钉 应用的App Id
+     * @return full url
+     */
+    public static String getDingTalkUserInfoUrl(String signature, String timestamp, String accessKey) {
+        return MessageFormat.format(DING_TALK_USER_INFO_PATTERN, ApiUrlConst.DING_TALK_USER_INFO_URL, signature, timestamp, accessKey);
     }
 }

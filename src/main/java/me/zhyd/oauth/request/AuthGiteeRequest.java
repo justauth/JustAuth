@@ -4,11 +4,9 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.AuthConfigChecker;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +19,7 @@ import java.io.IOException;
  * @date 2019/1/31 16:31
  * @since 1.8
  */
-public class AuthGiteeRequest extends BaseAuthRequest implements AuthRequest {
+public class AuthGiteeRequest extends BaseAuthRequest {
 
     public AuthGiteeRequest(AuthConfig config) {
         super(config);
@@ -29,9 +27,6 @@ public class AuthGiteeRequest extends BaseAuthRequest implements AuthRequest {
 
     @Override
     public void authorize(HttpServletResponse response) {
-        if (!AuthConfigChecker.isSupportedGitee()) {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
         String authorizeUrl = UrlBuilder.getGiteeAuthorizeUrl(config.getClientId(), config.getRedirectUri());
         try {
             response.sendRedirect(authorizeUrl);
@@ -42,24 +37,14 @@ public class AuthGiteeRequest extends BaseAuthRequest implements AuthRequest {
 
     @Override
     public String authorize() {
-        if (!AuthConfigChecker.isSupportedGitee()) {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
         return UrlBuilder.getGiteeAuthorizeUrl(config.getClientId(), config.getRedirectUri());
     }
 
     @Override
     public AuthResponse login(String code) {
-        if (!AuthConfigChecker.isSupportedGitee()) {
-            return AuthResponse.builder()
-                    .code(ResponseStatus.UNSUPPORTED.getCode())
-                    .msg(ResponseStatus.UNSUPPORTED.getMsg())
-                    .build();
-        }
         String accessTokenUrl = UrlBuilder.getGiteeAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
-        String accessTokenStr = response.body();
-        JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
+        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
             return AuthResponse.builder()
                     .code(500)

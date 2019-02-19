@@ -56,4 +56,14 @@ public class ApiUrlConst {
      */
     public static final String GITEE_AUTHORIZE_URL = "https://gitee.com/oauth/authorize";
 
+    /**
+     * 获取钉钉登录二维码的地址
+     */
+    public static final String DING_TALK_QRCONNECT_URL = "https://oapi.dingtalk.com/connect/qrconnect";
+
+    /**
+     * 获取钉钉用户信息的地址
+     */
+    public static final String DING_TALK_USER_INFO_URL = "https://oapi.dingtalk.com/sns/getuserinfo_bycode";
+
 }

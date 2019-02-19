@@ -34,7 +34,7 @@ public interface AuthRequest {
      * 第三方登录
      *
      * @param code 通过authorize换回的code
-     * @return 返回登陆成功后的用户信息
+     * @return 返回登录成功后的用户信息
      */
     default AuthResponse login(String code) {
         throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);

@@ -21,7 +21,7 @@ import java.io.IOException;
  * @date 2019/1/31 16:31
  * @since 1.8
  */
-public class AuthGithubRequest extends BaseAuthRequest implements AuthRequest {
+public class AuthGithubRequest extends BaseAuthRequest {
 
     public AuthGithubRequest(AuthConfig config) {
         super(config);
@@ -29,9 +29,6 @@ public class AuthGithubRequest extends BaseAuthRequest implements AuthRequest {
 
     @Override
     public void authorize(HttpServletResponse response) {
-        if (!AuthConfigChecker.isSupportedGithub()) {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
         String authorizeUrl = UrlBuilder.getGithubAuthorizeUrl(config.getClientId(), config.getRedirectUri());
         try {
             response.sendRedirect(authorizeUrl);
@@ -42,20 +39,11 @@ public class AuthGithubRequest extends BaseAuthRequest implements AuthRequest {
 
     @Override
     public String authorize() {
-        if (!AuthConfigChecker.isSupportedGithub()) {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
         return UrlBuilder.getGithubAuthorizeUrl(config.getClientId(), config.getRedirectUri());
     }
 
     @Override
     public AuthResponse login(String code) {
-        if (!AuthConfigChecker.isSupportedGithub()) {
-            return AuthResponse.builder()
-                    .code(ResponseStatus.UNSUPPORTED.getCode())
-                    .msg(ResponseStatus.UNSUPPORTED.getMsg())
-                    .build();
-        }
         String accessTokenUrl = UrlBuilder.getGithubAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         String accessTokenStr = response.body();
