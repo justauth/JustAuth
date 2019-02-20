@@ -2,6 +2,7 @@ package me.zhyd.oauth.model;
 
 import lombok.Builder;
 import lombok.Data;
+import me.zhyd.oauth.request.ResponseStatus;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -13,7 +14,7 @@ import lombok.Data;
 @Builder
 @Data
 public class AuthResponse<T> {
-    private int code = 200;
-    private String msg;
+    private int code = ResponseStatus.SUCCESS.getCode();
+    private String msg = ResponseStatus.SUCCESS.getMsg();
     private T data;
 }

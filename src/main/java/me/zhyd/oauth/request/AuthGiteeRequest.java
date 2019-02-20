@@ -4,13 +4,10 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.UrlBuilder;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -22,51 +19,36 @@ import java.io.IOException;
 public class AuthGiteeRequest extends BaseAuthRequest {
 
     public AuthGiteeRequest(AuthConfig config) {
-        super(config);
+        super(config, AuthSource.GITEE);
     }
 
     @Override
-    public void authorize(HttpServletResponse response) {
-        String authorizeUrl = UrlBuilder.getGiteeAuthorizeUrl(config.getClientId(), config.getRedirectUri());
-        try {
-            response.sendRedirect(authorizeUrl);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public String authorize() {
-        return UrlBuilder.getGiteeAuthorizeUrl(config.getClientId(), config.getRedirectUri());
-    }
-
-    @Override
-    public AuthResponse login(String code) {
+    protected String getAccessToken(String code) {
         String accessTokenUrl = UrlBuilder.getGiteeAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
-            return AuthResponse.builder()
-                    .code(500)
-                    .msg("Unable to get token from gitee using code [" + code + "]")
-                    .build();
+            throw new AuthException("Unable to get token from gitee using code [" + code + "]");
         }
-        String accessToken = accessTokenObject.getString("access_token");
-        response = HttpRequest.get(UrlBuilder.getGiteeUserInfoUrl(accessToken)).execute();
+        return accessTokenObject.getString("access_token");
+    }
+
+    @Override
+    protected AuthUser getUserInfo(String accessToken) {
+        HttpResponse response = HttpRequest.get(UrlBuilder.getGiteeUserInfoUrl(accessToken)).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
-        return AuthResponse.builder()
-                .data(AuthUser.builder()
-                        .username(object.getString("login"))
-                        .avatar(object.getString("avatar_url"))
-                        .blog(object.getString("blog"))
-                        .nickname(object.getString("name"))
-                        .company(object.getString("company"))
-                        .location(object.getString("address"))
-                        .email(object.getString("email"))
-                        .remark(object.getString("bio"))
-                        .source(AuthSource.GITEE)
-                        .build())
+        return AuthUser.builder()
+                .username(object.getString("login"))
+                .avatar(object.getString("avatar_url"))
+                .blog(object.getString("blog"))
+                .nickname(object.getString("name"))
+                .company(object.getString("company"))
+                .location(object.getString("address"))
+                .email(object.getString("email"))
+                .remark(object.getString("bio"))
+                .accessToken(accessToken)
+                .source(AuthSource.GITEE)
                 .build();
     }
 }

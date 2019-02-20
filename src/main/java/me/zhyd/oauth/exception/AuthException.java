@@ -10,12 +10,18 @@ import me.zhyd.oauth.request.ResponseStatus;
  * @since 1.8
  */
 public class AuthException extends RuntimeException {
-    public AuthException() {
-        super();
+
+    private int errorCode;
+    private String errorMsg;
+
+    public AuthException(String errorMsg) {
+        this(ResponseStatus.FAILURE.getCode(), errorMsg);
     }
 
-    public AuthException(String message) {
-        super(message);
+    public AuthException(int errorCode, String errorMsg) {
+        super(errorCode + ":" + errorMsg);
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
     }
 
     public AuthException(ResponseStatus status) {
@@ -26,11 +32,11 @@ public class AuthException extends RuntimeException {
         super(message, cause);
     }
 
-    public AuthException(Throwable cause) {
-        super(cause);
+    public int getErrorCode() {
+        return errorCode;
     }
 
-    protected AuthException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public String getErrorMsg() {
+        return errorMsg;
     }
 }

@@ -12,6 +12,8 @@ public enum AuthSource {
     GITEE,
     WEIBO,
     DINGTALK,
+    BAIDU,
     QQ,
-    WEIXIN
+    WECHAT,
+    GOOGLE,
 }

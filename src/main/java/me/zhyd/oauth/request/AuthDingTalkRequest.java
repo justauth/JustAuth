@@ -4,15 +4,14 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.model.AuthDIngTalkErrorCode;
+import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthDingTalkErrorCode;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.DingTalkSignatureUtil;
 import me.zhyd.oauth.utils.UrlBuilder;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -25,26 +24,11 @@ import java.util.Objects;
 public class AuthDingTalkRequest extends BaseAuthRequest {
 
     public AuthDingTalkRequest(AuthConfig config) {
-        super(config);
+        super(config, AuthSource.DINGTALK);
     }
 
     @Override
-    public void authorize(HttpServletResponse response) {
-        String authorizeUrl = UrlBuilder.getDingTalkQrConnectUrl(config.getClientId(), config.getRedirectUri());
-        try {
-            response.sendRedirect(authorizeUrl);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public String authorize() {
-        return UrlBuilder.getDingTalkQrConnectUrl(config.getClientId(), config.getRedirectUri());
-    }
-
-    @Override
-    public AuthResponse login(String code) {
+    protected AuthUser getUserInfo(String code) {
         // 根据timestamp, appSecret计算签名值
         String stringToSign = System.currentTimeMillis() + "";
         String urlEncodeSignature = DingTalkSignatureUtil.computeSignature(config.getClientSecret(), stringToSign);
@@ -53,17 +37,21 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
                 .execute();
         String userInfo = response.body();
         JSONObject object = new JSONObject(userInfo);
-        AuthDIngTalkErrorCode errorCode = AuthDIngTalkErrorCode.getErrorCode(object.getInt("errcode"));
-        if (!AuthDIngTalkErrorCode.EC0.equals(errorCode)) {
-            return AuthResponse.builder().code(errorCode.getCode()).msg(errorCode.getDesc()).build();
+        AuthDingTalkErrorCode errorCode = AuthDingTalkErrorCode.getErrorCode(object.getInt("errcode"));
+        if (!AuthDingTalkErrorCode.EC0.equals(errorCode)) {
+            throw new AuthException(errorCode.getDesc());
         }
         object = object.getJSONObject("user_info");
-        System.out.println(userInfo);
+        return AuthUser.builder()
+                .nickname(object.getStr("nick"))
+                .source(AuthSource.DINGTALK)
+                .build();
+    }
+
+    @Override
+    public AuthResponse login(String code) {
         return AuthResponse.builder()
-                .data(AuthUser.builder()
-                        .nickname(object.getStr("nick"))
-                        .source(AuthSource.DINGTALK)
-                        .build())
+                .data(this.getUserInfo(code))
                 .build();
     }
 }

@@ -8,6 +8,7 @@ package me.zhyd.oauth.request;
  * @since 1.8
  */
 public enum ResponseStatus {
+    SUCCESS(2000, "Success"),
     FAILURE(5000, "Authentication failure"),
     NOT_IMPLEMENTED(5001, "Not Implemented"),
     UNSUPPORTED(5002, "Unsupported authentication, please check the configuration."),

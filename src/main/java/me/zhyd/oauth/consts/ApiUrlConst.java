@@ -66,4 +66,24 @@ public class ApiUrlConst {
      */
     public static final String DING_TALK_USER_INFO_URL = "https://oapi.dingtalk.com/sns/getuserinfo_bycode";
 
+    /**
+     * 获取baidu access_token的地址
+     */
+    public static final String BAIDU_ACCESS_TOKEN_URL = "https://openapi.baidu.com/oauth/2.0/token";
+
+    /**
+     * 获取baidu用户信息的地址
+     */
+    public static final String BAIDU_USER_INFO_URL = "https://openapi.baidu.com/rest/2.0/passport/users/getInfo";
+
+    /**
+     * 获取baidu授权地址
+     */
+    public static final String BAIDU_AUTHORIZE_URL = "https://openapi.baidu.com/oauth/2.0/authorize";
+
+    /**
+     * 收回baidu授权的地址
+     */
+    public static final String BAIDU_REVOKE_URL = "https://openapi.baidu.com/rest/2.0/passport/auth/revokeAuthorization";
+
 }

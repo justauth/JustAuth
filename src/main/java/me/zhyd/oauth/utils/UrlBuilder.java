@@ -20,7 +20,7 @@ public class UrlBuilder {
     private static final String GITHUB_AUTHORIZE_PATTERN = "{0}?client_id={1}&state=1&redirect_uri={2}";
 
     private static final String WEIBO_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
-    private static final String WEIBO_USER_INFO_PATTERN = "{0}?uid={1}&access_token={2}";
+    private static final String WEIBO_USER_INFO_PATTERN = "{0}?{1}";
     private static final String WEIBO_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
 
     private static final String GITEE_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
@@ -29,6 +29,11 @@ public class UrlBuilder {
 
     private static final String DING_TALK_QRCONNECT_PATTERN = "{0}?appid={1}&response_type=code&scope=snsapi_login&state=STATE&redirect_uri={2}";
     private static final String DING_TALK_USER_INFO_PATTERN = "{0}?signature={1}&timestamp={2}&accessKey={3}";
+
+    private static final String BAIDU_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
+    private static final String BAIDU_USER_INFO_PATTERN = "{0}?access_token={1}";
+    private static final String BAIDU_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&display=popup";
+    private static final String BAIDU_REVOKE_PATTERN = "{0}?access_token={1}";
 
     /**
      * 获取githubtoken的接口地址
@@ -80,12 +85,11 @@ public class UrlBuilder {
     /**
      * 获取weibo用户详情的接口地址
      *
-     * @param uid   用户id
      * @param token weibo 应用的token
      * @return full url
      */
-    public static String getWeiboUserInfoUrl(String uid, String token) {
-        return MessageFormat.format(WEIBO_USER_INFO_PATTERN, ApiUrlConst.WEIBO_USER_INFO_URL, uid, token);
+    public static String getWeiboUserInfoUrl(String token) {
+        return MessageFormat.format(WEIBO_USER_INFO_PATTERN, ApiUrlConst.WEIBO_USER_INFO_URL, token);
     }
 
     /**
@@ -154,5 +158,49 @@ public class UrlBuilder {
      */
     public static String getDingTalkUserInfoUrl(String signature, String timestamp, String accessKey) {
         return MessageFormat.format(DING_TALK_USER_INFO_PATTERN, ApiUrlConst.DING_TALK_USER_INFO_URL, signature, timestamp, accessKey);
+    }
+
+    /**
+     * 获取baidu token的接口地址
+     *
+     * @param clientId     baidu应用的API Key
+     * @param clientSecret baidu应用的Secret Key
+     * @param code         baidu授权前的code，用来换token
+     * @param redirectUri  待跳转的页面
+     * @return full url
+     */
+    public static String getBaiduAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
+        return MessageFormat.format(BAIDU_ACCESS_TOKEN_PATTERN, ApiUrlConst.BAIDU_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
+    }
+
+    /**
+     * 获取baidu用户详情的接口地址
+     *
+     * @param token baidu 应用的token
+     * @return full url
+     */
+    public static String getBaiduUserInfoUrl(String token) {
+        return MessageFormat.format(BAIDU_USER_INFO_PATTERN, ApiUrlConst.BAIDU_USER_INFO_URL, token);
+    }
+
+    /**
+     * 获取baidu授权地址
+     *
+     * @param clientId    baidu 应用的API Key
+     * @param redirectUrl baidu 应用授权成功后的回调地址
+     * @return json
+     */
+    public static String getBaiduAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(BAIDU_AUTHORIZE_PATTERN, ApiUrlConst.BAIDU_AUTHORIZE_URL, clientId, redirectUrl);
+    }
+
+    /**
+     * 获取收回baidu授权的地址
+     *
+     * @param accessToken baidu授权登录后的token
+     * @return json
+     */
+    public static String getBaiduRevokeUrl(String accessToken) {
+        return MessageFormat.format(BAIDU_REVOKE_PATTERN, ApiUrlConst.BAIDU_REVOKE_URL, accessToken);
     }
 }

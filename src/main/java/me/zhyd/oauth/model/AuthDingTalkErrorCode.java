@@ -7,7 +7,7 @@ package me.zhyd.oauth.model;
  * @date 2019/2/19 9:42
  * @since 1.8
  */
-public enum AuthDIngTalkErrorCode {
+public enum AuthDingTalkErrorCode {
     /**
      * 异常状态码
      */
@@ -377,15 +377,15 @@ public enum AuthDIngTalkErrorCode {
     private String desc;
     private String solution;
 
-    AuthDIngTalkErrorCode(int code, String desc, String solution) {
+    AuthDingTalkErrorCode(int code, String desc, String solution) {
         this.code = code;
         this.desc = desc;
         this.solution = solution;
     }
 
-    public static AuthDIngTalkErrorCode getErrorCode(int errorCode) {
-        AuthDIngTalkErrorCode[] errorCodes = AuthDIngTalkErrorCode.values();
-        for (AuthDIngTalkErrorCode code : errorCodes) {
+    public static AuthDingTalkErrorCode getErrorCode(int errorCode) {
+        AuthDingTalkErrorCode[] errorCodes = AuthDingTalkErrorCode.values();
+        for (AuthDingTalkErrorCode code : errorCodes) {
             if (code.getCode() == errorCode) {
                 return code;
             }

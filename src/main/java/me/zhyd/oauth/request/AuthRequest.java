@@ -4,6 +4,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -19,7 +20,7 @@ public interface AuthRequest {
      *
      * @param response response
      */
-    default void authorize(HttpServletResponse response) {
+    default void authorize(HttpServletResponse response) throws IOException {
         throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
     }
 
@@ -37,6 +38,15 @@ public interface AuthRequest {
      * @return 返回登录成功后的用户信息
      */
     default AuthResponse login(String code) {
+        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
+    }
+
+    /**
+     * 撤销授权
+     *
+     * @param accessToken 登录成功后返回的accessToken
+     */
+    default AuthResponse revoke(String accessToken) {
         throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
     }
 }
