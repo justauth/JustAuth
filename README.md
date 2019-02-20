@@ -91,11 +91,11 @@ authRequest.login("code");
 
 ##### Gitee
 
-待续
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0220/141459_bab67c9a_784199.png "gitee.png")
 
 ##### Github
 
-待续
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0220/141510_eaae5c8a_784199.png "github.png")
 
 ##### Weibo
 
@@ -103,11 +103,12 @@ authRequest.login("code");
 
 ##### 钉钉
 
-待续
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0220/141534_251721b6_784199.png "dingding.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0220/141546_51ee1fc6_784199.jpeg "dingding.jpg")
 
 ##### 百度
 
-待续
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0220/141600_e796c8cf_784199.png "baidu.png")
 
 ##### CSDN
 
