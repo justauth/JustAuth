@@ -91,24 +91,24 @@ authRequest.login("code");
 
 ##### Gitee
 
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0220/141459_bab67c9a_784199.png "gitee.png")
+![Gitee授权登录](https://images.gitee.com/uploads/images/2019/0221/140015_4c09610e_784199.png "Gitee授权登录")
 
 ##### Github
 
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0220/141510_eaae5c8a_784199.png "github.png")
+![Github授权登录](https://images.gitee.com/uploads/images/2019/0221/140032_58f7dfb5_784199.png "Github授权登录")
+
+##### 钉钉
+
+![钉钉授权登录](https://images.gitee.com/uploads/images/2019/0221/140540_8da8d959_784199.jpeg "钉钉授权登录")
+
+
+##### 百度
+
+![百度授权登录](https://images.gitee.com/uploads/images/2019/0221/140607_ebf1dcb6_784199.png "百度授权登录")
 
 ##### Weibo
 
 待续
-
-##### 钉钉
-
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0220/141534_251721b6_784199.png "dingding.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0220/141546_51ee1fc6_784199.jpeg "dingding.jpg")
-
-##### 百度
-
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0220/141600_e796c8cf_784199.png "baidu.png")
 
 ##### CSDN
 
@@ -117,3 +117,8 @@ authRequest.login("code");
 ##### 微信
 
 待续
+
+##### QQ
+
+待续
+
