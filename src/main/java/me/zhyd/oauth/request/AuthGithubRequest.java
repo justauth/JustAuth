@@ -4,9 +4,13 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.UrlBuilder;
+
+import java.util.Map;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -25,8 +29,11 @@ public class AuthGithubRequest extends BaseAuthRequest {
     protected String getAccessToken(String code) {
         String accessTokenUrl = UrlBuilder.getGithubAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
-        String accessTokenStr = response.body();
-        return accessTokenStr.split("&")[0];
+        Map<String, String> res = GlobalAuthUtil.parseStringToMap(response.body());
+        if (res.containsKey("error")) {
+            throw new AuthException(res.get("error") + ":" + res.get("error_description"));
+        }
+        return res.get("access_token");
     }
 
     @Override

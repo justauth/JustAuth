@@ -16,7 +16,7 @@ import java.text.MessageFormat;
 public class UrlBuilder {
 
     private static final String GITHUB_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}";
-    private static final String GITHUB_USER_INFO_PATTERN = "{0}?{1}";
+    private static final String GITHUB_USER_INFO_PATTERN = "{0}?access_token={1}";
     private static final String GITHUB_AUTHORIZE_PATTERN = "{0}?client_id={1}&state=1&redirect_uri={2}";
 
     private static final String WEIBO_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";

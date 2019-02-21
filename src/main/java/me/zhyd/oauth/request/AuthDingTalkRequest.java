@@ -9,7 +9,7 @@ import me.zhyd.oauth.model.AuthDingTalkErrorCode;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.DingTalkSignatureUtil;
+import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.Objects;
@@ -31,7 +31,7 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
     protected AuthUser getUserInfo(String code) {
         // 根据timestamp, appSecret计算签名值
         String stringToSign = System.currentTimeMillis() + "";
-        String urlEncodeSignature = DingTalkSignatureUtil.computeSignature(config.getClientSecret(), stringToSign);
+        String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), stringToSign);
         HttpResponse response = HttpRequest.post(UrlBuilder.getDingTalkUserInfoUrl(urlEncodeSignature, stringToSign, config.getClientId()))
                 .body(Objects.requireNonNull(new JSONObject().put("tmp_auth_code", code)))
                 .execute();
