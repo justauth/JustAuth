@@ -108,7 +108,7 @@ authRequest.login("code");
 
 ##### Weibo
 
-待续
+![微博授权登录](https://images.gitee.com/uploads/images/2019/0222/191210_67d5597c_784199.png "微博授权登录")
 
 ##### CSDN
 
