@@ -8,6 +8,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.IpUtils;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -58,7 +59,7 @@ public class AuthWeiboRequest extends BaseAuthRequest {
                 .location(object.getString("location"))
                 .remark(object.getString("description"))
                 .gender(AuthUserGender.getRealGender(object.getString("gender")))
-                .accessToken(accessToken)
+                .accessToken(GlobalAuthUtil.parseStringToMap(accessToken).get("access_token="))
                 .source(AuthSource.WEIBO)
                 .build();
     }
