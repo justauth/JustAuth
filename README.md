@@ -32,14 +32,14 @@
         </thead>
         <tbody>
             <tr>
-                <td align="center" width="200"><a href="#Gitee">Gitee</a></td>
-                <td align="center" width="200"><a href="#Github">Github</a></td>
-                <td align="center" width="200"><a href="#Weibo">Weibo</a></td>
-                <td align="center" width="200"><a href="#钉钉">钉钉</a></td>
-                <td align="center" width="200"><a href="#百度">百度</a></td>
-                <td align="center" width="200"><a href="#CSDN">CSDN</a></td>
-                <td align="center" width="200"><a href="#QQ">QQ</a></td>
-                <td align="center" width="200"><a href="#微信">微信</a></td>
+                <td align="center" width="200"><a href="#授权Gitee">Gitee</a></td>
+                <td align="center" width="200"><a href="#授权Github">Github</a></td>
+                <td align="center" width="200"><a href="#授权Weibo">Weibo</a></td>
+                <td align="center" width="200"><a href="#授权钉钉">钉钉</a></td>
+                <td align="center" width="200"><a href="#授权百度">百度</a></td>
+                <td align="center" width="200"><a href="#授权CSDN">CSDN</a></td>
+                <td align="center" width="200"><a href="#授权QQ">QQ</a></td>
+                <td align="center" width="200"><a href="#授权微信">微信</a></td>
             </tr>
         </tbody>
     </table>
@@ -89,36 +89,36 @@ authRequest.login("code");
 
 ### 参考图例
 
-##### Gitee
+##### 授权Gitee
 
 ![Gitee授权登录](https://images.gitee.com/uploads/images/2019/0221/140015_4c09610e_784199.png "Gitee授权登录")
 
-##### Github
+##### 授权Github
 
 ![Github授权登录](https://images.gitee.com/uploads/images/2019/0221/140032_58f7dfb5_784199.png "Github授权登录")
 
-##### 钉钉
+##### 授权钉钉
 
 ![钉钉授权登录](https://images.gitee.com/uploads/images/2019/0221/140540_8da8d959_784199.jpeg "钉钉授权登录")
 
 
-##### 百度
+##### 授权百度
 
 ![百度授权登录](https://images.gitee.com/uploads/images/2019/0221/140607_ebf1dcb6_784199.png "百度授权登录")
 
-##### Weibo
+##### 授权Weibo
 
 ![微博授权登录](https://images.gitee.com/uploads/images/2019/0222/191210_67d5597c_784199.png "微博授权登录")
 
-##### CSDN
+##### 授权CSDN
 
 待续
 
-##### 微信
+##### 授权微信
 
 待续
 
-##### QQ
+##### 授权QQ
 
 待续
 
