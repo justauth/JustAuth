@@ -13,6 +13,10 @@ public enum AuthSource {
     WEIBO,
     DINGTALK,
     BAIDU,
+    CSDN,
+    CODING,
+    OSCHINA,
+
     QQ,
     WECHAT,
     GOOGLE,

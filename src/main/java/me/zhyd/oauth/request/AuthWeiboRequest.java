@@ -59,7 +59,7 @@ public class AuthWeiboRequest extends BaseAuthRequest {
                 .location(object.getString("location"))
                 .remark(object.getString("description"))
                 .gender(AuthUserGender.getRealGender(object.getString("gender")))
-                .accessToken(GlobalAuthUtil.parseStringToMap(accessToken).get("access_token="))
+                .accessToken(GlobalAuthUtil.parseStringToMap(accessToken).get("access_token"))
                 .source(AuthSource.WEIBO)
                 .build();
     }

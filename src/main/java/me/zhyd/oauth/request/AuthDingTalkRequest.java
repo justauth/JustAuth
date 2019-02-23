@@ -28,6 +28,11 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
     }
 
     @Override
+    protected String getAccessToken(String code) {
+        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
+    }
+
+    @Override
     protected AuthUser getUserInfo(String code) {
         // 根据timestamp, appSecret计算签名值
         String stringToSign = System.currentTimeMillis() + "";

@@ -35,6 +35,18 @@ public class UrlBuilder {
     private static final String BAIDU_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&display=popup";
     private static final String BAIDU_REVOKE_PATTERN = "{0}?access_token={1}";
 
+    private static final String CSDN_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
+    private static final String CSDN_USER_INFO_PATTERN = "{0}?access_token={1}";
+    private static final String CSDN_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
+
+    private static final String CODING_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}";
+    private static final String CODING_USER_INFO_PATTERN = "{0}?access_token={1}";
+    private static final String CODING_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
+
+    private static final String OSCHINA_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}&dataType=json";
+    private static final String OSCHINA_USER_INFO_PATTERN = "{0}?access_token={1}&dataType=json";
+    private static final String OSCHINA_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
+
     /**
      * 获取githubtoken的接口地址
      *
@@ -202,5 +214,106 @@ public class UrlBuilder {
      */
     public static String getBaiduRevokeUrl(String accessToken) {
         return MessageFormat.format(BAIDU_REVOKE_PATTERN, ApiUrlConst.BAIDU_REVOKE_URL, accessToken);
+    }
+
+    /**
+     * 获取csdn token的接口地址
+     *
+     * @param clientId     csdn应用的App Key
+     * @param clientSecret csdn应用的App Secret
+     * @param code         csdn授权前的code，用来换token
+     * @param redirectUri  待跳转的页面
+     * @return full url
+     */
+    public static String getCsdnAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
+        return MessageFormat.format(CSDN_ACCESS_TOKEN_PATTERN, ApiUrlConst.CSDN_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
+    }
+
+    /**
+     * 获取csdn用户详情的接口地址
+     *
+     * @param token csdn 应用的token
+     * @return full url
+     */
+    public static String getCsdnUserInfoUrl(String token) {
+        return MessageFormat.format(CSDN_USER_INFO_PATTERN, ApiUrlConst.CSDN_USER_INFO_URL, token);
+    }
+
+    /**
+     * 获取csdn授权地址
+     *
+     * @param clientId    csdn 应用的Client ID
+     * @param redirectUrl csdn 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getCsdnAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(CSDN_AUTHORIZE_PATTERN, ApiUrlConst.CSDN_AUTHORIZE_URL, clientId, redirectUrl);
+    }
+
+    /**
+     * 获取coding token的接口地址
+     *
+     * @param clientId     coding应用的App Key
+     * @param clientSecret coding应用的App Secret
+     * @param code         coding授权前的code，用来换token
+     * @return full url
+     */
+    public static String getCodingAccessTokenUrl(String clientId, String clientSecret, String code) {
+        return MessageFormat.format(CODING_ACCESS_TOKEN_PATTERN, ApiUrlConst.CODING_ACCESS_TOKEN_URL, clientId, clientSecret, code);
+    }
+
+    /**
+     * 获取coding用户详情的接口地址
+     *
+     * @param token coding 应用的token
+     * @return full url
+     */
+    public static String getCodingUserInfoUrl(String token) {
+        return MessageFormat.format(CODING_USER_INFO_PATTERN, ApiUrlConst.CODING_USER_INFO_URL, token);
+    }
+
+    /**
+     * 获取coding授权地址
+     *
+     * @param clientId    coding 应用的Client ID
+     * @param redirectUrl coding 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getCodingAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(CODING_AUTHORIZE_PATTERN, ApiUrlConst.CODING_AUTHORIZE_URL, clientId, redirectUrl);
+    }
+
+    /**
+     * 获取oschina token的接口地址
+     *
+     * @param clientId     oschina应用的App Key
+     * @param clientSecret oschina应用的App Secret
+     * @param code         oschina授权前的code，用来换token
+     * @param redirectUri  待跳转的页面
+     * @return full url
+     */
+    public static String getOschinaAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
+        return MessageFormat.format(OSCHINA_ACCESS_TOKEN_PATTERN, ApiUrlConst.OSCHINA_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
+    }
+
+    /**
+     * 获取oschina用户详情的接口地址
+     *
+     * @param token oschina 应用的token
+     * @return full url
+     */
+    public static String getOschinaUserInfoUrl(String token) {
+        return MessageFormat.format(OSCHINA_USER_INFO_PATTERN, ApiUrlConst.OSCHINA_USER_INFO_URL, token);
+    }
+
+    /**
+     * 获取oschina授权地址
+     *
+     * @param clientId    oschina 应用的Client ID
+     * @param redirectUrl oschina 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getOschinaAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(OSCHINA_AUTHORIZE_PATTERN, ApiUrlConst.OSCHINA_AUTHORIZE_URL, clientId, redirectUrl);
     }
 }

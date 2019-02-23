@@ -49,4 +49,13 @@ public interface AuthRequest {
     default AuthResponse revoke(String accessToken) {
         throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
     }
+
+    /**
+     * 刷新access token （续期）
+     *
+     * @param accessToken 登录成功后返回的accessToken
+     */
+    default AuthResponse refresh(String accessToken) {
+        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
+    }
 }

@@ -86,4 +86,49 @@ public class ApiUrlConst {
      */
     public static final String BAIDU_REVOKE_URL = "https://openapi.baidu.com/rest/2.0/passport/auth/revokeAuthorization";
 
+    /**
+     * 获取csdn access_token的地址
+     */
+    public static final String CSDN_ACCESS_TOKEN_URL = "https://api.csdn.net/oauth2/access_token";
+
+    /**
+     * 获取csdn用户信息的地址
+     */
+    public static final String CSDN_USER_INFO_URL = "https://api.csdn.net/user/getinfo";
+
+    /**
+     * 获取csdn授权地址
+     */
+    public static final String CSDN_AUTHORIZE_URL = "https://api.csdn.net/oauth2/authorize";
+
+    /**
+     * 获取coding access_token的地址
+     */
+    public static final String CODING_ACCESS_TOKEN_URL = "https://coding.net/api/oauth/access_token";
+
+    /**
+     * 获取coding用户信息的地址
+     */
+    public static final String CODING_USER_INFO_URL = "https://coding.net/api/account/current_user";
+
+    /**
+     * 获取coding授权地址
+     */
+    public static final String CODING_AUTHORIZE_URL = "https://coding.net/oauth_authorize.html";
+
+    /**
+     * 获取oschina access_token的地址
+     */
+    public static final String OSCHINA_ACCESS_TOKEN_URL = "https://www.oschina.net/action/openapi/token";
+
+    /**
+     * 获取oschina用户信息的地址
+     */
+    public static final String OSCHINA_USER_INFO_URL = "https://www.oschina.net/action/openapi/user";
+
+    /**
+     * 获取oschina授权地址
+     */
+    public static final String OSCHINA_AUTHORIZE_URL = "https://www.oschina.net/action/oauth2/authorize";
+
 }

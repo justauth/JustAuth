@@ -32,9 +32,7 @@ public abstract class BaseAuthRequest implements AuthRequest {
         }
     }
 
-    protected String getAccessToken(String code) {
-        return null;
-    }
+    protected abstract String getAccessToken(String code);
 
     protected abstract AuthUser getUserInfo(String accessToken);
 
@@ -68,6 +66,12 @@ public abstract class BaseAuthRequest implements AuthRequest {
                 break;
             case GITHUB:
                 authorizeUrl = UrlBuilder.getGithubAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+                break;
+            case CSDN:
+                authorizeUrl = UrlBuilder.getCsdnAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+                break;
+            case CODING:
+                authorizeUrl = UrlBuilder.getCodingAuthorizeUrl(config.getClientId(), config.getRedirectUri());
                 break;
             case QQ:
                 break;
