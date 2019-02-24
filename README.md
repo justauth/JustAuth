@@ -27,6 +27,7 @@
                 <td align="center" width="200"><a href="https://developer.baidu.com/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/baidu.png" width="30"></a></td>
                 <td align="center" width="200"><a href="https://www.csdn.net/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="30"></a></td>
                 <td align="center" width="200"><a href="https://coding.net"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/coding.png" width="30"></a></td>
+                <td align="center" width="200"><a href="https://dev.tencent.com/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/tencent_cloud.png" width="30"></a></td>
                 <td align="center" width="200"><a href="https://www.oschina.net"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/oschinas.png" width="30"></a></td>
                 <td align="center" width="200"><a href="https://connect.qq.com/devuser.html#/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="30"></a></td>
                 <td align="center" width="200"><a href="https://mp.weixin.qq.com/cgi-bin/loginpage?t=wxm2-login&lang=zh_CN"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechats.png" width="30"></a></td>
@@ -41,6 +42,7 @@
                 <td align="center" width="200"><a href="#授权百度">百度</a></td>
                 <td align="center" width="200"><a href="#授权csdn">CSDN</a></td>
                 <td align="center" width="200"><a href="#授权coding">Coding</a></td>
+                <td align="center" width="200"><a href="#授权腾讯云开发者平台" title="coding升级后就变成腾讯云开发者平台了">腾讯云开发者平台</a></td>
                 <td align="center" width="200"><a href="#授权oschina">OSChina</a></td>
                 <td align="center" width="200"><a href="#授权qq">QQ</a></td>
                 <td align="center" width="200"><a href="#授权微信">微信</a></td>
@@ -89,6 +91,7 @@ authRequest.login("code");
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/baidu.png" width="20">  |  [AuthBaiduRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthBaiduRequest.java)  |  <a href="https://developer.baidu.com/" target="_blank">参考文档</a>  |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20">  |  [AuthCsdnRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthCsdnRequest.java)  |  待续 |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/coding.png" width="25">  |  [AuthCodingRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthCodingRequest.java)  |  <a href="https://open.coding.net/references/oauth/" target="_blank">参考文档</a> |
+|  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/tencent_cloud.png" width="25">  |  [AuthTencentCloudRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthTencentCloudRequest.java)  |  <a href="https://dev.tencent.com/help/doc/faq/b4e5b7aee786/oauth" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/oschinas.png" width="20">  |  [AuthOschinaRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthOschinaRequest.java)  |  <a href="https://www.oschina.net/openapi/docs/openapi_user" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="20">  |  AuthQqRequest  |  <a href="https://connect.qq.com/" target="_blank">参考文档</a>  |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechats.png" width="20">  |  AuthWechatRequest  |  待续  |
@@ -120,6 +123,10 @@ authRequest.login("code");
 待续
 
 #### 授权coding
+
+待续
+
+#### 授权腾讯云开发者平台
 
 待续
 

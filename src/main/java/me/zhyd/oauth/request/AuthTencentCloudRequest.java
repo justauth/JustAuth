@@ -17,26 +17,26 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * @date 2019/2/23 15:48
  * @since 1.8
  */
-public class AuthCodingRequest extends BaseAuthRequest {
+public class AuthTencentCloudRequest extends BaseAuthRequest {
 
-    public AuthCodingRequest(AuthConfig config) {
-        super(config, AuthSource.CODING);
+    public AuthTencentCloudRequest(AuthConfig config) {
+        super(config, AuthSource.TENCEN_CLOUD);
     }
 
     @Override
     protected String getAccessToken(String code) {
-        String accessTokenUrl = UrlBuilder.getCodingAccessTokenUrl(config.getClientId(), config.getClientSecret(), code);
+        String accessTokenUrl = UrlBuilder.getTencentCloudAccessTokenUrl(config.getClientId(), config.getClientSecret(), code);
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-        if (accessTokenObject.getIntValue("code") != 0) {
-            throw new AuthException("Unable to get token from coding using code [" + code + "]");
+        JSONObject object = JSONObject.parseObject(response.body());
+        if (object.getIntValue("code") != 0) {
+            throw new AuthException("Unable to get token from tencent cloud using code [" + code + "]: " + object.get("msg"));
         }
-        return accessTokenObject.getString("access_token");
+        return object.getString("access_token");
     }
 
     @Override
     protected AuthUser getUserInfo(String accessToken) {
-        HttpResponse response = HttpRequest.get(UrlBuilder.getCodingUserInfoUrl(accessToken)).execute();
+        HttpResponse response = HttpRequest.get(UrlBuilder.getTencentCloudUserInfoUrl(accessToken)).execute();
         JSONObject object = JSONObject.parseObject(response.body());
         if (object.getIntValue("code") != 0) {
             throw new AuthException(object.getString("msg"));
@@ -44,8 +44,8 @@ public class AuthCodingRequest extends BaseAuthRequest {
         object = object.getJSONObject("data");
         return AuthUser.builder()
                 .username(object.getString("name"))
-                .avatar("https://coding.net/" + object.getString("avatar"))
-                .blog("https://coding.net/" + object.getString("path"))
+                .avatar("https://dev.tencent.com/" + object.getString("avatar"))
+                .blog("https://dev.tencent.com/" + object.getString("path"))
                 .nickname(object.getString("name"))
                 .company(object.getString("company"))
                 .location(object.getString("location"))
@@ -53,7 +53,7 @@ public class AuthCodingRequest extends BaseAuthRequest {
                 .email(object.getString("email"))
                 .remark(object.getString("slogan"))
                 .accessToken(accessToken)
-                .source(AuthSource.CODING)
+                .source(AuthSource.TENCEN_CLOUD)
                 .build();
     }
 }

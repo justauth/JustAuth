@@ -117,6 +117,21 @@ public class ApiUrlConst {
     public static final String CODING_AUTHORIZE_URL = "https://coding.net/oauth_authorize.html";
 
     /**
+     * 获取腾讯云开发者平台 access_token的地址（coding升级后就变成腾讯云开发者平台了）
+     */
+    public static final String TENCENT_ACCESS_TOKEN_URL = "https://dev.tencent.com/api/oauth/access_token";
+
+    /**
+     * 获取腾讯云开发者平台用户信息的地址（coding升级后就变成腾讯云开发者平台了）
+     */
+    public static final String TENCENT_USER_INFO_URL = "https://dev.tencent.com/api/account/current_user";
+
+    /**
+     * 获取腾讯云开发者平台授权地址（coding升级后就变成腾讯云开发者平台了）
+     */
+    public static final String TENCENT_AUTHORIZE_URL = "https://dev.tencent.com/oauth_authorize.html";
+
+    /**
      * 获取oschina access_token的地址
      */
     public static final String OSCHINA_ACCESS_TOKEN_URL = "https://www.oschina.net/action/openapi/token";

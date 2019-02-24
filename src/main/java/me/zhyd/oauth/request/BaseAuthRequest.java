@@ -73,6 +73,12 @@ public abstract class BaseAuthRequest implements AuthRequest {
             case CODING:
                 authorizeUrl = UrlBuilder.getCodingAuthorizeUrl(config.getClientId(), config.getRedirectUri());
                 break;
+            case TENCEN_CLOUD:
+                authorizeUrl = UrlBuilder.getTencentCloudAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+                break;
+            case OSCHINA:
+                authorizeUrl = UrlBuilder.getOschinaAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+                break;
             case QQ:
                 break;
             case WECHAT:

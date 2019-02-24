@@ -41,7 +41,11 @@ public class UrlBuilder {
 
     private static final String CODING_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}";
     private static final String CODING_USER_INFO_PATTERN = "{0}?access_token={1}";
-    private static final String CODING_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
+    private static final String CODING_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&scope=user";
+
+    private static final String TENCENT_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}";
+    private static final String TENCENT_USER_INFO_PATTERN = "{0}?access_token={1}";
+    private static final String TENCENT_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&scope=user";
 
     private static final String OSCHINA_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}&dataType=json";
     private static final String OSCHINA_USER_INFO_PATTERN = "{0}?access_token={1}&dataType=json";
@@ -281,6 +285,39 @@ public class UrlBuilder {
      */
     public static String getCodingAuthorizeUrl(String clientId, String redirectUrl) {
         return MessageFormat.format(CODING_AUTHORIZE_PATTERN, ApiUrlConst.CODING_AUTHORIZE_URL, clientId, redirectUrl);
+    }
+
+    /**
+     * 获取腾讯云开发者平台 token的接口地址
+     *
+     * @param clientId     coding应用的App Key
+     * @param clientSecret coding应用的App Secret
+     * @param code         coding授权前的code，用来换token
+     * @return full url
+     */
+    public static String getTencentCloudAccessTokenUrl(String clientId, String clientSecret, String code) {
+        return MessageFormat.format(TENCENT_ACCESS_TOKEN_PATTERN, ApiUrlConst.TENCENT_ACCESS_TOKEN_URL, clientId, clientSecret, code);
+    }
+
+    /**
+     * 获取腾讯云开发者平台用户详情的接口地址
+     *
+     * @param token coding 应用的token
+     * @return full url
+     */
+    public static String getTencentCloudUserInfoUrl(String token) {
+        return MessageFormat.format(TENCENT_USER_INFO_PATTERN, ApiUrlConst.TENCENT_USER_INFO_URL, token);
+    }
+
+    /**
+     * 获取腾讯云开发者平台授权地址
+     *
+     * @param clientId    coding 应用的Client ID
+     * @param redirectUrl coding 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getTencentCloudAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(TENCENT_AUTHORIZE_PATTERN, ApiUrlConst.TENCENT_AUTHORIZE_URL, clientId, redirectUrl);
     }
 
     /**
