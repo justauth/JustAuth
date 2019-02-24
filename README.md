@@ -34,15 +34,15 @@
         </thead>
         <tbody>
             <tr>
-                <td align="center" width="200"><a href="#授权Gitee">Gitee</a></td>
-                <td align="center" width="200"><a href="#授权Github">Github</a></td>
-                <td align="center" width="200"><a href="#授权Weibo">Weibo</a></td>
+                <td align="center" width="200"><a href="#授权gitee">Gitee</a></td>
+                <td align="center" width="200"><a href="#授权github">Github</a></td>
+                <td align="center" width="200"><a href="#授权weibo">Weibo</a></td>
                 <td align="center" width="200"><a href="#授权钉钉">钉钉</a></td>
                 <td align="center" width="200"><a href="#授权百度">百度</a></td>
-                <td align="center" width="200"><a href="#授权CSDN">CSDN</a></td>
-                <td align="center" width="200"><a href="#授权Coding">Coding</a></td>
-                <td align="center" width="200"><a href="#授权OSChina">OSChina</a></td>
-                <td align="center" width="200"><a href="#授权QQ">QQ</a></td>
+                <td align="center" width="200"><a href="#授权csdn">CSDN</a></td>
+                <td align="center" width="200"><a href="#授权coding">Coding</a></td>
+                <td align="center" width="200"><a href="#授权oschina">OSChina</a></td>
+                <td align="center" width="200"><a href="#授权qq">QQ</a></td>
                 <td align="center" width="200"><a href="#授权微信">微信</a></td>
             </tr>
         </tbody>
@@ -95,36 +95,43 @@ authRequest.login("code");
 
 ### 参考图例
 
-##### 授权Gitee
+#### 授权gitee
 
 ![Gitee授权登录](https://images.gitee.com/uploads/images/2019/0221/140015_4c09610e_784199.png "Gitee授权登录")
 
-##### 授权Github
+#### 授权github
 
 ![Github授权登录](https://images.gitee.com/uploads/images/2019/0221/140032_58f7dfb5_784199.png "Github授权登录")
 
-##### 授权钉钉
-
-![钉钉授权登录](https://images.gitee.com/uploads/images/2019/0221/140540_8da8d959_784199.jpeg "钉钉授权登录")
-
-
-##### 授权百度
-
-![百度授权登录](https://images.gitee.com/uploads/images/2019/0221/140607_ebf1dcb6_784199.png "百度授权登录")
-
-##### 授权Weibo
+#### 授权weibo
 
 ![微博授权登录](https://images.gitee.com/uploads/images/2019/0222/191210_67d5597c_784199.png "微博授权登录")
 
-##### 授权CSDN
+#### 授权钉钉
+
+![钉钉授权登录](https://images.gitee.com/uploads/images/2019/0221/140540_8da8d959_784199.jpeg "钉钉授权登录")
+
+#### 授权百度
+
+![百度授权登录](https://images.gitee.com/uploads/images/2019/0221/140607_ebf1dcb6_784199.png "百度授权登录")
+
+#### 授权csdn
 
 待续
 
-##### 授权微信
+#### 授权coding
 
 待续
 
-##### 授权QQ
+#### 授权oschina
+
+待续
+
+#### 授权qq
+
+待续
+
+#### 授权微信
 
 待续
 
