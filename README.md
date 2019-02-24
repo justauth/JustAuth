@@ -124,11 +124,11 @@ authRequest.login("code");
 
 #### 授权coding
 
-待续
+![Coding授权登录](https://images.gitee.com/uploads/images/2019/0224/192106_fd53b3d7_784199.png "Coding授权登录")
 
 #### 授权腾讯云开发者平台
 
-待续
+![腾讯云开发者平台授权登录](https://images.gitee.com/uploads/images/2019/0224/192128_db9e203b_784199.png "腾讯云开发者平台授权登录")
 
 #### 授权oschina
 
