@@ -28,7 +28,7 @@ public abstract class BaseAuthRequest implements AuthRequest {
         this.config = config;
         this.source = source;
         if (!AuthConfigChecker.isSupportedAuth(config)) {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
+            throw new AuthException(ResponseStatus.PARAMETER_INCOMPLETE);
         }
     }
 

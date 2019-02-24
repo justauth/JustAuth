@@ -1,6 +1,6 @@
 package me.zhyd.oauth.utils;
 
-import me.zhyd.oauth.consts.ApiUrlConst;
+import me.zhyd.oauth.consts.ApiUrl;
 
 import java.text.MessageFormat;
 
@@ -61,7 +61,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGithubAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(GITHUB_ACCESS_TOKEN_PATTERN, ApiUrlConst.GITHUB_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(GITHUB_ACCESS_TOKEN_PATTERN, ApiUrl.GITHUB.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -71,7 +71,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGithubUserInfoUrl(String token) {
-        return MessageFormat.format(GITHUB_USER_INFO_PATTERN, ApiUrlConst.GITHUB_USER_INFO_URL, token);
+        return MessageFormat.format(GITHUB_USER_INFO_PATTERN, ApiUrl.GITHUB.userInfo(), token);
     }
 
     /**
@@ -82,7 +82,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGithubAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(GITHUB_AUTHORIZE_PATTERN, ApiUrlConst.GITHUB_AUTHORIZE_URL, clientId, redirectUrl);
+        return MessageFormat.format(GITHUB_AUTHORIZE_PATTERN, ApiUrl.GITHUB.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -95,7 +95,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeiboAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(WEIBO_ACCESS_TOKEN_PATTERN, ApiUrlConst.WEIBO_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(WEIBO_ACCESS_TOKEN_PATTERN, ApiUrl.WEIBO.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -105,7 +105,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeiboUserInfoUrl(String token) {
-        return MessageFormat.format(WEIBO_USER_INFO_PATTERN, ApiUrlConst.WEIBO_USER_INFO_URL, token);
+        return MessageFormat.format(WEIBO_USER_INFO_PATTERN, ApiUrl.WEIBO.userInfo(), token);
     }
 
     /**
@@ -116,7 +116,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeiboAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(WEIBO_AUTHORIZE_PATTERN, ApiUrlConst.WEIBO_AUTHORIZE_URL, clientId, redirectUrl);
+        return MessageFormat.format(WEIBO_AUTHORIZE_PATTERN, ApiUrl.WEIBO.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -129,7 +129,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGiteeAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(GITEE_ACCESS_TOKEN_PATTERN, ApiUrlConst.GITEE_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(GITEE_ACCESS_TOKEN_PATTERN, ApiUrl.GITEE.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -139,7 +139,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGiteeUserInfoUrl(String token) {
-        return MessageFormat.format(GITEE_USER_INFO_PATTERN, ApiUrlConst.GITEE_USER_INFO_URL, token);
+        return MessageFormat.format(GITEE_USER_INFO_PATTERN, ApiUrl.GITEE.userInfo(), token);
     }
 
     /**
@@ -150,7 +150,7 @@ public class UrlBuilder {
      * @return json
      */
     public static String getGiteeAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(GITEE_AUTHORIZE_PATTERN, ApiUrlConst.GITEE_AUTHORIZE_URL, clientId, redirectUrl);
+        return MessageFormat.format(GITEE_AUTHORIZE_PATTERN, ApiUrl.GITEE.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -161,7 +161,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getDingTalkQrConnectUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(DING_TALK_QRCONNECT_PATTERN, ApiUrlConst.DING_TALK_QRCONNECT_URL, clientId, redirectUrl);
+        return MessageFormat.format(DING_TALK_QRCONNECT_PATTERN, ApiUrl.DINGTALK.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -173,7 +173,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getDingTalkUserInfoUrl(String signature, String timestamp, String accessKey) {
-        return MessageFormat.format(DING_TALK_USER_INFO_PATTERN, ApiUrlConst.DING_TALK_USER_INFO_URL, signature, timestamp, accessKey);
+        return MessageFormat.format(DING_TALK_USER_INFO_PATTERN, ApiUrl.DINGTALK.userInfo(), signature, timestamp, accessKey);
     }
 
     /**
@@ -186,7 +186,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getBaiduAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(BAIDU_ACCESS_TOKEN_PATTERN, ApiUrlConst.BAIDU_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(BAIDU_ACCESS_TOKEN_PATTERN, ApiUrl.BAIDU.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -196,7 +196,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getBaiduUserInfoUrl(String token) {
-        return MessageFormat.format(BAIDU_USER_INFO_PATTERN, ApiUrlConst.BAIDU_USER_INFO_URL, token);
+        return MessageFormat.format(BAIDU_USER_INFO_PATTERN, ApiUrl.BAIDU.userInfo(), token);
     }
 
     /**
@@ -207,7 +207,7 @@ public class UrlBuilder {
      * @return json
      */
     public static String getBaiduAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(BAIDU_AUTHORIZE_PATTERN, ApiUrlConst.BAIDU_AUTHORIZE_URL, clientId, redirectUrl);
+        return MessageFormat.format(BAIDU_AUTHORIZE_PATTERN, ApiUrl.BAIDU.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -217,7 +217,7 @@ public class UrlBuilder {
      * @return json
      */
     public static String getBaiduRevokeUrl(String accessToken) {
-        return MessageFormat.format(BAIDU_REVOKE_PATTERN, ApiUrlConst.BAIDU_REVOKE_URL, accessToken);
+        return MessageFormat.format(BAIDU_REVOKE_PATTERN, ApiUrl.BAIDU.revoke(), accessToken);
     }
 
     /**
@@ -230,7 +230,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCsdnAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(CSDN_ACCESS_TOKEN_PATTERN, ApiUrlConst.CSDN_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(CSDN_ACCESS_TOKEN_PATTERN, ApiUrl.CSDN.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -240,7 +240,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCsdnUserInfoUrl(String token) {
-        return MessageFormat.format(CSDN_USER_INFO_PATTERN, ApiUrlConst.CSDN_USER_INFO_URL, token);
+        return MessageFormat.format(CSDN_USER_INFO_PATTERN, ApiUrl.CSDN.userInfo(), token);
     }
 
     /**
@@ -251,7 +251,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCsdnAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(CSDN_AUTHORIZE_PATTERN, ApiUrlConst.CSDN_AUTHORIZE_URL, clientId, redirectUrl);
+        return MessageFormat.format(CSDN_AUTHORIZE_PATTERN, ApiUrl.CSDN.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -263,7 +263,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCodingAccessTokenUrl(String clientId, String clientSecret, String code) {
-        return MessageFormat.format(CODING_ACCESS_TOKEN_PATTERN, ApiUrlConst.CODING_ACCESS_TOKEN_URL, clientId, clientSecret, code);
+        return MessageFormat.format(CODING_ACCESS_TOKEN_PATTERN, ApiUrl.CODING.accessToken(), clientId, clientSecret, code);
     }
 
     /**
@@ -273,7 +273,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCodingUserInfoUrl(String token) {
-        return MessageFormat.format(CODING_USER_INFO_PATTERN, ApiUrlConst.CODING_USER_INFO_URL, token);
+        return MessageFormat.format(CODING_USER_INFO_PATTERN, ApiUrl.CODING.userInfo(), token);
     }
 
     /**
@@ -284,7 +284,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCodingAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(CODING_AUTHORIZE_PATTERN, ApiUrlConst.CODING_AUTHORIZE_URL, clientId, redirectUrl);
+        return MessageFormat.format(CODING_AUTHORIZE_PATTERN, ApiUrl.CODING.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -296,7 +296,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getTencentCloudAccessTokenUrl(String clientId, String clientSecret, String code) {
-        return MessageFormat.format(TENCENT_ACCESS_TOKEN_PATTERN, ApiUrlConst.TENCENT_ACCESS_TOKEN_URL, clientId, clientSecret, code);
+        return MessageFormat.format(TENCENT_ACCESS_TOKEN_PATTERN, ApiUrl.TENCENTCLOUD.accessToken(), clientId, clientSecret, code);
     }
 
     /**
@@ -306,7 +306,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getTencentCloudUserInfoUrl(String token) {
-        return MessageFormat.format(TENCENT_USER_INFO_PATTERN, ApiUrlConst.TENCENT_USER_INFO_URL, token);
+        return MessageFormat.format(TENCENT_USER_INFO_PATTERN, ApiUrl.TENCENTCLOUD.userInfo(), token);
     }
 
     /**
@@ -317,7 +317,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getTencentCloudAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(TENCENT_AUTHORIZE_PATTERN, ApiUrlConst.TENCENT_AUTHORIZE_URL, clientId, redirectUrl);
+        return MessageFormat.format(TENCENT_AUTHORIZE_PATTERN, ApiUrl.TENCENTCLOUD.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -330,7 +330,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getOschinaAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(OSCHINA_ACCESS_TOKEN_PATTERN, ApiUrlConst.OSCHINA_ACCESS_TOKEN_URL, clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(OSCHINA_ACCESS_TOKEN_PATTERN, ApiUrl.OSCHINA.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -340,7 +340,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getOschinaUserInfoUrl(String token) {
-        return MessageFormat.format(OSCHINA_USER_INFO_PATTERN, ApiUrlConst.OSCHINA_USER_INFO_URL, token);
+        return MessageFormat.format(OSCHINA_USER_INFO_PATTERN, ApiUrl.OSCHINA.userInfo(), token);
     }
 
     /**
@@ -351,6 +351,6 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getOschinaAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(OSCHINA_AUTHORIZE_PATTERN, ApiUrlConst.OSCHINA_AUTHORIZE_URL, clientId, redirectUrl);
+        return MessageFormat.format(OSCHINA_AUTHORIZE_PATTERN, ApiUrl.OSCHINA.authorize(), clientId, redirectUrl);
     }
 }

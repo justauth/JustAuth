@@ -9,9 +9,10 @@ package me.zhyd.oauth.request;
  */
 public enum ResponseStatus {
     SUCCESS(2000, "Success"),
-    FAILURE(5000, "Authentication failure"),
+    FAILURE(5000, "Failure"),
     NOT_IMPLEMENTED(5001, "Not Implemented"),
-    UNSUPPORTED(5002, "Unsupported authentication, please check the configuration."),
+    PARAMETER_INCOMPLETE(5002, "Parameter incomplete"),
+    UNSUPPORTED(5003, "Unsupported operation"),
     ;
 
     private int code;
