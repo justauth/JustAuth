@@ -133,7 +133,7 @@ authRequest.login("code");
 
 #### 授权oschina
 
-审核还没通过...@红薯  红薯大大
+![授权oschina登录](https://images.gitee.com/uploads/images/2019/0322/230652_05b4fd8a_784199.png "授权oschina")
 
 #### 授权qq
 
