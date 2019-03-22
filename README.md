@@ -68,18 +68,19 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 ```
 - 调用api
 ```java
+// 创建授权request
 AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
         .clientId("clientId")
         .clientSecret("clientSecret")
         .redirectUri("redirectUri")
         .build());
-// 自动跳转到授权页面
-authRequest.authorize(response);
-// 返回授权页面，可自行跳转
+// 生成授权页面
 authRequest.authorize();
 // 授权登录后会返回一个code，用这个code进行登录
 authRequest.login("code");
 ```
+
+具体的例子可以参考：[实现Gitee授权登录](http://t.cn/ExDKxQs)
 
 #### API列表
 |  :computer: 平台  |  :coffee: API类  |  :page_facing_up: SDK  |
