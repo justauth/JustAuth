@@ -132,7 +132,7 @@ authRequest.login("code");
 
 #### 授权oschina
 
-待续
+审核还没通过...@红薯  红薯大大
 
 #### 授权qq
 
