@@ -1,8 +1,5 @@
 package me.zhyd.oauth.utils;
 
-import lombok.extern.slf4j.Slf4j;
-
-import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 

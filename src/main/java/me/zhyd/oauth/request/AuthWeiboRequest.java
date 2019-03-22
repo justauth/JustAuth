@@ -13,8 +13,6 @@ import me.zhyd.oauth.utils.IpUtils;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)

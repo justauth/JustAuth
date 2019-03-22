@@ -9,9 +9,6 @@ import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.AuthConfigChecker;
 import me.zhyd.oauth.utils.UrlBuilder;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
@@ -41,11 +38,6 @@ public abstract class BaseAuthRequest implements AuthRequest {
         return AuthResponse.builder()
                 .data(this.getUserInfo(this.getAccessToken(code)))
                 .build();
-    }
-
-    @Override
-    public void authorize(HttpServletResponse response) throws IOException {
-        response.sendRedirect(this.authorize());
     }
 
     @Override

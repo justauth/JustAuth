@@ -3,9 +3,6 @@ package me.zhyd.oauth.request;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
@@ -14,15 +11,6 @@ import java.io.IOException;
  * @since 1.8
  */
 public interface AuthRequest {
-
-    /**
-     * 自动跳转到认证页面
-     *
-     * @param response response
-     */
-    default void authorize(HttpServletResponse response) throws IOException {
-        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
-    }
 
     /**
      * 返回认证url，可自行跳转页面
