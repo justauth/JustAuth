@@ -4,8 +4,6 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.request.*;
 import org.junit.Test;
 
-import java.io.IOException;
-
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
@@ -16,7 +14,7 @@ import java.io.IOException;
 public class AuthRequestTest {
 
     @Test
-    public void giteeTest() throws IOException {
+    public void giteeTest() {
         AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
                 .clientId("clientId")
                 .clientSecret("clientSecret")
@@ -29,7 +27,7 @@ public class AuthRequestTest {
     }
 
     @Test
-    public void githubTest() throws IOException {
+    public void githubTest() {
         AuthRequest authRequest = new AuthGithubRequest(AuthConfig.builder()
                 .clientId("clientId")
                 .clientSecret("clientSecret")
@@ -42,7 +40,7 @@ public class AuthRequestTest {
     }
 
     @Test
-    public void weiboTest() throws IOException {
+    public void weiboTest() {
         AuthRequest authRequest = new AuthWeiboRequest(AuthConfig.builder()
                 .clientId("clientId")
                 .clientSecret("clientSecret")
@@ -57,14 +55,65 @@ public class AuthRequestTest {
     @Test
     public void dingdingTest() {
         AuthRequest authRequest = new AuthDingTalkRequest(AuthConfig.builder()
-                .clientId("dingoa2q6o3fomfk6vdqzy")
-                .clientSecret("d5w75-R-yNtQsq_Ya_r50gOsKOy9WlmrlUOJkUJXKvsQp7NDPRHsj0epJriiN3yO")
-                .redirectUri("http://61.149.7.121:8443/oauth/dingtalk/callback")
+                .clientId("clientId")
+                .clientSecret("clientSecret")
+                .redirectUri("redirectUri")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
-        System.out.println(url);
         // 授权登录后会返回一个code，用这个code进行登录
-//        authRequest.login("code");
+        authRequest.login("code");
+    }
+
+    @Test
+    public void baiduTest() {
+        AuthRequest authRequest = new AuthBaiduRequest(AuthConfig.builder()
+                .clientId("clientId")
+                .clientSecret("clientSecret")
+                .redirectUri("redirectUri")
+                .build());
+        // 返回授权页面，可自行调整
+        String url = authRequest.authorize();
+        // 授权登录后会返回一个code，用这个code进行登录
+        authRequest.login("code");
+    }
+
+    @Test
+    public void codingTest() {
+        AuthRequest authRequest = new AuthCodingRequest(AuthConfig.builder()
+                .clientId("clientId")
+                .clientSecret("clientSecret")
+                .redirectUri("redirectUri")
+                .build());
+        // 返回授权页面，可自行调整
+        String url = authRequest.authorize();
+        // 授权登录后会返回一个code，用这个code进行登录
+        authRequest.login("code");
+    }
+
+    @Test
+    public void tencentCloudTest() {
+        AuthRequest authRequest = new AuthTencentCloudRequest(AuthConfig.builder()
+                .clientId("clientId")
+                .clientSecret("clientSecret")
+                .redirectUri("redirectUri")
+                .build());
+        // 返回授权页面，可自行调整
+        String url = authRequest.authorize();
+        // 授权登录后会返回一个code，用这个code进行登录
+        authRequest.login("code");
+    }
+
+    @Test
+    public void oschinaTest() {
+        AuthRequest authRequest = new AuthOschinaRequest(AuthConfig.builder()
+                .clientId("clientId")
+                .clientSecret("clientSecret")
+                .redirectUri("redirectUri")
+                .build());
+        // 返回授权页面，可自行调整
+        String url = authRequest.authorize();
+        // 授权登录后会返回一个code，用这个code进行登录
+        authRequest.login("code");
     }
 }
