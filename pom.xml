@@ -75,11 +75,11 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson-version}</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
             <version>${google-api-version}</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>
