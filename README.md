@@ -97,7 +97,20 @@ authRequest.login("code");
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="20">  |  AuthQqRequest  |  <a href="https://connect.qq.com/" target="_blank">参考文档</a>  |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechats.png" width="20">  |  AuthWechatRequest  |  待续  |
 
-### 参考图例
+## 后续开发计划
+
+参考：[[开发计划] 待扩展的第三方平台](https://gitee.com/yadong.zhang/JustAuth/issues/IUGRK)
+
+另外，期待您和我一起完善这个项目！
+
+
+## 更多链接
+
+[gitee](https://gitee.com/yadong.zhang/JustAuth)
+
+[github](https://github.com/zhangyd-c/JustAuth)
+
+## 参考图例
 
 #### 授权gitee
 
@@ -142,9 +155,3 @@ authRequest.login("code");
 #### 授权微信
 
 待续
-
-## 更多链接
-
-[gitee](https://gitee.com/yadong.zhang/JustAuth)
-
-[github](https://github.com/zhangyd-c/JustAuth)
