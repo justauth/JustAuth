@@ -110,6 +110,13 @@ authRequest.login("code");
 
 [github](https://github.com/zhangyd-c/JustAuth)
 
+## 致谢
+
+在项目立项初期，也对当前开源圈的一些相同类型的项目作过调研，同时本项目也参考过这些项目，再次感谢开源圈内的朋友。
+
+[YurunOAuthLogin](https://gitee.com/yurunsoft/YurunOAuthLogin): PHP 第三方登录授权 SDK
+
+
 ## 参考图例
 
 #### 授权gitee
