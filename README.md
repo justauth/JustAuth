@@ -104,7 +104,7 @@ authRequest.login("code");
 另外，期待您和我一起完善这个项目！
 
 
-## 更多链接
+## 本项目同步开源到Gitee和Github
 
 [gitee](https://gitee.com/yadong.zhang/JustAuth)
 
@@ -155,3 +155,10 @@ authRequest.login("code");
 #### 授权微信
 
 待续
+
+## 请喝咖啡
+
+| 支付宝  | 微信  | 
+| :------------: | :------------: | :------------: |
+| <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/zfb_code.png" width="200"/> | <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/wx_code.png" width="200" /> |
+
