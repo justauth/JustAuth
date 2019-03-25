@@ -159,6 +159,6 @@ authRequest.login("code");
 ## 请喝咖啡
 
 | 支付宝  | 微信  | 
-| :------------: | :------------: | :------------: |
+| :------------: | :------------: | 
 | <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/zfb_code.png" width="200"/> | <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/wx_code.png" width="200" /> |
 
