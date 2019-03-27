@@ -154,7 +154,7 @@ authRequest.login("code");
 
 #### 授权支付宝
 
-待续
+![授权支付宝登录](https://images.gitee.com/uploads/images/2019/0327/183654_3d4b94eb_784199.png "授权支付宝登录")
 
 #### 授权csdn
 
