@@ -21,7 +21,7 @@ public enum AuthUserGender {
         if (code == null) {
             return UNKNOW;
         }
-        if ("m".equals(code) || "男".equals(code) || "1".equals(code) || "male".equalsIgnoreCase(code)) {
+        if ("m".equals(code) || "男".equals(code) || "1".equals(code) || "male".equalsIgnoreCase(code) || "F".equalsIgnoreCase(code)) {
             return MALE;
         }
         if ("f".equals(code) || "女".equals(code) || "0".equals(code) || "female".equalsIgnoreCase(code)) {

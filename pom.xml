@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>JustAuth</name>
     <url>https://gitee.com/yadong.zhang/JustAuth</url>
@@ -45,6 +45,7 @@
         <junit-version>4.11</junit-version>
         <fastjson-version>1.2.44</fastjson-version>
         <google-api-version>1.28.0</google-api-version>
+        <alipay-sdk-version>3.7.4.ALL</alipay-sdk-version>
     </properties>
 
     <dependencies>
@@ -74,6 +75,13 @@
             <artifactId>google-api-client</artifactId>
             <version>${google-api-version}</version>
         </dependency>-->
+
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>${alipay-sdk-version}</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

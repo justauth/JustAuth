@@ -35,9 +35,12 @@ public abstract class BaseAuthRequest implements AuthRequest {
 
     @Override
     public AuthResponse login(String code) {
-        return AuthResponse.builder()
-                .data(this.getUserInfo(this.getAccessToken(code)))
-                .build();
+        try {
+            AuthUser user = this.getUserInfo(this.getAccessToken(code));
+            return AuthResponse.builder().data(user).build();
+        } catch (Exception e) {
+            return AuthResponse.builder().code(500).msg(e.getMessage()).build();
+        }
     }
 
     @Override
@@ -70,6 +73,9 @@ public abstract class BaseAuthRequest implements AuthRequest {
                 break;
             case OSCHINA:
                 authorizeUrl = UrlBuilder.getOschinaAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+                break;
+            case ALIPAY:
+                authorizeUrl = UrlBuilder.getAlipayAuthorizeUrl(config.getClientId(), config.getRedirectUri());
                 break;
             case QQ:
                 break;

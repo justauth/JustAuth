@@ -51,6 +51,8 @@ public class UrlBuilder {
     private static final String OSCHINA_USER_INFO_PATTERN = "{0}?access_token={1}&dataType=json";
     private static final String OSCHINA_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
 
+    private static final String ALIPAY_AUTHORIZE_PATTERN = "{0}?app_id={1}&scope=auth_user&redirect_uri={2}&state=init";
+
     /**
      * 获取githubtoken的接口地址
      *
@@ -352,5 +354,16 @@ public class UrlBuilder {
      */
     public static String getOschinaAuthorizeUrl(String clientId, String redirectUrl) {
         return MessageFormat.format(OSCHINA_AUTHORIZE_PATTERN, ApiUrl.OSCHINA.authorize(), clientId, redirectUrl);
+    }
+
+    /**
+     * 获取alipay授权地址
+     *
+     * @param clientId    alipay 应用的Client ID
+     * @param redirectUrl alipay 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getAlipayAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(ALIPAY_AUTHORIZE_PATTERN, ApiUrl.ALIPAY.authorize(), clientId, redirectUrl);
     }
 }

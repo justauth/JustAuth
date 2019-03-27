@@ -17,6 +17,7 @@ public enum AuthSource {
     CODING,
     OSCHINA,
     TENCEN_CLOUD,
+    ALIPAY,
 
     QQ,
     WECHAT,

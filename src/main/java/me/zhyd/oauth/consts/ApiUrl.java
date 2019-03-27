@@ -273,6 +273,35 @@ public enum ApiUrl {
         public String refresh() {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
+    },
+    /**
+     * 支付宝
+     */
+    ALIPAY {
+        @Override
+        public String authorize() {
+            return "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://openapi.alipay.com/gateway.do";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://openapi.alipay.com/gateway.do";
+        }
+
+        @Override
+        public String revoke() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String refresh() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
     };
 
     public abstract String authorize();
