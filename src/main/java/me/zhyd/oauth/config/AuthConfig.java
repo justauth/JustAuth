@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
- * @date 2019/1/31 14:03
  * @since 1.8
  */
 @Getter

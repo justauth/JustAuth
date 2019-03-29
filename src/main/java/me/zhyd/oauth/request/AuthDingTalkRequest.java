@@ -17,8 +17,6 @@ import java.util.Objects;
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
- * @date 2019/2/18 18:43
  * @since 1.8
  */
 public class AuthDingTalkRequest extends BaseAuthRequest {

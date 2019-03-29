@@ -8,8 +8,6 @@ import java.net.UnknownHostException;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
- * @date 2019/1/31 16:31
  * @since 1.0
  */
 public class IpUtils {

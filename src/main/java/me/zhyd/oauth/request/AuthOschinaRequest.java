@@ -13,8 +13,6 @@ import me.zhyd.oauth.utils.UrlBuilder;
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @website https://www.zhyd.me
- * @date 2019/2/23 15:48
  * @since 1.8
  */
 public class AuthOschinaRequest extends BaseAuthRequest {
