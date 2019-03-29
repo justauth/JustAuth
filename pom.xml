@@ -14,7 +14,7 @@
 
     <licenses>
         <license>
-            <name>The Apache Software License, Version 2.0</name>
+            <name>MIT</name>
             <url>https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE</url>
         </license>
     </licenses>
@@ -29,6 +29,7 @@
         <developer>
             <name>yadong.zhang</name>
             <email>yadong.zhang0415@gmail.com</email>
+            <url>https://www.zhyd.me</url>
         </developer>
     </developers>
 
@@ -172,11 +173,11 @@
             </build>
             <distributionManagement>
                 <snapshotRepository>
-                    <id>sonatype-oss</id>
+                    <id>sonatype-nexus-snapshots</id>
                     <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
                 </snapshotRepository>
                 <repository>
-                    <id>sonatype-oss</id>
+                    <id>sonatype-nexus-staging</id>
                     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository>
             </distributionManagement>
