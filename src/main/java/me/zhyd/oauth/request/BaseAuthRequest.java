@@ -5,6 +5,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthSource;
+import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.AuthConfigChecker;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -27,9 +28,9 @@ public abstract class BaseAuthRequest implements AuthRequest {
         }
     }
 
-    protected abstract String getAccessToken(String code);
+    protected abstract AuthToken getAccessToken(String code);
 
-    protected abstract AuthUser getUserInfo(String accessToken);
+    protected abstract AuthUser getUserInfo(AuthToken authToken);
 
     @Override
     public AuthResponse login(String code) {

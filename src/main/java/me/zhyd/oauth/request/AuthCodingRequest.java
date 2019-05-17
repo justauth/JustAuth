@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthSource;
+import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -24,18 +25,21 @@ public class AuthCodingRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected String getAccessToken(String code) {
+    protected AuthToken getAccessToken(String code) {
         String accessTokenUrl = UrlBuilder.getCodingAccessTokenUrl(config.getClientId(), config.getClientSecret(), code);
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.getIntValue("code") != 0) {
             throw new AuthException("Unable to get token from coding using code [" + code + "]");
         }
-        return accessTokenObject.getString("access_token");
+        return AuthToken.builder()
+                .accessToken(accessTokenObject.getString("access_token"))
+                .build();
     }
 
     @Override
-    protected AuthUser getUserInfo(String accessToken) {
+    protected AuthUser getUserInfo(AuthToken authToken) {
+        String accessToken = authToken.getAccessToken();
         HttpResponse response = HttpRequest.get(UrlBuilder.getCodingUserInfoUrl(accessToken)).execute();
         JSONObject object = JSONObject.parseObject(response.body());
         if (object.getIntValue("code") != 0) {

@@ -2,6 +2,7 @@ package me.zhyd.oauth.request;
 
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.model.AuthToken;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -32,20 +33,20 @@ public interface AuthRequest {
     /**
      * 撤销授权
      *
-     * @param accessToken 登录成功后返回的accessToken
+     * @param authToken 登录成功后返回的Token信息
      * @return AuthResponse
      */
-    default AuthResponse revoke(String accessToken) {
+    default AuthResponse revoke(AuthToken authToken) {
         throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
     }
 
     /**
      * 刷新access token （续期）
      *
-     * @param accessToken 登录成功后返回的accessToken
+     * @param authToken 登录成功后返回的Token信息
      * @return AuthResponse
      */
-    default AuthResponse refresh(String accessToken) {
+    default AuthResponse refresh(AuthToken authToken) {
         throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
     }
 }

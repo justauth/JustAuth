@@ -22,7 +22,7 @@ public class AuthBaiduRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected String getAccessToken(String code) {
+    protected AuthToken getAccessToken(String code) {
         String accessTokenUrl = UrlBuilder.getBaiduAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
@@ -30,11 +30,14 @@ public class AuthBaiduRequest extends BaseAuthRequest {
         if (!AuthBaiduErrorCode.OK.equals(errorCode)) {
             throw new AuthException(errorCode.getDesc());
         }
-        return accessTokenObject.getString("access_token");
+        return AuthToken.builder()
+                .accessToken(accessTokenObject.getString("access_token"))
+                .build();
     }
 
     @Override
-    protected AuthUser getUserInfo(String accessToken) {
+    protected AuthUser getUserInfo(AuthToken authToken) {
+        String accessToken = authToken.getAccessToken();
         HttpResponse response = HttpRequest.get(UrlBuilder.getBaiduUserInfoUrl(accessToken)).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
@@ -52,7 +55,8 @@ public class AuthBaiduRequest extends BaseAuthRequest {
     }
 
     @Override
-    public AuthResponse revoke(String accessToken) {
+    public AuthResponse revoke(AuthToken authToken) {
+        String accessToken = authToken.getAccessToken();
         HttpResponse response = HttpRequest.get(UrlBuilder.getBaiduRevokeUrl(accessToken)).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);

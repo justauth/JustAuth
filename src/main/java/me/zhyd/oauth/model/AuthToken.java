@@ -15,4 +15,9 @@ public class AuthToken {
     private String expireIn;
     private String refreshToken;
     private String uid;
+    private String openId;
+    /**
+     * 针对钉钉
+     */
+    private String accessCode;
 }

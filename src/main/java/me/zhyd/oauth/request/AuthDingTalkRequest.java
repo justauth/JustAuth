@@ -6,8 +6,8 @@ import cn.hutool.json.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthDingTalkErrorCode;
-import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthSource;
+import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -28,12 +28,15 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected String getAccessToken(String code) {
-        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
+    protected AuthToken getAccessToken(String code) {
+        return AuthToken.builder()
+                .accessCode(code)
+                .build();
     }
 
     @Override
-    protected AuthUser getUserInfo(String code) {
+    protected AuthUser getUserInfo(AuthToken authToken) {
+        String code = authToken.getAccessCode();
         // 根据timestamp, appSecret计算签名值
         String stringToSign = System.currentTimeMillis() + "";
         String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), stringToSign);
@@ -50,13 +53,6 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
         return AuthUser.builder()
                 .nickname(object.getStr("nick"))
                 .source(AuthSource.DINGTALK)
-                .build();
-    }
-
-    @Override
-    public AuthResponse login(String code) {
-        return AuthResponse.builder()
-                .data(this.getUserInfo(code))
                 .build();
     }
 }

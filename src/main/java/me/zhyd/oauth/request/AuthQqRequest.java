@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthSource;
+import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.StringUtils;
@@ -24,18 +25,21 @@ public class AuthQqRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected String getAccessToken(String code) {
+    protected AuthToken getAccessToken(String code) {
         String accessTokenUrl = UrlBuilder.getQqAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (!accessTokenObject.containsKey("access_token")) {
             throw new AuthException("Unable to get token from qq using code [" + code + "]");
         }
-        return accessTokenObject.getString("access_token");
+        return AuthToken.builder()
+                .accessToken(accessTokenObject.getString("access_token"))
+                .build();
     }
 
     @Override
-    protected AuthUser getUserInfo(String accessToken) {
+    protected AuthUser getUserInfo(AuthToken authToken) {
+        String accessToken = authToken.getAccessToken();
         String openId = this.getOpenId(accessToken);
         HttpResponse response = HttpRequest.get(UrlBuilder.getQqUserInfoUrl(accessToken, openId)).execute();
         JSONObject object = JSONObject.parseObject(response.body());

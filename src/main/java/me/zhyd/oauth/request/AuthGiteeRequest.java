@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthSource;
+import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -23,18 +24,21 @@ public class AuthGiteeRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected String getAccessToken(String code) {
+    protected AuthToken getAccessToken(String code) {
         String accessTokenUrl = UrlBuilder.getGiteeAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
             throw new AuthException("Unable to get token from gitee using code [" + code + "]");
         }
-        return accessTokenObject.getString("access_token");
+        return AuthToken.builder()
+                .accessToken(accessTokenObject.getString("access_token"))
+                .build();
     }
 
     @Override
-    protected AuthUser getUserInfo(String accessToken) {
+    protected AuthUser getUserInfo(AuthToken authToken) {
+        String accessToken = authToken.getAccessToken();
         HttpResponse response = HttpRequest.get(UrlBuilder.getGiteeUserInfoUrl(accessToken)).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);

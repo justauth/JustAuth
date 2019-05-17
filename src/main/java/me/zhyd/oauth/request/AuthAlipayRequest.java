@@ -11,6 +11,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.consts.ApiUrl;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthSource;
+import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.StringUtils;
@@ -32,7 +33,7 @@ public class AuthAlipayRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected String getAccessToken(String code) {
+    protected AuthToken getAccessToken(String code) {
         AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest();
         request.setGrantType("authorization_code");
         request.setCode(code);
@@ -45,11 +46,14 @@ public class AuthAlipayRequest extends BaseAuthRequest {
         if (!response.isSuccess()) {
             throw new AuthException(response.getSubMsg());
         }
-        return response.getAccessToken();
+        return AuthToken.builder()
+                .accessToken(response.getAccessToken())
+                .build();
     }
 
     @Override
-    protected AuthUser getUserInfo(String accessToken) {
+    protected AuthUser getUserInfo(AuthToken authToken) {
+        String accessToken = authToken.getAccessToken();
         AlipayUserInfoShareRequest request = new AlipayUserInfoShareRequest();
         AlipayUserInfoShareResponse response = null;
         try {

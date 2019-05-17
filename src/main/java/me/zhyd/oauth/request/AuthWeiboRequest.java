@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthSource;
+import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
@@ -28,7 +29,7 @@ public class AuthWeiboRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected String getAccessToken(String code) {
+    protected AuthToken getAccessToken(String code) {
         String accessTokenUrl = UrlBuilder.getWeiboAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         String accessTokenStr = response.body();
@@ -38,11 +39,14 @@ public class AuthWeiboRequest extends BaseAuthRequest {
         }
         String accessToken = accessTokenObject.getString("access_token");
         String uid = accessTokenObject.getString("uid");
-        return String.format("uid=%s&access_token=%s", uid, accessToken);
+        return AuthToken.builder()
+                .accessToken(String.format("uid=%s&access_token=%s", uid, accessToken))
+                .build();
     }
 
     @Override
-    protected AuthUser getUserInfo(String accessToken) {
+    protected AuthUser getUserInfo(AuthToken authToken) {
+        String accessToken = authToken.getAccessToken();
         HttpResponse response = HttpRequest.get(UrlBuilder.getWeiboUserInfoUrl(accessToken))
                 .header("Authorization", "OAuth2 " + accessToken)
                 .header("API-RemoteIP", IpUtils.getIp())

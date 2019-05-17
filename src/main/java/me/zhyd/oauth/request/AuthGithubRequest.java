@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthSource;
+import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -26,18 +27,21 @@ public class AuthGithubRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected String getAccessToken(String code) {
+    protected AuthToken getAccessToken(String code) {
         String accessTokenUrl = UrlBuilder.getGithubAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         Map<String, String> res = GlobalAuthUtil.parseStringToMap(response.body());
         if (res.containsKey("error")) {
             throw new AuthException(res.get("error") + ":" + res.get("error_description"));
         }
-        return res.get("access_token");
+        return AuthToken.builder()
+                .accessToken(res.get("access_token"))
+                .build();
     }
 
     @Override
-    protected AuthUser getUserInfo(String accessToken) {
+    protected AuthUser getUserInfo(AuthToken authToken) {
+        String accessToken = authToken.getAccessToken();
         HttpResponse response = HttpRequest.get(UrlBuilder.getGithubUserInfoUrl(accessToken)).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
