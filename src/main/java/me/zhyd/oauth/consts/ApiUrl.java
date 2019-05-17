@@ -336,7 +336,7 @@ public enum ApiUrl {
     WECHAT {
         @Override
         public String authorize() {
-            return "https://open.weixin.qq.com/connect/oauth2/authorize";
+            return "https://open.weixin.qq.com/connect/qrconnect";
         }
 
         @Override

@@ -56,7 +56,7 @@ public class UrlBuilder {
     private static final String QQ_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
     private static final String QQ_OPENID_PATTERN = "{0}?access_token={1}";
 
-    private static final String WECHAT_AUTHORIZE_PATTERN = "{0}?appid={1}&redirect_uri={2}&response_type=code&scope=snsapi_userinfo#wechat_redirect";
+    private static final String WECHAT_AUTHORIZE_PATTERN = "{0}?appid={1}&redirect_uri={2}&response_type=code&scope=snsapi_login&state={3}#wechat_redirect";
     private static final String WECHAT_ACCESS_TOKEN_PATTERN = "{0}?appid={1}&secret={2}&code={3}&grant_type=authorization_code";
     private static final String WECHAT_REFRESH_TOKEN_PATTERN = "{0}?appid={1}&grant_type=refresh_token&refresh_token={2}";
     private static final String WECHAT_USER_INFO_PATTERN = "{0}?access_token={1}&openid={2}&lang=zh_CN";
@@ -429,7 +429,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeChatAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(WECHAT_AUTHORIZE_PATTERN, ApiUrl.WECHAT.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(WECHAT_AUTHORIZE_PATTERN, ApiUrl.WECHAT.authorize(), clientId, redirectUrl, System.currentTimeMillis());
     }
 
     /**
