@@ -9,7 +9,7 @@
 		<img src="https://img.shields.io/badge/Maven Central-1.0.0-blue.svg" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
-		<img src="https://img.shields.io/badge/License-GPL%20v3-yellow.svg" ></img>
+		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
 	</a>
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
