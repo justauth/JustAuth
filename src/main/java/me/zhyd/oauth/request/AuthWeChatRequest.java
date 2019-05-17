@@ -5,10 +5,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthSource;
-import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -36,7 +33,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
      * @return 所有信息
      */
     @Override
-    protected String getAccessToken(String code) {
+    protected AuthToken getAccessToken(String code) {
         String accessTokenUrl = UrlBuilder.getWeChatAccessTokenUrl(config.getClientId(), config.getClientSecret(), code);
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
@@ -44,15 +41,20 @@ public class AuthWeChatRequest extends BaseAuthRequest {
                 .containsKey("refresh_token")) {
             throw new AuthException("Unable to get access_token or openid or refresh_token from wechat using code [" + code + "]");
         }
-        return response.body();
+        JSONObject object = JSONObject.parseObject(response.body());
+        return AuthToken.builder()
+                .accessToken(object.getString("access_token"))
+                .refreshToken(object.getString("refresh_token"))
+                .openId(object.getString("openid"))
+                .build();
     }
 
     @Override
-    protected AuthUser getUserInfo(String accessToken) {
-        String token = this.getToken(accessToken);
-        String openId = this.getOpenId(accessToken);
+    protected AuthUser getUserInfo(AuthToken authToken) {
+        String accessToken = authToken.getAccessToken();
+        String openId = authToken.getOpenId();
 
-        HttpResponse response = HttpRequest.get(UrlBuilder.getWeChatUserInfoUrl(token, openId)).execute();
+        HttpResponse response = HttpRequest.get(UrlBuilder.getWeChatUserInfoUrl(accessToken, openId)).execute();
         JSONObject object = JSONObject.parseObject(response.body());
         if (object.containsKey("errcode")) {
             throw new AuthException(object.getString("errmsg"));
@@ -69,15 +71,9 @@ public class AuthWeChatRequest extends BaseAuthRequest {
                 .build();
     }
 
-    /**
-     * 刷新access token （续期）
-     *
-     * @param accessToken 登录成功后返回的accessToken
-     * @return AuthResponse
-     */
     @Override
-    public AuthResponse refresh(String accessToken) {
-        String refreshToken = getRefreshToken(accessToken);
+    public AuthResponse refresh(AuthToken authToken) {
+        String refreshToken = authToken.getRefreshToken();
         HttpResponse response = HttpRequest.get(UrlBuilder.getWeChatRefreshUrl(config.getClientId(), refreshToken))
                 .execute();
 
@@ -87,20 +83,5 @@ public class AuthWeChatRequest extends BaseAuthRequest {
         }
 
         return AuthResponse.builder().data(object).build();
-    }
-
-    private String getRefreshToken(String accessToken) {
-        JSONObject accessTokenObject = JSONObject.parseObject(accessToken);
-        return accessTokenObject.getString("refresh_token");
-    }
-
-    private String getOpenId(String accessToken) {
-        JSONObject accessTokenObject = JSONObject.parseObject(accessToken);
-        return accessTokenObject.getString("openid");
-    }
-
-    private String getToken(String accessToken) {
-        JSONObject accessTokenObject = JSONObject.parseObject(accessToken);
-        return accessTokenObject.getString("access_token");
     }
 }
