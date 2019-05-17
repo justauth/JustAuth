@@ -76,6 +76,7 @@ public abstract class BaseAuthRequest implements AuthRequest {
                 authorizeUrl = UrlBuilder.getAlipayAuthorizeUrl(config.getClientId(), config.getRedirectUri());
                 break;
             case QQ:
+                authorizeUrl = UrlBuilder.getQqAuthorizeUrl(config.getClientId(), config.getRedirectUri());
                 break;
             case WECHAT:
                 break;

@@ -13,6 +13,8 @@ import me.zhyd.oauth.utils.UrlBuilder;
 import java.util.Map;
 
 /**
+ * Github登录
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @since 1.8

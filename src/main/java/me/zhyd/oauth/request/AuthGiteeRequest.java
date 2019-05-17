@@ -10,6 +10,8 @@ import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
+ * Gitee登录
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @since 1.8

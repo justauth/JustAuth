@@ -300,6 +300,35 @@ public enum ApiUrl {
         public String refresh() {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
+    },
+    /**
+     * QQ
+     */
+    QQ {
+        @Override
+        public String authorize() {
+            return "https://graph.qq.com/oauth2.0/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://graph.qq.com/oauth2.0/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://graph.qq.com/user/get_user_info";
+        }
+
+        @Override
+        public String revoke() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String refresh() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
     };
 
     public abstract String authorize();
