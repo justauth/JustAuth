@@ -31,6 +31,11 @@
             <email>yadong.zhang0415@gmail.com</email>
             <url>https://www.zhyd.me</url>
         </developer>
+        <developer>
+            <name>Yangkai.Shen</name>
+            <email>shenyangkai1994@gmail.com</email>
+            <url>https://xkcoding.com</url>
+        </developer>
     </developers>
 
     <properties>
@@ -46,6 +51,7 @@
         <junit-version>4.11</junit-version>
         <fastjson-version>1.2.44</fastjson-version>
         <google-api-version>1.28.0</google-api-version>
+        <guava-version>27.1-jre</guava-version>
         <alipay-sdk-version>3.7.4.ALL</alipay-sdk-version>
     </properties>
 
