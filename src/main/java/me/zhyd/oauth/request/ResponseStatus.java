@@ -11,6 +11,8 @@ public enum ResponseStatus {
     NOT_IMPLEMENTED(5001, "Not Implemented"),
     PARAMETER_INCOMPLETE(5002, "Parameter incomplete"),
     UNSUPPORTED(5003, "Unsupported operation"),
+    NO_AUTH_SOURCE(5004, "AuthSource cannot be null"),
+    UNIDENTIFIED_PLATFORM(5005, "Unidentified platform"),
     ;
 
     private int code;
