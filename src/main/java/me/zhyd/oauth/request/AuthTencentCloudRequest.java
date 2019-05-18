@@ -56,7 +56,7 @@ public class AuthTencentCloudRequest extends BaseAuthRequest {
                 .gender(AuthUserGender.getRealGender(object.getString("sex")))
                 .email(object.getString("email"))
                 .remark(object.getString("slogan"))
-                .accessToken(accessToken)
+                .token(authToken)
                 .source(AuthSource.TENCEN_CLOUD)
                 .build();
     }

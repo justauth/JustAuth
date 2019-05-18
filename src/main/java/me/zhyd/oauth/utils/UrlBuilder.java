@@ -61,6 +61,9 @@ public class UrlBuilder {
     private static final String WECHAT_REFRESH_TOKEN_PATTERN = "{0}?appid={1}&grant_type=refresh_token&refresh_token={2}";
     private static final String WECHAT_USER_INFO_PATTERN = "{0}?access_token={1}&openid={2}&lang=zh_CN";
 
+    private static final String TAOBAO_AUTHORIZE_PATTERN = "{0}?response_type=code&client_id={1}&redirect_uri={2}&state=&view=web";
+    private static final String TAOBAO_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
+
     /**
      * 获取githubtoken的接口地址
      *
@@ -464,5 +467,29 @@ public class UrlBuilder {
      */
     public static String getWeChatRefreshUrl(String clientId, String refreshToken) {
         return MessageFormat.format(WECHAT_REFRESH_TOKEN_PATTERN, ApiUrl.WECHAT.refresh(), clientId, refreshToken);
+    }
+
+    /**
+     * 获取Taobao token的接口地址: 淘宝的授权登录，在这一步就会返回用户信息
+     *
+     * @param clientId     taobao应用的App Key
+     * @param clientSecret taobao应用的App Secret
+     * @param code         taobao授权前的code，用来换token
+     * @param redirectUri  待跳转的页面
+     * @return full url
+     */
+    public static String getTaobaoAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
+        return MessageFormat.format(TAOBAO_ACCESS_TOKEN_PATTERN, ApiUrl.TAOBAO.accessToken(), clientId, clientSecret, code, redirectUri);
+    }
+
+    /**
+     * 获取Taobao授权地址
+     *
+     * @param clientId    Taobao 应用的Client ID
+     * @param redirectUrl Taobao 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getTaobaoAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(TAOBAO_AUTHORIZE_PATTERN, ApiUrl.TAOBAO.authorize(), clientId, redirectUrl);
     }
 }

@@ -16,7 +16,7 @@ public enum AuthSource {
     OSCHINA,
     TENCEN_CLOUD,
     ALIPAY,
-
+    TAOBAO,
     QQ,
     WECHAT,
     GOOGLE,

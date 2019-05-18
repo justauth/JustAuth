@@ -72,7 +72,7 @@ public class AuthAlipayRequest extends BaseAuthRequest {
                 .avatar(response.getAvatar())
                 .location(String.format("%s %s", StringUtils.isEmpty(province) ? "" : province, StringUtils.isEmpty(city) ? "" : city))
                 .gender(AuthUserGender.getRealGender(response.getGender()))
-                .accessToken(accessToken)
+                .token(authToken)
                 .source(AuthSource.ALIPAY)
                 .build();
     }

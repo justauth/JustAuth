@@ -54,7 +54,7 @@ public class AuthGithubRequest extends BaseAuthRequest {
                 .location(object.getString("location"))
                 .email(object.getString("email"))
                 .remark(object.getString("bio"))
-                .accessToken(accessToken)
+                .token(authToken)
                 .source(AuthSource.GITHUB)
                 .build();
     }

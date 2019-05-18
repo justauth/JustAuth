@@ -52,6 +52,7 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
         object = object.getJSONObject("user_info");
         return AuthUser.builder()
                 .nickname(object.getStr("nick"))
+                .username(object.getStr("nick"))
                 .source(AuthSource.DINGTALK)
                 .build();
     }

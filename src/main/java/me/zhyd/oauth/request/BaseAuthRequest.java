@@ -82,6 +82,9 @@ public abstract class BaseAuthRequest implements AuthRequest {
             case WECHAT:
                 authorizeUrl = UrlBuilder.getWeChatAuthorizeUrl(config.getClientId(), config.getRedirectUri());
                 break;
+            case TAOBAO:
+                authorizeUrl = UrlBuilder.getTaobaoAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+                break;
             case GOOGLE:
                 break;
             default:

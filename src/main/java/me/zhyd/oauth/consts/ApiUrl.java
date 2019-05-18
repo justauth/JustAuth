@@ -358,6 +358,35 @@ public enum ApiUrl {
         public String refresh() {
             return "https://api.weixin.qq.com/sns/oauth2/refresh_token";
         }
+    },
+    /**
+     * 淘宝
+     */
+    TAOBAO {
+        @Override
+        public String authorize() {
+            return "https://oauth.taobao.com/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://oauth.taobao.com/token";
+        }
+
+        @Override
+        public String userInfo() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String revoke() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String refresh() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
     };
 
     /**

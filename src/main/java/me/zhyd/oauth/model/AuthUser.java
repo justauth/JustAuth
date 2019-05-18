@@ -21,5 +21,5 @@ public class AuthUser {
     private String remark;
     private AuthUserGender gender;
     private AuthSource source;
-    private String accessToken;
+    private AuthToken token;
 }

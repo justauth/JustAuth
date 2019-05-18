@@ -3,6 +3,7 @@ package me.zhyd.oauth.request;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
@@ -49,7 +50,7 @@ public class AuthBaiduRequest extends BaseAuthRequest {
                 .username(object.getString("username"))
                 .nickname(object.getString("username"))
                 .gender(AuthUserGender.getRealGender(object.getString("sex")))
-                .accessToken(accessToken)
+                .token(authToken)
                 .source(AuthSource.BAIDU)
                 .build();
     }
@@ -60,6 +61,12 @@ public class AuthBaiduRequest extends BaseAuthRequest {
         HttpResponse response = HttpRequest.get(UrlBuilder.getBaiduRevokeUrl(accessToken)).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
+        if(object.containsKey("error_code")) {
+            return AuthResponse.builder()
+                    .code(ResponseStatus.FAILURE.getCode())
+                    .msg(object.getString("error_msg"))
+                    .build();
+        }
         ResponseStatus status = object.getIntValue("result") == 1 ? ResponseStatus.SUCCESS : ResponseStatus.FAILURE;
         return AuthResponse.builder().code(status.getCode()).msg(status.getMsg()).build();
     }

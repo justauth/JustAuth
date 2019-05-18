@@ -46,7 +46,7 @@ public class AuthCsdnRequest extends BaseAuthRequest {
         }
         return AuthUser.builder()
                 .username(object.getString("username"))
-                .accessToken(accessToken)
+                .token(authToken)
                 .source(AuthSource.CSDN)
                 .build();
     }

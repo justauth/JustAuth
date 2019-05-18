@@ -51,7 +51,7 @@ public class AuthGiteeRequest extends BaseAuthRequest {
                 .location(object.getString("address"))
                 .email(object.getString("email"))
                 .remark(object.getString("bio"))
-                .accessToken(accessToken)
+                .token(authToken)
                 .source(AuthSource.GITEE)
                 .build();
     }

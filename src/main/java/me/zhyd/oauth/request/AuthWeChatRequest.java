@@ -60,7 +60,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
                 .avatar(object.getString("headimgurl"))
                 .location(object.getString("country") + "-" + object.getString("province") + "-" + object.getString("city"))
                 .gender(AuthUserGender.getRealGender(object.getString("sex")))
-                .accessToken(accessToken)
+                .token(authToken)
                 .source(AuthSource.WECHAT)
                 .build();
     }

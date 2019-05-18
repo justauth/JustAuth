@@ -12,12 +12,9 @@ import lombok.Data;
 @Builder
 public class AuthToken {
     private String accessToken;
-    private String expireIn;
+    private int expireIn;
     private String refreshToken;
     private String uid;
     private String openId;
-    /**
-     * 针对钉钉
-     */
     private String accessCode;
 }

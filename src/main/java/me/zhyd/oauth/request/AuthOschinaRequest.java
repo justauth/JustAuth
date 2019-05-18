@@ -53,7 +53,7 @@ public class AuthOschinaRequest extends BaseAuthRequest {
                 .location(object.getString("location"))
                 .gender(AuthUserGender.getRealGender(object.getString("gender")))
                 .email(object.getString("email"))
-                .accessToken(accessToken)
+                .token(authToken)
                 .source(AuthSource.OSCHINA)
                 .build();
     }

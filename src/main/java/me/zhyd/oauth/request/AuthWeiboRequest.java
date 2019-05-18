@@ -35,24 +35,28 @@ public class AuthWeiboRequest extends BaseAuthRequest {
         String accessTokenStr = response.body();
         JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
         if (accessTokenObject.containsKey("error")) {
-            throw new AuthException("Unable to get token from gitee using code [" + code + "]");
+            throw new AuthException("Unable to get token from weibo using code [" + code + "]:" + accessTokenObject.getString("error_description"));
         }
-        String accessToken = accessTokenObject.getString("access_token");
-        String uid = accessTokenObject.getString("uid");
         return AuthToken.builder()
-                .accessToken(String.format("uid=%s&access_token=%s", uid, accessToken))
+                .accessToken(accessTokenObject.getString("access_token"))
+                .uid(accessTokenObject.getString("uid"))
+                .expireIn(accessTokenObject.getIntValue("remind_in"))
                 .build();
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
+        String uid = authToken.getUid();
         HttpResponse response = HttpRequest.get(UrlBuilder.getWeiboUserInfoUrl(accessToken))
-                .header("Authorization", "OAuth2 " + accessToken)
+                .header("Authorization", "OAuth2 " + String.format("uid=%s&access_token=%s", uid, accessToken))
                 .header("API-RemoteIP", IpUtils.getIp())
                 .execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
+        if(object.containsKey("error")) {
+            throw new AuthException(object.getString("error"));
+        }
         return AuthUser.builder()
                 .username(object.getString("name"))
                 .avatar(object.getString("profile_image_url"))
@@ -61,7 +65,7 @@ public class AuthWeiboRequest extends BaseAuthRequest {
                 .location(object.getString("location"))
                 .remark(object.getString("description"))
                 .gender(AuthUserGender.getRealGender(object.getString("gender")))
-                .accessToken(GlobalAuthUtil.parseStringToMap(accessToken).get("access_token"))
+                .token(authToken)
                 .source(AuthSource.WEIBO)
                 .build();
     }
