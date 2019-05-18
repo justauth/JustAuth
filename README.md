@@ -67,7 +67,7 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 - 调用api
