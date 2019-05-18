@@ -9,17 +9,11 @@ import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
- * <p>
  * 微信登录
- * </p>
  *
- * @package: me.zhyd.oauth.request
- * @description: 微信登录
- * @author: yangkai.shen
- * @date: Created in 2019-05-17 11:11
- * @copyright: Copyright (c) 2019
- * @version: V1.0
- * @modified: yangkai.shen
+ * @author yangkai.shen (https://xkcoding.com)
+ * @version 1.0
+ * @since 1.8
  */
 public class AuthWeChatRequest extends BaseAuthRequest {
     public AuthWeChatRequest(AuthConfig config) {

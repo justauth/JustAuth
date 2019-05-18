@@ -362,26 +362,36 @@ public enum ApiUrl {
 
     /**
      * 授权的api
+     *
+     * @return url
      */
     public abstract String authorize();
 
     /**
      * 获取accessToken的api
+     *
+     * @return url
      */
     public abstract String accessToken();
 
     /**
      * 获取用户信息的api
+     *
+     * @return url
      */
     public abstract String userInfo();
 
     /**
      * 取消授权的api
+     *
+     * @return url
      */
     public abstract String revoke();
 
     /**
      * 刷新授权的api
+     *
+     * @return url
      */
     public abstract String refresh();
 
