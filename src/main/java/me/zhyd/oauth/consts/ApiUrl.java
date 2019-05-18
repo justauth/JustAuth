@@ -356,18 +356,33 @@ public enum ApiUrl {
 
         @Override
         public String refresh() {
-            return  "https://api.weixin.qq.com/sns/oauth2/refresh_token";
+            return "https://api.weixin.qq.com/sns/oauth2/refresh_token";
         }
     };
 
+    /**
+     * 授权的api
+     */
     public abstract String authorize();
 
+    /**
+     * 获取accessToken的api
+     */
     public abstract String accessToken();
 
+    /**
+     * 获取用户信息的api
+     */
     public abstract String userInfo();
 
+    /**
+     * 取消授权的api
+     */
     public abstract String revoke();
 
+    /**
+     * 刷新授权的api
+     */
     public abstract String refresh();
 
 }

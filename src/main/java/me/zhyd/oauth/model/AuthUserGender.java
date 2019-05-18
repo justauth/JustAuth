@@ -1,5 +1,7 @@
 package me.zhyd.oauth.model;
 
+import java.util.Arrays;
+
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
@@ -19,10 +21,12 @@ public enum AuthUserGender {
         if (code == null) {
             return UNKNOW;
         }
-        if ("m".equals(code) || "男".equals(code) || "1".equals(code) || "male".equalsIgnoreCase(code) || "F".equalsIgnoreCase(code)) {
+        String[] males = {"m", "男", "1", "male", "F"};
+        if (Arrays.asList(males).contains(code)) {
             return MALE;
         }
-        if ("f".equals(code) || "女".equals(code) || "0".equals(code) || "female".equalsIgnoreCase(code)) {
+        String[] females = {"f", "女", "0", "female"};
+        if (Arrays.asList(females).contains(code)) {
             return FEMALE;
         }
         return UNKNOW;
