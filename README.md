@@ -173,7 +173,7 @@ authRequest.login("code");
 
 #### 授权淘宝
 
-待续
+![授权淘宝登录](https://images.gitee.com/uploads/images/2019/0518/154604_68b38305_784199.png "在这里输入图片标题")
 
 # 交流
 
