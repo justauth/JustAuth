@@ -1,9 +1,6 @@
 package me.zhyd.oauth.config;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * JustAuth配置类
@@ -12,6 +9,7 @@ import lombok.NoArgsConstructor;
  * @version 1.0
  * @since 1.8
  */
+@Setter
 @Getter
 @Builder
 @NoArgsConstructor
