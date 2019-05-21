@@ -387,6 +387,35 @@ public enum ApiUrl {
         public String refresh() {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
+    },
+    /**
+     * Google
+     */
+    GOOGLE {
+        @Override
+        public String authorize() {
+            return "https://accounts.google.com/o/oauth2/v2/auth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://www.googleapis.com/oauth2/v4/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://oauth2.googleapis.com/tokeninfo";
+        }
+
+        @Override
+        public String revoke() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String refresh() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
     };
 
     /**

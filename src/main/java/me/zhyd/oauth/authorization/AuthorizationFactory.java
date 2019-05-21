@@ -59,6 +59,7 @@ public class AuthorizationFactory {
         AuthorizationFactory.register(AuthSource.DINGTALK, new DingTalkAuthorization());
         AuthorizationFactory.register(AuthSource.GITEE, new GiteeAuthorization());
         AuthorizationFactory.register(AuthSource.GITHUB, new GithubAuthorization());
+        AuthorizationFactory.register(AuthSource.GOOGLE, new GoogleAuthorization());
         AuthorizationFactory.register(AuthSource.OSCHINA, new OschinaAuthorization());
         AuthorizationFactory.register(AuthSource.QQ, new QqAuthorization());
         AuthorizationFactory.register(AuthSource.TAOBAO, new TaobaoAuthorization());

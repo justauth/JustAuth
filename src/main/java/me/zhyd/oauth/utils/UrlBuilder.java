@@ -17,6 +17,10 @@ public class UrlBuilder {
     private static final String GITHUB_USER_INFO_PATTERN = "{0}?access_token={1}";
     private static final String GITHUB_AUTHORIZE_PATTERN = "{0}?client_id={1}&state=1&redirect_uri={2}";
 
+    private static final String GOOGLE_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&scope=openid%20email%20profile&redirect_uri={2}&state={3}";
+    private static final String GOOGLE_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
+    private static final String GOOGLE_USER_INFO_PATTERN = "{0}?id_token={1}";
+
     private static final String WEIBO_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
     private static final String WEIBO_USER_INFO_PATTERN = "{0}?{1}";
     private static final String WEIBO_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
@@ -491,5 +495,39 @@ public class UrlBuilder {
      */
     public static String getTaobaoAuthorizeUrl(String clientId, String redirectUrl) {
         return MessageFormat.format(TAOBAO_AUTHORIZE_PATTERN, ApiUrl.TAOBAO.authorize(), clientId, redirectUrl);
+    }
+
+    /**
+     * 获取Google授权地址
+     *
+     * @param clientId    google 应用的Client ID
+     * @param redirectUrl google 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getGoogleAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(GOOGLE_AUTHORIZE_PATTERN, ApiUrl.GOOGLE.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+    }
+
+    /**
+     * 获取Google token的接口地址
+     *
+     * @param clientId     google应用的Client ID
+     * @param clientSecret google应用的Client Secret
+     * @param code         google授权前的code，用来换token
+     * @param redirectUri  待跳转的页面
+     * @return full url
+     */
+    public static String getGoogleAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
+        return MessageFormat.format(GOOGLE_ACCESS_TOKEN_PATTERN, ApiUrl.GOOGLE.accessToken(), clientId, clientSecret, code, redirectUri);
+    }
+
+    /**
+     * 获取Google用户详情的接口地址
+     *
+     * @param token google 应用的token
+     * @return full url
+     */
+    public static String getGoogleUserInfoUrl(String token) {
+        return MessageFormat.format(GOOGLE_USER_INFO_PATTERN, ApiUrl.GOOGLE.userInfo(), token);
     }
 }
