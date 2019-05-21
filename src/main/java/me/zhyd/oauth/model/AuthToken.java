@@ -17,4 +17,12 @@ public class AuthToken {
     private String uid;
     private String openId;
     private String accessCode;
+
+    /**
+     * Google附带属性
+     */
+    private String scope;
+    private String tokenType;
+    private String idToken;
+
 }

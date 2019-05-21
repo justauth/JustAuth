@@ -21,5 +21,8 @@ public enum AuthSource {
     TAOBAO,
     QQ,
     WECHAT,
+    /**
+     * 谷歌登录，参考文档：https://developers.google.com/identity/protocols/OpenIDConnect
+     */
     GOOGLE,
 }
