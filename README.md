@@ -162,11 +162,12 @@ authRequest.login("code");
 
 
 #### 授权Google
+
 ![授权Google登录](https://images.gitee.com/uploads/images/2019/0521/190650_85c5f1c7_784199.png "授权Google登录")
 
 #### 授权Facebook
-![授权Facebook登录](https://images.gitee.com/uploads/images/2019/0521/190650_85c5f1c7_784199.png "授权Facebook登录")
 
+![授权Facebook登录](https://images.gitee.com/uploads/images/2019/0521/233647_6a89fb45_784199.png "授权Facebook登录")
 
 # 交流
 
