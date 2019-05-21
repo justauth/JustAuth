@@ -32,8 +32,8 @@
             <td align="center" width="200"><a href="#授权qq"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="20"></a></td>
             <td align="center" width="200"><a href="#授权微信"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechats.png" width="20"></a></td>
             <td align="center" width="200"><a href="#授权淘宝"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/taobao.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权Google"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/google.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权Facebook"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/facebook.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权google"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/google.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权facebook"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/facebook.png" width="20"></a></td>
         </tr>
     </table>
 </center>
@@ -163,11 +163,11 @@ authRequest.login("code");
 
 #### 授权Google
 
-![授权Google登录](https://images.gitee.com/uploads/images/2019/0521/190650_85c5f1c7_784199.png "授权Google登录")
+![授权google登录](https://images.gitee.com/uploads/images/2019/0521/190650_85c5f1c7_784199.png "授权google登录")
 
 #### 授权Facebook
 
-![授权Facebook登录](https://images.gitee.com/uploads/images/2019/0521/233647_6a89fb45_784199.png "授权Facebook登录")
+![授权facebook登录](https://images.gitee.com/uploads/images/2019/0521/233647_6a89fb45_784199.png "授权facebook登录")
 
 # 交流
 
