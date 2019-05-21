@@ -18,42 +18,22 @@
 
 <center>
     <table>
-        <thead>
-            <tr>
-                <td align="center" width="200"><a href="https://gitee.com/"><img src="https://gitee.com/logo_icon.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://github.com"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://weibo.com"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/weibo.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://www.dingtalk.com"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/dingding.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://developer.baidu.com/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/baidu.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://www.csdn.net/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://coding.net"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/coding.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://dev.tencent.com/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/tencent_cloud.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://www.oschina.net"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/oschinas.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://www.alipay.com"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/alipay.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://connect.qq.com/devuser.html#/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://mp.weixin.qq.com/cgi-bin/loginpage?t=wxm2-login&lang=zh_CN"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechats.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://open.taobao.com/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/taobao.png" width="20"></a></td>
-                <td align="center" width="200"><a href="https://google.com"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/google.png" width="20"></a></td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td align="center" width="200"><a href="#授权gitee">Gitee</a></td>
-                <td align="center" width="200"><a href="#授权github">Github</a></td>
-                <td align="center" width="200"><a href="#授权weibo">Weibo</a></td>
-                <td align="center" width="200"><a href="#授权钉钉">钉钉</a></td>
-                <td align="center" width="200"><a href="#授权百度">百度</a></td>
-                <td align="center" width="200"><a href="#授权csdn">CSDN</a></td>
-                <td align="center" width="200"><a href="#授权coding">Coding</a></td>
-                <td align="center" width="200"><a href="#授权腾讯云开发者平台" title="coding升级后就变成腾讯云开发者平台了">腾讯云</a></td>
-                <td align="center" width="200"><a href="#授权oschina">OSChina</a></td>
-                <td align="center" width="200"><a href="#授权支付宝">支付宝</a></td>
-                <td align="center" width="200"><a href="#授权qq">QQ</a></td>
-                <td align="center" width="200"><a href="#授权微信">微信</a></td>
-                <td align="center" width="200"><a href="#授权淘宝">淘宝</a></td>
-                <td align="center" width="200"><a href="#授权Google">Google</a></td>
-            </tr>
-        </tbody>
+        <tr>
+            <td align="center" width="200"><a href="#授权gitee"><img src="https://gitee.com/logo_icon.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权github"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权weibo"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/weibo.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权钉钉"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/dingding.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权百度"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/baidu.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权csdn"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权coding"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/coding.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权腾讯云开发者平台"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/tencent_cloud.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权oschina"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/oschinas.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权支付宝"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/alipay.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权qq"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权微信"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechats.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权淘宝"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/taobao.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权Google"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/google.png" width="20"></a></td>
+        </tr>
     </table>
 </center>
 
