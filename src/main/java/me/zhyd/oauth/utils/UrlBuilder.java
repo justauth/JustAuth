@@ -68,6 +68,10 @@ public class UrlBuilder {
     private static final String TAOBAO_AUTHORIZE_PATTERN = "{0}?response_type=code&client_id={1}&redirect_uri={2}&state=&view=web";
     private static final String TAOBAO_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
 
+    private static final String FACEBOOK_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}&response_type=code&scope=";
+    private static final String FACEBOOK_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
+    private static final String FACEBOOK_USER_INFO_PATTERN = "{0}?access_token={1}&fields=id,name,birthday,gender,hometown,email,devices,picture.width(400)";
+
     /**
      * 获取githubtoken的接口地址
      *
@@ -529,5 +533,39 @@ public class UrlBuilder {
      */
     public static String getGoogleUserInfoUrl(String token) {
         return MessageFormat.format(GOOGLE_USER_INFO_PATTERN, ApiUrl.GOOGLE.userInfo(), token);
+    }
+
+    /**
+     * 获取Facebook授权地址
+     *
+     * @param clientId    Facebook 应用的Client ID
+     * @param redirectUrl Facebook 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getFacebookAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(FACEBOOK_AUTHORIZE_PATTERN, ApiUrl.FACEBOOK.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+    }
+
+    /**
+     * 获取Facebook token的接口地址
+     *
+     * @param clientId     Facebook 应用的Client ID
+     * @param clientSecret Facebook 应用的Client Secret
+     * @param code         Facebook 授权前的code，用来换token
+     * @param redirectUri  待跳转的页面
+     * @return full url
+     */
+    public static String getFacebookAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
+        return MessageFormat.format(FACEBOOK_ACCESS_TOKEN_PATTERN, ApiUrl.FACEBOOK.accessToken(), clientId, clientSecret, code, redirectUri);
+    }
+
+    /**
+     * 获取Facebook用户详情的接口地址
+     *
+     * @param token Facebook 应用的token
+     * @return full url
+     */
+    public static String getFacebookUserInfoUrl(String token) {
+        return MessageFormat.format(FACEBOOK_USER_INFO_PATTERN, ApiUrl.FACEBOOK.userInfo(), token);
     }
 }

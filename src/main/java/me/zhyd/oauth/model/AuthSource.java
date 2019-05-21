@@ -25,4 +25,5 @@ public enum AuthSource {
      * 谷歌登录，参考文档：https://developers.google.com/identity/protocols/OpenIDConnect
      */
     GOOGLE,
+    FACEBOOK,
 }

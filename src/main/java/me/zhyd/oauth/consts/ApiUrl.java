@@ -416,6 +416,35 @@ public enum ApiUrl {
         public String refresh() {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
+    },
+    /**
+     * Facebook
+     */
+    FACEBOOK {
+        @Override
+        public String authorize() {
+            return "https://www.facebook.com/v3.3/dialog/oauth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://graph.facebook.com/v3.3/oauth/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://graph.facebook.com/v3.3/me";
+        }
+
+        @Override
+        public String revoke() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String refresh() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
     };
 
     /**

@@ -66,6 +66,7 @@ public class AuthorizationFactory {
         AuthorizationFactory.register(AuthSource.TENCEN_CLOUD, new TencentCloudAuthorization());
         AuthorizationFactory.register(AuthSource.WECHAT, new WeChatAuthorization());
         AuthorizationFactory.register(AuthSource.WEIBO, new WeiboAuthorization());
+        AuthorizationFactory.register(AuthSource.FACEBOOK, new FacebookAuthorization());
         loader = true;
     }
 
