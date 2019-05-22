@@ -1,5 +1,6 @@
 package me.zhyd.oauth.request;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
@@ -9,8 +10,11 @@ import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
+
+import java.util.Map;
 
 /**
  * qq登录
@@ -26,14 +30,17 @@ public class AuthQqRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(String code) {
-        String accessTokenUrl = UrlBuilder.getQqAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+        String accessTokenUrl = UrlBuilder.getQqAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config
+                .getRedirectUri());
+        HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
+        Map<String, String> accessTokenObject = GlobalAuthUtil.parseStringToMap(response.body());
         if (!accessTokenObject.containsKey("access_token")) {
             throw new AuthException("Unable to get token from qq using code [" + code + "]");
         }
         return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
+                .accessToken(accessTokenObject.get("access_token"))
+                .expireIn(Integer.valueOf(accessTokenObject.get("expires_in")))
+                .refreshToken(accessTokenObject.get("refresh_token"))
                 .build();
     }
 
@@ -61,9 +68,14 @@ public class AuthQqRequest extends BaseAuthRequest {
     }
 
     private String getOpenId(String accessToken) {
-        HttpResponse response = HttpRequest.get(UrlBuilder.getQqOpenidUrl("https://graph.qq.com/oauth2.0/me", accessToken)).execute();
+        HttpResponse response = HttpRequest.get(UrlBuilder.getQqOpenidUrl("https://graph.qq.com/oauth2.0/me", accessToken))
+                .execute();
         if (response.isOk()) {
-            JSONObject object = JSONObject.parseObject(response.body());
+            String body = response.body();
+            String removePrefix = StrUtil.replace(body, "callback(", "");
+            String removeSuffix = StrUtil.replace(removePrefix, ");", "");
+            String openId = StrUtil.trim(removeSuffix);
+            JSONObject object = JSONObject.parseObject(openId);
             if (object.containsKey("openid")) {
                 return object.getString("openid");
             }
