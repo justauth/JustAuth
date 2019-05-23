@@ -9,7 +9,6 @@ import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.IpUtils;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -55,10 +54,11 @@ public class AuthWeiboRequest extends BaseAuthRequest {
                 .execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
-        if(object.containsKey("error")) {
+        if (object.containsKey("error")) {
             throw new AuthException(object.getString("error"));
         }
         return AuthUser.builder()
+                .uuid(object.getString("id"))
                 .username(object.getString("name"))
                 .avatar(object.getString("profile_image_url"))
                 .blog(StringUtils.isEmpty(object.getString("url")) ? "https://weibo.com/" + object.getString("profile_url") : object.getString("url"))
