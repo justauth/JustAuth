@@ -48,7 +48,8 @@ public class AuthQqRequest extends BaseAuthRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         String openId = this.getOpenId(accessToken);
-        HttpResponse response = HttpRequest.get(UrlBuilder.getQqUserInfoUrl(accessToken, openId)).execute();
+        HttpResponse response = HttpRequest.get(UrlBuilder.getQqUserInfoUrl(config.getClientId(), accessToken, openId))
+                .execute();
         JSONObject object = JSONObject.parseObject(response.body());
         if (object.getIntValue("ret") != 0) {
             throw new AuthException(object.getString("msg"));
