@@ -14,6 +14,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 全局的工具类
+ *
+ * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @version 1.0
+ * @since 1.8
+ */
 public class GlobalAuthUtil {
     private static final String DEFAULT_ENCODING = "UTF-8";
     private static final String ALGORITHM = "HmacSHA256";

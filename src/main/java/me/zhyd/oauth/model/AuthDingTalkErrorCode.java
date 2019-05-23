@@ -1,14 +1,13 @@
 package me.zhyd.oauth.model;
 
 /**
+ * 钉钉授权登录时的异常状态码
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @since 1.8
  */
 public enum AuthDingTalkErrorCode {
-    /**
-     * 异常状态码
-     */
     EC1_MINUS(-1, "系统繁忙", "服务器暂不可用，建议稍候再重试1次，最多重试3次"),
     EC0(0, "请求成功", "接口调用成功"),
     EC404(404, "请求的URI地址不存在", "地址不存在，检查下url是否和文档里写的一致"),
