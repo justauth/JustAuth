@@ -47,6 +47,7 @@ public class AuthBaiduRequest extends BaseAuthRequest {
             throw new AuthException(errorCode.getDesc());
         }
         return AuthUser.builder()
+                .uuid(object.getString("userid"))
                 .username(object.getString("username"))
                 .nickname(object.getString("username"))
                 .gender(AuthUserGender.getRealGender(object.getString("sex")))

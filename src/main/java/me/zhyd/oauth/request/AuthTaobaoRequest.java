@@ -48,6 +48,7 @@ public class AuthTaobaoRequest extends BaseAuthRequest {
 
         String nick = GlobalAuthUtil.urlDecode(object.getString("taobao_user_nick"));
         return AuthUser.builder()
+                .uuid(object.getString("taobao_user_id"))
                 .username(nick)
                 .nickname(nick)
                 .gender(AuthUserGender.UNKNOW)

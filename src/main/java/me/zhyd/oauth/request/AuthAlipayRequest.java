@@ -48,6 +48,9 @@ public class AuthAlipayRequest extends BaseAuthRequest {
         }
         return AuthToken.builder()
                 .accessToken(response.getAccessToken())
+                .uid(response.getUserId())
+                .expireIn(Integer.parseInt(response.getExpiresIn()))
+                .refreshToken(response.getRefreshToken())
                 .build();
     }
 
@@ -67,6 +70,7 @@ public class AuthAlipayRequest extends BaseAuthRequest {
         String province = response.getProvince(),
                 city = response.getCity();
         return AuthUser.builder()
+                .uuid(response.getUserId())
                 .username(response.getUserName())
                 .nickname(response.getNickName())
                 .avatar(response.getAvatar())

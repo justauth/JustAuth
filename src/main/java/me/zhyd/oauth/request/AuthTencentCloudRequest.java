@@ -47,6 +47,7 @@ public class AuthTencentCloudRequest extends BaseAuthRequest {
         }
         object = object.getJSONObject("data");
         return AuthUser.builder()
+                .uuid(object.getString("id"))
                 .username(object.getString("name"))
                 .avatar("https://dev.tencent.com/" + object.getString("avatar"))
                 .blog("https://dev.tencent.com/" + object.getString("path"))

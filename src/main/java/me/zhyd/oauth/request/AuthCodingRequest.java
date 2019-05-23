@@ -47,6 +47,7 @@ public class AuthCodingRequest extends BaseAuthRequest {
         }
         object = object.getJSONObject("data");
         return AuthUser.builder()
+                .uuid(object.getString("id"))
                 .username(object.getString("name"))
                 .avatar("https://coding.net/" + object.getString("avatar"))
                 .blog("https://coding.net/" + object.getString("path"))

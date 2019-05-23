@@ -46,6 +46,7 @@ public class AuthOschinaRequest extends BaseAuthRequest {
             throw new AuthException(object.getString("error_description"));
         }
         return AuthUser.builder()
+                .uuid(object.getString("id"))
                 .username(object.getString("name"))
                 .nickname(object.getString("name"))
                 .avatar(object.getString("avatar"))
