@@ -56,7 +56,7 @@ public class UrlBuilder {
     private static final String ALIPAY_AUTHORIZE_PATTERN = "{0}?app_id={1}&scope=auth_user&redirect_uri={2}&state=init";
 
     private static final String QQ_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
-    private static final String QQ_USER_INFO_PATTERN = "{0}?access_token={1}&oauth_consumer_key=12345&openid={2}";
+    private static final String QQ_USER_INFO_PATTERN = "{0}?oauth_consumer_key={1}&access_token={2}&openid={3}";
     private static final String QQ_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
     private static final String QQ_OPENID_PATTERN = "{0}?access_token={1}";
 
@@ -395,8 +395,8 @@ public class UrlBuilder {
      * @param openId qq 应用的openId
      * @return full url
      */
-    public static String getQqUserInfoUrl(String token, String openId) {
-        return MessageFormat.format(QQ_USER_INFO_PATTERN, ApiUrl.QQ.userInfo(), token, openId);
+    public static String getQqUserInfoUrl(String clientId, String token, String openId) {
+        return MessageFormat.format(QQ_USER_INFO_PATTERN, ApiUrl.QQ.userInfo(), clientId, token, openId);
     }
 
     /**
@@ -543,7 +543,8 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getFacebookAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(FACEBOOK_AUTHORIZE_PATTERN, ApiUrl.FACEBOOK.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+        return MessageFormat.format(FACEBOOK_AUTHORIZE_PATTERN, ApiUrl.FACEBOOK.authorize(), clientId, redirectUrl, System
+                .currentTimeMillis());
     }
 
     /**
