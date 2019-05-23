@@ -31,8 +31,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
         String accessTokenUrl = UrlBuilder.getWeChatAccessTokenUrl(config.getClientId(), config.getClientSecret(), code);
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
         JSONObject object = JSONObject.parseObject(response.body());
-        if (!object.containsKey("access_token") || !object.containsKey("openid") || !object
-                .containsKey("refresh_token")) {
+        if (!object.containsKey("access_token") || !object.containsKey("openid") || !object.containsKey("refresh_token")) {
             throw new AuthException("Unable to get access_token or openid or refresh_token from wechat using code [" + code + "]");
         }
         return AuthToken.builder()
@@ -58,6 +57,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
                 .nickname(object.getString("nickname"))
                 .avatar(object.getString("headimgurl"))
                 .location(object.getString("country") + "-" + object.getString("province") + "-" + object.getString("city"))
+                .uuid(openId)
                 .gender(AuthUserGender.getRealGender(object.getString("sex")))
                 .token(authToken)
                 .source(AuthSource.WECHAT)

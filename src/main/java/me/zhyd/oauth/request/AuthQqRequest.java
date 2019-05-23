@@ -64,6 +64,7 @@ public class AuthQqRequest extends BaseAuthRequest {
                 .nickname(object.getString("nickname"))
                 .avatar(avatar)
                 .location(object.getString("province") + "-" + object.getString("city"))
+                .uuid(openId)
                 .gender(AuthUserGender.getRealGender(object.getString("gender")))
                 .token(authToken)
                 .source(AuthSource.QQ)

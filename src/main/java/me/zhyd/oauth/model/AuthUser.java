@@ -24,4 +24,8 @@ public class AuthUser {
     private AuthUserGender gender;
     private AuthSource source;
     private AuthToken token;
+    /**
+     * 用户第三方系统的唯一id
+     */
+    private String uuid;
 }
