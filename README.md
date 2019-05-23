@@ -165,7 +165,7 @@ authRequest.login("code");
 
 #### 授权微信
 
-待续
+![授权微信登录](https://images.gitee.com/uploads/images/2019/0523/104955_d4cea750_784199.png "授权微信登录")
 
 #### 授权淘宝
 
@@ -198,4 +198,3 @@ authRequest.login("code");
 | 支付宝  | 微信  | 
 | :------------: | :------------: | 
 | <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/zfb_code.png" width="200"/> | <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/wx_code.png" width="200" /> |
-
