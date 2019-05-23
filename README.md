@@ -5,8 +5,8 @@
 	<strong>Login, so easy.</strong>
 </p>
 <p align="center">
-	<a target="_blank" href="https://search.maven.org/search?q=g:%22me.zhyd%22%20AND%20a:%22JustAuth%22">
-		<img src="https://img.shields.io/badge/Maven Central-1.0.0-blue.svg" ></img>
+	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
+		<img src="https://img.shields.io/badge/Maven Central-1.3.1-blue.svg" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
