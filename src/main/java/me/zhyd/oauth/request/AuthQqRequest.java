@@ -20,6 +20,7 @@ import java.util.Map;
  * qq登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @author yangkai.shen (https://xkcoding.com)
  * @version 1.0
  * @since 1.8
  */
@@ -62,6 +63,7 @@ public class AuthQqRequest extends BaseAuthRequest {
                 .username(object.getString("nickname"))
                 .nickname(object.getString("nickname"))
                 .avatar(avatar)
+                .location(object.getString("province") + "-" + object.getString("city"))
                 .gender(AuthUserGender.getRealGender(object.getString("gender")))
                 .token(authToken)
                 .source(AuthSource.QQ)
