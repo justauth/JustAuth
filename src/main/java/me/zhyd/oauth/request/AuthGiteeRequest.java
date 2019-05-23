@@ -43,6 +43,7 @@ public class AuthGiteeRequest extends BaseAuthRequest {
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         return AuthUser.builder()
+                .uuid(object.getString("id"))
                 .username(object.getString("login"))
                 .avatar(object.getString("avatar_url"))
                 .blog(object.getString("blog"))

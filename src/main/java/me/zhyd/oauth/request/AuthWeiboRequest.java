@@ -48,8 +48,9 @@ public class AuthWeiboRequest extends BaseAuthRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         String uid = authToken.getUid();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getWeiboUserInfoUrl(accessToken))
-                .header("Authorization", "OAuth2 " + String.format("uid=%s&access_token=%s", uid, accessToken))
+        String oauthParam = String.format("uid=%s&access_token=%s", uid, accessToken);
+        HttpResponse response = HttpRequest.get(UrlBuilder.getWeiboUserInfoUrl(oauthParam))
+                .header("Authorization", "OAuth2 " + oauthParam)
                 .header("API-RemoteIP", IpUtils.getIp())
                 .execute();
         String userInfo = response.body();
