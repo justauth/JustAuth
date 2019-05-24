@@ -45,7 +45,10 @@ public class AuthCsdnRequest extends BaseAuthRequest {
             throw new AuthException(object.getString("error"));
         }
         return AuthUser.builder()
+                .uuid(object.getString("username"))
                 .username(object.getString("username"))
+                .remark(object.getString("description"))
+                .blog(object.getString("website"))
                 .token(authToken)
                 .source(AuthSource.CSDN)
                 .build();

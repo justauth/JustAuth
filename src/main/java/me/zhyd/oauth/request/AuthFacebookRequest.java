@@ -59,6 +59,7 @@ public class AuthFacebookRequest extends BaseAuthRequest {
             }
         }
         return AuthUser.builder()
+                .uuid(object.getString("id"))
                 .username(object.getString("name"))
                 .nickname(object.getString("name"))
                 .avatar(picture)
