@@ -51,6 +51,7 @@ public class AuthGoogleRequest extends BaseAuthRequest {
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         return AuthUser.builder()
+                .uuid(object.getString("sub"))
                 .username(object.getString("name"))
                 .avatar(object.getString("picture"))
                 .nickname(object.getString("name"))
