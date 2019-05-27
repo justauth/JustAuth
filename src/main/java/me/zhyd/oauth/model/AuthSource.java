@@ -23,4 +23,6 @@ public enum AuthSource {
     WECHAT,
     GOOGLE,
     FACEBOOK,
+    DOUYIN,
+    LINKEDIN,
 }

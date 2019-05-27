@@ -35,11 +35,20 @@ public abstract class BaseAuthRequest implements AuthRequest {
     @Override
     public AuthResponse login(String code) {
         try {
-            AuthUser user = this.getUserInfo(this.getAccessToken(code));
+            AuthToken authToken = this.getAccessToken(code);
+            AuthUser user = this.getUserInfo(authToken);
             return AuthResponse.builder().code(ResponseStatus.SUCCESS.getCode()).data(user).build();
         } catch (Exception e) {
-            return AuthResponse.builder().code(ResponseStatus.FAILURE.getCode()).msg(e.getMessage()).build();
+            return this.responseError(e);
         }
+    }
+
+    private AuthResponse responseError(Exception e) {
+        int errorCode = ResponseStatus.FAILURE.getCode();
+        if (e instanceof AuthException) {
+            errorCode = ((AuthException) e).getErrorCode();
+        }
+        return AuthResponse.builder().code(errorCode).msg(e.getMessage()).build();
     }
 
     @Override

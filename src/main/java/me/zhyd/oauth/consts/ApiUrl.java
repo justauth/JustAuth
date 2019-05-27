@@ -445,6 +445,64 @@ public enum ApiUrl {
         public String refresh() {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
+    },
+    /**
+     * 抖音
+     */
+    DOUYIN {
+        @Override
+        public String authorize() {
+            return "https://open.douyin.com/platform/oauth/connect";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://open.douyin.com/oauth/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://open.douyin.com/oauth/userinfo";
+        }
+
+        @Override
+        public String revoke() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String refresh() {
+            return "https://open.douyin.com/oauth/refresh_token";
+        }
+    },
+    /**
+     * 领英
+     */
+    LINKEDIN {
+        @Override
+        public String authorize() {
+            return "https://www.linkedin.com/oauth/v2/authorization";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://www.linkedin.com/oauth/v2/accessToken";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.linkedin.com/v2/me";
+        }
+
+        @Override
+        public String revoke() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String refresh() {
+            return "https://www.linkedin.com/oauth/v2/accessToken";
+        }
     };
 
     /**

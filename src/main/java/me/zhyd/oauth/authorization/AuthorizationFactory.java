@@ -67,6 +67,8 @@ public class AuthorizationFactory {
         AuthorizationFactory.register(AuthSource.WECHAT, new WeChatAuthorization());
         AuthorizationFactory.register(AuthSource.WEIBO, new WeiboAuthorization());
         AuthorizationFactory.register(AuthSource.FACEBOOK, new FacebookAuthorization());
+        AuthorizationFactory.register(AuthSource.DOUYIN, new DouyinAuthorization());
+        AuthorizationFactory.register(AuthSource.LINKEDIN, new LinkedinAuthorization());
         loader = true;
     }
 

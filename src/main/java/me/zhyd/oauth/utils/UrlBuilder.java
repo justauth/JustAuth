@@ -72,6 +72,11 @@ public class UrlBuilder {
     private static final String FACEBOOK_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
     private static final String FACEBOOK_USER_INFO_PATTERN = "{0}?access_token={1}&fields=id,name,birthday,gender,hometown,email,devices,picture.width(400)";
 
+    private static final String DOUYIN_AUTHORIZE_PATTERN = "{0}?client_key={1}&redirect_uri={2}&state={3}&response_type=code&scope=user_info";
+    private static final String DOUYIN_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&grant_type=authorization_code";
+    private static final String DOUYIN_USER_INFO_PATTERN = "{0}?access_token={1}&open_id={2}";
+    private static final String DOUYIN_REFRESH_TOKEN_PATTERN = "{0}?client_key={1}&refresh_token={2}&grant_type=refresh_token";
+
     /**
      * 获取githubtoken的接口地址
      *
@@ -568,5 +573,102 @@ public class UrlBuilder {
      */
     public static String getFacebookUserInfoUrl(String token) {
         return MessageFormat.format(FACEBOOK_USER_INFO_PATTERN, ApiUrl.FACEBOOK.userInfo(), token);
+    }
+
+    /**
+     * 获取Douyin授权地址
+     *
+     * @param clientId    Douyin 应用的Client ID
+     * @param redirectUrl Douyin 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getDouyinAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(DOUYIN_AUTHORIZE_PATTERN, ApiUrl.DOUYIN.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+    }
+
+    /**
+     * 获取Douyin token的接口地址
+     *
+     * @param clientId     Douyin 应用的Client ID
+     * @param clientSecret Douyin 应用的Client Secret
+     * @param code         Douyin 授权前的code，用来换token
+     * @return full url
+     */
+    public static String getDouyinAccessTokenUrl(String clientId, String clientSecret, String code) {
+        return MessageFormat.format(DOUYIN_ACCESS_TOKEN_PATTERN, ApiUrl.DOUYIN.accessToken(), clientId, clientSecret, code);
+    }
+
+    /**
+     * 获取Douyin用户详情的接口地址
+     *
+     * @param token  Douyin 应用的token
+     * @param openId 用户在当前应用的唯一标识 通过token接口获取
+     * @return full url
+     */
+    public static String getDouyinUserInfoUrl(String token, String openId) {
+        return MessageFormat.format(DOUYIN_USER_INFO_PATTERN, ApiUrl.DOUYIN.userInfo(), token, openId);
+    }
+
+    /**
+     * 获取Douyin 刷新令牌 地址
+     *
+     * @param clientId     Douyin应用的client_key
+     * @param refreshToken Douyin应用返回的refresh_token
+     * @return full url
+     */
+    public static String getDouyinRefreshUrl(String clientId, String refreshToken) {
+        return MessageFormat.format(DOUYIN_REFRESH_TOKEN_PATTERN, ApiUrl.DOUYIN.refresh(), clientId, refreshToken);
+    }
+
+
+
+    private static final String LINKEDIN_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}&response_type=code&scope=r_liteprofile%20r_emailaddress%20w_member_social";
+    private static final String LINKEDIN_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
+    private static final String LINKEDIN_USER_INFO_PATTERN = "{0}?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))";
+    private static final String LINKEDIN_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&refresh_token={3}&grant_type=refresh_token";
+
+    /**
+     * 获取Linkedin授权地址
+     *
+     * @param clientId    Linkedin 应用的Client ID
+     * @param redirectUrl Linkedin 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getLinkedinAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(LINKEDIN_AUTHORIZE_PATTERN, ApiUrl.LINKEDIN.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+    }
+
+    /**
+     * 获取Linkedin token的接口地址
+     *
+     * @param clientId     Linkedin 应用的Client ID
+     * @param clientSecret Linkedin 应用的Client Secret
+     * @param code         Linkedin 授权前的code，用来换token
+     * @param redirectUrl google 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getLinkedinAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUrl) {
+        return MessageFormat.format(LINKEDIN_ACCESS_TOKEN_PATTERN, ApiUrl.LINKEDIN.accessToken(), clientId, clientSecret, code, redirectUrl);
+    }
+
+    /**
+     * 获取Linkedin用户详情的接口地址
+     *
+     * @return full url
+     */
+    public static String getLinkedinUserInfoUrl() {
+        return MessageFormat.format(LINKEDIN_USER_INFO_PATTERN, ApiUrl.LINKEDIN.userInfo());
+    }
+
+    /**
+     * 获取Linkedin 刷新令牌 地址
+     *
+     * @param clientId     Linkedin应用的client_key
+     * @param clientSecret Linkedin 应用的Client Secret
+     * @param refreshToken Linkedin应用返回的refresh_token
+     * @return full url
+     */
+    public static String getLinkedinRefreshUrl(String clientId, String clientSecret, String refreshToken) {
+        return MessageFormat.format(LINKEDIN_REFRESH_TOKEN_PATTERN, ApiUrl.LINKEDIN.refresh(), clientId, clientSecret, refreshToken);
     }
 }

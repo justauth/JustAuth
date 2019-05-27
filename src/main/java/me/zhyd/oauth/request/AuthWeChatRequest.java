@@ -29,16 +29,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
     @Override
     protected AuthToken getAccessToken(String code) {
         String accessTokenUrl = UrlBuilder.getWeChatAccessTokenUrl(config.getClientId(), config.getClientSecret(), code);
-        HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
-        JSONObject object = JSONObject.parseObject(response.body());
-        if (!object.containsKey("access_token") || !object.containsKey("openid") || !object.containsKey("refresh_token")) {
-            throw new AuthException("Unable to get access_token or openid or refresh_token from wechat using code [" + code + "]");
-        }
-        return AuthToken.builder()
-                .accessToken(object.getString("access_token"))
-                .refreshToken(object.getString("refresh_token"))
-                .openId(object.getString("openid"))
-                .build();
+        return this.getToken(accessTokenUrl);
     }
 
     @Override
@@ -48,9 +39,8 @@ public class AuthWeChatRequest extends BaseAuthRequest {
 
         HttpResponse response = HttpRequest.get(UrlBuilder.getWeChatUserInfoUrl(accessToken, openId)).execute();
         JSONObject object = JSONObject.parseObject(response.body());
-        if (object.containsKey("errcode")) {
-            throw new AuthException(object.getString("errmsg"));
-        }
+
+        this.checkResponse(object);
 
         return AuthUser.builder()
                 .username(object.getString("nickname"))
@@ -65,16 +55,41 @@ public class AuthWeChatRequest extends BaseAuthRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
-        String refreshToken = authToken.getRefreshToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getWeChatRefreshUrl(config.getClientId(), refreshToken))
-                .execute();
+    public AuthResponse refresh(AuthToken oldToken) {
+        String refreshTokenUrl = UrlBuilder.getWeChatRefreshUrl(config.getClientId(), oldToken.getRefreshToken());
+        return AuthResponse.builder()
+                .code(ResponseStatus.SUCCESS.getCode())
+                .data(this.getToken(refreshTokenUrl))
+                .build();
+    }
 
-        JSONObject object = JSONObject.parseObject(response.body());
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
         if (object.containsKey("errcode")) {
-            throw new AuthException(object.getString("errmsg"));
+            throw new AuthException(object.getIntValue("errcode"), object.getString("errmsg"));
         }
+    }
+    /**
+     * 获取token，适用于获取access_token和刷新token
+     *
+     * @param accessTokenUrl 实际请求token的地址
+     * @return token对象
+     */
+    private AuthToken getToken(String accessTokenUrl) {
+        HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
+        JSONObject object = JSONObject.parseObject(response.body());
 
-        return AuthResponse.builder().data(object).build();
+        this.checkResponse(object);
+
+        return AuthToken.builder()
+                .accessToken(object.getString("access_token"))
+                .refreshToken(object.getString("refresh_token"))
+                .expireIn(object.getIntValue("expires_in"))
+                .openId(object.getString("openid"))
+                .build();
     }
 }
