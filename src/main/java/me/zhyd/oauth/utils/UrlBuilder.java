@@ -65,7 +65,7 @@ public class UrlBuilder {
     private static final String WECHAT_REFRESH_TOKEN_PATTERN = "{0}?appid={1}&grant_type=refresh_token&refresh_token={2}";
     private static final String WECHAT_USER_INFO_PATTERN = "{0}?access_token={1}&openid={2}&lang=zh_CN";
 
-    private static final String TAOBAO_AUTHORIZE_PATTERN = "{0}?response_type=code&client_id={1}&redirect_uri={2}&state=&view=web";
+    private static final String TAOBAO_AUTHORIZE_PATTERN = "{0}?response_type=code&client_id={1}&redirect_uri={2}&state={3}&view=web";
     private static final String TAOBAO_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
 
     private static final String FACEBOOK_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}&response_type=code&scope=";
@@ -503,7 +503,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getTaobaoAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(TAOBAO_AUTHORIZE_PATTERN, ApiUrl.TAOBAO.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(TAOBAO_AUTHORIZE_PATTERN, ApiUrl.TAOBAO.authorize(), clientId, redirectUrl, System.currentTimeMillis());
     }
 
     /**

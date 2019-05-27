@@ -71,7 +71,7 @@ public class AuthAlipayRequest extends BaseAuthRequest {
                 city = response.getCity();
         return AuthUser.builder()
                 .uuid(response.getUserId())
-                .username(response.getUserName())
+                .username(StringUtils.isEmpty(response.getUserName()) ? response.getNickName() : response.getUserName())
                 .nickname(response.getNickName())
                 .avatar(response.getAvatar())
                 .location(String.format("%s %s", StringUtils.isEmpty(province) ? "" : province, StringUtils.isEmpty(city) ? "" : city))

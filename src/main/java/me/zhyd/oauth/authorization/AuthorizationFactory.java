@@ -63,7 +63,7 @@ public class AuthorizationFactory {
         AuthorizationFactory.register(AuthSource.OSCHINA, new OschinaAuthorization());
         AuthorizationFactory.register(AuthSource.QQ, new QqAuthorization());
         AuthorizationFactory.register(AuthSource.TAOBAO, new TaobaoAuthorization());
-        AuthorizationFactory.register(AuthSource.TENCEN_CLOUD, new TencentCloudAuthorization());
+        AuthorizationFactory.register(AuthSource.TENCENT_CLOUD, new TencentCloudAuthorization());
         AuthorizationFactory.register(AuthSource.WECHAT, new WeChatAuthorization());
         AuthorizationFactory.register(AuthSource.WEIBO, new WeiboAuthorization());
         AuthorizationFactory.register(AuthSource.FACEBOOK, new FacebookAuthorization());

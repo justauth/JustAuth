@@ -16,7 +16,7 @@ public enum AuthSource {
     CSDN,
     CODING,
     OSCHINA,
-    TENCEN_CLOUD,
+    TENCENT_CLOUD,
     ALIPAY,
     TAOBAO,
     QQ,

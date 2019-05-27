@@ -21,7 +21,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthTencentCloudRequest extends BaseAuthRequest {
 
     public AuthTencentCloudRequest(AuthConfig config) {
-        super(config, AuthSource.TENCEN_CLOUD);
+        super(config, AuthSource.TENCENT_CLOUD);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class AuthTencentCloudRequest extends BaseAuthRequest {
                 .email(object.getString("email"))
                 .remark(object.getString("slogan"))
                 .token(authToken)
-                .source(AuthSource.TENCEN_CLOUD)
+                .source(AuthSource.TENCENT_CLOUD)
                 .build();
     }
 }
