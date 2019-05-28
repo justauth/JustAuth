@@ -133,6 +133,8 @@ _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经�
 
 [YurunOAuthLogin](https://gitee.com/yurunsoft/YurunOAuthLogin): PHP 第三方登录授权 SDK
 
+[阿里妈妈MUX倾力打造的矢量图标库-iconfont](https://www.iconfont.cn/search/index): 本文档中的图标大部分取自该平台
+
 
 ## 参考授权图例
 
