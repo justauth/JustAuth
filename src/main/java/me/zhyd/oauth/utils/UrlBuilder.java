@@ -671,7 +671,6 @@ public class UrlBuilder {
         return MessageFormat.format(LINKEDIN_REFRESH_TOKEN_PATTERN, ApiUrl.LINKEDIN.refresh(), clientId, clientSecret, refreshToken);
     }
 
-
     private static final String MICROSOFT_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&response_mode=query&scope=offline_access%20user.read%20mail.read&state={3}";
     private static final String MICROSOFT_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&code={4}&grant_type=authorization_code";
     private static final String MICROSOFT_USER_INFO_PATTERN = "{0}";
@@ -698,7 +697,7 @@ public class UrlBuilder {
      * @param code         微软 授权前的code，用来换token
      * @return full url
      */
-    public static String getMicrosoftAccessTokenUrl(String clientId, String clientSecret,String redirectUrl, String code) {
+    public static String getMicrosoftAccessTokenUrl(String clientId, String clientSecret, String redirectUrl, String code) {
         return MessageFormat.format(MICROSOFT_ACCESS_TOKEN_PATTERN, ApiUrl.MICROSOFT.accessToken(), clientId, clientSecret, redirectUrl, code);
     }
 
@@ -722,5 +721,58 @@ public class UrlBuilder {
      */
     public static String getMicrosoftRefreshUrl(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
         return MessageFormat.format(MICROSOFT_REFRESH_TOKEN_PATTERN, ApiUrl.MICROSOFT.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
+    }
+
+    private static final String MI_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&response_type=code&scope=user/profile%20user/openIdV2%20user/phoneAndEmail&state={3}&skip_confirm=false";
+    private static final String MI_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&code={4}&grant_type=authorization_code";
+    private static final String MI_USER_INFO_PATTERN = "{0}?clientId={1}&token={2}";
+    private static final String MI_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
+
+    /**
+     * 获取小米授权地址
+     *
+     * @param clientId    小米 应用的Client ID
+     * @param redirectUrl 小米 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getMiAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(MI_AUTHORIZE_PATTERN, ApiUrl.MI.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+    }
+
+    /**
+     * 获取小米 token的接口地址
+     *
+     * @param clientId     小米 应用的Client ID
+     * @param clientSecret 小米 应用的Client Secret
+     * @param redirectUrl  小米 应用授权成功后的回调地址
+     * @param code         小米 授权前的code，用来换token
+     * @return full url
+     */
+    public static String getMiAccessTokenUrl(String clientId, String clientSecret, String redirectUrl, String code) {
+        return MessageFormat.format(MI_ACCESS_TOKEN_PATTERN, ApiUrl.MI.accessToken(), clientId, clientSecret, redirectUrl, code);
+    }
+
+    /**
+     * 获取小米用户详情的接口地址
+     *
+     * @param clientId 小米 应用的client_key
+     * @param token    token
+     * @return full url
+     */
+    public static String getMiUserInfoUrl(String clientId, String token) {
+        return MessageFormat.format(MI_USER_INFO_PATTERN, ApiUrl.MI.userInfo(), clientId, token);
+    }
+
+    /**
+     * 获取小米 刷新令牌 地址
+     *
+     * @param clientId     小米 应用的client_key
+     * @param clientSecret 小米 应用的Client Secret
+     * @param redirectUrl  小米 应用授权成功后的回调地址
+     * @param refreshToken 小米 应用返回的refresh_token
+     * @return full url
+     */
+    public static String getMiRefreshUrl(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
+        return MessageFormat.format(MI_REFRESH_TOKEN_PATTERN, ApiUrl.MI.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
     }
 }

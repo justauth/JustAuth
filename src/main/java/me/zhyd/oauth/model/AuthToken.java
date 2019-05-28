@@ -27,4 +27,10 @@ public class AuthToken {
     private String tokenType;
     private String idToken;
 
+    /**
+     * 小米附带属性
+     */
+    private String macAlgorithm;
+    private String macKey;
+
 }
