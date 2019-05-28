@@ -11,5 +11,11 @@ import me.zhyd.oauth.config.AuthConfig;
  */
 public interface Authorization {
 
+    /**
+     * 获取授权页面地址
+     *
+     * @param config 授权基础配置
+     * @return 授权页面地址
+     */
     String getAuthorizeUrl(AuthConfig config);
 }

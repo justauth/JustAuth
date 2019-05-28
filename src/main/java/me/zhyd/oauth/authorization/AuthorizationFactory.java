@@ -69,6 +69,7 @@ public class AuthorizationFactory {
         AuthorizationFactory.register(AuthSource.FACEBOOK, new FacebookAuthorization());
         AuthorizationFactory.register(AuthSource.DOUYIN, new DouyinAuthorization());
         AuthorizationFactory.register(AuthSource.LINKEDIN, new LinkedinAuthorization());
+        AuthorizationFactory.register(AuthSource.MICROSOFT, new MicrosoftAuthorization());
         loader = true;
     }
 

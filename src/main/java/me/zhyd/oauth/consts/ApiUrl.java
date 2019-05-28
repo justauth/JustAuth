@@ -503,6 +503,35 @@ public enum ApiUrl {
         public String refresh() {
             return "https://www.linkedin.com/oauth/v2/accessToken";
         }
+    },
+    /**
+     * 微软
+     */
+    MICROSOFT {
+        @Override
+        public String authorize() {
+            return "https://login.microsoftonline.com/common/oauth2/v2.0/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://login.microsoftonline.com/common/oauth2/v2.0/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://graph.microsoft.com/v1.0/me";
+        }
+
+        @Override
+        public String revoke() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String refresh() {
+            return "https://login.microsoftonline.com/common/oauth2/v2.0/token";
+        }
     };
 
     /**
