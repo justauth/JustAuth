@@ -25,4 +25,5 @@ public enum AuthSource {
     FACEBOOK,
     DOUYIN,
     LINKEDIN,
+    MICROSOFT
 }

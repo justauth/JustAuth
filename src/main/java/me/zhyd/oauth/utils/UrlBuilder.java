@@ -620,8 +620,6 @@ public class UrlBuilder {
         return MessageFormat.format(DOUYIN_REFRESH_TOKEN_PATTERN, ApiUrl.DOUYIN.refresh(), clientId, refreshToken);
     }
 
-
-
     private static final String LINKEDIN_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}&response_type=code&scope=r_liteprofile%20r_emailaddress%20w_member_social";
     private static final String LINKEDIN_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
     private static final String LINKEDIN_USER_INFO_PATTERN = "{0}?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))";
@@ -635,7 +633,8 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getLinkedinAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(LINKEDIN_AUTHORIZE_PATTERN, ApiUrl.LINKEDIN.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+        return MessageFormat.format(LINKEDIN_AUTHORIZE_PATTERN, ApiUrl.LINKEDIN.authorize(), clientId, redirectUrl, System
+                .currentTimeMillis());
     }
 
     /**
@@ -644,7 +643,7 @@ public class UrlBuilder {
      * @param clientId     Linkedin 应用的Client ID
      * @param clientSecret Linkedin 应用的Client Secret
      * @param code         Linkedin 授权前的code，用来换token
-     * @param redirectUrl google 应用授权成功后的回调地址
+     * @param redirectUrl  google 应用授权成功后的回调地址
      * @return full url
      */
     public static String getLinkedinAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUrl) {
@@ -670,5 +669,58 @@ public class UrlBuilder {
      */
     public static String getLinkedinRefreshUrl(String clientId, String clientSecret, String refreshToken) {
         return MessageFormat.format(LINKEDIN_REFRESH_TOKEN_PATTERN, ApiUrl.LINKEDIN.refresh(), clientId, clientSecret, refreshToken);
+    }
+
+
+    private static final String MICROSOFT_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&response_mode=query&scope=offline_access%20user.read%20mail.read&state={3}";
+    private static final String MICROSOFT_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&code={4}&grant_type=authorization_code";
+    private static final String MICROSOFT_USER_INFO_PATTERN = "{0}";
+    private static final String MICROSOFT_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
+
+    /**
+     * 获取微软授权地址
+     *
+     * @param clientId    微软 应用的Client ID
+     * @param redirectUrl 微软 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getMicrosoftAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(MICROSOFT_AUTHORIZE_PATTERN, ApiUrl.MICROSOFT.authorize(), clientId, redirectUrl, System
+                .currentTimeMillis());
+    }
+
+    /**
+     * 获取微软 token的接口地址
+     *
+     * @param clientId     微软 应用的Client ID
+     * @param clientSecret 微软 应用的Client Secret
+     * @param redirectUrl  微软 应用授权成功后的回调地址
+     * @param code         微软 授权前的code，用来换token
+     * @return full url
+     */
+    public static String getMicrosoftAccessTokenUrl(String clientId, String clientSecret,String redirectUrl, String code) {
+        return MessageFormat.format(MICROSOFT_ACCESS_TOKEN_PATTERN, ApiUrl.MICROSOFT.accessToken(), clientId, clientSecret, redirectUrl, code);
+    }
+
+    /**
+     * 获取微软用户详情的接口地址
+     *
+     * @return full url
+     */
+    public static String getMicrosoftUserInfoUrl() {
+        return MessageFormat.format(MICROSOFT_USER_INFO_PATTERN, ApiUrl.MICROSOFT.userInfo());
+    }
+
+    /**
+     * 获取微软 刷新令牌 地址
+     *
+     * @param clientId     微软应用的client_key
+     * @param clientSecret 微软 应用的Client Secret
+     * @param redirectUrl  微软 应用授权成功后的回调地址
+     * @param refreshToken 微软应用返回的refresh_token
+     * @return full url
+     */
+    public static String getMicrosoftRefreshUrl(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
+        return MessageFormat.format(MICROSOFT_REFRESH_TOKEN_PATTERN, ApiUrl.MICROSOFT.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
     }
 }
