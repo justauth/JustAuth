@@ -77,12 +77,27 @@ public class UrlBuilder {
     private static final String DOUYIN_USER_INFO_PATTERN = "{0}?access_token={1}&open_id={2}";
     private static final String DOUYIN_REFRESH_TOKEN_PATTERN = "{0}?client_key={1}&refresh_token={2}&grant_type=refresh_token";
 
+    private static final String LINKEDIN_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}&response_type=code&scope=r_liteprofile%20r_emailaddress%20w_member_social";
+    private static final String LINKEDIN_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
+    private static final String LINKEDIN_USER_INFO_PATTERN = "{0}?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))";
+    private static final String LINKEDIN_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&refresh_token={3}&grant_type=refresh_token";
+
+    private static final String MICROSOFT_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&response_mode=query&scope=offline_access%20user.read%20mail.read&state={3}";
+    private static final String MICROSOFT_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&code={4}&grant_type=authorization_code";
+    private static final String MICROSOFT_USER_INFO_PATTERN = "{0}";
+    private static final String MICROSOFT_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
+
+    private static final String MI_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&response_type=code&scope=user/profile%20user/openIdV2%20user/phoneAndEmail&state={3}&skip_confirm=false";
+    private static final String MI_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&code={4}&grant_type=authorization_code";
+    private static final String MI_USER_INFO_PATTERN = "{0}?clientId={1}&token={2}";
+    private static final String MI_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
+
     /**
      * 获取githubtoken的接口地址
      *
-     * @param clientId     github应用的Client ID
-     * @param clientSecret github应用的Client Secret
-     * @param code         github授权前的code，用来换token
+     * @param clientId     github 应用的Client ID
+     * @param clientSecret github 应用的Client Secret
+     * @param code         github 授权前的code，用来换token
      * @param redirectUri  待跳转的页面
      * @return full url
      */
@@ -114,9 +129,9 @@ public class UrlBuilder {
     /**
      * 获取weibo token的接口地址
      *
-     * @param clientId     weibo应用的App Key
-     * @param clientSecret weibo应用的App Secret
-     * @param code         weibo授权前的code，用来换token
+     * @param clientId     weibo 应用的App Key
+     * @param clientSecret weibo 应用的App Secret
+     * @param code         weibo 授权前的code，用来换token
      * @param redirectUri  待跳转的页面
      * @return full url
      */
@@ -148,9 +163,9 @@ public class UrlBuilder {
     /**
      * 获取gitee token的接口地址
      *
-     * @param clientId     gitee应用的Client ID
-     * @param clientSecret gitee应用的Client Secret
-     * @param code         gitee授权前的code，用来换token
+     * @param clientId     gitee 应用的Client ID
+     * @param clientSecret gitee 应用的Client Secret
+     * @param code         gitee 授权前的code，用来换token
      * @param redirectUri  待跳转的页面
      * @return full url
      */
@@ -205,9 +220,9 @@ public class UrlBuilder {
     /**
      * 获取baidu token的接口地址
      *
-     * @param clientId     baidu应用的API Key
-     * @param clientSecret baidu应用的Secret Key
-     * @param code         baidu授权前的code，用来换token
+     * @param clientId     baidu 应用的API Key
+     * @param clientSecret baidu 应用的Secret Key
+     * @param code         baidu 授权前的code，用来换token
      * @param redirectUri  待跳转的页面
      * @return full url
      */
@@ -239,7 +254,7 @@ public class UrlBuilder {
     /**
      * 获取收回baidu授权的地址
      *
-     * @param accessToken baidu授权登录后的token
+     * @param accessToken baidu 授权登录后的token
      * @return json
      */
     public static String getBaiduRevokeUrl(String accessToken) {
@@ -249,9 +264,9 @@ public class UrlBuilder {
     /**
      * 获取csdn token的接口地址
      *
-     * @param clientId     csdn应用的App Key
-     * @param clientSecret csdn应用的App Secret
-     * @param code         csdn授权前的code，用来换token
+     * @param clientId     csdn 应用的App Key
+     * @param clientSecret csdn 应用的App Secret
+     * @param code         csdn 授权前的code，用来换token
      * @param redirectUri  待跳转的页面
      * @return full url
      */
@@ -283,9 +298,9 @@ public class UrlBuilder {
     /**
      * 获取coding token的接口地址
      *
-     * @param clientId     coding应用的App Key
-     * @param clientSecret coding应用的App Secret
-     * @param code         coding授权前的code，用来换token
+     * @param clientId     coding 应用的App Key
+     * @param clientSecret coding 应用的App Secret
+     * @param code         coding 授权前的code，用来换token
      * @return full url
      */
     public static String getCodingAccessTokenUrl(String clientId, String clientSecret, String code) {
@@ -316,9 +331,9 @@ public class UrlBuilder {
     /**
      * 获取腾讯云开发者平台 token的接口地址
      *
-     * @param clientId     coding应用的App Key
-     * @param clientSecret coding应用的App Secret
-     * @param code         coding授权前的code，用来换token
+     * @param clientId     coding 应用的App Key
+     * @param clientSecret coding 应用的App Secret
+     * @param code         coding 授权前的code，用来换token
      * @return full url
      */
     public static String getTencentCloudAccessTokenUrl(String clientId, String clientSecret, String code) {
@@ -349,9 +364,9 @@ public class UrlBuilder {
     /**
      * 获取oschina token的接口地址
      *
-     * @param clientId     oschina应用的App Key
-     * @param clientSecret oschina应用的App Secret
-     * @param code         oschina授权前的code，用来换token
+     * @param clientId     oschina 应用的App Key
+     * @param clientSecret oschina 应用的App Secret
+     * @param code         oschina 授权前的code，用来换token
      * @param redirectUri  待跳转的页面
      * @return full url
      */
@@ -383,9 +398,9 @@ public class UrlBuilder {
     /**
      * 获取qq token的接口地址
      *
-     * @param clientId     qq应用的App Key
-     * @param clientSecret qq应用的App Secret
-     * @param code         qq授权前的code，用来换token
+     * @param clientId     qq 应用的App Key
+     * @param clientSecret qq 应用的App Secret
+     * @param code         qq 授权前的code，用来换token
      * @param redirectUri  待跳转的页面
      * @return full url
      */
@@ -440,8 +455,8 @@ public class UrlBuilder {
     /**
      * 获取微信 授权地址
      *
-     * @param clientId    微信应用的appid
-     * @param redirectUrl 微信应用授权成功后的回调地址
+     * @param clientId    微信 应用的appid
+     * @param redirectUrl 微信 应用授权成功后的回调地址
      * @return full url
      */
     public static String getWeChatAuthorizeUrl(String clientId, String redirectUrl) {
@@ -451,9 +466,9 @@ public class UrlBuilder {
     /**
      * 获取微信 token的接口地址
      *
-     * @param clientId     微信应用的appid
-     * @param clientSecret 微信应用的secret
-     * @param code         微信授权前的code，用来换token
+     * @param clientId     微信 应用的appid
+     * @param clientSecret 微信 应用的secret
+     * @param code         微信 授权前的code，用来换token
      * @return full url
      */
     public static String getWeChatAccessTokenUrl(String clientId, String clientSecret, String code) {
@@ -463,8 +478,8 @@ public class UrlBuilder {
     /**
      * 获取微信 用户详情的接口地址
      *
-     * @param token  微信应用返回的 access token
-     * @param openId 微信应用返回的openId
+     * @param token  微信 应用返回的 access token
+     * @param openId 微信 应用返回的openId
      * @return full url
      */
     public static String getWeChatUserInfoUrl(String token, String openId) {
@@ -474,8 +489,8 @@ public class UrlBuilder {
     /**
      * 获取微信 刷新令牌 地址
      *
-     * @param clientId     微信应用的appid
-     * @param refreshToken 微信应用返回的刷新token
+     * @param clientId     微信 应用的appid
+     * @param refreshToken 微信 应用返回的刷新token
      * @return full url
      */
     public static String getWeChatRefreshUrl(String clientId, String refreshToken) {
@@ -485,9 +500,9 @@ public class UrlBuilder {
     /**
      * 获取Taobao token的接口地址: 淘宝的授权登录，在这一步就会返回用户信息
      *
-     * @param clientId     taobao应用的App Key
-     * @param clientSecret taobao应用的App Secret
-     * @param code         taobao授权前的code，用来换token
+     * @param clientId     taobao 应用的App Key
+     * @param clientSecret taobao 应用的App Secret
+     * @param code         taobao 授权前的code，用来换token
      * @param redirectUri  待跳转的页面
      * @return full url
      */
@@ -520,9 +535,9 @@ public class UrlBuilder {
     /**
      * 获取Google token的接口地址
      *
-     * @param clientId     google应用的Client ID
-     * @param clientSecret google应用的Client Secret
-     * @param code         google授权前的code，用来换token
+     * @param clientId     google 应用的Client ID
+     * @param clientSecret google 应用的Client Secret
+     * @param code         google 授权前的code，用来换token
      * @param redirectUri  待跳转的页面
      * @return full url
      */
@@ -612,18 +627,13 @@ public class UrlBuilder {
     /**
      * 获取Douyin 刷新令牌 地址
      *
-     * @param clientId     Douyin应用的client_key
-     * @param refreshToken Douyin应用返回的refresh_token
+     * @param clientId     Douyin 应用的client_key
+     * @param refreshToken Douyin 应用返回的refresh_token
      * @return full url
      */
     public static String getDouyinRefreshUrl(String clientId, String refreshToken) {
         return MessageFormat.format(DOUYIN_REFRESH_TOKEN_PATTERN, ApiUrl.DOUYIN.refresh(), clientId, refreshToken);
     }
-
-    private static final String LINKEDIN_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}&response_type=code&scope=r_liteprofile%20r_emailaddress%20w_member_social";
-    private static final String LINKEDIN_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
-    private static final String LINKEDIN_USER_INFO_PATTERN = "{0}?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))";
-    private static final String LINKEDIN_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&refresh_token={3}&grant_type=refresh_token";
 
     /**
      * 获取Linkedin授权地址
@@ -643,7 +653,7 @@ public class UrlBuilder {
      * @param clientId     Linkedin 应用的Client ID
      * @param clientSecret Linkedin 应用的Client Secret
      * @param code         Linkedin 授权前的code，用来换token
-     * @param redirectUrl  google 应用授权成功后的回调地址
+     * @param redirectUrl  Linkedin 应用授权成功后的回调地址
      * @return full url
      */
     public static String getLinkedinAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUrl) {
@@ -662,19 +672,14 @@ public class UrlBuilder {
     /**
      * 获取Linkedin 刷新令牌 地址
      *
-     * @param clientId     Linkedin应用的client_key
+     * @param clientId     Linkedin 应用的client_key
      * @param clientSecret Linkedin 应用的Client Secret
-     * @param refreshToken Linkedin应用返回的refresh_token
+     * @param refreshToken Linkedin 应用返回的refresh_token
      * @return full url
      */
     public static String getLinkedinRefreshUrl(String clientId, String clientSecret, String refreshToken) {
         return MessageFormat.format(LINKEDIN_REFRESH_TOKEN_PATTERN, ApiUrl.LINKEDIN.refresh(), clientId, clientSecret, refreshToken);
     }
-
-    private static final String MICROSOFT_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&response_mode=query&scope=offline_access%20user.read%20mail.read&state={3}";
-    private static final String MICROSOFT_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&code={4}&grant_type=authorization_code";
-    private static final String MICROSOFT_USER_INFO_PATTERN = "{0}";
-    private static final String MICROSOFT_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
 
     /**
      * 获取微软授权地址
@@ -713,20 +718,15 @@ public class UrlBuilder {
     /**
      * 获取微软 刷新令牌 地址
      *
-     * @param clientId     微软应用的client_key
+     * @param clientId     微软 应用的client_key
      * @param clientSecret 微软 应用的Client Secret
      * @param redirectUrl  微软 应用授权成功后的回调地址
-     * @param refreshToken 微软应用返回的refresh_token
+     * @param refreshToken 微软 应用返回的refresh_token
      * @return full url
      */
     public static String getMicrosoftRefreshUrl(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
         return MessageFormat.format(MICROSOFT_REFRESH_TOKEN_PATTERN, ApiUrl.MICROSOFT.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
     }
-
-    private static final String MI_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&response_type=code&scope=user/profile%20user/openIdV2%20user/phoneAndEmail&state={3}&skip_confirm=false";
-    private static final String MI_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&code={4}&grant_type=authorization_code";
-    private static final String MI_USER_INFO_PATTERN = "{0}?clientId={1}&token={2}";
-    private static final String MI_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
 
     /**
      * 获取小米授权地址
