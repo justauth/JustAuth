@@ -70,6 +70,7 @@ public class AuthorizationFactory {
         AuthorizationFactory.register(AuthSource.DOUYIN, new DouyinAuthorization());
         AuthorizationFactory.register(AuthSource.LINKEDIN, new LinkedinAuthorization());
         AuthorizationFactory.register(AuthSource.MICROSOFT, new MicrosoftAuthorization());
+        AuthorizationFactory.register(AuthSource.MI, new MiAuthorization());
         loader = true;
     }
 

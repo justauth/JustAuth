@@ -532,6 +532,35 @@ public enum ApiUrl {
         public String refresh() {
             return "https://login.microsoftonline.com/common/oauth2/v2.0/token";
         }
+    },
+    /**
+     * 小米
+     */
+    MI {
+        @Override
+        public String authorize() {
+            return "https://account.xiaomi.com/oauth2/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://account.xiaomi.com/oauth2/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://open.account.xiaomi.com/user/profile";
+        }
+
+        @Override
+        public String revoke() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String refresh() {
+            return "https://account.xiaomi.com/oauth2/token";
+        }
     };
 
     /**
