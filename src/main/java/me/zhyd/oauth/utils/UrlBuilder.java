@@ -411,8 +411,9 @@ public class UrlBuilder {
     /**
      * 获取qq用户详情的接口地址
      *
-     * @param token  qq 应用的token
-     * @param openId qq 应用的openId
+     * @param clientId qq 应用的clientId
+     * @param token    qq 应用的token
+     * @param openId   qq 应用的openId
      * @return full url
      */
     public static String getQqUserInfoUrl(String clientId, String token, String openId) {
