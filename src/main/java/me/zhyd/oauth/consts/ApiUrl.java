@@ -561,6 +561,35 @@ public enum ApiUrl {
         public String refresh() {
             return "https://account.xiaomi.com/oauth2/token";
         }
+    },
+    /**
+     * 今日头条
+     */
+    TOUTIAO {
+        @Override
+        public String authorize() {
+            return "https://open.snssdk.com/auth/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://open.snssdk.com/auth/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://open.snssdk.com/data/user_profile";
+        }
+
+        @Override
+        public String revoke() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public String refresh() {
+            throw new AuthException(ResponseStatus.UNSUPPORTED);
+        }
     };
 
     /**

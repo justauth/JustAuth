@@ -71,6 +71,7 @@ public class AuthorizationFactory {
         AuthorizationFactory.register(AuthSource.LINKEDIN, new LinkedinAuthorization());
         AuthorizationFactory.register(AuthSource.MICROSOFT, new MicrosoftAuthorization());
         AuthorizationFactory.register(AuthSource.MI, new MiAuthorization());
+        AuthorizationFactory.register(AuthSource.TOUTIAO, new ToutiaoAuthorization());
         loader = true;
     }
 

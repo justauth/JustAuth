@@ -26,5 +26,6 @@ public enum AuthSource {
     DOUYIN,
     LINKEDIN,
     MICROSOFT,
-    MI
+    MI,
+    TOUTIAO
 }

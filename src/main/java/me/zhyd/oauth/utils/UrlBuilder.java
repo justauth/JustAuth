@@ -92,6 +92,10 @@ public class UrlBuilder {
     private static final String MI_USER_INFO_PATTERN = "{0}?clientId={1}&token={2}";
     private static final String MI_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
 
+    private static final String TOUTIAO_ACCESS_TOKEN_PATTERN = "{0}?client_key={1}&client_secret={2}&code={3}&grant_type=authorize_code";
+    private static final String TOUTIAO_USER_INFO_PATTERN = "{0}?client_key={1}&access_token={2}";
+    private static final String TOUTIAO_AUTHORIZE_PATTERN = "{0}?client_key={1}&redirect_uri={2}&state={3}&response_type=code&auth_only=1&display=0";
+
     /**
      * 获取githubtoken的接口地址
      *
@@ -775,5 +779,39 @@ public class UrlBuilder {
      */
     public static String getMiRefreshUrl(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
         return MessageFormat.format(MI_REFRESH_TOKEN_PATTERN, ApiUrl.MI.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
+    }
+
+    /**
+     * 获取今日头条授权地址
+     *
+     * @param clientId    今日头条 应用的Client ID
+     * @param redirectUrl 今日头条 应用授权成功后的回调地址
+     * @return full url
+     */
+    public static String getToutiaoAuthorizeUrl(String clientId, String redirectUrl) {
+        return MessageFormat.format(TOUTIAO_AUTHORIZE_PATTERN, ApiUrl.TOUTIAO.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+    }
+
+    /**
+     * 获取今日头条 token的接口地址
+     *
+     * @param clientId     今日头条 应用的Client ID
+     * @param clientSecret 今日头条 应用的Client Secret
+     * @param code         今日头条 授权前的code，用来换token
+     * @return full url
+     */
+    public static String getToutiaoAccessTokenUrl(String clientId, String clientSecret, String code) {
+        return MessageFormat.format(TOUTIAO_ACCESS_TOKEN_PATTERN, ApiUrl.TOUTIAO.accessToken(), clientId, clientSecret, code);
+    }
+
+    /**
+     * 获取今日头条用户详情的接口地址
+     *
+     * @param clientId 今日头条 应用的client_key
+     * @param token    token
+     * @return full url
+     */
+    public static String getToutiaoUserInfoUrl(String clientId, String token) {
+        return MessageFormat.format(TOUTIAO_USER_INFO_PATTERN, ApiUrl.TOUTIAO.userInfo(), clientId, token);
     }
 }
