@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.zhyd.oauth</groupId>
-    <artifactId>JustAuth-beta</artifactId>
-    <version>1.6.0</version>
+    <artifactId>JustAuth</artifactId>
+    <version>1.6.0-beta</version>
 
     <name>JustAuth</name>
     <url>https://gitee.com/yadong.zhang/JustAuth</url>
