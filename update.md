@@ -1,3 +1,7 @@
+### 2019/06/18
+1. 解决Issue [#IY2HW](https://gitee.com/yadong.zhang/JustAuth/issues/IY2HW)
+1. 解决Issue [#IY2OH](https://gitee.com/yadong.zhang/JustAuth/issues/IY2OH)
+
 ### 2019/06/06
 1. 增加今日头条的授权登陆
 2. 发布1.6.0-beta版本，今日头条开发者暂时不能认证， 所以无法做测试，等测试通过后，正式发布release版本

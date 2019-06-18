@@ -67,14 +67,17 @@ public class AuthAlipayRequest extends BaseAuthRequest {
         if (!response.isSuccess()) {
             throw new AuthException(response.getSubMsg());
         }
+
         String province = response.getProvince(),
                 city = response.getCity();
+        String location = String.format("%s %s", StringUtils.isEmpty(province) ? "" : province, StringUtils.isEmpty(city) ? "" : city);
+
         return AuthUser.builder()
                 .uuid(response.getUserId())
                 .username(StringUtils.isEmpty(response.getUserName()) ? response.getNickName() : response.getUserName())
                 .nickname(response.getNickName())
                 .avatar(response.getAvatar())
-                .location(String.format("%s %s", StringUtils.isEmpty(province) ? "" : province, StringUtils.isEmpty(city) ? "" : city))
+                .location(location)
                 .gender(AuthUserGender.getRealGender(response.getGender()))
                 .token(authToken)
                 .source(AuthSource.ALIPAY)

@@ -42,11 +42,12 @@ public class AuthWeChatRequest extends BaseAuthRequest {
 
         this.checkResponse(object);
 
+        String location = String.format("%s-%s-%s", object.getString("country"), object.getString("province"), object.getString("city"));
         return AuthUser.builder()
                 .username(object.getString("nickname"))
                 .nickname(object.getString("nickname"))
                 .avatar(object.getString("headimgurl"))
-                .location(object.getString("country") + "-" + object.getString("province") + "-" + object.getString("city"))
+                .location(location)
                 .uuid(openId)
                 .gender(AuthUserGender.getRealGender(object.getString("sex")))
                 .token(authToken)
@@ -73,6 +74,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
             throw new AuthException(object.getIntValue("errcode"), object.getString("errmsg"));
         }
     }
+
     /**
      * 获取token，适用于获取access_token和刷新token
      *

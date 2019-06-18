@@ -59,11 +59,13 @@ public class AuthQqRequest extends BaseAuthRequest {
         if (StringUtils.isEmpty(avatar)) {
             avatar = object.getString("figureurl_qq_1");
         }
+
+        String location = String.format("%s-%s", object.getString("province"), object.getString("city"));
         return AuthUser.builder()
                 .username(object.getString("nickname"))
                 .nickname(object.getString("nickname"))
                 .avatar(avatar)
-                .location(object.getString("province") + "-" + object.getString("city"))
+                .location(location)
                 .uuid(openId)
                 .gender(AuthUserGender.getRealGender(object.getString("gender")))
                 .token(authToken)
