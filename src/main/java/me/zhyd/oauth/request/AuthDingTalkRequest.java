@@ -51,11 +51,15 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
             throw new AuthException(errorCode.getDesc());
         }
         object = object.getJSONObject("user_info");
+        AuthToken token = AuthToken.builder()
+                .openId(object.getString("openid"))
+                .build();
         return AuthUser.builder()
-                .uuid(object.getString("openid"))
+                .uuid(object.getString("unionid"))
                 .nickname(object.getString("nick"))
                 .username(object.getString("nick"))
                 .source(AuthSource.DINGTALK)
+                .token(token)
                 .build();
     }
 }
