@@ -50,6 +50,7 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
         object = object.getJSONObject("user_info");
         AuthToken token = AuthToken.builder()
                 .openId(object.getString("openid"))
+                .unionId(object.getString("unionid"))
                 .build();
         return AuthUser.builder()
                 .uuid(object.getString("unionid"))
