@@ -48,7 +48,7 @@ public class AuthQqRequest extends BaseAuthRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
-        String openId = this.getOpenId(accessToken);
+        String openId = this.getOpenId(authToken);
         HttpResponse response = HttpRequest.get(UrlBuilder.getQqUserInfoUrl(config.getClientId(), accessToken, openId))
                 .execute();
         JSONObject object = JSONObject.parseObject(response.body());
@@ -73,7 +73,8 @@ public class AuthQqRequest extends BaseAuthRequest {
                 .build();
     }
 
-    private String getOpenId(String accessToken) {
+    private String getOpenId(AuthToken authToken) {
+        String accessToken = authToken.getAccessToken();
         HttpResponse response = HttpRequest.get(UrlBuilder.getQqOpenidUrl("https://graph.qq.com/oauth2.0/me", accessToken))
                 .execute();
         if (response.isOk()) {
@@ -82,10 +83,12 @@ public class AuthQqRequest extends BaseAuthRequest {
             String removeSuffix = StrUtil.replace(removePrefix, ");", "");
             String openId = StrUtil.trim(removeSuffix);
             JSONObject object = JSONObject.parseObject(openId);
-            if (object.containsKey("openid")) {
-                return object.getString("openid");
+            if (object.containsKey("error")) {
+                throw new AuthException(object.get("error") + ":" + object.get("error_description"));
             }
-            throw new AuthException("Invalid openId");
+            authToken.setOpenId(object.getString("openid"));
+            authToken.setUnionId(object.getString("unionid"));
+            return authToken.getOpenId();
         }
         throw new AuthException("Invalid openId");
     }
