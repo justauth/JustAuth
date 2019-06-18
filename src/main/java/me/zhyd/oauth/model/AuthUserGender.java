@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @since 1.8
  */
 public enum AuthUserGender {
-    MALE(1, "男"), FEMALE(0, "女"), UNKNOW(-1, "");
+    MALE(1, "男"), FEMALE(0, "女"), UNKNOW(-1, "未知");
     private int code;
     private String desc;
 

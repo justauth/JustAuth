@@ -6,10 +6,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthSource;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -81,6 +78,7 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
                 .avatar(avatar)
                 .email(email)
                 .token(authToken)
+                .gender(AuthUserGender.UNKNOW)
                 .source(AuthSource.LINKEDIN)
                 .build();
     }

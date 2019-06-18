@@ -6,10 +6,7 @@ import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthSource;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.HashMap;
@@ -85,6 +82,7 @@ public class AuthMicrosoftRequest extends BaseAuthRequest {
                 .nickname(object.getString("displayName"))
                 .location(object.getString("officeLocation"))
                 .email(object.getString("mail"))
+                .gender(AuthUserGender.UNKNOW)
                 .token(authToken)
                 .source(AuthSource.MICROSOFT)
                 .build();
