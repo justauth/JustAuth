@@ -4,6 +4,7 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -63,5 +64,15 @@ public class AuthToutiaoRequest extends BaseAuthRequest {
                 .token(authToken)
                 .source(AuthSource.TOUTIAO)
                 .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.getToutiaoAuthorizeUrl(config.getClientId(), config.getRedirectUri());
     }
 }

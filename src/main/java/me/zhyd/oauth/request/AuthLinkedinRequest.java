@@ -5,9 +5,9 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.StringUtils;
@@ -29,7 +29,8 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(String code) {
-        String accessTokenUrl = UrlBuilder.getLinkedinAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
+        String accessTokenUrl = UrlBuilder.getLinkedinAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config
+                .getRedirectUri());
         return this.getToken(accessTokenUrl);
     }
 
@@ -65,7 +66,8 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
         String avatar = null;
         JSONObject profilePictureObject = userInfoObject.getJSONObject("profilePicture");
         if (profilePictureObject.containsKey("displayImage~")) {
-            JSONArray displayImageElements = profilePictureObject.getJSONObject("displayImage~").getJSONArray("elements");
+            JSONArray displayImageElements = profilePictureObject.getJSONObject("displayImage~")
+                    .getJSONArray("elements");
             if (null != displayImageElements && displayImageElements.size() > 0) {
                 JSONObject largestImageObj = displayImageElements.getJSONObject(displayImageElements.size() - 1);
                 avatar = largestImageObj.getJSONArray("identifiers").getJSONObject(0).getString("identifier");
@@ -85,6 +87,16 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
                 .build();
     }
 
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.getLinkedinAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+    }
+
     private String getUserEmail(String accessToken) {
         String email = null;
         HttpResponse emailResponse = HttpRequest.get("https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))")
@@ -95,7 +107,10 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
         System.out.println(emailResponse.body());
         JSONObject emailObj = JSONObject.parseObject(emailResponse.body());
         if (emailObj.containsKey("elements")) {
-            email = emailObj.getJSONArray("elements").getJSONObject(0).getJSONObject("handle~").getString("emailAddress");
+            email = emailObj.getJSONArray("elements")
+                    .getJSONObject(0)
+                    .getJSONObject("handle~")
+                    .getString("emailAddress");
         }
         return email;
     }
@@ -114,7 +129,8 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
         if (StringUtils.isEmpty(oldToken.getRefreshToken())) {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
-        String refreshTokenUrl = UrlBuilder.getLinkedinRefreshUrl(config.getClientId(), config.getClientSecret(), oldToken.getRefreshToken());
+        String refreshTokenUrl = UrlBuilder.getLinkedinRefreshUrl(config.getClientId(), config.getClientSecret(), oldToken
+                .getRefreshToken());
         return AuthResponse.builder()
                 .code(ResponseStatus.SUCCESS.getCode())
                 .data(this.getToken(refreshTokenUrl))

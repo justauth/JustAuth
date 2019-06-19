@@ -5,9 +5,9 @@ import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -88,6 +88,16 @@ public class AuthMicrosoftRequest extends BaseAuthRequest {
                 .token(authToken)
                 .source(AuthSource.MICROSOFT)
                 .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.getMicrosoftAuthorizeUrl(config.getClientId(), config.getRedirectUri());
     }
 
     /**

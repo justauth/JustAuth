@@ -8,13 +8,13 @@ import com.alipay.api.request.AlipayUserInfoShareRequest;
 import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.alipay.api.response.AlipayUserInfoShareResponse;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.consts.ApiUrl;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.StringUtils;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * 支付宝登录
@@ -29,7 +29,8 @@ public class AuthAlipayRequest extends BaseAuthRequest {
 
     public AuthAlipayRequest(AuthConfig config) {
         super(config, AuthSource.ALIPAY);
-        this.alipayClient = new DefaultAlipayClient(ApiUrl.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config.getAlipayPublicKey(), "RSA2");
+        this.alipayClient = new DefaultAlipayClient(AuthSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
+                .getAlipayPublicKey(), "RSA2");
     }
 
     @Override
@@ -67,8 +68,7 @@ public class AuthAlipayRequest extends BaseAuthRequest {
         if (!response.isSuccess()) {
             throw new AuthException(response.getSubMsg());
         }
-        String province = response.getProvince(),
-                city = response.getCity();
+        String province = response.getProvince(), city = response.getCity();
         return AuthUser.builder()
                 .uuid(response.getUserId())
                 .username(StringUtils.isEmpty(response.getUserName()) ? response.getNickName() : response.getUserName())
@@ -79,5 +79,15 @@ public class AuthAlipayRequest extends BaseAuthRequest {
                 .token(authToken)
                 .source(AuthSource.ALIPAY)
                 .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.getAlipayAuthorizeUrl(config.getClientId(), config.getRedirectUri());
     }
 }

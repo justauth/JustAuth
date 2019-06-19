@@ -1,11 +1,10 @@
 package me.zhyd.oauth.request;
 
 import lombok.Data;
-import me.zhyd.oauth.authorization.AuthorizationFactory;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.AuthConfigChecker;
@@ -51,8 +50,11 @@ public abstract class BaseAuthRequest implements AuthRequest {
         return AuthResponse.builder().code(errorCode).msg(e.getMessage()).build();
     }
 
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
     @Override
-    public String authorize() {
-        return AuthorizationFactory.getAuthorize(source).getAuthorizeUrl(config);
-    }
+    public abstract String authorize();
 }

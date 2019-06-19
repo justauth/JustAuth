@@ -4,8 +4,12 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.*;
+import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.model.AuthToken;
+import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -54,6 +58,16 @@ public class AuthWeChatRequest extends BaseAuthRequest {
                 .build();
     }
 
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.getWeChatAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+    }
+
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
         String refreshTokenUrl = UrlBuilder.getWeChatRefreshUrl(config.getClientId(), oldToken.getRefreshToken());
@@ -73,6 +87,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
             throw new AuthException(object.getIntValue("errcode"), object.getString("errmsg"));
         }
     }
+
     /**
      * 获取token，适用于获取access_token和刷新token
      *

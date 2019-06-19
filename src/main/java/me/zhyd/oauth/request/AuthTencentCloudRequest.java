@@ -4,8 +4,8 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
@@ -32,9 +32,7 @@ public class AuthTencentCloudRequest extends BaseAuthRequest {
         if (object.getIntValue("code") != 0) {
             throw new AuthException("Unable to get token from tencent cloud using code [" + code + "]: " + object.get("msg"));
         }
-        return AuthToken.builder()
-                .accessToken(object.getString("access_token"))
-                .build();
+        return AuthToken.builder().accessToken(object.getString("access_token")).build();
     }
 
     @Override
@@ -60,5 +58,15 @@ public class AuthTencentCloudRequest extends BaseAuthRequest {
                 .token(authToken)
                 .source(AuthSource.TENCENT_CLOUD)
                 .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.getTencentCloudAuthorizeUrl(config.getClientId(), config.getRedirectUri());
     }
 }

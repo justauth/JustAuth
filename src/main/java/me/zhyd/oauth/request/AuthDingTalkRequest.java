@@ -4,9 +4,9 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthDingTalkErrorCode;
-import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
@@ -29,9 +29,7 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(String code) {
-        return AuthToken.builder()
-                .accessCode(code)
-                .build();
+        return AuthToken.builder().accessCode(code).build();
     }
 
     @Override
@@ -40,9 +38,8 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
         // 根据timestamp, appSecret计算签名值
         String stringToSign = System.currentTimeMillis() + "";
         String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), stringToSign);
-        HttpResponse response = HttpRequest.post(UrlBuilder.getDingTalkUserInfoUrl(urlEncodeSignature, stringToSign, config.getClientId()))
-                .body(Objects.requireNonNull(new JSONObject().put("tmp_auth_code", code)))
-                .execute();
+        HttpResponse response = HttpRequest.post(UrlBuilder.getDingTalkUserInfoUrl(urlEncodeSignature, stringToSign, config
+                .getClientId())).body(Objects.requireNonNull(new JSONObject().put("tmp_auth_code", code))).execute();
         String userInfo = response.body();
         JSONObject object = new JSONObject(userInfo);
         AuthDingTalkErrorCode errorCode = AuthDingTalkErrorCode.getErrorCode(object.getInt("errcode"));
@@ -56,5 +53,15 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
                 .username(object.getStr("nick"))
                 .source(AuthSource.DINGTALK)
                 .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.getDingTalkQrConnectUrl(config.getClientId(), config.getRedirectUri());
     }
 }

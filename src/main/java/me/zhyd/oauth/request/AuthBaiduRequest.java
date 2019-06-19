@@ -3,8 +3,8 @@ package me.zhyd.oauth.request;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
-import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -24,16 +24,15 @@ public class AuthBaiduRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(String code) {
-        String accessTokenUrl = UrlBuilder.getBaiduAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
+        String accessTokenUrl = UrlBuilder.getBaiduAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config
+                .getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         AuthBaiduErrorCode errorCode = AuthBaiduErrorCode.getErrorCode(accessTokenObject.getString("error"));
         if (!AuthBaiduErrorCode.OK.equals(errorCode)) {
             throw new AuthException(errorCode.getDesc());
         }
-        return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .build();
+        return AuthToken.builder().accessToken(accessTokenObject.getString("access_token")).build();
     }
 
     @Override
@@ -56,13 +55,23 @@ public class AuthBaiduRequest extends BaseAuthRequest {
                 .build();
     }
 
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.getBaiduAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+    }
+
     @Override
     public AuthResponse revoke(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         HttpResponse response = HttpRequest.get(UrlBuilder.getBaiduRevokeUrl(accessToken)).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
-        if(object.containsKey("error_code")) {
+        if (object.containsKey("error_code")) {
             return AuthResponse.builder()
                     .code(ResponseStatus.FAILURE.getCode())
                     .msg(object.getString("error_msg"))
