@@ -88,7 +88,7 @@ public class AuthQqRequest extends BaseAuthRequest {
             }
             authToken.setOpenId(object.getString("openid"));
             authToken.setUnionId(object.getString("unionid"));
-            return authToken.getOpenId();
+            return StringUtils.isEmpty(authToken.getUnionId()) ? authToken.getOpenId() : authToken.getUnionId();
         }
 
         throw new AuthException("request error");
