@@ -48,8 +48,15 @@ public class AuthQqRequest extends BaseAuthRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
-        String openId = this.getOpenId(accessToken);
-        HttpResponse response = HttpRequest.get(UrlBuilder.getQqUserInfoUrl(config.getClientId(), accessToken, openId))
+        String openIdStr = this.getOpenId(accessToken);
+        String[] openIdArr = openIdStr.split("\\|");
+        authToken.setOpenId(openIdArr[0]);
+        String uuid = authToken.getOpenId();
+        if (openIdArr.length == 2) {
+            uuid = openIdArr[1];
+        }
+
+        HttpResponse response = HttpRequest.get(UrlBuilder.getQqUserInfoUrl(config.getClientId(), accessToken, authToken.getOpenId()))
                 .execute();
         JSONObject object = JSONObject.parseObject(response.body());
         if (object.getIntValue("ret") != 0) {
@@ -64,7 +71,7 @@ public class AuthQqRequest extends BaseAuthRequest {
                 .nickname(object.getString("nickname"))
                 .avatar(avatar)
                 .location(object.getString("province") + "-" + object.getString("city"))
-                .uuid(openId)
+                .uuid(uuid)
                 .gender(AuthUserGender.getRealGender(object.getString("gender")))
                 .token(authToken)
                 .source(AuthSource.QQ)
@@ -78,13 +85,21 @@ public class AuthQqRequest extends BaseAuthRequest {
             String body = response.body();
             String removePrefix = StrUtil.replace(body, "callback(", "");
             String removeSuffix = StrUtil.replace(removePrefix, ");", "");
-            String openId = StrUtil.trim(removeSuffix);
-            JSONObject object = JSONObject.parseObject(openId);
+            String jsonStr = StrUtil.trim(removeSuffix);
+            JSONObject object = JSONObject.parseObject(jsonStr);
+            StringBuffer sb = new StringBuffer();
             if (object.containsKey("openid")) {
-                return object.getString("openid");
+                sb.append(object.getString("openid"));
+                sb.append("|");
+            } else {
+                throw new AuthException("Invalid openId");
             }
-            throw new AuthException("Invalid openId");
+            if (object.containsKey("unionid")) {
+                sb.append(object.getString("unionid"));
+            }
+            return sb.toString();
         }
-        throw new AuthException("Invalid openId");
+
+        throw new AuthException("request error");
     }
 }
