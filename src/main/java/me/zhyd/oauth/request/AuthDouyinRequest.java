@@ -32,16 +32,18 @@ public class AuthDouyinRequest extends BaseAuthRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         String openId = authToken.getOpenId();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getDouyinUserInfoUrl(accessToken, openId)).execute();
+        String url = UrlBuilder.getDouyinUserInfoUrl(accessToken, openId);
+        HttpResponse response = HttpRequest.get(url).execute();
         JSONObject object = JSONObject.parseObject(response.body());
 
         JSONObject userInfoObject = this.checkResponse(object);
 
         return AuthUser.builder()
-                .uuid(userInfoObject.getString("open_id"))
+                .uuid(userInfoObject.getString("union_id"))
                 .username(userInfoObject.getString("nickname"))
                 .nickname(userInfoObject.getString("nickname"))
                 .avatar(userInfoObject.getString("avatar"))
+                .remark(userInfoObject.getString("description"))
                 .gender(AuthUserGender.UNKNOW)
                 .token(authToken)
                 .source(AuthSource.DOUYIN)

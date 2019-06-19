@@ -36,9 +36,10 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
         // 根据timestamp, appSecret计算签名值
         String stringToSign = System.currentTimeMillis() + "";
         String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), stringToSign);
+        String url = UrlBuilder.getDingTalkUserInfoUrl(urlEncodeSignature, stringToSign, config.getClientId());
         JSONObject param = new JSONObject();
         param.put("tmp_auth_code", code);
-        HttpResponse response = HttpRequest.post(UrlBuilder.getDingTalkUserInfoUrl(urlEncodeSignature, stringToSign, config.getClientId()))
+        HttpResponse response = HttpRequest.post(url)
                 .body(param.toJSONString())
                 .execute();
         String userInfo = response.body();
