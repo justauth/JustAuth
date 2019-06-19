@@ -90,6 +90,7 @@ public class AuthQqRequest extends BaseAuthRequest {
             authToken.setUnionId(object.getString("unionid"));
             return authToken.getOpenId();
         }
-        throw new AuthException("Invalid openId");
+
+        throw new AuthException("request error");
     }
 }
