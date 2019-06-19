@@ -6,10 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthDingTalkErrorCode;
-import me.zhyd.oauth.model.AuthSource;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -58,6 +55,7 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
                 .uuid(object.getString("unionid"))
                 .nickname(object.getString("nick"))
                 .username(object.getString("nick"))
+                .gender(AuthUserGender.UNKNOW)
                 .source(AuthSource.DINGTALK)
                 .token(token)
                 .build();
