@@ -84,4 +84,18 @@ public class GlobalAuthUtil {
         }
         return res;
     }
+
+    public static boolean isHttpProtocol(String url) {
+        if (StringUtils.isEmpty(url)) {
+            return false;
+        }
+        return url.startsWith("http://");
+    }
+
+    public static boolean isHttpsProtocol(String url) {
+        if (StringUtils.isEmpty(url)) {
+            return false;
+        }
+        return url.startsWith("https://");
+    }
 }

@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 授权工厂类，负责创建指定平台的授权类获取授权地址
  * <p>
- * 使用策略模式 + 工厂模式 避免大量的if else（swatch）操作
+ * 使用策略模式 + 工厂模式 避免大量的if else（switch）操作
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
