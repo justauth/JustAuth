@@ -40,7 +40,12 @@ public class AuthConfigChecker {
         if (!GlobalAuthUtil.isHttpProtocol(redirectUri) && !GlobalAuthUtil.isHttpsProtocol(redirectUri)) {
             throw new AuthException(ResponseStatus.ILLEGAL_REDIRECT_URI);
         }
+        // facebook的回调地址必须为https的链接
         if (AuthSource.FACEBOOK == source && !GlobalAuthUtil.isHttpsProtocol(redirectUri)) {
+            throw new AuthException(ResponseStatus.ILLEGAL_REDIRECT_URI);
+        }
+        // 支付宝在创建回调地址时，不允许使用localhost或者127.0.0.1
+        if (AuthSource.ALIPAY == source && GlobalAuthUtil.isLocalHost(redirectUri)) {
             throw new AuthException(ResponseStatus.ILLEGAL_REDIRECT_URI);
         }
     }

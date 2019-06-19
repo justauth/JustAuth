@@ -25,9 +25,9 @@ public class GlobalAuthUtil {
     private static final String DEFAULT_ENCODING = "UTF-8";
     private static final String ALGORITHM = "HmacSHA256";
 
-    public static String generateDingTalkSignature(String canonicalString, String secret) {
+    public static String generateDingTalkSignature(String secretKey, String timestamp) {
         try {
-            byte[] signData = sign(canonicalString.getBytes(DEFAULT_ENCODING), secret.getBytes(DEFAULT_ENCODING));
+            byte[] signData = sign(secretKey.getBytes(DEFAULT_ENCODING), timestamp.getBytes(DEFAULT_ENCODING));
             return urlEncode(new String(Base64.encode(signData, false)));
         } catch (UnsupportedEncodingException ex) {
             throw new AuthException("Unsupported algorithm: " + DEFAULT_ENCODING, ex);
@@ -98,4 +98,9 @@ public class GlobalAuthUtil {
         }
         return url.startsWith("https://");
     }
+
+    public static boolean isLocalHost(String url) {
+        return StringUtils.isEmpty(url) || url.contains("127.0.0.1") || url.contains("localhost");
+    }
+
 }
