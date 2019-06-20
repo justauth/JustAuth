@@ -8,6 +8,7 @@ import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -54,6 +55,7 @@ public class AuthGithubRequest extends BaseAuthRequest {
                 .location(object.getString("location"))
                 .email(object.getString("email"))
                 .remark(object.getString("bio"))
+                .gender(AuthUserGender.UNKNOW)
                 .token(authToken)
                 .source(AuthSource.GITHUB)
                 .build();

@@ -13,6 +13,7 @@ public enum ResponseStatus {
     UNSUPPORTED(5003, "Unsupported operation"),
     NO_AUTH_SOURCE(5004, "AuthSource cannot be null"),
     UNIDENTIFIED_PLATFORM(5005, "Unidentified platform"),
+    ILLEGAL_REDIRECT_URI(5006, "Illegal redirect uri"),
     ;
 
     private int code;

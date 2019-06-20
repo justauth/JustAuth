@@ -8,6 +8,7 @@ import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -57,6 +58,7 @@ public class AuthGoogleRequest extends BaseAuthRequest {
                 .nickname(object.getString("name"))
                 .location(object.getString("locale"))
                 .email(object.getString("email"))
+                .gender(AuthUserGender.UNKNOW)
                 .token(authToken)
                 .source(AuthSource.GOOGLE)
                 .build();

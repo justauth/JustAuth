@@ -43,6 +43,7 @@ public class AuthCodingRequest extends BaseAuthRequest {
         if (object.getIntValue("code") != 0) {
             throw new AuthException(object.getString("msg"));
         }
+
         object = object.getJSONObject("data");
         return AuthUser.builder()
                 .uuid(object.getString("id"))

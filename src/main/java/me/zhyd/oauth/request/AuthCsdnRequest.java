@@ -8,6 +8,7 @@ import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -48,6 +49,7 @@ public class AuthCsdnRequest extends BaseAuthRequest {
                 .username(object.getString("username"))
                 .remark(object.getString("description"))
                 .blog(object.getString("website"))
+                .gender(AuthUserGender.UNKNOW)
                 .token(authToken)
                 .source(AuthSource.CSDN)
                 .build();

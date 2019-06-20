@@ -22,9 +22,11 @@ public abstract class BaseAuthRequest implements AuthRequest {
     public BaseAuthRequest(AuthConfig config, AuthSource source) {
         this.config = config;
         this.source = source;
-        if (!AuthConfigChecker.isSupportedAuth(config)) {
+        if (!AuthConfigChecker.isSupportedAuth(config, source)) {
             throw new AuthException(ResponseStatus.PARAMETER_INCOMPLETE);
         }
+        // 校验配置合法性
+        AuthConfigChecker.check(config, source);
     }
 
     protected abstract AuthToken getAccessToken(String code);

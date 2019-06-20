@@ -2,17 +2,17 @@ package me.zhyd.oauth.request;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import cn.hutool.json.JSONObject;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthDingTalkErrorCode;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.UrlBuilder;
-
-import java.util.Objects;
 
 /**
  * 钉钉登录
@@ -36,22 +36,31 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String code = authToken.getAccessCode();
         // 根据timestamp, appSecret计算签名值
-        String stringToSign = System.currentTimeMillis() + "";
-        String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), stringToSign);
-        HttpResponse response = HttpRequest.post(UrlBuilder.getDingTalkUserInfoUrl(urlEncodeSignature, stringToSign, config
-                .getClientId())).body(Objects.requireNonNull(new JSONObject().put("tmp_auth_code", code))).execute();
+        String timestamp = System.currentTimeMillis() + "";
+        String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), timestamp);
+        JSONObject param = new JSONObject();
+        param.put("tmp_auth_code", code);
+        HttpResponse response = HttpRequest.post(UrlBuilder.getDingTalkUserInfoUrl(urlEncodeSignature, timestamp, config.getClientId()))
+                .body(param.toJSONString())
+                .execute();
         String userInfo = response.body();
-        JSONObject object = new JSONObject(userInfo);
-        AuthDingTalkErrorCode errorCode = AuthDingTalkErrorCode.getErrorCode(object.getInt("errcode"));
+        JSONObject object = JSON.parseObject(userInfo);
+        AuthDingTalkErrorCode errorCode = AuthDingTalkErrorCode.getErrorCode(object.getIntValue("errcode"));
         if (!AuthDingTalkErrorCode.EC0.equals(errorCode)) {
             throw new AuthException(errorCode.getDesc());
         }
         object = object.getJSONObject("user_info");
+        AuthToken token = AuthToken.builder()
+                .openId(object.getString("openid"))
+                .unionId(object.getString("unionid"))
+                .build();
         return AuthUser.builder()
-                .uuid(object.getStr("openid"))
-                .nickname(object.getStr("nick"))
-                .username(object.getStr("nick"))
+                .uuid(object.getString("unionid"))
+                .nickname(object.getString("nick"))
+                .username(object.getString("nick"))
+                .gender(AuthUserGender.UNKNOW)
                 .source(AuthSource.DINGTALK)
+                .token(token)
                 .build();
     }
 

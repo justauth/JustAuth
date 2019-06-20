@@ -10,6 +10,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.text.MessageFormat;
@@ -74,6 +75,7 @@ public class AuthMiRequest extends BaseAuthRequest {
                 .nickname(user.getString("miliaoNick"))
                 .avatar(user.getString("miliaoIcon"))
                 .email(user.getString("mail"))
+                .gender(AuthUserGender.UNKNOW)
                 .token(authToken)
                 .source(AuthSource.MI)
                 .build();

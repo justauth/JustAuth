@@ -46,11 +46,12 @@ public class AuthWeChatRequest extends BaseAuthRequest {
 
         this.checkResponse(object);
 
+        String location = String.format("%s-%s-%s", object.getString("country"), object.getString("province"), object.getString("city"));
         return AuthUser.builder()
                 .username(object.getString("nickname"))
                 .nickname(object.getString("nickname"))
                 .avatar(object.getString("headimgurl"))
-                .location(object.getString("country") + "-" + object.getString("province") + "-" + object.getString("city"))
+                .location(location)
                 .uuid(openId)
                 .gender(AuthUserGender.getRealGender(object.getString("sex")))
                 .token(authToken)
