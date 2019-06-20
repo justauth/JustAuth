@@ -24,7 +24,8 @@ public class AuthBaiduRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(String code) {
-        String accessTokenUrl = UrlBuilder.getBaiduAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
+        String accessTokenUrl = UrlBuilder.getBaiduAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config
+                .getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         AuthBaiduErrorCode errorCode = AuthBaiduErrorCode.getErrorCode(accessTokenObject.getString("error"));
