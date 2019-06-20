@@ -317,12 +317,12 @@ public enum AuthSource {
 
         @Override
         public String accessToken() {
-            return "https://open.douyin.com/oauth/access_token";
+            return "https://open.douyin.com/oauth/access_token/";
         }
 
         @Override
         public String userInfo() {
-            return "https://open.douyin.com/oauth/userinfo";
+            return "https://open.douyin.com/oauth/userinfo/";
         }
 
         @Override
