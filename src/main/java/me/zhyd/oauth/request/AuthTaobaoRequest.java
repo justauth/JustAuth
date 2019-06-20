@@ -4,8 +4,8 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
@@ -27,15 +27,14 @@ public class AuthTaobaoRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(String code) {
-        return AuthToken.builder()
-                .accessCode(code)
-                .build();
+        return AuthToken.builder().accessCode(code).build();
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessCode = authToken.getAccessCode();
-        HttpResponse response = HttpRequest.post(UrlBuilder.getTaobaoAccessTokenUrl(this.config.getClientId(), this.config.getClientSecret(), accessCode, this.config.getRedirectUri())).execute();
+        HttpResponse response = HttpRequest.post(UrlBuilder.getTaobaoAccessTokenUrl(this.config.getClientId(), this.config
+                .getClientSecret(), accessCode, this.config.getRedirectUri())).execute();
         JSONObject object = JSONObject.parseObject(response.body());
         if (object.containsKey("error")) {
             throw new AuthException(ResponseStatus.FAILURE + ":" + object.getString("error_description"));
@@ -55,5 +54,15 @@ public class AuthTaobaoRequest extends BaseAuthRequest {
                 .token(authToken)
                 .source(AuthSource.TAOBAO)
                 .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.getTaobaoAuthorizeUrl(config.getClientId(), config.getRedirectUri());
     }
 }

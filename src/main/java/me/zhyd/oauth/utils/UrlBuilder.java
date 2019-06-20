@@ -1,6 +1,6 @@
 package me.zhyd.oauth.utils;
 
-import me.zhyd.oauth.consts.ApiUrl;
+import me.zhyd.oauth.config.AuthSource;
 
 import java.text.MessageFormat;
 
@@ -106,7 +106,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGithubAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(GITHUB_ACCESS_TOKEN_PATTERN, ApiUrl.GITHUB.accessToken(), clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(GITHUB_ACCESS_TOKEN_PATTERN, AuthSource.GITHUB.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -116,7 +116,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGithubUserInfoUrl(String token) {
-        return MessageFormat.format(GITHUB_USER_INFO_PATTERN, ApiUrl.GITHUB.userInfo(), token);
+        return MessageFormat.format(GITHUB_USER_INFO_PATTERN, AuthSource.GITHUB.userInfo(), token);
     }
 
     /**
@@ -127,7 +127,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGithubAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(GITHUB_AUTHORIZE_PATTERN, ApiUrl.GITHUB.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(GITHUB_AUTHORIZE_PATTERN, AuthSource.GITHUB.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -140,7 +140,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeiboAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(WEIBO_ACCESS_TOKEN_PATTERN, ApiUrl.WEIBO.accessToken(), clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(WEIBO_ACCESS_TOKEN_PATTERN, AuthSource.WEIBO.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -150,7 +150,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeiboUserInfoUrl(String token) {
-        return MessageFormat.format(WEIBO_USER_INFO_PATTERN, ApiUrl.WEIBO.userInfo(), token);
+        return MessageFormat.format(WEIBO_USER_INFO_PATTERN, AuthSource.WEIBO.userInfo(), token);
     }
 
     /**
@@ -161,7 +161,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeiboAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(WEIBO_AUTHORIZE_PATTERN, ApiUrl.WEIBO.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(WEIBO_AUTHORIZE_PATTERN, AuthSource.WEIBO.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -174,7 +174,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGiteeAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(GITEE_ACCESS_TOKEN_PATTERN, ApiUrl.GITEE.accessToken(), clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(GITEE_ACCESS_TOKEN_PATTERN, AuthSource.GITEE.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -184,7 +184,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGiteeUserInfoUrl(String token) {
-        return MessageFormat.format(GITEE_USER_INFO_PATTERN, ApiUrl.GITEE.userInfo(), token);
+        return MessageFormat.format(GITEE_USER_INFO_PATTERN, AuthSource.GITEE.userInfo(), token);
     }
 
     /**
@@ -195,7 +195,7 @@ public class UrlBuilder {
      * @return json
      */
     public static String getGiteeAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(GITEE_AUTHORIZE_PATTERN, ApiUrl.GITEE.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(GITEE_AUTHORIZE_PATTERN, AuthSource.GITEE.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -206,7 +206,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getDingTalkQrConnectUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(DING_TALK_QRCONNECT_PATTERN, ApiUrl.DINGTALK.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(DING_TALK_QRCONNECT_PATTERN, AuthSource.DINGTALK.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -218,7 +218,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getDingTalkUserInfoUrl(String signature, String timestamp, String accessKey) {
-        return MessageFormat.format(DING_TALK_USER_INFO_PATTERN, ApiUrl.DINGTALK.userInfo(), signature, timestamp, accessKey);
+        return MessageFormat.format(DING_TALK_USER_INFO_PATTERN, AuthSource.DINGTALK.userInfo(), signature, timestamp, accessKey);
     }
 
     /**
@@ -231,7 +231,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getBaiduAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(BAIDU_ACCESS_TOKEN_PATTERN, ApiUrl.BAIDU.accessToken(), clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(BAIDU_ACCESS_TOKEN_PATTERN, AuthSource.BAIDU.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -241,7 +241,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getBaiduUserInfoUrl(String token) {
-        return MessageFormat.format(BAIDU_USER_INFO_PATTERN, ApiUrl.BAIDU.userInfo(), token);
+        return MessageFormat.format(BAIDU_USER_INFO_PATTERN, AuthSource.BAIDU.userInfo(), token);
     }
 
     /**
@@ -252,7 +252,7 @@ public class UrlBuilder {
      * @return json
      */
     public static String getBaiduAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(BAIDU_AUTHORIZE_PATTERN, ApiUrl.BAIDU.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(BAIDU_AUTHORIZE_PATTERN, AuthSource.BAIDU.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -262,7 +262,7 @@ public class UrlBuilder {
      * @return json
      */
     public static String getBaiduRevokeUrl(String accessToken) {
-        return MessageFormat.format(BAIDU_REVOKE_PATTERN, ApiUrl.BAIDU.revoke(), accessToken);
+        return MessageFormat.format(BAIDU_REVOKE_PATTERN, AuthSource.BAIDU.revoke(), accessToken);
     }
 
     /**
@@ -275,7 +275,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCsdnAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(CSDN_ACCESS_TOKEN_PATTERN, ApiUrl.CSDN.accessToken(), clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(CSDN_ACCESS_TOKEN_PATTERN, AuthSource.CSDN.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -285,7 +285,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCsdnUserInfoUrl(String token) {
-        return MessageFormat.format(CSDN_USER_INFO_PATTERN, ApiUrl.CSDN.userInfo(), token);
+        return MessageFormat.format(CSDN_USER_INFO_PATTERN, AuthSource.CSDN.userInfo(), token);
     }
 
     /**
@@ -296,7 +296,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCsdnAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(CSDN_AUTHORIZE_PATTERN, ApiUrl.CSDN.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(CSDN_AUTHORIZE_PATTERN, AuthSource.CSDN.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -308,7 +308,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCodingAccessTokenUrl(String clientId, String clientSecret, String code) {
-        return MessageFormat.format(CODING_ACCESS_TOKEN_PATTERN, ApiUrl.CODING.accessToken(), clientId, clientSecret, code);
+        return MessageFormat.format(CODING_ACCESS_TOKEN_PATTERN, AuthSource.CODING.accessToken(), clientId, clientSecret, code);
     }
 
     /**
@@ -318,7 +318,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCodingUserInfoUrl(String token) {
-        return MessageFormat.format(CODING_USER_INFO_PATTERN, ApiUrl.CODING.userInfo(), token);
+        return MessageFormat.format(CODING_USER_INFO_PATTERN, AuthSource.CODING.userInfo(), token);
     }
 
     /**
@@ -329,7 +329,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getCodingAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(CODING_AUTHORIZE_PATTERN, ApiUrl.CODING.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(CODING_AUTHORIZE_PATTERN, AuthSource.CODING.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -341,7 +341,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getTencentCloudAccessTokenUrl(String clientId, String clientSecret, String code) {
-        return MessageFormat.format(TENCENT_ACCESS_TOKEN_PATTERN, ApiUrl.TENCENTCLOUD.accessToken(), clientId, clientSecret, code);
+        return MessageFormat.format(TENCENT_ACCESS_TOKEN_PATTERN, AuthSource.TENCENT_CLOUD.accessToken(), clientId, clientSecret, code);
     }
 
     /**
@@ -351,7 +351,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getTencentCloudUserInfoUrl(String token) {
-        return MessageFormat.format(TENCENT_USER_INFO_PATTERN, ApiUrl.TENCENTCLOUD.userInfo(), token);
+        return MessageFormat.format(TENCENT_USER_INFO_PATTERN, AuthSource.TENCENT_CLOUD.userInfo(), token);
     }
 
     /**
@@ -362,7 +362,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getTencentCloudAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(TENCENT_AUTHORIZE_PATTERN, ApiUrl.TENCENTCLOUD.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(TENCENT_AUTHORIZE_PATTERN, AuthSource.TENCENT_CLOUD.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -375,7 +375,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getOschinaAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(OSCHINA_ACCESS_TOKEN_PATTERN, ApiUrl.OSCHINA.accessToken(), clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(OSCHINA_ACCESS_TOKEN_PATTERN, AuthSource.OSCHINA.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -385,7 +385,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getOschinaUserInfoUrl(String token) {
-        return MessageFormat.format(OSCHINA_USER_INFO_PATTERN, ApiUrl.OSCHINA.userInfo(), token);
+        return MessageFormat.format(OSCHINA_USER_INFO_PATTERN, AuthSource.OSCHINA.userInfo(), token);
     }
 
     /**
@@ -396,7 +396,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getOschinaAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(OSCHINA_AUTHORIZE_PATTERN, ApiUrl.OSCHINA.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(OSCHINA_AUTHORIZE_PATTERN, AuthSource.OSCHINA.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -409,7 +409,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getQqAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(QQ_ACCESS_TOKEN_PATTERN, ApiUrl.QQ.accessToken(), clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(QQ_ACCESS_TOKEN_PATTERN, AuthSource.QQ.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -421,7 +421,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getQqUserInfoUrl(String clientId, String token, String openId) {
-        return MessageFormat.format(QQ_USER_INFO_PATTERN, ApiUrl.QQ.userInfo(), clientId, token, openId);
+        return MessageFormat.format(QQ_USER_INFO_PATTERN, AuthSource.QQ.userInfo(), clientId, token, openId);
     }
 
     /**
@@ -432,7 +432,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getQqAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(QQ_AUTHORIZE_PATTERN, ApiUrl.QQ.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+        return MessageFormat.format(QQ_AUTHORIZE_PATTERN, AuthSource.QQ.authorize(), clientId, redirectUrl, System.currentTimeMillis());
     }
 
     /**
@@ -454,7 +454,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getAlipayAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(ALIPAY_AUTHORIZE_PATTERN, ApiUrl.ALIPAY.authorize(), clientId, redirectUrl);
+        return MessageFormat.format(ALIPAY_AUTHORIZE_PATTERN, AuthSource.ALIPAY.authorize(), clientId, redirectUrl);
     }
 
     /**
@@ -465,7 +465,8 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeChatAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(WECHAT_AUTHORIZE_PATTERN, ApiUrl.WECHAT.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+        return MessageFormat.format(WECHAT_AUTHORIZE_PATTERN, AuthSource.WECHAT.authorize(), clientId, redirectUrl, System
+                .currentTimeMillis());
     }
 
     /**
@@ -477,7 +478,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeChatAccessTokenUrl(String clientId, String clientSecret, String code) {
-        return MessageFormat.format(WECHAT_ACCESS_TOKEN_PATTERN, ApiUrl.WECHAT.accessToken(), clientId, clientSecret, code);
+        return MessageFormat.format(WECHAT_ACCESS_TOKEN_PATTERN, AuthSource.WECHAT.accessToken(), clientId, clientSecret, code);
     }
 
     /**
@@ -488,7 +489,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeChatUserInfoUrl(String token, String openId) {
-        return MessageFormat.format(WECHAT_USER_INFO_PATTERN, ApiUrl.WECHAT.userInfo(), token, openId);
+        return MessageFormat.format(WECHAT_USER_INFO_PATTERN, AuthSource.WECHAT.userInfo(), token, openId);
     }
 
     /**
@@ -499,7 +500,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeChatRefreshUrl(String clientId, String refreshToken) {
-        return MessageFormat.format(WECHAT_REFRESH_TOKEN_PATTERN, ApiUrl.WECHAT.refresh(), clientId, refreshToken);
+        return MessageFormat.format(WECHAT_REFRESH_TOKEN_PATTERN, AuthSource.WECHAT.refresh(), clientId, refreshToken);
     }
 
     /**
@@ -512,7 +513,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getTaobaoAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(TAOBAO_ACCESS_TOKEN_PATTERN, ApiUrl.TAOBAO.accessToken(), clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(TAOBAO_ACCESS_TOKEN_PATTERN, AuthSource.TAOBAO.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -523,7 +524,8 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getTaobaoAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(TAOBAO_AUTHORIZE_PATTERN, ApiUrl.TAOBAO.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+        return MessageFormat.format(TAOBAO_AUTHORIZE_PATTERN, AuthSource.TAOBAO.authorize(), clientId, redirectUrl, System
+                .currentTimeMillis());
     }
 
     /**
@@ -534,7 +536,8 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGoogleAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(GOOGLE_AUTHORIZE_PATTERN, ApiUrl.GOOGLE.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+        return MessageFormat.format(GOOGLE_AUTHORIZE_PATTERN, AuthSource.GOOGLE.authorize(), clientId, redirectUrl, System
+                .currentTimeMillis());
     }
 
     /**
@@ -547,7 +550,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGoogleAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(GOOGLE_ACCESS_TOKEN_PATTERN, ApiUrl.GOOGLE.accessToken(), clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(GOOGLE_ACCESS_TOKEN_PATTERN, AuthSource.GOOGLE.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -557,7 +560,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGoogleUserInfoUrl(String token) {
-        return MessageFormat.format(GOOGLE_USER_INFO_PATTERN, ApiUrl.GOOGLE.userInfo(), token);
+        return MessageFormat.format(GOOGLE_USER_INFO_PATTERN, AuthSource.GOOGLE.userInfo(), token);
     }
 
     /**
@@ -568,7 +571,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getFacebookAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(FACEBOOK_AUTHORIZE_PATTERN, ApiUrl.FACEBOOK.authorize(), clientId, redirectUrl, System
+        return MessageFormat.format(FACEBOOK_AUTHORIZE_PATTERN, AuthSource.FACEBOOK.authorize(), clientId, redirectUrl, System
                 .currentTimeMillis());
     }
 
@@ -582,7 +585,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getFacebookAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(FACEBOOK_ACCESS_TOKEN_PATTERN, ApiUrl.FACEBOOK.accessToken(), clientId, clientSecret, code, redirectUri);
+        return MessageFormat.format(FACEBOOK_ACCESS_TOKEN_PATTERN, AuthSource.FACEBOOK.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -592,7 +595,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getFacebookUserInfoUrl(String token) {
-        return MessageFormat.format(FACEBOOK_USER_INFO_PATTERN, ApiUrl.FACEBOOK.userInfo(), token);
+        return MessageFormat.format(FACEBOOK_USER_INFO_PATTERN, AuthSource.FACEBOOK.userInfo(), token);
     }
 
     /**
@@ -603,7 +606,8 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getDouyinAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(DOUYIN_AUTHORIZE_PATTERN, ApiUrl.DOUYIN.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+        return MessageFormat.format(DOUYIN_AUTHORIZE_PATTERN, AuthSource.DOUYIN.authorize(), clientId, redirectUrl, System
+                .currentTimeMillis());
     }
 
     /**
@@ -615,7 +619,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getDouyinAccessTokenUrl(String clientId, String clientSecret, String code) {
-        return MessageFormat.format(DOUYIN_ACCESS_TOKEN_PATTERN, ApiUrl.DOUYIN.accessToken(), clientId, clientSecret, code);
+        return MessageFormat.format(DOUYIN_ACCESS_TOKEN_PATTERN, AuthSource.DOUYIN.accessToken(), clientId, clientSecret, code);
     }
 
     /**
@@ -626,7 +630,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getDouyinUserInfoUrl(String token, String openId) {
-        return MessageFormat.format(DOUYIN_USER_INFO_PATTERN, ApiUrl.DOUYIN.userInfo(), token, openId);
+        return MessageFormat.format(DOUYIN_USER_INFO_PATTERN, AuthSource.DOUYIN.userInfo(), token, openId);
     }
 
     /**
@@ -637,7 +641,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getDouyinRefreshUrl(String clientId, String refreshToken) {
-        return MessageFormat.format(DOUYIN_REFRESH_TOKEN_PATTERN, ApiUrl.DOUYIN.refresh(), clientId, refreshToken);
+        return MessageFormat.format(DOUYIN_REFRESH_TOKEN_PATTERN, AuthSource.DOUYIN.refresh(), clientId, refreshToken);
     }
 
     /**
@@ -648,7 +652,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getLinkedinAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(LINKEDIN_AUTHORIZE_PATTERN, ApiUrl.LINKEDIN.authorize(), clientId, redirectUrl, System
+        return MessageFormat.format(LINKEDIN_AUTHORIZE_PATTERN, AuthSource.LINKEDIN.authorize(), clientId, redirectUrl, System
                 .currentTimeMillis());
     }
 
@@ -662,7 +666,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getLinkedinAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUrl) {
-        return MessageFormat.format(LINKEDIN_ACCESS_TOKEN_PATTERN, ApiUrl.LINKEDIN.accessToken(), clientId, clientSecret, code, redirectUrl);
+        return MessageFormat.format(LINKEDIN_ACCESS_TOKEN_PATTERN, AuthSource.LINKEDIN.accessToken(), clientId, clientSecret, code, redirectUrl);
     }
 
     /**
@@ -671,7 +675,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getLinkedinUserInfoUrl() {
-        return MessageFormat.format(LINKEDIN_USER_INFO_PATTERN, ApiUrl.LINKEDIN.userInfo());
+        return MessageFormat.format(LINKEDIN_USER_INFO_PATTERN, AuthSource.LINKEDIN.userInfo());
     }
 
     /**
@@ -683,7 +687,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getLinkedinRefreshUrl(String clientId, String clientSecret, String refreshToken) {
-        return MessageFormat.format(LINKEDIN_REFRESH_TOKEN_PATTERN, ApiUrl.LINKEDIN.refresh(), clientId, clientSecret, refreshToken);
+        return MessageFormat.format(LINKEDIN_REFRESH_TOKEN_PATTERN, AuthSource.LINKEDIN.refresh(), clientId, clientSecret, refreshToken);
     }
 
     /**
@@ -694,7 +698,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getMicrosoftAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(MICROSOFT_AUTHORIZE_PATTERN, ApiUrl.MICROSOFT.authorize(), clientId, redirectUrl, System
+        return MessageFormat.format(MICROSOFT_AUTHORIZE_PATTERN, AuthSource.MICROSOFT.authorize(), clientId, redirectUrl, System
                 .currentTimeMillis());
     }
 
@@ -708,7 +712,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getMicrosoftAccessTokenUrl(String clientId, String clientSecret, String redirectUrl, String code) {
-        return MessageFormat.format(MICROSOFT_ACCESS_TOKEN_PATTERN, ApiUrl.MICROSOFT.accessToken(), clientId, clientSecret, redirectUrl, code);
+        return MessageFormat.format(MICROSOFT_ACCESS_TOKEN_PATTERN, AuthSource.MICROSOFT.accessToken(), clientId, clientSecret, redirectUrl, code);
     }
 
     /**
@@ -717,7 +721,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getMicrosoftUserInfoUrl() {
-        return MessageFormat.format(MICROSOFT_USER_INFO_PATTERN, ApiUrl.MICROSOFT.userInfo());
+        return MessageFormat.format(MICROSOFT_USER_INFO_PATTERN, AuthSource.MICROSOFT.userInfo());
     }
 
     /**
@@ -730,7 +734,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getMicrosoftRefreshUrl(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
-        return MessageFormat.format(MICROSOFT_REFRESH_TOKEN_PATTERN, ApiUrl.MICROSOFT.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
+        return MessageFormat.format(MICROSOFT_REFRESH_TOKEN_PATTERN, AuthSource.MICROSOFT.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
     }
 
     /**
@@ -741,7 +745,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getMiAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(MI_AUTHORIZE_PATTERN, ApiUrl.MI.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+        return MessageFormat.format(MI_AUTHORIZE_PATTERN, AuthSource.MI.authorize(), clientId, redirectUrl, System.currentTimeMillis());
     }
 
     /**
@@ -754,7 +758,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getMiAccessTokenUrl(String clientId, String clientSecret, String redirectUrl, String code) {
-        return MessageFormat.format(MI_ACCESS_TOKEN_PATTERN, ApiUrl.MI.accessToken(), clientId, clientSecret, redirectUrl, code);
+        return MessageFormat.format(MI_ACCESS_TOKEN_PATTERN, AuthSource.MI.accessToken(), clientId, clientSecret, redirectUrl, code);
     }
 
     /**
@@ -765,7 +769,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getMiUserInfoUrl(String clientId, String token) {
-        return MessageFormat.format(MI_USER_INFO_PATTERN, ApiUrl.MI.userInfo(), clientId, token);
+        return MessageFormat.format(MI_USER_INFO_PATTERN, AuthSource.MI.userInfo(), clientId, token);
     }
 
     /**
@@ -778,7 +782,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getMiRefreshUrl(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
-        return MessageFormat.format(MI_REFRESH_TOKEN_PATTERN, ApiUrl.MI.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
+        return MessageFormat.format(MI_REFRESH_TOKEN_PATTERN, AuthSource.MI.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
     }
 
     /**
@@ -789,7 +793,8 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getToutiaoAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(TOUTIAO_AUTHORIZE_PATTERN, ApiUrl.TOUTIAO.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+        return MessageFormat.format(TOUTIAO_AUTHORIZE_PATTERN, AuthSource.TOUTIAO.authorize(), clientId, redirectUrl, System
+                .currentTimeMillis());
     }
 
     /**
@@ -801,7 +806,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getToutiaoAccessTokenUrl(String clientId, String clientSecret, String code) {
-        return MessageFormat.format(TOUTIAO_ACCESS_TOKEN_PATTERN, ApiUrl.TOUTIAO.accessToken(), clientId, clientSecret, code);
+        return MessageFormat.format(TOUTIAO_ACCESS_TOKEN_PATTERN, AuthSource.TOUTIAO.accessToken(), clientId, clientSecret, code);
     }
 
     /**
@@ -812,6 +817,6 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getToutiaoUserInfoUrl(String clientId, String token) {
-        return MessageFormat.format(TOUTIAO_USER_INFO_PATTERN, ApiUrl.TOUTIAO.userInfo(), clientId, token);
+        return MessageFormat.format(TOUTIAO_USER_INFO_PATTERN, AuthSource.TOUTIAO.userInfo(), clientId, token);
     }
 }

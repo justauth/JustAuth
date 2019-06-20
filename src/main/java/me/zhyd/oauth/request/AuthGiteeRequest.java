@@ -4,8 +4,8 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthSource;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
@@ -26,15 +26,14 @@ public class AuthGiteeRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(String code) {
-        String accessTokenUrl = UrlBuilder.getGiteeAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
+        String accessTokenUrl = UrlBuilder.getGiteeAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config
+                .getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
             throw new AuthException("Unable to get token from gitee using code [" + code + "]");
         }
-        return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .build();
+        return AuthToken.builder().accessToken(accessTokenObject.getString("access_token")).build();
     }
 
     @Override
@@ -57,5 +56,15 @@ public class AuthGiteeRequest extends BaseAuthRequest {
                 .token(authToken)
                 .source(AuthSource.GITEE)
                 .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.getGiteeAuthorizeUrl(config.getClientId(), config.getRedirectUri());
     }
 }

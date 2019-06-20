@@ -1,10 +1,13 @@
-### 2019/06/18
+### 2019/06/19
+1. 合并[xkcoding](https://github.com/xkcoding)提交的[PR](https://github.com/zhangyd-c/JustAuth/pull/14)，重构了部分代码，jar包由原来的`130+kb`优化到现在的`110+kb`
+
+### 2019/06/18 
 1. 解决Issue [#IY2HW](https://gitee.com/yadong.zhang/JustAuth/issues/IY2HW)
 2. 解决Issue [#IY2OH](https://gitee.com/yadong.zhang/JustAuth/issues/IY2OH)
 3. 解决Issue [#IY2FV](https://gitee.com/yadong.zhang/JustAuth/issues/IY2FV)
 4. 修复部分注释、拼写错误
 5. 解决Issue [#IY1QR](https://gitee.com/yadong.zhang/JustAuth/issues/IY1QR) 增加对Config属性的校验功能，主要校验redirect uri的合法性
-6. 合并[skqing](https://gitee.com/skqing)提交的[PR](https://gitee.com/yadong.zhang/JustAuth/pulls/2)
+6. 合并[skqing](https://gitee.com/skqing)提交的[PR](https://gitee.com/yadong.zhang/JustAuth/pulls/2)，解决一些BUG
 
 ### 2019/06/06
 1. 增加今日头条的授权登陆

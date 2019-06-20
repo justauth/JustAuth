@@ -1,4 +1,4 @@
-package me.zhyd.oauth.consts;
+package me.zhyd.oauth.config;
 
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.request.ResponseStatus;
@@ -10,7 +10,7 @@ import me.zhyd.oauth.request.ResponseStatus;
  * @version 1.0
  * @since 1.0
  */
-public enum ApiUrl {
+public enum AuthSource {
     /**
      * Github
      */
@@ -28,16 +28,6 @@ public enum ApiUrl {
         @Override
         public String userInfo() {
             return "https://api.github.com/user";
-        }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
     },
     /**
@@ -58,16 +48,6 @@ public enum ApiUrl {
         public String userInfo() {
             return "https://api.weibo.com/2/users/show.json";
         }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
     },
     /**
      * gitee
@@ -87,16 +67,6 @@ public enum ApiUrl {
         public String userInfo() {
             return "https://gitee.com/api/v5/user";
         }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
     },
     /**
      * 钉钉
@@ -115,16 +85,6 @@ public enum ApiUrl {
         @Override
         public String userInfo() {
             return "https://oapi.dingtalk.com/sns/getuserinfo_bycode";
-        }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
     },
     /**
@@ -150,11 +110,6 @@ public enum ApiUrl {
         public String revoke() {
             return "https://openapi.baidu.com/rest/2.0/passport/auth/revokeAuthorization";
         }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
     },
     /**
      * csdn
@@ -173,16 +128,6 @@ public enum ApiUrl {
         @Override
         public String userInfo() {
             return "https://api.csdn.net/user/getinfo";
-        }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
     },
     /**
@@ -203,21 +148,11 @@ public enum ApiUrl {
         public String userInfo() {
             return "https://coding.net/api/account/current_user";
         }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
     },
     /**
      * 腾讯云开发者平台（coding升级后就变成腾讯云开发者平台了）
      */
-    TENCENTCLOUD {
+    TENCENT_CLOUD {
         @Override
         public String authorize() {
             return "https://dev.tencent.com/oauth_authorize.html";
@@ -231,16 +166,6 @@ public enum ApiUrl {
         @Override
         public String userInfo() {
             return "https://dev.tencent.com/api/account/current_user";
-        }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
     },
     /**
@@ -261,16 +186,6 @@ public enum ApiUrl {
         public String userInfo() {
             return "https://www.oschina.net/action/openapi/user";
         }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
     },
     /**
      * 支付宝
@@ -289,16 +204,6 @@ public enum ApiUrl {
         @Override
         public String userInfo() {
             return "https://openapi.alipay.com/gateway.do";
-        }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
     },
     /**
@@ -319,16 +224,6 @@ public enum ApiUrl {
         public String userInfo() {
             return "https://graph.qq.com/user/get_user_info";
         }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
     },
     /**
      * 微信
@@ -347,11 +242,6 @@ public enum ApiUrl {
         @Override
         public String userInfo() {
             return "https://api.weixin.qq.com/sns/userinfo";
-        }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
 
         @Override
@@ -377,16 +267,6 @@ public enum ApiUrl {
         public String userInfo() {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
     },
     /**
      * Google
@@ -405,16 +285,6 @@ public enum ApiUrl {
         @Override
         public String userInfo() {
             return "https://oauth2.googleapis.com/tokeninfo";
-        }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
     },
     /**
@@ -435,16 +305,6 @@ public enum ApiUrl {
         public String userInfo() {
             return "https://graph.facebook.com/v3.3/me";
         }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
     },
     /**
      * 抖音
@@ -463,11 +323,6 @@ public enum ApiUrl {
         @Override
         public String userInfo() {
             return "https://open.douyin.com/oauth/userinfo";
-        }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
 
         @Override
@@ -495,11 +350,6 @@ public enum ApiUrl {
         }
 
         @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
         public String refresh() {
             return "https://www.linkedin.com/oauth/v2/accessToken";
         }
@@ -521,11 +371,6 @@ public enum ApiUrl {
         @Override
         public String userInfo() {
             return "https://graph.microsoft.com/v1.0/me";
-        }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
 
         @Override
@@ -553,11 +398,6 @@ public enum ApiUrl {
         }
 
         @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
         public String refresh() {
             return "https://account.xiaomi.com/oauth2/token";
         }
@@ -579,16 +419,6 @@ public enum ApiUrl {
         @Override
         public String userInfo() {
             return "https://open.snssdk.com/data/user_profile";
-        }
-
-        @Override
-        public String revoke() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
-        }
-
-        @Override
-        public String refresh() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
     };
 
@@ -618,13 +448,17 @@ public enum ApiUrl {
      *
      * @return url
      */
-    public abstract String revoke();
+    public String revoke() {
+        throw new AuthException(ResponseStatus.UNSUPPORTED);
+    }
 
     /**
      * 刷新授权的api
      *
      * @return url
      */
-    public abstract String refresh();
+    public String refresh() {
+        throw new AuthException(ResponseStatus.UNSUPPORTED);
+    }
 
 }
