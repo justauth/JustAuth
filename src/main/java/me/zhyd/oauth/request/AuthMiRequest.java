@@ -63,7 +63,7 @@ public class AuthMiRequest extends BaseAuthRequest {
                 .execute();
 
         JSONObject userProfile = JSONObject.parseObject(userResponse.body());
-        if (StrUtil.equalsIgnoreCase(userProfile.getString("result"), "error")) {
+        if ("error".equalsIgnoreCase(userProfile.getString("result"))) {
             throw new AuthException(userProfile.getString("description"));
         }
 
@@ -86,7 +86,7 @@ public class AuthMiRequest extends BaseAuthRequest {
 
         HttpResponse emailResponse = HttpRequest.get(emailPhoneUrl).execute();
         JSONObject userEmailPhone = JSONObject.parseObject(emailResponse.body());
-        if (!StrUtil.equalsIgnoreCase(userEmailPhone.getString("result"), "error")) {
+        if (!"error".equalsIgnoreCase(userEmailPhone.getString("result"))) {
             JSONObject emailPhone = userEmailPhone.getJSONObject("data");
             authUser.setEmail(emailPhone.getString("email"));
         }
