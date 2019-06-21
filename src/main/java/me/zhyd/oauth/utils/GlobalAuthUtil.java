@@ -8,6 +8,8 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -22,16 +24,12 @@ import java.util.Map;
  * @since 1.8
  */
 public class GlobalAuthUtil {
-    private static final String DEFAULT_ENCODING = "UTF-8";
+    private static final Charset DEFAULT_ENCODING = StandardCharsets.UTF_8;
     private static final String ALGORITHM = "HmacSHA256";
 
     public static String generateDingTalkSignature(String secretKey, String timestamp) {
-        try {
-            byte[] signData = sign(secretKey.getBytes(DEFAULT_ENCODING), timestamp.getBytes(DEFAULT_ENCODING));
-            return urlEncode(new String(Base64.encode(signData, false)));
-        } catch (UnsupportedEncodingException ex) {
-            throw new AuthException("Unsupported algorithm: " + DEFAULT_ENCODING, ex);
-        }
+        byte[] signData = sign(secretKey.getBytes(DEFAULT_ENCODING), timestamp.getBytes(DEFAULT_ENCODING));
+        return urlEncode(new String(Base64.encode(signData, false)));
     }
 
     private static byte[] sign(byte[] key, byte[] data) {
@@ -52,9 +50,8 @@ public class GlobalAuthUtil {
         }
 
         try {
-            String encoded = URLEncoder.encode(value, GlobalAuthUtil.DEFAULT_ENCODING);
-            return encoded.replace("+", "%20").replace("*", "%2A")
-                    .replace("~", "%7E").replace("/", "%2F");
+            String encoded = URLEncoder.encode(value, GlobalAuthUtil.DEFAULT_ENCODING.displayName());
+            return encoded.replace("+", "%20").replace("*", "%2A").replace("~", "%7E").replace("/", "%2F");
         } catch (UnsupportedEncodingException e) {
             throw new AuthException("Failed To Encode Uri", e);
         }
@@ -65,7 +62,7 @@ public class GlobalAuthUtil {
             return "";
         }
         try {
-            return URLDecoder.decode(value, GlobalAuthUtil.DEFAULT_ENCODING);
+            return URLDecoder.decode(value, GlobalAuthUtil.DEFAULT_ENCODING.displayName());
         } catch (UnsupportedEncodingException e) {
             throw new AuthException("Failed To Decode Uri", e);
         }
