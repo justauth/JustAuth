@@ -40,7 +40,8 @@ public class AuthWeiboRequest extends BaseAuthRequest {
         return AuthToken.builder()
                 .accessToken(accessTokenObject.getString("access_token"))
                 .uid(accessTokenObject.getString("uid"))
-                .expireIn(accessTokenObject.getIntValue("remind_in"))
+                .openId(accessTokenObject.getString("uid"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
                 .build();
     }
 

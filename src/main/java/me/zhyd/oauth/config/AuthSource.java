@@ -327,7 +327,7 @@ public enum AuthSource {
 
         @Override
         public String refresh() {
-            return "https://open.douyin.com/oauth/refresh_token";
+            return "https://open.douyin.com/oauth/refresh_token/";
         }
     },
     /**
