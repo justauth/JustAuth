@@ -35,4 +35,11 @@ public class AuthConfig {
      * 支付宝公钥：当选择支付宝登录时，该值可用
      */
     private String alipayPublicKey;
+
+    /**
+     * 是否需要申请unionid，目前只针对qq登录
+     * 注：qq授权登录时，获取unionid需要单独发送邮件申请权限。如果个人开发者账号中申请了该权限，可以将该值置为true，在获取openId时就会同步获取unionId
+     * 参考链接：http://wiki.connect.qq.com/unionid%E4%BB%8B%E7%BB%8D
+     */
+    private boolean unionId;
 }

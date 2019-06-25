@@ -1,3 +1,6 @@
+### 2019/06/25
+qq授权登录时，需要获取`openId`作为`uuid`，在`1.6.1-beta`和`1.7.0`版本中，引入了`unionId`这一属性。获取`unionid`需要单独向qq团队**发送邮件**申请权限，鉴于这一申请权限的步骤比较麻烦（需要填写的内容比较多），所以在`AuthConfig`中增加了一个`unionId`属性，当为**true**时才会获取unionid，当为false时只获取openId。如果你需要该功能， 则在自行申请了相关权限后，将该属性置为true即可。关于unionId的参考链接：[UnionID介绍](http://wiki.connect.qq.com/unionid%E4%BB%8B%E7%BB%8D)
+
 ### 2019/06/19
 1. 合并[xkcoding](https://github.com/xkcoding)提交的[PR](https://github.com/zhangyd-c/JustAuth/pull/14)，重构了部分代码，jar包由原来的`130+kb`优化到现在的`110+kb`
 2. 合并[skqing](https://gitee.com/skqing)提交的[PR](https://gitee.com/yadong.zhang/JustAuth/pulls/3)， 解决抖音登录失败问题 
