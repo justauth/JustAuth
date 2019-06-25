@@ -40,13 +40,12 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
         String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), timestamp);
         JSONObject param = new JSONObject();
         param.put("tmp_auth_code", code);
-        HttpResponse response = HttpRequest.post(UrlBuilder.getDingTalkUserInfoUrl(urlEncodeSignature, timestamp, config.getClientId()))
-                .body(param.toJSONString())
-                .execute();
+        HttpResponse response = HttpRequest.post(UrlBuilder.getDingTalkUserInfoUrl(urlEncodeSignature, timestamp, config
+                .getClientId())).body(param.toJSONString()).execute();
         String userInfo = response.body();
         JSONObject object = JSON.parseObject(userInfo);
         AuthDingTalkErrorCode errorCode = AuthDingTalkErrorCode.getErrorCode(object.getIntValue("errcode"));
-        if (!AuthDingTalkErrorCode.EC0.equals(errorCode)) {
+        if (AuthDingTalkErrorCode.EC0 != errorCode) {
             throw new AuthException(errorCode.getDesc());
         }
         object = object.getJSONObject("user_info");

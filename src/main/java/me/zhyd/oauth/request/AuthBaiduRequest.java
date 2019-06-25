@@ -29,7 +29,7 @@ public class AuthBaiduRequest extends BaseAuthRequest {
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         AuthBaiduErrorCode errorCode = AuthBaiduErrorCode.getErrorCode(accessTokenObject.getString("error"));
-        if (!AuthBaiduErrorCode.OK.equals(errorCode)) {
+        if (AuthBaiduErrorCode.OK != errorCode) {
             throw new AuthException(errorCode.getDesc());
         }
         return AuthToken.builder().accessToken(accessTokenObject.getString("access_token")).build();
@@ -42,7 +42,7 @@ public class AuthBaiduRequest extends BaseAuthRequest {
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         AuthBaiduErrorCode errorCode = AuthBaiduErrorCode.getErrorCode(object.getString("error"));
-        if (!AuthBaiduErrorCode.OK.equals(errorCode)) {
+        if (AuthBaiduErrorCode.OK != errorCode) {
             throw new AuthException(errorCode.getDesc());
         }
         return AuthUser.builder()

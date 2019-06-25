@@ -87,7 +87,7 @@ public class UrlBuilder {
     private static final String MICROSOFT_USER_INFO_PATTERN = "{0}";
     private static final String MICROSOFT_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
 
-    private static final String MI_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&response_type=code&scope=user/profile%20user/openIdV2%20user/phoneAndEmail&state={3}&skip_confirm=false";
+    private static final String MI_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&response_type=code&scope=1%203%204%206&state={3}&skip_confirm=false";
     private static final String MI_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&code={4}&grant_type=authorization_code";
     private static final String MI_USER_INFO_PATTERN = "{0}?clientId={1}&token={2}";
     private static final String MI_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
