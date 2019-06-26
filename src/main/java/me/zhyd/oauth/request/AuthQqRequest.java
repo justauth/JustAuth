@@ -85,7 +85,7 @@ public class AuthQqRequest extends BaseAuthRequest {
 
     private String getOpenId(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getQqOpenidUrl("https://graph.qq.com/oauth2.0/me", accessToken))
+        HttpResponse response = HttpRequest.get(UrlBuilder.getQqOpenidUrl("https://graph.qq.com/oauth2.0/me", accessToken, config.isUnionId()))
                 .execute();
         if (response.isOk()) {
             String body = response.body();
@@ -97,7 +97,9 @@ public class AuthQqRequest extends BaseAuthRequest {
                 throw new AuthException(object.get("error") + ":" + object.get("error_description"));
             }
             authToken.setOpenId(object.getString("openid"));
-            authToken.setUnionId(object.getString("unionid"));
+            if (object.containsKey("unionid")) {
+                authToken.setUnionId(object.getString("unionid"));
+            }
             return StringUtils.isEmpty(authToken.getUnionId()) ? authToken.getOpenId() : authToken.getUnionId();
         }
 

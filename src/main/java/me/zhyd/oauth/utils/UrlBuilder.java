@@ -58,7 +58,7 @@ public class UrlBuilder {
     private static final String QQ_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
     private static final String QQ_USER_INFO_PATTERN = "{0}?oauth_consumer_key={1}&access_token={2}&openid={3}";
     private static final String QQ_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
-    private static final String QQ_OPENID_PATTERN = "{0}?access_token={1}&unionid=1";
+    private static final String QQ_OPENID_PATTERN = "{0}?access_token={1}&unionid={2}";
 
     private static final String WECHAT_AUTHORIZE_PATTERN = "{0}?appid={1}&redirect_uri={2}&response_type=code&scope=snsapi_login&state={3}#wechat_redirect";
     private static final String WECHAT_ACCESS_TOKEN_PATTERN = "{0}?appid={1}&secret={2}&code={3}&grant_type=authorization_code";
@@ -438,12 +438,13 @@ public class UrlBuilder {
     /**
      * 获取qq授权地址
      *
-     * @param url   获取qqopenid的api接口地址
-     * @param token qq 应用授权的token
+     * @param url     获取qqopenid的api接口地址
+     * @param token   qq 应用授权的token
+     * @param unionid 是否需要获取unionid，默认为false。注：获取unionid需要单独发送邮件申请权限，请个人视情况而定。参考链接：http://wiki.connect.qq.com/unionid%E4%BB%8B%E7%BB%8D
      * @return full url
      */
-    public static String getQqOpenidUrl(String url, String token) {
-        return MessageFormat.format(QQ_OPENID_PATTERN, url, token);
+    public static String getQqOpenidUrl(String url, String token, boolean unionid) {
+        return MessageFormat.format(QQ_OPENID_PATTERN, url, token, unionid ? 1 : 0);
     }
 
     /**
