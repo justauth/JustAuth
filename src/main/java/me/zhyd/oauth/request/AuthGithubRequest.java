@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
@@ -28,9 +29,8 @@ public class AuthGithubRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(String code) {
-        String accessTokenUrl = UrlBuilder.getGithubAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config
-                .getRedirectUri());
+    protected AuthToken getAccessToken(AuthCallback authCallback) {
+        String accessTokenUrl = UrlBuilder.getGithubAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config.getRedirectUri(), config.getState());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         Map<String, String> res = GlobalAuthUtil.parseStringToMap(response.body());
         if (res.containsKey("error")) {
@@ -68,6 +68,6 @@ public class AuthGithubRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getGithubAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getGithubAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

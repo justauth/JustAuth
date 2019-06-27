@@ -2,6 +2,8 @@ package me.zhyd.oauth.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import me.zhyd.oauth.config.AuthSource;
 
 /**
@@ -11,8 +13,9 @@ import me.zhyd.oauth.config.AuthSource;
  * @version 1.0
  * @since 1.8
  */
+@Getter
+@Setter
 @Builder
-@Data
 public class AuthUser {
     /**
      * 用户名

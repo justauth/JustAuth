@@ -2,6 +2,8 @@ package me.zhyd.oauth.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 授权所需的token
@@ -10,7 +12,8 @@ import lombok.Data;
  * @version 1.0
  * @since 1.8
  */
-@Data
+@Getter
+@Setter
 @Builder
 public class AuthToken {
     private String accessToken;

@@ -4,10 +4,11 @@ import lombok.Data;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.AuthConfigChecker;
+import me.zhyd.oauth.utils.AuthChecker;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -22,21 +23,24 @@ public abstract class BaseAuthRequest implements AuthRequest {
     public BaseAuthRequest(AuthConfig config, AuthSource source) {
         this.config = config;
         this.source = source;
-        if (!AuthConfigChecker.isSupportedAuth(config, source)) {
+        if (!AuthChecker.isSupportedAuth(config, source)) {
             throw new AuthException(ResponseStatus.PARAMETER_INCOMPLETE);
         }
         // 校验配置合法性
-        AuthConfigChecker.check(config, source);
+        AuthChecker.checkConfig(config, source);
     }
 
-    protected abstract AuthToken getAccessToken(String code);
+    protected abstract AuthToken getAccessToken(AuthCallback authCallback);
 
     protected abstract AuthUser getUserInfo(AuthToken authToken);
 
     @Override
-    public AuthResponse login(String code) {
+    public AuthResponse login(AuthCallback authCallback) {
         try {
-            AuthToken authToken = this.getAccessToken(code);
+            AuthChecker.checkCode(authCallback.getCode());
+            AuthChecker.checkState(authCallback.getState(), config.getState());
+
+            AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
             return AuthResponse.builder().code(ResponseStatus.SUCCESS.getCode()).data(user).build();
         } catch (Exception e) {

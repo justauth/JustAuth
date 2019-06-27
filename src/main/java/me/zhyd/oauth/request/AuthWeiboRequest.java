@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
@@ -28,14 +29,14 @@ public class AuthWeiboRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(String code) {
-        String accessTokenUrl = UrlBuilder.getWeiboAccessTokenUrl(config.getClientId(), config.getClientSecret(), code, config
+    protected AuthToken getAccessToken(AuthCallback authCallback) {
+        String accessTokenUrl = UrlBuilder.getWeiboAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config
                 .getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         String accessTokenStr = response.body();
         JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
         if (accessTokenObject.containsKey("error")) {
-            throw new AuthException("Unable to get token from weibo using code [" + code + "]:" + accessTokenObject.getString("error_description"));
+            throw new AuthException("Unable to get token from weibo using code [" + authCallback.getCode() + "]:" + accessTokenObject.getString("error_description"));
         }
         return AuthToken.builder()
                 .accessToken(accessTokenObject.getString("access_token"))
@@ -81,6 +82,6 @@ public class AuthWeiboRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getWeiboAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getWeiboAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

@@ -6,10 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -31,8 +28,8 @@ public class AuthWeChatRequest extends BaseAuthRequest {
      * @return 所有信息
      */
     @Override
-    protected AuthToken getAccessToken(String code) {
-        String accessTokenUrl = UrlBuilder.getWeChatAccessTokenUrl(config.getClientId(), config.getClientSecret(), code);
+    protected AuthToken getAccessToken(AuthCallback authCallback) {
+        String accessTokenUrl = UrlBuilder.getWeChatAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode());
         return this.getToken(accessTokenUrl);
     }
 

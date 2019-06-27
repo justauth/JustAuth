@@ -7,10 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.HashMap;
@@ -29,9 +26,9 @@ public class AuthMicrosoftRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(String code) {
+    protected AuthToken getAccessToken(AuthCallback authCallback) {
         String accessTokenUrl = UrlBuilder.getMicrosoftAccessTokenUrl(config.getClientId(), config.getClientSecret(), config
-                .getRedirectUri(), code);
+                .getRedirectUri(), authCallback.getCode());
 
         return getToken(accessTokenUrl);
     }

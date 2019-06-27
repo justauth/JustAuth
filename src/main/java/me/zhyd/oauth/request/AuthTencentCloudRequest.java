@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
@@ -25,12 +26,12 @@ public class AuthTencentCloudRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(String code) {
-        String accessTokenUrl = UrlBuilder.getTencentCloudAccessTokenUrl(config.getClientId(), config.getClientSecret(), code);
+    protected AuthToken getAccessToken(AuthCallback authCallback) {
+        String accessTokenUrl = UrlBuilder.getTencentCloudAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode());
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
         JSONObject object = JSONObject.parseObject(response.body());
         if (object.getIntValue("code") != 0) {
-            throw new AuthException("Unable to get token from tencent cloud using code [" + code + "]: " + object.get("msg"));
+            throw new AuthException("Unable to get token from tencent cloud using code [" + authCallback.getCode() + "]: " + object.get("msg"));
         }
         return AuthToken.builder().accessToken(object.getString("access_token")).build();
     }

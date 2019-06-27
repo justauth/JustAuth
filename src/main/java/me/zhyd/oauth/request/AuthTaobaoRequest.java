@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
@@ -26,8 +27,8 @@ public class AuthTaobaoRequest extends BaseAuthRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(String code) {
-        return AuthToken.builder().accessCode(code).build();
+    protected AuthToken getAccessToken(AuthCallback authCallback) {
+        return AuthToken.builder().accessCode(authCallback.getCode()).build();
     }
 
     @Override

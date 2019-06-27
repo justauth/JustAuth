@@ -14,6 +14,8 @@ public enum ResponseStatus {
     NO_AUTH_SOURCE(5004, "AuthSource cannot be null"),
     UNIDENTIFIED_PLATFORM(5005, "Unidentified platform"),
     ILLEGAL_REDIRECT_URI(5006, "Illegal redirect uri"),
+    ILLEGAL_REQUEST(5007, "Illegal request"),
+    ILLEGAL_CODE(5008, "Illegal code"),
     ;
 
     private int code;

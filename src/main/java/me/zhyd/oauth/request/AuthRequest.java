@@ -1,6 +1,7 @@
 package me.zhyd.oauth.request;
 
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 
@@ -23,10 +24,10 @@ public interface AuthRequest {
     /**
      * 第三方登录
      *
-     * @param code 通过authorize换回的code
+     * @param authCallback 用于接收回调参数的实体
      * @return 返回登录成功后的用户信息
      */
-    default AuthResponse login(String code) {
+    default AuthResponse login(AuthCallback authCallback) {
         throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
     }
 

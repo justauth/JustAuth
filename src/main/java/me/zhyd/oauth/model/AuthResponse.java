@@ -1,7 +1,8 @@
 package me.zhyd.oauth.model;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import me.zhyd.oauth.request.ResponseStatus;
 
 /**
@@ -11,8 +12,9 @@ import me.zhyd.oauth.request.ResponseStatus;
  * @version 1.0
  * @since 1.8
  */
+@Getter
+@Setter
 @Builder
-@Data
 public class AuthResponse<T> {
     /**
      * 授权响应状态码
