@@ -49,12 +49,10 @@
         <maven-source.version>2.2.1</maven-source.version>
         <maven-compiler.version>3.7.0</maven-compiler.version>
         <maven.test.skip>true</maven.test.skip>
-        <hutool-version>4.1.21</hutool-version>
+        <hutool-version>4.5.15</hutool-version>
         <lombok-version>1.18.4</lombok-version>
         <junit-version>4.11</junit-version>
         <fastjson-version>1.2.44</fastjson-version>
-        <google-api-version>1.28.0</google-api-version>
-        <guava-version>27.1-jre</guava-version>
         <alipay-sdk-version>3.7.4.ALL</alipay-sdk-version>
     </properties>
 
