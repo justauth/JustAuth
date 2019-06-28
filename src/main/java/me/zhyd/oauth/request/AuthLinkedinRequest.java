@@ -93,7 +93,7 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getLinkedinAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getLinkedinAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 
     private String getUserEmail(String accessToken) {

@@ -18,6 +18,10 @@ import me.zhyd.oauth.config.AuthSource;
 @Builder
 public class AuthUser {
     /**
+     * 用户第三方系统的唯一id。在调用方集成改组件时，可以用uuid + source唯一确定一个用户
+     */
+    private String uuid;
+    /**
      * 用户名
      */
     private String username;
@@ -61,8 +65,4 @@ public class AuthUser {
      * 用户授权的token信息
      */
     private AuthToken token;
-    /**
-     * 用户第三方系统的唯一id。在调用方集成改组件时，可以用uuid + source唯一确定一个用户
-     */
-    private String uuid;
 }

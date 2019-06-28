@@ -33,7 +33,11 @@ public class AuthCodingRequest extends BaseAuthRequest {
         if (accessTokenObject.getIntValue("code") != 0) {
             throw new AuthException("Unable to get token from coding using code [" + authCallback.getCode() + "]");
         }
-        return AuthToken.builder().accessToken(accessTokenObject.getString("access_token")).build();
+        return AuthToken.builder()
+                .accessToken(accessTokenObject.getString("access_token"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .refreshToken(accessTokenObject.getString("refresh_token"))
+                .build();
     }
 
     @Override
@@ -69,6 +73,6 @@ public class AuthCodingRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getCodingAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getCodingAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

@@ -81,7 +81,7 @@ public class AuthQqRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getQqAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getQqAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 
     private String getOpenId(AuthToken authToken) {

@@ -58,7 +58,7 @@ public class AuthDouyinRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getDouyinAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getDouyinAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 
     @Override

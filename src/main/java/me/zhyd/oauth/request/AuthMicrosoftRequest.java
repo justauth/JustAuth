@@ -48,16 +48,16 @@ public class AuthMicrosoftRequest extends BaseAuthRequest {
                 .form(paramMap)
                 .execute();
         String accessTokenStr = response.body();
-        JSONObject object = JSONObject.parseObject(accessTokenStr);
+        JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
 
-        this.checkResponse(object);
+        this.checkResponse(accessTokenObject);
 
         return AuthToken.builder()
-                .accessToken(object.getString("access_token"))
-                .expireIn(object.getIntValue("expires_in"))
-                .scope(object.getString("scope"))
-                .tokenType(object.getString("token_type"))
-                .refreshToken(object.getString("refresh_token"))
+                .accessToken(accessTokenObject.getString("access_token"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .scope(accessTokenObject.getString("scope"))
+                .tokenType(accessTokenObject.getString("token_type"))
+                .refreshToken(accessTokenObject.getString("refresh_token"))
                 .build();
     }
 
@@ -96,7 +96,7 @@ public class AuthMicrosoftRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getMicrosoftAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getMicrosoftAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 
     /**

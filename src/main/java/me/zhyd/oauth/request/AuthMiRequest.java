@@ -35,21 +35,21 @@ public class AuthMiRequest extends BaseAuthRequest {
     private AuthToken getToken(String accessTokenUrl) {
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
         String jsonStr = StrUtil.replace(response.body(), PREFIX, StrUtil.EMPTY);
-        JSONObject object = JSONObject.parseObject(jsonStr);
+        JSONObject accessTokenObject = JSONObject.parseObject(jsonStr);
 
-        if (object.containsKey("error")) {
-            throw new AuthException(object.getString("error_description"));
+        if (accessTokenObject.containsKey("error")) {
+            throw new AuthException(accessTokenObject.getString("error_description"));
         }
 
         return AuthToken.builder()
-                .accessToken(object.getString("access_token"))
-                .expireIn(object.getIntValue("expires_in"))
-                .scope(object.getString("scope"))
-                .tokenType(object.getString("token_type"))
-                .refreshToken(object.getString("refresh_token"))
-                .openId(object.getString("openId"))
-                .macAlgorithm(object.getString("mac_algorithm"))
-                .macKey(object.getString("mac_key"))
+                .accessToken(accessTokenObject.getString("access_token"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .scope(accessTokenObject.getString("scope"))
+                .tokenType(accessTokenObject.getString("token_type"))
+                .refreshToken(accessTokenObject.getString("refresh_token"))
+                .openId(accessTokenObject.getString("openId"))
+                .macAlgorithm(accessTokenObject.getString("mac_algorithm"))
+                .macKey(accessTokenObject.getString("mac_key"))
                 .build();
     }
 
@@ -98,7 +98,7 @@ public class AuthMiRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getMiAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getMiAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 
     /**

@@ -24,7 +24,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
     /**
      * 微信的特殊性，此时返回的信息同时包含 openid 和 access_token
      *
-     * @param code 授权码
+     * @param authCallback 回调返回的参数
      * @return 所有信息
      */
     @Override
@@ -63,7 +63,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getWeChatAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getWeChatAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 
     @Override
@@ -94,15 +94,15 @@ public class AuthWeChatRequest extends BaseAuthRequest {
      */
     private AuthToken getToken(String accessTokenUrl) {
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
-        JSONObject object = JSONObject.parseObject(response.body());
+        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
 
-        this.checkResponse(object);
+        this.checkResponse(accessTokenObject);
 
         return AuthToken.builder()
-                .accessToken(object.getString("access_token"))
-                .refreshToken(object.getString("refresh_token"))
-                .expireIn(object.getIntValue("expires_in"))
-                .openId(object.getString("openid"))
+                .accessToken(accessTokenObject.getString("access_token"))
+                .refreshToken(accessTokenObject.getString("refresh_token"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .openId(accessTokenObject.getString("openid"))
                 .build();
     }
 }

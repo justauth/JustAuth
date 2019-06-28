@@ -34,7 +34,12 @@ public class AuthOschinaRequest extends BaseAuthRequest {
         if (accessTokenObject.containsKey("error")) {
             throw new AuthException("Unable to get token from oschina using code [" + authCallback.getCode() + "]");
         }
-        return AuthToken.builder().accessToken(accessTokenObject.getString("access_token")).build();
+        return AuthToken.builder()
+                .accessToken(accessTokenObject.getString("access_token"))
+                .refreshToken(accessTokenObject.getString("refresh_token"))
+                .uid(accessTokenObject.getString("uid"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .build();
     }
 
     @Override
@@ -66,6 +71,6 @@ public class AuthOschinaRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getOschinaAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getOschinaAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

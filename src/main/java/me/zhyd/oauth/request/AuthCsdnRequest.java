@@ -63,6 +63,6 @@ public class AuthCsdnRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getCsdnAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getCsdnAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

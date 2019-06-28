@@ -30,19 +30,19 @@ public class AuthGoogleRequest extends BaseAuthRequest {
         String accessTokenUrl = UrlBuilder.getGoogleAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config
                 .getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
-        JSONObject object = JSONObject.parseObject(response.body());
+        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
 
-        if (object.containsKey("error") || object.containsKey("error_description")) {
-            throw new AuthException("get google access_token has error:[" + object.getString("error") + "], error_description:[" + object
+        if (accessTokenObject.containsKey("error") || accessTokenObject.containsKey("error_description")) {
+            throw new AuthException("get google access_token has error:[" + accessTokenObject.getString("error") + "], error_description:[" + accessTokenObject
                     .getString("error_description") + "]");
         }
 
         return AuthToken.builder()
-                .accessToken(object.getString("access_token"))
-                .expireIn(object.getIntValue("expires_in"))
-                .scope(object.getString("scope"))
-                .tokenType(object.getString("token_type"))
-                .idToken(object.getString("id_token"))
+                .accessToken(accessTokenObject.getString("access_token"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .scope(accessTokenObject.getString("scope"))
+                .tokenType(accessTokenObject.getString("token_type"))
+                .idToken(accessTokenObject.getString("id_token"))
                 .build();
     }
 
@@ -72,6 +72,6 @@ public class AuthGoogleRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getGoogleAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getGoogleAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

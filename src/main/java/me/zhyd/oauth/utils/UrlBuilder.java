@@ -29,31 +29,31 @@ public class UrlBuilder {
     private static final String GITEE_USER_INFO_PATTERN = "{0}?access_token={1}";
     private static final String GITEE_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
 
-    private static final String DING_TALK_QRCONNECT_PATTERN = "{0}?appid={1}&response_type=code&scope=snsapi_login&state=STATE&redirect_uri={2}";
+    private static final String DING_TALK_QRCONNECT_PATTERN = "{0}?appid={1}&response_type=code&scope=snsapi_login&redirect_uri={2}&state={3}";
     private static final String DING_TALK_USER_INFO_PATTERN = "{0}?signature={1}&timestamp={2}&accessKey={3}";
 
     private static final String BAIDU_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
     private static final String BAIDU_USER_INFO_PATTERN = "{0}?access_token={1}";
-    private static final String BAIDU_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&display=popup";
+    private static final String BAIDU_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&display=popup&state={3}";
     private static final String BAIDU_REVOKE_PATTERN = "{0}?access_token={1}";
 
     private static final String CSDN_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
     private static final String CSDN_USER_INFO_PATTERN = "{0}?access_token={1}";
-    private static final String CSDN_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
+    private static final String CSDN_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
 
     private static final String CODING_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}";
     private static final String CODING_USER_INFO_PATTERN = "{0}?access_token={1}";
-    private static final String CODING_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&scope=user";
+    private static final String CODING_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&scope=user&state={3}";
 
     private static final String TENCENT_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}";
     private static final String TENCENT_USER_INFO_PATTERN = "{0}?access_token={1}";
-    private static final String TENCENT_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&scope=user";
+    private static final String TENCENT_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&scope=user&state={3}";
 
     private static final String OSCHINA_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}&dataType=json";
     private static final String OSCHINA_USER_INFO_PATTERN = "{0}?access_token={1}&dataType=json";
-    private static final String OSCHINA_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
+    private static final String OSCHINA_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
 
-    private static final String ALIPAY_AUTHORIZE_PATTERN = "{0}?app_id={1}&scope=auth_user&redirect_uri={2}&state=init";
+    private static final String ALIPAY_AUTHORIZE_PATTERN = "{0}?app_id={1}&scope=auth_user&redirect_uri={2}&state={3}";
 
     private static final String QQ_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
     private static final String QQ_USER_INFO_PATTERN = "{0}?oauth_consumer_key={1}&access_token={2}&openid={3}";
@@ -215,10 +215,11 @@ public class UrlBuilder {
      *
      * @param clientId    钉钉 应用的App Id
      * @param redirectUrl 钉钉 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getDingTalkQrConnectUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(DING_TALK_QRCONNECT_PATTERN, AuthSource.DINGTALK.authorize(), clientId, redirectUrl);
+    public static String getDingTalkQrConnectUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(DING_TALK_QRCONNECT_PATTERN, AuthSource.DINGTALK.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -261,10 +262,11 @@ public class UrlBuilder {
      *
      * @param clientId    baidu 应用的API Key
      * @param redirectUrl baidu 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return json
      */
-    public static String getBaiduAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(BAIDU_AUTHORIZE_PATTERN, AuthSource.BAIDU.authorize(), clientId, redirectUrl);
+    public static String getBaiduAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(BAIDU_AUTHORIZE_PATTERN, AuthSource.BAIDU.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -305,10 +307,11 @@ public class UrlBuilder {
      *
      * @param clientId    csdn 应用的Client ID
      * @param redirectUrl csdn 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getCsdnAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(CSDN_AUTHORIZE_PATTERN, AuthSource.CSDN.authorize(), clientId, redirectUrl);
+    public static String getCsdnAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(CSDN_AUTHORIZE_PATTERN, AuthSource.CSDN.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -338,10 +341,11 @@ public class UrlBuilder {
      *
      * @param clientId    coding 应用的Client ID
      * @param redirectUrl coding 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getCodingAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(CODING_AUTHORIZE_PATTERN, AuthSource.CODING.authorize(), clientId, redirectUrl);
+    public static String getCodingAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(CODING_AUTHORIZE_PATTERN, AuthSource.CODING.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -371,10 +375,11 @@ public class UrlBuilder {
      *
      * @param clientId    coding 应用的Client ID
      * @param redirectUrl coding 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getTencentCloudAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(TENCENT_AUTHORIZE_PATTERN, AuthSource.TENCENT_CLOUD.authorize(), clientId, redirectUrl);
+    public static String getTencentCloudAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(TENCENT_AUTHORIZE_PATTERN, AuthSource.TENCENT_CLOUD.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -405,10 +410,11 @@ public class UrlBuilder {
      *
      * @param clientId    oschina 应用的Client ID
      * @param redirectUrl oschina 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getOschinaAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(OSCHINA_AUTHORIZE_PATTERN, AuthSource.OSCHINA.authorize(), clientId, redirectUrl);
+    public static String getOschinaAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(OSCHINA_AUTHORIZE_PATTERN, AuthSource.OSCHINA.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -441,10 +447,11 @@ public class UrlBuilder {
      *
      * @param clientId    qq 应用的Client ID
      * @param redirectUrl qq 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getQqAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(QQ_AUTHORIZE_PATTERN, AuthSource.QQ.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+    public static String getQqAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(QQ_AUTHORIZE_PATTERN, AuthSource.QQ.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -464,10 +471,11 @@ public class UrlBuilder {
      *
      * @param clientId    alipay 应用的Client ID
      * @param redirectUrl alipay 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getAlipayAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(ALIPAY_AUTHORIZE_PATTERN, AuthSource.ALIPAY.authorize(), clientId, redirectUrl);
+    public static String getAlipayAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(ALIPAY_AUTHORIZE_PATTERN, AuthSource.ALIPAY.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -475,11 +483,11 @@ public class UrlBuilder {
      *
      * @param clientId    微信 应用的appid
      * @param redirectUrl 微信 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getWeChatAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(WECHAT_AUTHORIZE_PATTERN, AuthSource.WECHAT.authorize(), clientId, redirectUrl, System
-                .currentTimeMillis());
+    public static String getWeChatAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(WECHAT_AUTHORIZE_PATTERN, AuthSource.WECHAT.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -534,11 +542,11 @@ public class UrlBuilder {
      *
      * @param clientId    Taobao 应用的Client ID
      * @param redirectUrl Taobao 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getTaobaoAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(TAOBAO_AUTHORIZE_PATTERN, AuthSource.TAOBAO.authorize(), clientId, redirectUrl, System
-                .currentTimeMillis());
+    public static String getTaobaoAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(TAOBAO_AUTHORIZE_PATTERN, AuthSource.TAOBAO.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -546,11 +554,11 @@ public class UrlBuilder {
      *
      * @param clientId    google 应用的Client ID
      * @param redirectUrl google 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getGoogleAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(GOOGLE_AUTHORIZE_PATTERN, AuthSource.GOOGLE.authorize(), clientId, redirectUrl, System
-                .currentTimeMillis());
+    public static String getGoogleAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(GOOGLE_AUTHORIZE_PATTERN, AuthSource.GOOGLE.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -581,11 +589,11 @@ public class UrlBuilder {
      *
      * @param clientId    Facebook 应用的Client ID
      * @param redirectUrl Facebook 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getFacebookAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(FACEBOOK_AUTHORIZE_PATTERN, AuthSource.FACEBOOK.authorize(), clientId, redirectUrl, System
-                .currentTimeMillis());
+    public static String getFacebookAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(FACEBOOK_AUTHORIZE_PATTERN, AuthSource.FACEBOOK.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -616,11 +624,11 @@ public class UrlBuilder {
      *
      * @param clientId    Douyin 应用的Client ID
      * @param redirectUrl Douyin 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getDouyinAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(DOUYIN_AUTHORIZE_PATTERN, AuthSource.DOUYIN.authorize(), clientId, redirectUrl, System
-                .currentTimeMillis());
+    public static String getDouyinAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(DOUYIN_AUTHORIZE_PATTERN, AuthSource.DOUYIN.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -662,11 +670,11 @@ public class UrlBuilder {
      *
      * @param clientId    Linkedin 应用的Client ID
      * @param redirectUrl Linkedin 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getLinkedinAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(LINKEDIN_AUTHORIZE_PATTERN, AuthSource.LINKEDIN.authorize(), clientId, redirectUrl, System
-                .currentTimeMillis());
+    public static String getLinkedinAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(LINKEDIN_AUTHORIZE_PATTERN, AuthSource.LINKEDIN.authorize(), clientId, redirectUrl, state);
     }
 
     /**
@@ -708,11 +716,11 @@ public class UrlBuilder {
      *
      * @param clientId    微软 应用的Client ID
      * @param redirectUrl 微软 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getMicrosoftAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(MICROSOFT_AUTHORIZE_PATTERN, AuthSource.MICROSOFT.authorize(), clientId, redirectUrl, System
-                .currentTimeMillis());
+    public static String getMicrosoftAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(MICROSOFT_AUTHORIZE_PATTERN, AuthSource.MICROSOFT.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -755,10 +763,11 @@ public class UrlBuilder {
      *
      * @param clientId    小米 应用的Client ID
      * @param redirectUrl 小米 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getMiAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(MI_AUTHORIZE_PATTERN, AuthSource.MI.authorize(), clientId, redirectUrl, System.currentTimeMillis());
+    public static String getMiAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(MI_AUTHORIZE_PATTERN, AuthSource.MI.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -803,11 +812,11 @@ public class UrlBuilder {
      *
      * @param clientId    今日头条 应用的Client ID
      * @param redirectUrl 今日头条 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getToutiaoAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(TOUTIAO_AUTHORIZE_PATTERN, AuthSource.TOUTIAO.authorize(), clientId, redirectUrl, System
-                .currentTimeMillis());
+    public static String getToutiaoAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(TOUTIAO_AUTHORIZE_PATTERN, AuthSource.TOUTIAO.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**

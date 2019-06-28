@@ -1,6 +1,6 @@
 ### 2019/06/28
 1. 修复百度登录获取不到token失效时间的问题
-2. gitee增加state参数校验
+2. 增加state参数校验，预防CSRF。强烈建议启用state！
 
 ### 2019/06/27
 1. 修改login方法的参数为AuthCallback，封装回调返回的参数

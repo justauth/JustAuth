@@ -36,19 +36,19 @@ public class AuthTaobaoRequest extends BaseAuthRequest {
         String accessCode = authToken.getAccessCode();
         HttpResponse response = HttpRequest.post(UrlBuilder.getTaobaoAccessTokenUrl(this.config.getClientId(), this.config
                 .getClientSecret(), accessCode, this.config.getRedirectUri())).execute();
-        JSONObject object = JSONObject.parseObject(response.body());
-        if (object.containsKey("error")) {
-            throw new AuthException(ResponseStatus.FAILURE + ":" + object.getString("error_description"));
+        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+        if (accessTokenObject.containsKey("error")) {
+            throw new AuthException(ResponseStatus.FAILURE + ":" + accessTokenObject.getString("error_description"));
         }
-        authToken.setAccessToken(object.getString("access_token"));
-        authToken.setRefreshToken(object.getString("refresh_token"));
-        authToken.setExpireIn(object.getIntValue("expires_in"));
-        authToken.setUid(object.getString("taobao_user_id"));
-        authToken.setOpenId(object.getString("taobao_open_uid"));
+        authToken.setAccessToken(accessTokenObject.getString("access_token"));
+        authToken.setRefreshToken(accessTokenObject.getString("refresh_token"));
+        authToken.setExpireIn(accessTokenObject.getIntValue("expires_in"));
+        authToken.setUid(accessTokenObject.getString("taobao_user_id"));
+        authToken.setOpenId(accessTokenObject.getString("taobao_open_uid"));
 
-        String nick = GlobalAuthUtil.urlDecode(object.getString("taobao_user_nick"));
+        String nick = GlobalAuthUtil.urlDecode(accessTokenObject.getString("taobao_user_nick"));
         return AuthUser.builder()
-                .uuid(object.getString("taobao_user_id"))
+                .uuid(accessTokenObject.getString("taobao_user_id"))
                 .username(nick)
                 .nickname(nick)
                 .gender(AuthUserGender.UNKNOW)
@@ -64,6 +64,6 @@ public class AuthTaobaoRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getTaobaoAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getTaobaoAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

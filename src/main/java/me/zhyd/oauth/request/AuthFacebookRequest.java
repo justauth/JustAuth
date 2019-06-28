@@ -30,16 +30,16 @@ public class AuthFacebookRequest extends BaseAuthRequest {
         String accessTokenUrl = UrlBuilder.getFacebookAccessTokenUrl(config.getClientId(), config.getClientSecret(),
                 authCallback.getCode(), config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
-        JSONObject object = JSONObject.parseObject(response.body());
+        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
 
-        if (object.containsKey("error")) {
-            throw new AuthException(object.getJSONObject("error").getString("message"));
+        if (accessTokenObject.containsKey("error")) {
+            throw new AuthException(accessTokenObject.getJSONObject("error").getString("message"));
         }
 
         return AuthToken.builder()
-                .accessToken(object.getString("access_token"))
-                .expireIn(object.getIntValue("expires_in"))
-                .tokenType(object.getString("token_type"))
+                .accessToken(accessTokenObject.getString("access_token"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .tokenType(accessTokenObject.getString("token_type"))
                 .build();
     }
 
@@ -80,6 +80,6 @@ public class AuthFacebookRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getFacebookAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getFacebookAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

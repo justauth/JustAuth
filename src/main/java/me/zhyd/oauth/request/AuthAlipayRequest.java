@@ -38,12 +38,12 @@ public class AuthAlipayRequest extends BaseAuthRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest();
         request.setGrantType("authorization_code");
-        request.setCode(authCallback.getCode());
+        request.setCode(authCallback.getAuth_code());
         AlipaySystemOauthTokenResponse response = null;
         try {
             response = this.alipayClient.execute(request);
         } catch (Exception e) {
-            throw new AuthException("Unable to get token from alipay using code [" + authCallback.getCode() + "]", e);
+            throw new AuthException("Unable to get token from alipay using code [" + authCallback.getAuth_code() + "]", e);
         }
         if (!response.isSuccess()) {
             throw new AuthException(response.getSubMsg());
@@ -93,6 +93,6 @@ public class AuthAlipayRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getAlipayAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getAlipayAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

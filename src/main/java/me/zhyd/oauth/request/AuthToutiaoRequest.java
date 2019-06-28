@@ -26,16 +26,16 @@ public class AuthToutiaoRequest extends BaseAuthRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         String accessTokenUrl = UrlBuilder.getToutiaoAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode());
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
-        JSONObject object = JSONObject.parseObject(response.body());
+        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
 
-        if (object.containsKey("error_code")) {
-            throw new AuthException(AuthToutiaoErrorCode.getErrorCode(object.getIntValue("error_code")).getDesc());
+        if (accessTokenObject.containsKey("error_code")) {
+            throw new AuthException(AuthToutiaoErrorCode.getErrorCode(accessTokenObject.getIntValue("error_code")).getDesc());
         }
 
         return AuthToken.builder()
-                .accessToken(object.getString("access_token"))
-                .expireIn(object.getIntValue("expires_in"))
-                .openId(object.getString("open_id"))
+                .accessToken(accessTokenObject.getString("access_token"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .openId(accessTokenObject.getString("open_id"))
                 .build();
     }
 
@@ -73,6 +73,6 @@ public class AuthToutiaoRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getToutiaoAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getToutiaoAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

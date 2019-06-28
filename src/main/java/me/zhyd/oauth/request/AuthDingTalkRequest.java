@@ -67,6 +67,6 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getDingTalkQrConnectUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getDingTalkQrConnectUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

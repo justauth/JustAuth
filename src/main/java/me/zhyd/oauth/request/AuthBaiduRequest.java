@@ -67,7 +67,7 @@ public class AuthBaiduRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getBaiduAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getBaiduAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 
     @Override

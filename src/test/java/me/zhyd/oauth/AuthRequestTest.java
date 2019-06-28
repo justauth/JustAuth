@@ -1,6 +1,7 @@
 package me.zhyd.oauth;
 
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.request.*;
 import org.junit.Test;
@@ -18,11 +19,12 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        authRequest.login("code");
+        authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -31,11 +33,12 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        authRequest.login("code");
+        authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -48,7 +51,7 @@ public class AuthRequestTest {
         // 返回授权页面，可自行调整
         authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        authRequest.login("code");
+        authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -57,11 +60,12 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        authRequest.login("code");
+        authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -70,11 +74,12 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        authRequest.login("code");
+        authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -83,11 +88,12 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        authRequest.login("code");
+        authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -96,11 +102,12 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        authRequest.login("code");
+        authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -109,11 +116,26 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        authRequest.login("code");
+        authRequest.login(new AuthCallback());
+    }
+
+    @Test
+    public void alipayTest() {
+        AuthRequest authRequest = new AuthAlipayRequest(AuthConfig.builder()
+                .clientId("clientId")
+                .clientSecret("clientSecret")
+                .redirectUri("redirectUri")
+                .state("state")
+                .build());
+        // 返回授权页面，可自行调整
+        String url = authRequest.authorize();
+        // 授权登录后会返回一个code，用这个code进行登录
+        AuthResponse login = authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -122,11 +144,12 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        AuthResponse login = authRequest.login("code");
+        AuthResponse login = authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -135,11 +158,26 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        AuthResponse login = authRequest.login("code");
+        AuthResponse login = authRequest.login(new AuthCallback());
+    }
+
+    @Test
+    public void taobaoTest() {
+        AuthRequest authRequest = new AuthTaobaoRequest(AuthConfig.builder()
+                .clientId("clientId")
+                .clientSecret("clientSecret")
+                .redirectUri("redirectUri")
+                .state("state")
+                .build());
+        // 返回授权页面，可自行调整
+        String url = authRequest.authorize();
+        // 授权登录后会返回一个code，用这个code进行登录
+        AuthResponse login = authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -148,11 +186,12 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        AuthResponse login = authRequest.login("code");
+        AuthResponse login = authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -161,11 +200,40 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        AuthResponse login = authRequest.login("code");
+        AuthResponse login = authRequest.login(new AuthCallback());
+    }
+
+    @Test
+    public void douyinTest() {
+        AuthRequest authRequest = new AuthDouyinRequest(AuthConfig.builder()
+                .clientId("clientId")
+                .clientSecret("clientSecret")
+                .redirectUri("redirectUri")
+                .state("state")
+                .build());
+        // 返回授权页面，可自行调整
+        String url = authRequest.authorize();
+        // 授权登录后会返回一个code，用这个code进行登录
+        AuthResponse login = authRequest.login(new AuthCallback());
+    }
+
+    @Test
+    public void linkedinTest() {
+        AuthRequest authRequest = new AuthLinkedinRequest(AuthConfig.builder()
+                .clientId("clientId")
+                .clientSecret("clientSecret")
+                .redirectUri("redirectUri")
+                .state("state")
+                .build());
+        // 返回授权页面，可自行调整
+        String url = authRequest.authorize();
+        // 授权登录后会返回一个code，用这个code进行登录
+        AuthResponse login = authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -174,11 +242,12 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        AuthResponse login = authRequest.login("code");
+        AuthResponse login = authRequest.login(new AuthCallback());
     }
 
     @Test
@@ -187,10 +256,25 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .state("state")
                 .build());
         // 返回授权页面，可自行调整
         String url = authRequest.authorize();
         // 授权登录后会返回一个code，用这个code进行登录
-        AuthResponse login = authRequest.login("code");
+        AuthResponse login = authRequest.login(new AuthCallback());
+    }
+
+    @Test
+    public void toutiaoTest() {
+        AuthRequest authRequest = new AuthToutiaoRequest(AuthConfig.builder()
+                .clientId("clientId")
+                .clientSecret("clientSecret")
+                .redirectUri("redirectUri")
+                .state("state")
+                .build());
+        // 返回授权页面，可自行调整
+        String url = authRequest.authorize();
+        // 授权登录后会返回一个code，用这个code进行登录
+        AuthResponse login = authRequest.login(new AuthCallback());
     }
 }

@@ -29,11 +29,15 @@ public class AuthTencentCloudRequest extends BaseAuthRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         String accessTokenUrl = UrlBuilder.getTencentCloudAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode());
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
-        JSONObject object = JSONObject.parseObject(response.body());
-        if (object.getIntValue("code") != 0) {
-            throw new AuthException("Unable to get token from tencent cloud using code [" + authCallback.getCode() + "]: " + object.get("msg"));
+        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+        if (accessTokenObject.getIntValue("code") != 0) {
+            throw new AuthException("Unable to get token from tencent cloud using code [" + authCallback.getCode() + "]: " + accessTokenObject.get("msg"));
         }
-        return AuthToken.builder().accessToken(object.getString("access_token")).build();
+        return AuthToken.builder()
+                .accessToken(accessTokenObject.getString("access_token"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .refreshToken(accessTokenObject.getString("refresh_token"))
+                .build();
     }
 
     @Override
@@ -68,6 +72,6 @@ public class AuthTencentCloudRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getTencentCloudAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getTencentCloudAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

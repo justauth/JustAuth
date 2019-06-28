@@ -37,7 +37,7 @@ public abstract class BaseAuthRequest implements AuthRequest {
     @Override
     public AuthResponse login(AuthCallback authCallback) {
         try {
-            AuthChecker.checkCode(authCallback.getCode());
+            AuthChecker.checkCode(source == AuthSource.ALIPAY ? authCallback.getAuth_code() : authCallback.getCode());
             AuthChecker.checkState(authCallback.getState(), config.getState());
 
             AuthToken authToken = this.getAccessToken(authCallback);
