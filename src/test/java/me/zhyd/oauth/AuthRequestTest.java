@@ -21,9 +21,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         authRequest.login(new AuthCallback());
     }
 
@@ -35,9 +35,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         authRequest.login(new AuthCallback());
     }
 
@@ -48,9 +48,9 @@ public class AuthRequestTest {
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         authRequest.login(new AuthCallback());
     }
 
@@ -62,9 +62,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         authRequest.login(new AuthCallback());
     }
 
@@ -76,9 +76,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         authRequest.login(new AuthCallback());
     }
 
@@ -90,9 +90,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         authRequest.login(new AuthCallback());
     }
 
@@ -104,9 +104,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         authRequest.login(new AuthCallback());
     }
 
@@ -118,9 +118,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         authRequest.login(new AuthCallback());
     }
 
@@ -130,11 +130,12 @@ public class AuthRequestTest {
                 .clientId("clientId")
                 .clientSecret("clientSecret")
                 .redirectUri("redirectUri")
+                .alipayPublicKey("publicKey")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 
@@ -146,9 +147,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 
@@ -160,9 +161,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 
@@ -174,9 +175,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 
@@ -188,9 +189,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 
@@ -202,9 +203,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 
@@ -216,9 +217,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 
@@ -230,9 +231,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 
@@ -244,9 +245,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 
@@ -258,9 +259,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 
@@ -272,9 +273,9 @@ public class AuthRequestTest {
                 .redirectUri("redirectUri")
                 .state("state")
                 .build());
-        // 返回授权页面，可自行调整
+        // 返回授权页面，可自行跳转
         String url = authRequest.authorize();
-        // 授权登录后会返回一个code，用这个code进行登录
+        // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
         AuthResponse login = authRequest.login(new AuthCallback());
     }
 }
