@@ -30,7 +30,7 @@ public class AuthGithubRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getGithubAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config.getRedirectUri(), config.getState());
+        String accessTokenUrl = UrlBuilder.getGithubAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config.getRedirectUri());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         Map<String, String> res = GlobalAuthUtil.parseStringToMap(response.body());
         if (res.containsKey("error")) {

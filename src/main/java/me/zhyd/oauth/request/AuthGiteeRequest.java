@@ -66,6 +66,6 @@ public class AuthGiteeRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getGiteeAuthorizeUrl(config.getClientId(), config.getRedirectUri());
+        return UrlBuilder.getGiteeAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
     }
 }

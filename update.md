@@ -1,3 +1,12 @@
+### 2019/06/28
+1. 修复百度登录获取不到token失效时间的问题
+2. gitee增加state参数校验
+
+### 2019/06/27
+1. 修改login方法的参数为AuthCallback，封装回调返回的参数
+2. 支持state参数
+3. 增加code和state参数校验
+
 ### 2019/06/25
 qq授权登录时，需要获取`openId`作为`uuid`，在`1.6.1-beta`和`1.7.0`版本中，引入了`unionId`这一属性。获取`unionid`需要单独向qq团队**发送邮件**申请权限，鉴于这一申请权限的步骤比较麻烦（需要填写的内容比较多），所以在`AuthConfig`中增加了一个`unionId`属性，当为**true**时才会获取unionid，当为false时只获取openId。如果你需要该功能， 则在自行申请了相关权限后，将该属性置为true即可。关于unionId的参考链接：[UnionID介绍](http://wiki.connect.qq.com/unionid%E4%BB%8B%E7%BB%8D)
 

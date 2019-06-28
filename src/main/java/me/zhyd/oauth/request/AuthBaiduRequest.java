@@ -32,7 +32,12 @@ public class AuthBaiduRequest extends BaseAuthRequest {
         if (AuthBaiduErrorCode.OK != errorCode) {
             throw new AuthException(errorCode.getDesc());
         }
-        return AuthToken.builder().accessToken(accessTokenObject.getString("access_token")).build();
+        return AuthToken.builder()
+                .accessToken(accessTokenObject.getString("access_token"))
+                .refreshToken(accessTokenObject.getString("refresh_token"))
+                .scope(accessTokenObject.getString("scope"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .build();
     }
 
     @Override

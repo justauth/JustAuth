@@ -13,7 +13,7 @@ import java.text.MessageFormat;
  */
 public class UrlBuilder {
 
-    private static final String GITHUB_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&state={5}";
+    private static final String GITHUB_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}";
     private static final String GITHUB_USER_INFO_PATTERN = "{0}?access_token={1}";
     private static final String GITHUB_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}";
 
@@ -27,7 +27,7 @@ public class UrlBuilder {
 
     private static final String GITEE_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
     private static final String GITEE_USER_INFO_PATTERN = "{0}?access_token={1}";
-    private static final String GITEE_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}";
+    private static final String GITEE_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
 
     private static final String DING_TALK_QRCONNECT_PATTERN = "{0}?appid={1}&response_type=code&scope=snsapi_login&state=STATE&redirect_uri={2}";
     private static final String DING_TALK_USER_INFO_PATTERN = "{0}?signature={1}&timestamp={2}&accessKey={3}";
@@ -97,17 +97,25 @@ public class UrlBuilder {
     private static final String TOUTIAO_AUTHORIZE_PATTERN = "{0}?client_key={1}&redirect_uri={2}&state={3}&response_type=code&auth_only=1&display=0";
 
     /**
+     * 获取state，如果为空， 则默认去当前日期的时间戳
+     *
+     * @param state state
+     */
+    private static Object getState(String state) {
+        return StringUtils.isEmpty(state) ? String.valueOf(System.currentTimeMillis()) : state;
+    }
+
+    /**
      * 获取githubtoken的接口地址
      *
      * @param clientId     github 应用的Client ID
      * @param clientSecret github 应用的Client Secret
      * @param code         github 授权前的code，用来换token
      * @param redirectUri  待跳转的页面
-     * @param state        随机字符串，用于保持会话状态，防止CSRF攻击
      * @return full url
      */
-    public static String getGithubAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri, String state) {
-        return MessageFormat.format(GITHUB_ACCESS_TOKEN_PATTERN, AuthSource.GITHUB.accessToken(), clientId, clientSecret, code, redirectUri, StringUtils.isEmpty(state) ? System.currentTimeMillis() : state);
+    public static String getGithubAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
+        return MessageFormat.format(GITHUB_ACCESS_TOKEN_PATTERN, AuthSource.GITHUB.accessToken(), clientId, clientSecret, code, redirectUri);
     }
 
     /**
@@ -129,7 +137,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getGithubAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(GITHUB_AUTHORIZE_PATTERN, AuthSource.GITHUB.authorize(), clientId, redirectUrl, StringUtils.isEmpty(state) ? System.currentTimeMillis() : state);
+        return MessageFormat.format(GITHUB_AUTHORIZE_PATTERN, AuthSource.GITHUB.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -164,7 +172,7 @@ public class UrlBuilder {
      * @return full url
      */
     public static String getWeiboAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(WEIBO_AUTHORIZE_PATTERN, AuthSource.WEIBO.authorize(), clientId, redirectUrl, StringUtils.isEmpty(state) ? System.currentTimeMillis() : state);
+        return MessageFormat.format(WEIBO_AUTHORIZE_PATTERN, AuthSource.WEIBO.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -195,10 +203,11 @@ public class UrlBuilder {
      *
      * @param clientId    gitee 应用的Client ID
      * @param redirectUrl gitee 应用授权成功后的回调地址
+     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
      * @return json
      */
-    public static String getGiteeAuthorizeUrl(String clientId, String redirectUrl) {
-        return MessageFormat.format(GITEE_AUTHORIZE_PATTERN, AuthSource.GITEE.authorize(), clientId, redirectUrl);
+    public static String getGiteeAuthorizeUrl(String clientId, String redirectUrl, String state) {
+        return MessageFormat.format(GITEE_AUTHORIZE_PATTERN, AuthSource.GITEE.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
