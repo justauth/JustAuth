@@ -143,6 +143,10 @@ _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经�
 
 [阿里妈妈MUX倾力打造的矢量图标库-iconfont](https://www.iconfont.cn/search/index): 本文档中的图标大部分取自该平台
 
+## 关于OAuth
+
+[The OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749)
+
 ## 关注&交流
 
 |  公众号  |  微信(备注:加群)  |
