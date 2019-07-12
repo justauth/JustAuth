@@ -1,3 +1,6 @@
+### 2019/07/12
+1. 合并[Braavos96](https://github.com/Braavos96)提交的[PR#16](https://github.com/zhangyd-c/JustAuth/pull/16)
+
 ### 2019/06/28
 1. 修复百度登录获取不到token失效时间的问题
 2. 增加state参数校验，预防CSRF。**强烈建议启用state**！

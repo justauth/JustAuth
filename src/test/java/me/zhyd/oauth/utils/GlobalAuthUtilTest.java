@@ -3,6 +3,9 @@ package me.zhyd.oauth.utils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GlobalAuthUtilTest {
 
     @Test
@@ -24,7 +27,9 @@ public class GlobalAuthUtilTest {
 
     @Test
     public void testParseStringToMap() {
-        Assert.assertEquals("{bar=baz}",
+        Map expected = new HashMap();
+        expected.put("bar", "baz");
+        Assert.assertEquals(expected,
                 GlobalAuthUtil.parseStringToMap("foo&bar=baz"));
     }
 
