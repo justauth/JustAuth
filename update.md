@@ -1,3 +1,6 @@
+### 2019/07/15
+1. 新增 `AuthState` 类，内置默认的state生成规则和校验规则
+
 ### 2019/07/12
 1. 合并[Braavos96](https://github.com/Braavos96)提交的[PR#16](https://github.com/zhangyd-c/JustAuth/pull/16)
 
