@@ -94,6 +94,7 @@ authRequest.login(callback);
 
 - [实现Gitee授权登录](http://t.cn/ExDKxQs)
 - [实现Github授权登录](http://t.cn/EJ0Fxqo)
+- [Spring Boot 快速集成第三方登录功能](http://t.cn/AiWWx5kH)
 
 #### API列表
 |  :computer: 平台  |  :coffee: API类  |  :page_facing_up: SDK  |
