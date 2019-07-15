@@ -53,7 +53,6 @@ public class AuthState {
 
     /**
      * 创建state
-     * state建议格式请参考：https://gitee.com/yadong.zhang/JustAuth/wikis/Q&A?sort_id=1513074#3-%E5%8D%87%E7%BA%A7%E5%88%B0180%E5%90%8E%E5%AF%B9%E4%BA%8Estate%E5%8F%82%E6%95%B0%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E6%AE%8A%E8%A6%81%E6%B1%82%E5%90%97
      *
      * @param source oauth平台
      * @param body   希望加密到state的消息体
@@ -97,6 +96,7 @@ public class AuthState {
      * @param source oauth平台
      * @param state  加密后的state
      * @param clazz  body的实际类型
+     * @param <T>    需要转换的具体的class类型
      * @return state
      */
     public static <T> T getBody(String source, String state, Class<T> clazz) {
