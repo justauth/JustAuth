@@ -1,4 +1,4 @@
-package me.zhyd.oauth.model;
+package me.zhyd.oauth.enums;
 
 /**
  * 钉钉授权登录时的异常状态码

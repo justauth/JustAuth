@@ -1,4 +1,4 @@
-package me.zhyd.oauth.model;
+package me.zhyd.oauth.enums;
 
 /**
  * 今日头条授权登录时的异常状态码

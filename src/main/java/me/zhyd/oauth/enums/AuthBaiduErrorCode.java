@@ -1,4 +1,4 @@
-package me.zhyd.oauth.model;
+package me.zhyd.oauth.enums;
 
 import me.zhyd.oauth.utils.StringUtils;
 
