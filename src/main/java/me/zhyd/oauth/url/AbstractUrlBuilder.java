@@ -13,6 +13,7 @@ public abstract class AbstractUrlBuilder {
     /**
      * 获取AccessToken的URL
      *
+     * @param accessTokenEntity
      * @return AccessTokenUrl
      */
     public abstract String getAccessTokenUrl(AuthAccessTokenEntity accessTokenEntity);
@@ -20,6 +21,7 @@ public abstract class AbstractUrlBuilder {
     /**
      * 获取用户信息的URL
      *
+     * @param userInfoEntity
      * @return UserInfoUrl
      */
     public abstract String getUserInfoUrl(AuthUserInfoEntity userInfoEntity);
@@ -27,6 +29,7 @@ public abstract class AbstractUrlBuilder {
     /**
      * 获取跳转授权页面的URL
      *
+     * @param authorizeEntity
      * @return AuthorizeUrl
      */
     public abstract String getAuthorizeUrl(AuthAuthorizeEntity authorizeEntity);
@@ -34,6 +37,7 @@ public abstract class AbstractUrlBuilder {
     /**
      * 获取刷新token的URL
      *
+     * @param refreshTokenEntity
      * @return RefreshUrl
      */
     public abstract String getRefreshUrl(AuthRefreshTokenEntity refreshTokenEntity);
@@ -41,6 +45,7 @@ public abstract class AbstractUrlBuilder {
     /**
      * 获取取消授权的URL
      *
+     * @param revokeEntity
      * @return RevokeUrl
      */
     public abstract String getRevokeUrl(AuthRevokeEntity revokeEntity);

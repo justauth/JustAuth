@@ -7,6 +7,8 @@ import me.zhyd.oauth.url.entity.*;
 import java.text.MessageFormat;
 
 /**
+ * 微博相关的URL构建类
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @since 1.8
