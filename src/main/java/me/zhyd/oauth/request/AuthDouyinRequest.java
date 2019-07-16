@@ -7,7 +7,11 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.utils.UrlBuilder;
+import me.zhyd.oauth.url.DouyinUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthRefreshTokenEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 
 /**
@@ -20,12 +24,15 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthDouyinRequest extends BaseAuthRequest {
 
     public AuthDouyinRequest(AuthConfig config) {
-        super(config, AuthSource.DOUYIN);
+        super(config, AuthSource.DOUYIN, new DouyinUrlBuilder());
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getDouyinAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
         return this.getToken(accessTokenUrl);
     }
 
@@ -33,7 +40,10 @@ public class AuthDouyinRequest extends BaseAuthRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         String openId = authToken.getOpenId();
-        String url = UrlBuilder.getDouyinUserInfoUrl(accessToken, openId);
+        String url = this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
+                .accessToken(accessToken)
+                .openId(openId)
+                .build());
         HttpResponse response = HttpRequest.get(url).execute();
         JSONObject object = JSONObject.parseObject(response.body());
 
@@ -58,12 +68,17 @@ public class AuthDouyinRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getDouyinAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
-        String refreshTokenUrl = UrlBuilder.getDouyinRefreshUrl(config.getClientId(), oldToken.getRefreshToken());
+        String refreshTokenUrl = this.urlBuilder.getRefreshUrl(AuthRefreshTokenEntity.builder()
+                .config(config)
+                .refreshToken(oldToken.getRefreshToken())
+                .build());
         return AuthResponse.builder()
                 .code(ResponseStatus.SUCCESS.getCode())
                 .data(this.getToken(refreshTokenUrl))

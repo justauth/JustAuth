@@ -8,9 +8,14 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthDingTalkErrorCode;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.*;
+import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.model.AuthToken;
+import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.url.DingtalkUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
-import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * 钉钉登录
@@ -22,7 +27,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthDingTalkRequest extends BaseAuthRequest {
 
     public AuthDingTalkRequest(AuthConfig config) {
-        super(config, AuthSource.DINGTALK);
+        super(config, AuthSource.DINGTALK, new DingtalkUrlBuilder());
     }
 
     @Override
@@ -38,8 +43,12 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
         String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), timestamp);
         JSONObject param = new JSONObject();
         param.put("tmp_auth_code", code);
-        HttpResponse response = HttpRequest.post(UrlBuilder.getDingTalkUserInfoUrl(urlEncodeSignature, timestamp, config
-                .getClientId())).body(param.toJSONString()).execute();
+        HttpResponse response = HttpRequest.post(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
+                .signature(urlEncodeSignature)
+                .timestamp(timestamp)
+                .clientId(config.getClientId())
+                .build()
+        )).body(param.toJSONString()).execute();
         String userInfo = response.body();
         JSONObject object = JSON.parseObject(userInfo);
         AuthDingTalkErrorCode errorCode = AuthDingTalkErrorCode.getErrorCode(object.getIntValue("errcode"));
@@ -68,6 +77,8 @@ public class AuthDingTalkRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getDingTalkQrConnectUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 }

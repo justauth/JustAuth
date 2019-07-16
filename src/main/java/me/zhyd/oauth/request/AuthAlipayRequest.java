@@ -14,8 +14,9 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.url.AlipayUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
 import me.zhyd.oauth.utils.StringUtils;
-import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * 支付宝登录
@@ -29,7 +30,7 @@ public class AuthAlipayRequest extends BaseAuthRequest {
     private AlipayClient alipayClient;
 
     public AuthAlipayRequest(AuthConfig config) {
-        super(config, AuthSource.ALIPAY);
+        super(config, AuthSource.ALIPAY, new AlipayUrlBuilder());
         this.alipayClient = new DefaultAlipayClient(AuthSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
                 .getAlipayPublicKey(), "RSA2");
     }
@@ -93,6 +94,8 @@ public class AuthAlipayRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getAlipayAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 }

@@ -10,4 +10,6 @@ import lombok.*;
 @Getter
 @Builder
 public class AuthRevokeEntity {
+
+    private String accessToken;
 }

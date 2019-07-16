@@ -20,11 +20,19 @@ public class AuthUserInfoEntity {
      */
     private String openId;
     /**
+     * client key
+     */
+    private String clientId;
+    /**
      * 额外的属性
      */
     private String extra;
     /**
-     * client key
+     * 额外的属性
      */
-    private String clientId;
+    private String signature;
+    /**
+     * 额外的属性
+     */
+    private String timestamp;
 }

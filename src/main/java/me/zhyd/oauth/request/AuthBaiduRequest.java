@@ -8,7 +8,11 @@ import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthBaiduErrorCode;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.utils.UrlBuilder;
+import me.zhyd.oauth.url.BaiduUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthRevokeEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
  * 百度账号登录
@@ -20,13 +24,15 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthBaiduRequest extends BaseAuthRequest {
 
     public AuthBaiduRequest(AuthConfig config) {
-        super(config, AuthSource.BAIDU);
+        super(config, AuthSource.BAIDU, new BaiduUrlBuilder());
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getBaiduAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config
-                .getRedirectUri());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         AuthBaiduErrorCode errorCode = AuthBaiduErrorCode.getErrorCode(accessTokenObject.getString("error"));
@@ -44,7 +50,9 @@ public class AuthBaiduRequest extends BaseAuthRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getBaiduUserInfoUrl(accessToken)).execute();
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
+                .accessToken(accessToken)
+                .build())).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         AuthBaiduErrorCode errorCode = AuthBaiduErrorCode.getErrorCode(object.getString("error"));
@@ -68,13 +76,17 @@ public class AuthBaiduRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getBaiduAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 
     @Override
     public AuthResponse revoke(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getBaiduRevokeUrl(accessToken)).execute();
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getRevokeUrl(AuthRevokeEntity.builder()
+                .accessToken(accessToken)
+                .build())).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         if (object.containsKey("error_code")) {
