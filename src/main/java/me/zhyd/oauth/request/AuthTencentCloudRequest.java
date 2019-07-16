@@ -12,7 +12,6 @@ import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.url.TencentCloudUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
-import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -71,17 +70,5 @@ public class AuthTencentCloudRequest extends BaseAuthRequest {
                 .token(authToken)
                 .source(AuthSource.TENCENT_CLOUD)
                 .build();
-    }
-
-    /**
-     * 返回认证url，可自行跳转页面
-     *
-     * @return 返回授权地址
-     */
-    @Override
-    public String authorize() {
-        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
-                .config(config)
-                .build());
     }
 }

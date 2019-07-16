@@ -10,7 +10,6 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.url.MiUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
-import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
 import me.zhyd.oauth.url.entity.AuthRefreshTokenEntity;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
@@ -99,18 +98,6 @@ public class AuthMiRequest extends BaseAuthRequest {
         }
 
         return authUser;
-    }
-
-    /**
-     * 返回认证url，可自行跳转页面
-     *
-     * @return 返回授权地址
-     */
-    @Override
-    public String authorize() {
-        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
-                .config(config)
-                .build());
     }
 
     /**

@@ -10,7 +10,6 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.url.BaiduUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
-import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
 import me.zhyd.oauth.url.entity.AuthRevokeEntity;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
@@ -67,18 +66,6 @@ public class AuthBaiduRequest extends BaseAuthRequest {
                 .token(authToken)
                 .source(AuthSource.BAIDU)
                 .build();
-    }
-
-    /**
-     * 返回认证url，可自行跳转页面
-     *
-     * @return 返回授权地址
-     */
-    @Override
-    public String authorize() {
-        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
-                .config(config)
-                .build());
     }
 
     @Override

@@ -9,6 +9,7 @@ import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.url.AbstractUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
 import me.zhyd.oauth.utils.AuthChecker;
 
 /**
@@ -69,5 +70,9 @@ public abstract class BaseAuthRequest implements AuthRequest {
      * @return 返回授权地址
      */
     @Override
-    public abstract String authorize();
+    public String authorize() {
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
+    }
 }
