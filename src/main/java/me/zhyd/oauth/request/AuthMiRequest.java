@@ -8,7 +8,10 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.utils.UrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthRefreshTokenEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
 
@@ -28,7 +31,10 @@ public class AuthMiRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getMiAccessTokenUrl(config.getClientId(), config.getClientSecret(), config.getRedirectUri(), authCallback.getCode());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
         return getToken(accessTokenUrl);
     }
 
@@ -56,7 +62,10 @@ public class AuthMiRequest extends BaseAuthRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         // 获取用户信息
-        HttpResponse userResponse = HttpRequest.get(UrlBuilder.getMiUserInfoUrl(config.getClientId(), authToken.getAccessToken()))
+        HttpResponse userResponse = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
+                .clientId(config.getClientId())
+                .accessToken(authToken.getAccessToken())
+                .build()))
                 .execute();
 
         JSONObject userProfile = JSONObject.parseObject(userResponse.body());
@@ -98,7 +107,9 @@ public class AuthMiRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getMiAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 
     /**
@@ -109,8 +120,10 @@ public class AuthMiRequest extends BaseAuthRequest {
      */
     @Override
     public AuthResponse refresh(AuthToken authToken) {
-        String miRefreshUrl = UrlBuilder.getMiRefreshUrl(config.getClientId(), config.getClientSecret(), config.getRedirectUri(), authToken
-                .getRefreshToken());
+        String miRefreshUrl = this.urlBuilder.getRefreshUrl(AuthRefreshTokenEntity.builder()
+                .config(config)
+                .refreshToken(authToken.getRefreshToken())
+                .build());
 
         return AuthResponse.builder().code(ResponseStatus.SUCCESS.getCode()).data(getToken(miRefreshUrl)).build();
     }

@@ -42,10 +42,6 @@ public class UrlBuilder {
     private static final String CODING_USER_INFO_PATTERN = "{0}?access_token={1}";
     private static final String CODING_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&scope=user&state={3}";
 
-    private static final String OSCHINA_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}&dataType=json";
-    private static final String OSCHINA_USER_INFO_PATTERN = "{0}?access_token={1}&dataType=json";
-    private static final String OSCHINA_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
-
     private static final String ALIPAY_AUTHORIZE_PATTERN = "{0}?app_id={1}&scope=auth_user&redirect_uri={2}&state={3}";
 
 
@@ -68,10 +64,6 @@ public class UrlBuilder {
     private static final String MICROSOFT_USER_INFO_PATTERN = "{0}";
     private static final String MICROSOFT_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
 
-    private static final String MI_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&response_type=code&scope=1%203%204%206&state={3}&skip_confirm=false";
-    private static final String MI_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&code={4}&grant_type=authorization_code";
-    private static final String MI_USER_INFO_PATTERN = "{0}?clientId={1}&token={2}";
-    private static final String MI_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
 
 
     /**
@@ -289,41 +281,6 @@ public class UrlBuilder {
      */
     public static String getCodingAuthorizeUrl(String clientId, String redirectUrl, String state) {
         return MessageFormat.format(CODING_AUTHORIZE_PATTERN, AuthSource.CODING.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
-     * 获取oschina token的接口地址
-     *
-     * @param clientId     oschina 应用的App Key
-     * @param clientSecret oschina 应用的App Secret
-     * @param code         oschina 授权前的code，用来换token
-     * @param redirectUri  待跳转的页面
-     * @return full url
-     */
-    public static String getOschinaAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(OSCHINA_ACCESS_TOKEN_PATTERN, AuthSource.OSCHINA.accessToken(), clientId, clientSecret, code, redirectUri);
-    }
-
-    /**
-     * 获取oschina用户详情的接口地址
-     *
-     * @param token oschina 应用的token
-     * @return full url
-     */
-    public static String getOschinaUserInfoUrl(String token) {
-        return MessageFormat.format(OSCHINA_USER_INFO_PATTERN, AuthSource.OSCHINA.userInfo(), token);
-    }
-
-    /**
-     * 获取oschina授权地址
-     *
-     * @param clientId    oschina 应用的Client ID
-     * @param redirectUrl oschina 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getOschinaAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(OSCHINA_AUTHORIZE_PATTERN, AuthSource.OSCHINA.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -547,52 +504,4 @@ public class UrlBuilder {
         return MessageFormat.format(MICROSOFT_REFRESH_TOKEN_PATTERN, AuthSource.MICROSOFT.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
     }
 
-    /**
-     * 获取小米授权地址
-     *
-     * @param clientId    小米 应用的Client ID
-     * @param redirectUrl 小米 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getMiAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(MI_AUTHORIZE_PATTERN, AuthSource.MI.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
-     * 获取小米 token的接口地址
-     *
-     * @param clientId     小米 应用的Client ID
-     * @param clientSecret 小米 应用的Client Secret
-     * @param redirectUrl  小米 应用授权成功后的回调地址
-     * @param code         小米 授权前的code，用来换token
-     * @return full url
-     */
-    public static String getMiAccessTokenUrl(String clientId, String clientSecret, String redirectUrl, String code) {
-        return MessageFormat.format(MI_ACCESS_TOKEN_PATTERN, AuthSource.MI.accessToken(), clientId, clientSecret, redirectUrl, code);
-    }
-
-    /**
-     * 获取小米用户详情的接口地址
-     *
-     * @param clientId 小米 应用的client_key
-     * @param token    token
-     * @return full url
-     */
-    public static String getMiUserInfoUrl(String clientId, String token) {
-        return MessageFormat.format(MI_USER_INFO_PATTERN, AuthSource.MI.userInfo(), clientId, token);
-    }
-
-    /**
-     * 获取小米 刷新令牌 地址
-     *
-     * @param clientId     小米 应用的client_key
-     * @param clientSecret 小米 应用的Client Secret
-     * @param redirectUrl  小米 应用授权成功后的回调地址
-     * @param refreshToken 小米 应用返回的refresh_token
-     * @return full url
-     */
-    public static String getMiRefreshUrl(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
-        return MessageFormat.format(MI_REFRESH_TOKEN_PATTERN, AuthSource.MI.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
-    }
 }

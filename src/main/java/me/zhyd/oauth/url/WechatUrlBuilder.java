@@ -39,7 +39,7 @@ public class WechatUrlBuilder extends AbstractUrlBuilder {
 
     @Override
     public String getRefreshUrl(AuthRefreshTokenEntity refreshTokenEntity) {
-        return MessageFormat.format(WECHAT_REFRESH_TOKEN_PATTERN, AuthSource.WECHAT.refresh(), refreshTokenEntity.getClientId(), refreshTokenEntity.getRefreshToken());
+        return MessageFormat.format(WECHAT_REFRESH_TOKEN_PATTERN, AuthSource.WECHAT.refresh(), refreshTokenEntity.getConfig().getClientId(), refreshTokenEntity.getRefreshToken());
     }
 
     @Override

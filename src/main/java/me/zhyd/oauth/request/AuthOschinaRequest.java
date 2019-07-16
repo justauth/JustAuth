@@ -10,7 +10,10 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.utils.UrlBuilder;
+import me.zhyd.oauth.url.OschinaUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
  * oschina登录
@@ -22,13 +25,15 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthOschinaRequest extends BaseAuthRequest {
 
     public AuthOschinaRequest(AuthConfig config) {
-        super(config, AuthSource.OSCHINA);
+        super(config, AuthSource.OSCHINA, new OschinaUrlBuilder());
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getOschinaAccessTokenUrl(config.getClientId(), config.getClientSecret(),
-                authCallback.getCode(), config.getRedirectUri());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
@@ -45,7 +50,9 @@ public class AuthOschinaRequest extends BaseAuthRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getOschinaUserInfoUrl(accessToken)).execute();
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
+                .accessToken(accessToken)
+                .build())).execute();
         JSONObject object = JSONObject.parseObject(response.body());
         if (object.containsKey("error")) {
             throw new AuthException(object.getString("error_description"));
@@ -71,6 +78,8 @@ public class AuthOschinaRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getOschinaAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 }

@@ -81,7 +81,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
         String refreshTokenUrl = this.urlBuilder.getRefreshUrl(AuthRefreshTokenEntity.builder()
-                .clientId(config.getClientId())
+                .config(config)
                 .refreshToken(oldToken.getRefreshToken())
                 .build());
         return AuthResponse.builder()

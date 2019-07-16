@@ -2,6 +2,7 @@ package me.zhyd.oauth.url.entity;
 
 import lombok.Builder;
 import lombok.Getter;
+import me.zhyd.oauth.config.AuthConfig;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -12,6 +13,6 @@ import lombok.Getter;
 @Builder
 public class AuthRefreshTokenEntity {
 
-    private String clientId;
+    private AuthConfig config;
     private String refreshToken;
 }
