@@ -21,9 +21,6 @@ public class UrlBuilder {
     private static final String GOOGLE_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
     private static final String GOOGLE_USER_INFO_PATTERN = "{0}?id_token={1}";
 
-    private static final String WEIBO_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
-    private static final String WEIBO_USER_INFO_PATTERN = "{0}?{1}";
-    private static final String WEIBO_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
 
     private static final String GITEE_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
     private static final String GITEE_USER_INFO_PATTERN = "{0}?access_token={1}";
@@ -138,41 +135,6 @@ public class UrlBuilder {
      */
     public static String getGithubAuthorizeUrl(String clientId, String redirectUrl, String state) {
         return MessageFormat.format(GITHUB_AUTHORIZE_PATTERN, AuthSource.GITHUB.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
-     * 获取weibo token的接口地址
-     *
-     * @param clientId     weibo 应用的App Key
-     * @param clientSecret weibo 应用的App Secret
-     * @param code         weibo 授权前的code，用来换token
-     * @param redirectUri  待跳转的页面
-     * @return full url
-     */
-    public static String getWeiboAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(WEIBO_ACCESS_TOKEN_PATTERN, AuthSource.WEIBO.accessToken(), clientId, clientSecret, code, redirectUri);
-    }
-
-    /**
-     * 获取weibo用户详情的接口地址
-     *
-     * @param token weibo 应用的token
-     * @return full url
-     */
-    public static String getWeiboUserInfoUrl(String token) {
-        return MessageFormat.format(WEIBO_USER_INFO_PATTERN, AuthSource.WEIBO.userInfo(), token);
-    }
-
-    /**
-     * 获取weibo授权地址
-     *
-     * @param clientId    weibo 应用的Client ID
-     * @param redirectUrl weibo 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getWeiboAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(WEIBO_AUTHORIZE_PATTERN, AuthSource.WEIBO.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**

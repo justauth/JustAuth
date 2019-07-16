@@ -8,6 +8,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.url.AbstractUrlBuilder;
 import me.zhyd.oauth.utils.AuthChecker;
 
 /**
@@ -19,6 +20,7 @@ import me.zhyd.oauth.utils.AuthChecker;
 public abstract class BaseAuthRequest implements AuthRequest {
     protected AuthConfig config;
     protected AuthSource source;
+    protected AbstractUrlBuilder urlBuilder;
 
     public BaseAuthRequest(AuthConfig config, AuthSource source) {
         this.config = config;
@@ -28,6 +30,11 @@ public abstract class BaseAuthRequest implements AuthRequest {
         }
         // 校验配置合法性
         AuthChecker.checkConfig(config, source);
+    }
+
+    public BaseAuthRequest(AuthConfig config, AuthSource source, AbstractUrlBuilder urlBuilder) {
+        this(config, source);
+        this.urlBuilder = urlBuilder;
     }
 
     protected abstract AuthToken getAccessToken(AuthCallback authCallback);

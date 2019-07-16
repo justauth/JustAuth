@@ -26,7 +26,7 @@ public class AuthStateTest {
      * null
      */
     @Test
-    public void test() {
+    public void usage() {
         String source = "github";
         System.out.println("\nstep1 生成state: 预期创建一个新的state...");
         String state = AuthState.create(source);

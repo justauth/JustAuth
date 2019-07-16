@@ -10,9 +10,12 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.url.WeiboUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.IpUtils;
 import me.zhyd.oauth.utils.StringUtils;
-import me.zhyd.oauth.utils.UrlBuilder;
 
 
 /**
@@ -25,13 +28,15 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthWeiboRequest extends BaseAuthRequest {
 
     public AuthWeiboRequest(AuthConfig config) {
-        super(config, AuthSource.WEIBO);
+        super(config, AuthSource.WEIBO, new WeiboUrlBuilder());
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getWeiboAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config
-                .getRedirectUri());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         String accessTokenStr = response.body();
         JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
@@ -51,7 +56,9 @@ public class AuthWeiboRequest extends BaseAuthRequest {
         String accessToken = authToken.getAccessToken();
         String uid = authToken.getUid();
         String oauthParam = String.format("uid=%s&access_token=%s", uid, accessToken);
-        HttpResponse response = HttpRequest.get(UrlBuilder.getWeiboUserInfoUrl(oauthParam))
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
+                .extra(oauthParam)
+                .build()))
                 .header("Authorization", "OAuth2 " + oauthParam)
                 .header("API-RemoteIP", IpUtils.getIp())
                 .execute();
@@ -82,6 +89,8 @@ public class AuthWeiboRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getWeiboAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 }
