@@ -23,4 +23,8 @@ public class AuthUserInfoEntity {
      * 额外的属性
      */
     private String extra;
+    /**
+     * client key
+     */
+    private String clientId;
 }

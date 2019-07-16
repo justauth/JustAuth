@@ -7,8 +7,14 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthToutiaoErrorCode;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.utils.UrlBuilder;
+import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.model.AuthToken;
+import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.url.ToutiaoUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
  * 今日头条登录
@@ -20,12 +26,15 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthToutiaoRequest extends BaseAuthRequest {
 
     public AuthToutiaoRequest(AuthConfig config) {
-        super(config, AuthSource.TOUTIAO);
+        super(config, AuthSource.TOUTIAO, new ToutiaoUrlBuilder());
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getToutiaoAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
 
@@ -42,7 +51,10 @@ public class AuthToutiaoRequest extends BaseAuthRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse userResponse = HttpRequest.get(UrlBuilder.getToutiaoUserInfoUrl(config.getClientId(), authToken.getAccessToken())).execute();
+        HttpResponse userResponse = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
+                .clientId(config.getClientId())
+                .accessToken(authToken.getAccessToken())
+                .build())).execute();
 
         JSONObject userProfile = JSONObject.parseObject(userResponse.body());
 
@@ -74,6 +86,8 @@ public class AuthToutiaoRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getToutiaoAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 }

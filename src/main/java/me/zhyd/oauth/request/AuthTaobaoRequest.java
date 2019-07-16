@@ -10,8 +10,10 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.url.TaobaoUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
-import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * 淘宝登录
@@ -23,7 +25,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthTaobaoRequest extends BaseAuthRequest {
 
     public AuthTaobaoRequest(AuthConfig config) {
-        super(config, AuthSource.TAOBAO);
+        super(config, AuthSource.TAOBAO, new TaobaoUrlBuilder());
     }
 
     @Override
@@ -34,8 +36,10 @@ public class AuthTaobaoRequest extends BaseAuthRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessCode = authToken.getAccessCode();
-        HttpResponse response = HttpRequest.post(UrlBuilder.getTaobaoAccessTokenUrl(this.config.getClientId(), this.config
-                .getClientSecret(), accessCode, this.config.getRedirectUri())).execute();
+        HttpResponse response = HttpRequest.post(this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(accessCode)
+                .build())).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
             throw new AuthException(ResponseStatus.FAILURE + ":" + accessTokenObject.getString("error_description"));
@@ -64,6 +68,8 @@ public class AuthTaobaoRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getTaobaoAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 }

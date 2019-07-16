@@ -1,5 +1,7 @@
 package me.zhyd.oauth.url;
 
+import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.request.ResponseStatus;
 import me.zhyd.oauth.url.entity.*;
 import me.zhyd.oauth.utils.StringUtils;
 
@@ -49,6 +51,17 @@ public abstract class AbstractUrlBuilder {
      * @return RevokeUrl
      */
     public abstract String getRevokeUrl(AuthRevokeEntity revokeEntity);
+
+    /**
+     * 获取openId的地址，目前只有qq平台需要，故不需要子类强制重写
+     *
+     * @param accessToken
+     * @param unionid
+     * @return
+     */
+    public String getOpenIdUrl(String accessToken, boolean unionid) {
+        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
+    }
 
     /**
      * 获取state，如果为空， 则默认去当前日期的时间戳

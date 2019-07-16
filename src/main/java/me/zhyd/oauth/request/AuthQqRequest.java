@@ -11,9 +11,12 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.url.QqUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.StringUtils;
-import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.Map;
 
@@ -27,13 +30,15 @@ import java.util.Map;
  */
 public class AuthQqRequest extends BaseAuthRequest {
     public AuthQqRequest(AuthConfig config) {
-        super(config, AuthSource.QQ);
+        super(config, AuthSource.QQ, new QqUrlBuilder());
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getQqAccessTokenUrl(config.getClientId(), config.getClientSecret(),
-                authCallback.getCode(), config.getRedirectUri());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
         Map<String, String> accessTokenObject = GlobalAuthUtil.parseStringToMap(response.body());
         if (!accessTokenObject.containsKey("access_token")) {
@@ -50,7 +55,11 @@ public class AuthQqRequest extends BaseAuthRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         String openId = this.getOpenId(authToken);
-        HttpResponse response = HttpRequest.get(UrlBuilder.getQqUserInfoUrl(config.getClientId(), accessToken, openId))
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
+                .clientId(config.getClientId())
+                .accessToken(accessToken)
+                .openId(openId)
+                .build()))
                 .execute();
         JSONObject object = JSONObject.parseObject(response.body());
         if (object.getIntValue("ret") != 0) {
@@ -81,13 +90,14 @@ public class AuthQqRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getQqAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 
     private String getOpenId(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getQqOpenidUrl("https://graph.qq.com/oauth2.0/me", accessToken, config.isUnionId()))
-                .execute();
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getOpenIdUrl(accessToken, config.isUnionId())).execute();
         if (response.isOk()) {
             String body = response.body();
             String removePrefix = StrUtil.replace(body, "callback(", "");

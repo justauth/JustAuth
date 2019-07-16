@@ -42,23 +42,12 @@ public class UrlBuilder {
     private static final String CODING_USER_INFO_PATTERN = "{0}?access_token={1}";
     private static final String CODING_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&scope=user&state={3}";
 
-    private static final String TENCENT_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}";
-    private static final String TENCENT_USER_INFO_PATTERN = "{0}?access_token={1}";
-    private static final String TENCENT_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&scope=user&state={3}";
-
     private static final String OSCHINA_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}&dataType=json";
     private static final String OSCHINA_USER_INFO_PATTERN = "{0}?access_token={1}&dataType=json";
     private static final String OSCHINA_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
 
     private static final String ALIPAY_AUTHORIZE_PATTERN = "{0}?app_id={1}&scope=auth_user&redirect_uri={2}&state={3}";
 
-    private static final String QQ_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
-    private static final String QQ_USER_INFO_PATTERN = "{0}?oauth_consumer_key={1}&access_token={2}&openid={3}";
-    private static final String QQ_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
-    private static final String QQ_OPENID_PATTERN = "{0}?access_token={1}&unionid={2}";
-
-    private static final String TAOBAO_AUTHORIZE_PATTERN = "{0}?response_type=code&client_id={1}&redirect_uri={2}&state={3}&view=web";
-    private static final String TAOBAO_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
 
     private static final String FACEBOOK_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}&response_type=code&scope=";
     private static final String FACEBOOK_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
@@ -84,9 +73,6 @@ public class UrlBuilder {
     private static final String MI_USER_INFO_PATTERN = "{0}?clientId={1}&token={2}";
     private static final String MI_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
 
-    private static final String TOUTIAO_ACCESS_TOKEN_PATTERN = "{0}?client_key={1}&client_secret={2}&code={3}&grant_type=authorize_code";
-    private static final String TOUTIAO_USER_INFO_PATTERN = "{0}?client_key={1}&access_token={2}";
-    private static final String TOUTIAO_AUTHORIZE_PATTERN = "{0}?client_key={1}&redirect_uri={2}&state={3}&response_type=code&auth_only=1&display=0";
 
     /**
      * 获取state，如果为空， 则默认去当前日期的时间戳
@@ -306,40 +292,6 @@ public class UrlBuilder {
     }
 
     /**
-     * 获取腾讯云开发者平台 token的接口地址
-     *
-     * @param clientId     coding 应用的App Key
-     * @param clientSecret coding 应用的App Secret
-     * @param code         coding 授权前的code，用来换token
-     * @return full url
-     */
-    public static String getTencentCloudAccessTokenUrl(String clientId, String clientSecret, String code) {
-        return MessageFormat.format(TENCENT_ACCESS_TOKEN_PATTERN, AuthSource.TENCENT_CLOUD.accessToken(), clientId, clientSecret, code);
-    }
-
-    /**
-     * 获取腾讯云开发者平台用户详情的接口地址
-     *
-     * @param token coding 应用的token
-     * @return full url
-     */
-    public static String getTencentCloudUserInfoUrl(String token) {
-        return MessageFormat.format(TENCENT_USER_INFO_PATTERN, AuthSource.TENCENT_CLOUD.userInfo(), token);
-    }
-
-    /**
-     * 获取腾讯云开发者平台授权地址
-     *
-     * @param clientId    coding 应用的Client ID
-     * @param redirectUrl coding 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getTencentCloudAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(TENCENT_AUTHORIZE_PATTERN, AuthSource.TENCENT_CLOUD.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
      * 获取oschina token的接口地址
      *
      * @param clientId     oschina 应用的App Key
@@ -375,55 +327,6 @@ public class UrlBuilder {
     }
 
     /**
-     * 获取qq token的接口地址
-     *
-     * @param clientId     qq 应用的App Key
-     * @param clientSecret qq 应用的App Secret
-     * @param code         qq 授权前的code，用来换token
-     * @param redirectUri  待跳转的页面
-     * @return full url
-     */
-    public static String getQqAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(QQ_ACCESS_TOKEN_PATTERN, AuthSource.QQ.accessToken(), clientId, clientSecret, code, redirectUri);
-    }
-
-    /**
-     * 获取qq用户详情的接口地址
-     *
-     * @param clientId qq 应用的clientId
-     * @param token    qq 应用的token
-     * @param openId   qq 应用的openId
-     * @return full url
-     */
-    public static String getQqUserInfoUrl(String clientId, String token, String openId) {
-        return MessageFormat.format(QQ_USER_INFO_PATTERN, AuthSource.QQ.userInfo(), clientId, token, openId);
-    }
-
-    /**
-     * 获取qq授权地址
-     *
-     * @param clientId    qq 应用的Client ID
-     * @param redirectUrl qq 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getQqAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(QQ_AUTHORIZE_PATTERN, AuthSource.QQ.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
-     * 获取qq授权地址
-     *
-     * @param url     获取qqopenid的api接口地址
-     * @param token   qq 应用授权的token
-     * @param unionid 是否需要获取unionid，默认为false。注：获取unionid需要单独发送邮件申请权限，请个人视情况而定。参考链接：http://wiki.connect.qq.com/unionid%E4%BB%8B%E7%BB%8D
-     * @return full url
-     */
-    public static String getQqOpenidUrl(String url, String token, boolean unionid) {
-        return MessageFormat.format(QQ_OPENID_PATTERN, url, token, unionid ? 1 : 0);
-    }
-
-    /**
      * 获取alipay授权地址
      *
      * @param clientId    alipay 应用的Client ID
@@ -433,31 +336,6 @@ public class UrlBuilder {
      */
     public static String getAlipayAuthorizeUrl(String clientId, String redirectUrl, String state) {
         return MessageFormat.format(ALIPAY_AUTHORIZE_PATTERN, AuthSource.ALIPAY.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
-     * 获取Taobao token的接口地址: 淘宝的授权登录，在这一步就会返回用户信息
-     *
-     * @param clientId     taobao 应用的App Key
-     * @param clientSecret taobao 应用的App Secret
-     * @param code         taobao 授权前的code，用来换token
-     * @param redirectUri  待跳转的页面
-     * @return full url
-     */
-    public static String getTaobaoAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(TAOBAO_ACCESS_TOKEN_PATTERN, AuthSource.TAOBAO.accessToken(), clientId, clientSecret, code, redirectUri);
-    }
-
-    /**
-     * 获取Taobao授权地址
-     *
-     * @param clientId    Taobao 应用的Client ID
-     * @param redirectUrl Taobao 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getTaobaoAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(TAOBAO_AUTHORIZE_PATTERN, AuthSource.TAOBAO.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -716,40 +594,5 @@ public class UrlBuilder {
      */
     public static String getMiRefreshUrl(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
         return MessageFormat.format(MI_REFRESH_TOKEN_PATTERN, AuthSource.MI.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
-    }
-
-    /**
-     * 获取今日头条授权地址
-     *
-     * @param clientId    今日头条 应用的Client ID
-     * @param redirectUrl 今日头条 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getToutiaoAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(TOUTIAO_AUTHORIZE_PATTERN, AuthSource.TOUTIAO.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
-     * 获取今日头条 token的接口地址
-     *
-     * @param clientId     今日头条 应用的Client ID
-     * @param clientSecret 今日头条 应用的Client Secret
-     * @param code         今日头条 授权前的code，用来换token
-     * @return full url
-     */
-    public static String getToutiaoAccessTokenUrl(String clientId, String clientSecret, String code) {
-        return MessageFormat.format(TOUTIAO_ACCESS_TOKEN_PATTERN, AuthSource.TOUTIAO.accessToken(), clientId, clientSecret, code);
-    }
-
-    /**
-     * 获取今日头条用户详情的接口地址
-     *
-     * @param clientId 今日头条 应用的client_key
-     * @param token    token
-     * @return full url
-     */
-    public static String getToutiaoUserInfoUrl(String clientId, String token) {
-        return MessageFormat.format(TOUTIAO_USER_INFO_PATTERN, AuthSource.TOUTIAO.userInfo(), clientId, token);
     }
 }
