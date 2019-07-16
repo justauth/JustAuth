@@ -48,6 +48,11 @@ public class AuthWeChatRequest extends AuthDefaultRequest {
         this.checkResponse(object);
 
         String location = String.format("%s-%s-%s", object.getString("country"), object.getString("province"), object.getString("city"));
+
+        if (object.containsKey("unionid")){
+            authToken.setUnionId(object.getString("unionid"));
+        }
+
         return AuthUser.builder()
                 .username(object.getString("nickname"))
                 .nickname(object.getString("nickname"))
