@@ -34,7 +34,7 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
         HttpResponse response = HttpRequest.post(this.urlBuilder.getAccessTokenUrl(accessCode)).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
-            throw new AuthException(AuthResponseStatus.FAILURE + ":" + accessTokenObject.getString("error_description"));
+            throw new AuthException(accessTokenObject.getString("error_description"));
         }
         authToken.setAccessToken(accessTokenObject.getString("access_token"));
         authToken.setRefreshToken(accessTokenObject.getString("refresh_token"));

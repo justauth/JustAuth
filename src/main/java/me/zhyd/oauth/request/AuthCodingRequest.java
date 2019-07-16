@@ -32,7 +32,7 @@ public class AuthCodingRequest extends AuthDefaultRequest {
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.getIntValue("code") != 0) {
-            throw new AuthException("Unable to get token from coding using code [" + authCallback.getCode() + "]");
+            throw new AuthException("Unable to get token from coding using code [" + authCallback.getCode() + "]: " + accessTokenObject);
         }
         return AuthToken.builder()
                 .accessToken(accessTokenObject.getString("access_token"))

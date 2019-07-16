@@ -32,7 +32,7 @@ public class AuthOschinaRequest extends AuthDefaultRequest {
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
-            throw new AuthException("Unable to get token from oschina using code [" + authCallback.getCode() + "]");
+            throw new AuthException("Unable to get token from oschina using code [" + authCallback.getCode() + "]: " + accessTokenObject);
         }
         return AuthToken.builder()
                 .accessToken(accessTokenObject.getString("access_token"))

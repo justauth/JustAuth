@@ -33,7 +33,7 @@ public class AuthCsdnRequest extends AuthDefaultRequest {
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error_code")) {
-            throw new AuthException("Unable to get token from csdn using code [" + authCallback.getCode() + "]");
+            throw new AuthException("Unable to get token from csdn using code [" + authCallback.getCode() + "]: " + accessTokenObject);
         }
         return AuthToken.builder().accessToken(accessTokenObject.getString("access_token")).build();
     }

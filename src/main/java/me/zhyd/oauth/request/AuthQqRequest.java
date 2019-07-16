@@ -37,7 +37,7 @@ public class AuthQqRequest extends AuthDefaultRequest {
         HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
         Map<String, String> accessTokenObject = GlobalAuthUtil.parseStringToMap(response.body());
         if (!accessTokenObject.containsKey("access_token")) {
-            throw new AuthException("Unable to get token from qq using code [" + authCallback.getCode() + "]");
+            throw new AuthException("Unable to get token from qq using code [" + authCallback.getCode() + "]: " + accessTokenObject);
         }
         return AuthToken.builder()
                 .accessToken(accessTokenObject.get("access_token"))
