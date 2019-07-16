@@ -1,8 +1,7 @@
 package me.zhyd.oauth.url;
 
-import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.url.entity.*;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
 
@@ -21,9 +20,8 @@ public class WechatUrlBuilder extends AbstractUrlBuilder {
     private static final String WECHAT_USER_INFO_PATTERN = "{0}?access_token={1}&openid={2}&lang=zh_CN";
 
     @Override
-    public String getAccessTokenUrl(AuthAccessTokenEntity accessTokenEntity) {
-        AuthConfig config = accessTokenEntity.getConfig();
-        return MessageFormat.format(WECHAT_ACCESS_TOKEN_PATTERN, AuthSource.WECHAT.accessToken(), config.getClientId(), config.getClientSecret(), accessTokenEntity.getCode());
+    public String getAccessTokenUrl(String code) {
+        return MessageFormat.format(WECHAT_ACCESS_TOKEN_PATTERN, AuthSource.WECHAT.accessToken(), config.getClientId(), config.getClientSecret(), code);
     }
 
     @Override
@@ -32,18 +30,17 @@ public class WechatUrlBuilder extends AbstractUrlBuilder {
     }
 
     @Override
-    public String getAuthorizeUrl(AuthAuthorizeEntity authorizeEntity) {
-        AuthConfig config = authorizeEntity.getConfig();
+    public String getAuthorizeUrl() {
         return MessageFormat.format(WECHAT_AUTHORIZE_PATTERN, AuthSource.WECHAT.authorize(), config.getClientId(), config.getRedirectUri(), this.getRealState(config.getState()));
     }
 
     @Override
-    public String getRefreshUrl(AuthRefreshTokenEntity refreshTokenEntity) {
-        return MessageFormat.format(WECHAT_REFRESH_TOKEN_PATTERN, AuthSource.WECHAT.refresh(), refreshTokenEntity.getConfig().getClientId(), refreshTokenEntity.getRefreshToken());
+    public String getRefreshUrl(String refreshToken) {
+        return MessageFormat.format(WECHAT_REFRESH_TOKEN_PATTERN, AuthSource.WECHAT.refresh(), config.getClientId(), refreshToken);
     }
 
     @Override
-    public String getRevokeUrl(AuthRevokeEntity revokeEntity) {
+    public String getRevokeUrl(String accessToken) {
         return null;
     }
 }

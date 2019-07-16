@@ -9,8 +9,6 @@ import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.url.LinkedinUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
-import me.zhyd.oauth.url.entity.AuthRefreshTokenEntity;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.StringUtils;
 
@@ -30,10 +28,7 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
-                .config(config)
-                .code(authCallback.getCode())
-                .build());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
         return this.getToken(accessTokenUrl);
     }
 
@@ -123,10 +118,7 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
         if (StringUtils.isEmpty(oldToken.getRefreshToken())) {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
-        String refreshTokenUrl = this.urlBuilder.getRefreshUrl(AuthRefreshTokenEntity.builder()
-                .config(config)
-                .refreshToken(oldToken.getRefreshToken())
-                .build());
+        String refreshTokenUrl = this.urlBuilder.getRefreshUrl(oldToken.getRefreshToken());
         return AuthResponse.builder()
                 .code(ResponseStatus.SUCCESS.getCode())
                 .data(this.getToken(refreshTokenUrl))

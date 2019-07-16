@@ -9,8 +9,6 @@ import me.zhyd.oauth.enums.AuthBaiduErrorCode;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.url.BaiduUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
-import me.zhyd.oauth.url.entity.AuthRevokeEntity;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -28,10 +26,7 @@ public class AuthBaiduRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
-                .config(config)
-                .code(authCallback.getCode())
-                .build());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         AuthBaiduErrorCode errorCode = AuthBaiduErrorCode.getErrorCode(accessTokenObject.getString("error"));
@@ -71,9 +66,7 @@ public class AuthBaiduRequest extends BaseAuthRequest {
     @Override
     public AuthResponse revoke(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getRevokeUrl(AuthRevokeEntity.builder()
-                .accessToken(accessToken)
-                .build())).execute();
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getRevokeUrl(accessToken)).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         if (object.containsKey("error_code")) {

@@ -9,8 +9,6 @@ import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.url.MiUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
-import me.zhyd.oauth.url.entity.AuthRefreshTokenEntity;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
@@ -31,10 +29,7 @@ public class AuthMiRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
-                .config(config)
-                .code(authCallback.getCode())
-                .build());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
         return getToken(accessTokenUrl);
     }
 
@@ -108,10 +103,7 @@ public class AuthMiRequest extends BaseAuthRequest {
      */
     @Override
     public AuthResponse refresh(AuthToken authToken) {
-        String miRefreshUrl = this.urlBuilder.getRefreshUrl(AuthRefreshTokenEntity.builder()
-                .config(config)
-                .refreshToken(authToken.getRefreshToken())
-                .build());
+        String miRefreshUrl = this.urlBuilder.getRefreshUrl(authToken.getRefreshToken());
 
         return AuthResponse.builder().code(ResponseStatus.SUCCESS.getCode()).data(getToken(miRefreshUrl)).build();
     }

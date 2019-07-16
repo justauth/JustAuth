@@ -1,3 +1,7 @@
+### 2019/07/16
+1. 重构UrlBuilder类
+2. 将CSDN相关的类置为`Deprecated`，后续可能会删除，也可能一直保留。毕竟CSDN的openAPI已经不对外开放了。
+
 ### 2019/07/15
 1. 新增 `AuthState` 类，内置默认的state生成规则和校验规则
 

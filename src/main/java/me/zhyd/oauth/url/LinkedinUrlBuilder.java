@@ -1,8 +1,7 @@
 package me.zhyd.oauth.url;
 
-import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.url.entity.*;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
 
@@ -21,9 +20,8 @@ public class LinkedinUrlBuilder extends AbstractUrlBuilder {
     private static final String LINKEDIN_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&refresh_token={3}&grant_type=refresh_token";
 
     @Override
-    public String getAccessTokenUrl(AuthAccessTokenEntity accessTokenEntity) {
-        AuthConfig config = accessTokenEntity.getConfig();
-        return MessageFormat.format(LINKEDIN_ACCESS_TOKEN_PATTERN, AuthSource.LINKEDIN.accessToken(), config.getClientId(), config.getClientSecret(), accessTokenEntity.getCode(), config.getRedirectUri());
+    public String getAccessTokenUrl(String code) {
+        return MessageFormat.format(LINKEDIN_ACCESS_TOKEN_PATTERN, AuthSource.LINKEDIN.accessToken(), config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
     }
 
     @Override
@@ -32,19 +30,17 @@ public class LinkedinUrlBuilder extends AbstractUrlBuilder {
     }
 
     @Override
-    public String getAuthorizeUrl(AuthAuthorizeEntity authorizeEntity) {
-        AuthConfig config = authorizeEntity.getConfig();
+    public String getAuthorizeUrl() {
         return MessageFormat.format(LINKEDIN_AUTHORIZE_PATTERN, AuthSource.LINKEDIN.authorize(), config.getClientId(), config.getRedirectUri(), this.getRealState(config.getState()));
     }
 
     @Override
-    public String getRefreshUrl(AuthRefreshTokenEntity refreshTokenEntity) {
-        AuthConfig config = refreshTokenEntity.getConfig();
-        return MessageFormat.format(LINKEDIN_REFRESH_TOKEN_PATTERN, AuthSource.LINKEDIN.refresh(), config.getClientId(), config.getClientSecret(), refreshTokenEntity.getRefreshToken());
+    public String getRefreshUrl(String refreshToken) {
+        return MessageFormat.format(LINKEDIN_REFRESH_TOKEN_PATTERN, AuthSource.LINKEDIN.refresh(), config.getClientId(), config.getClientSecret(), refreshToken);
     }
 
     @Override
-    public String getRevokeUrl(AuthRevokeEntity revokeEntity) {
+    public String getRevokeUrl(String accessToken) {
         return null;
     }
 }

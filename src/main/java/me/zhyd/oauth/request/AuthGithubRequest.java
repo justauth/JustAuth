@@ -11,7 +11,6 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.url.GithubUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 
@@ -32,10 +31,7 @@ public class AuthGithubRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
-                .config(config)
-                .code(authCallback.getCode())
-                .build());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         Map<String, String> res = GlobalAuthUtil.parseStringToMap(response.body());
         if (res.containsKey("error")) {

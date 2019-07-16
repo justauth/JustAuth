@@ -1,6 +1,5 @@
 package me.zhyd.oauth.url;
 
-import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.url.entity.*;
 
@@ -20,9 +19,8 @@ public class GiteeUrlBuilder extends AbstractUrlBuilder {
     private static final String GITEE_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
 
     @Override
-    public String getAccessTokenUrl(AuthAccessTokenEntity accessTokenEntity) {
-        AuthConfig config = accessTokenEntity.getConfig();
-        return MessageFormat.format(GITEE_ACCESS_TOKEN_PATTERN, AuthSource.GITEE.accessToken(), config.getClientId(), config.getClientSecret(), accessTokenEntity.getCode(), config.getRedirectUri());
+    public String getAccessTokenUrl(String code) {
+        return MessageFormat.format(GITEE_ACCESS_TOKEN_PATTERN, AuthSource.GITEE.accessToken(), config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
     }
 
     @Override
@@ -31,18 +29,17 @@ public class GiteeUrlBuilder extends AbstractUrlBuilder {
     }
 
     @Override
-    public String getAuthorizeUrl(AuthAuthorizeEntity authorizeEntity) {
-        AuthConfig config = authorizeEntity.getConfig();
+    public String getAuthorizeUrl() {
         return MessageFormat.format(GITEE_AUTHORIZE_PATTERN, AuthSource.GITEE.authorize(), config.getClientId(), config.getRedirectUri(), this.getRealState(config.getState()));
     }
 
     @Override
-    public String getRefreshUrl(AuthRefreshTokenEntity refreshTokenEntity) {
+    public String getRefreshUrl(String refreshToken) {
         return null;
     }
 
     @Override
-    public String getRevokeUrl(AuthRevokeEntity revokeEntity) {
+    public String getRevokeUrl(String accessToken) {
         return null;
     }
 }

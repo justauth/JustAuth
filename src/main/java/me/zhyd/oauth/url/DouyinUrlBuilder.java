@@ -1,8 +1,7 @@
 package me.zhyd.oauth.url;
 
-import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.url.entity.*;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
 
@@ -21,9 +20,8 @@ public class DouyinUrlBuilder extends AbstractUrlBuilder {
     private static final String DOUYIN_REFRESH_TOKEN_PATTERN = "{0}?client_key={1}&refresh_token={2}&grant_type=refresh_token";
 
     @Override
-    public String getAccessTokenUrl(AuthAccessTokenEntity accessTokenEntity) {
-        AuthConfig config = accessTokenEntity.getConfig();
-        return MessageFormat.format(DOUYIN_ACCESS_TOKEN_PATTERN, AuthSource.DOUYIN.accessToken(), config.getClientId(), config.getClientSecret(), accessTokenEntity.getCode());
+    public String getAccessTokenUrl(String code) {
+        return MessageFormat.format(DOUYIN_ACCESS_TOKEN_PATTERN, AuthSource.DOUYIN.accessToken(), config.getClientId(), config.getClientSecret(), code);
     }
 
     @Override
@@ -32,19 +30,17 @@ public class DouyinUrlBuilder extends AbstractUrlBuilder {
     }
 
     @Override
-    public String getAuthorizeUrl(AuthAuthorizeEntity authorizeEntity) {
-        AuthConfig config = authorizeEntity.getConfig();
+    public String getAuthorizeUrl() {
         return MessageFormat.format(DOUYIN_AUTHORIZE_PATTERN, AuthSource.DOUYIN.authorize(), config.getClientId(), config.getRedirectUri(), this.getRealState(config.getState()));
     }
 
     @Override
-    public String getRefreshUrl(AuthRefreshTokenEntity refreshTokenEntity) {
-        AuthConfig config = refreshTokenEntity.getConfig();
-        return MessageFormat.format(DOUYIN_REFRESH_TOKEN_PATTERN, AuthSource.DOUYIN.refresh(), config.getClientId(), refreshTokenEntity.getRefreshToken());
+    public String getRefreshUrl(String refreshToken) {
+        return MessageFormat.format(DOUYIN_REFRESH_TOKEN_PATTERN, AuthSource.DOUYIN.refresh(), config.getClientId(), refreshToken);
     }
 
     @Override
-    public String getRevokeUrl(AuthRevokeEntity revokeEntity) {
+    public String getRevokeUrl(String accessToken) {
         return null;
     }
 }

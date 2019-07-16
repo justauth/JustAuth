@@ -1,8 +1,7 @@
 package me.zhyd.oauth.url;
 
-import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.url.entity.*;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
 
@@ -21,9 +20,8 @@ public class BaiduUrlBuilder extends AbstractUrlBuilder {
     private static final String BAIDU_REVOKE_PATTERN = "{0}?access_token={1}";
 
     @Override
-    public String getAccessTokenUrl(AuthAccessTokenEntity accessTokenEntity) {
-        AuthConfig config = accessTokenEntity.getConfig();
-        return MessageFormat.format(BAIDU_ACCESS_TOKEN_PATTERN, AuthSource.BAIDU.accessToken(), config.getClientId(), config.getClientSecret(), accessTokenEntity.getCode(), config.getRedirectUri());
+    public String getAccessTokenUrl(String code) {
+        return MessageFormat.format(BAIDU_ACCESS_TOKEN_PATTERN, AuthSource.BAIDU.accessToken(), config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
     }
 
     @Override
@@ -32,18 +30,17 @@ public class BaiduUrlBuilder extends AbstractUrlBuilder {
     }
 
     @Override
-    public String getAuthorizeUrl(AuthAuthorizeEntity authorizeEntity) {
-        AuthConfig config = authorizeEntity.getConfig();
+    public String getAuthorizeUrl() {
         return MessageFormat.format(BAIDU_AUTHORIZE_PATTERN, AuthSource.BAIDU.authorize(), config.getClientId(), config.getRedirectUri(), this.getRealState(config.getState()));
     }
 
     @Override
-    public String getRefreshUrl(AuthRefreshTokenEntity refreshTokenEntity) {
+    public String getRefreshUrl(String refreshToken) {
         return null;
     }
 
     @Override
-    public String getRevokeUrl(AuthRevokeEntity revokeEntity) {
-        return MessageFormat.format(BAIDU_REVOKE_PATTERN, AuthSource.BAIDU.revoke(), revokeEntity.getAccessToken());
+    public String getRevokeUrl(String accessToken) {
+        return MessageFormat.format(BAIDU_REVOKE_PATTERN, AuthSource.BAIDU.revoke(), accessToken);
     }
 }

@@ -1,8 +1,7 @@
 package me.zhyd.oauth.url;
 
-import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.url.entity.*;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
 
@@ -18,7 +17,7 @@ public class AlipayUrlBuilder extends AbstractUrlBuilder {
     private static final String ALIPAY_AUTHORIZE_PATTERN = "{0}?app_id={1}&scope=auth_user&redirect_uri={2}&state={3}";
 
     @Override
-    public String getAccessTokenUrl(AuthAccessTokenEntity accessTokenEntity) {
+    public String getAccessTokenUrl(String code) {
         return null;
     }
 
@@ -28,18 +27,17 @@ public class AlipayUrlBuilder extends AbstractUrlBuilder {
     }
 
     @Override
-    public String getAuthorizeUrl(AuthAuthorizeEntity authorizeEntity) {
-        AuthConfig config = authorizeEntity.getConfig();
+    public String getAuthorizeUrl() {
         return MessageFormat.format(ALIPAY_AUTHORIZE_PATTERN, AuthSource.ALIPAY.authorize(), config.getClientId(), config.getRedirectUri(), this.getRealState(config.getState()));
     }
 
     @Override
-    public String getRefreshUrl(AuthRefreshTokenEntity refreshTokenEntity) {
+    public String getRefreshUrl(String refreshToken) {
         return null;
     }
 
     @Override
-    public String getRevokeUrl(AuthRevokeEntity revokeEntity) {
+    public String getRevokeUrl(String accessToken) {
         return null;
     }
 }

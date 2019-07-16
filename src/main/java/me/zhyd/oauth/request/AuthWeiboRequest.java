@@ -11,7 +11,6 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.url.WeiboUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.IpUtils;
 import me.zhyd.oauth.utils.StringUtils;
@@ -32,10 +31,7 @@ public class AuthWeiboRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
-                .config(config)
-                .code(authCallback.getCode())
-                .build());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         String accessTokenStr = response.body();
         JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);

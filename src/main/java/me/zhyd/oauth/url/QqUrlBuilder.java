@@ -1,8 +1,7 @@
 package me.zhyd.oauth.url;
 
-import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.url.entity.*;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
 
@@ -21,10 +20,8 @@ public class QqUrlBuilder extends AbstractUrlBuilder {
     private static final String QQ_OPENID_PATTERN = "{0}?access_token={1}&unionid={2}";
 
     @Override
-    public String getAccessTokenUrl(AuthAccessTokenEntity accessTokenEntity) {
-        AuthConfig config = accessTokenEntity.getConfig();
-        return MessageFormat.format(QQ_ACCESS_TOKEN_PATTERN, AuthSource.QQ.accessToken(), config.getClientId(),
-                config.getClientSecret(), accessTokenEntity.getCode(), config.getRedirectUri());
+    public String getAccessTokenUrl(String code) {
+        return MessageFormat.format(QQ_ACCESS_TOKEN_PATTERN, AuthSource.QQ.accessToken(), config.getClientId(), config.getClientSecret(), code, config.getRedirectUri());
     }
 
     @Override
@@ -33,19 +30,17 @@ public class QqUrlBuilder extends AbstractUrlBuilder {
     }
 
     @Override
-    public String getAuthorizeUrl(AuthAuthorizeEntity authorizeEntity) {
-        AuthConfig config = authorizeEntity.getConfig();
-        return MessageFormat.format(QQ_AUTHORIZE_PATTERN, AuthSource.QQ.authorize(), config.getClientId(),
-                config.getRedirectUri(), this.getRealState(config.getState()));
+    public String getAuthorizeUrl() {
+        return MessageFormat.format(QQ_AUTHORIZE_PATTERN, AuthSource.QQ.authorize(), config.getClientId(), config.getRedirectUri(), this.getRealState(config.getState()));
     }
 
     @Override
-    public String getRefreshUrl(AuthRefreshTokenEntity refreshTokenEntity) {
+    public String getRefreshUrl(String refreshToken) {
         return null;
     }
 
     @Override
-    public String getRevokeUrl(AuthRevokeEntity revokeEntity) {
+    public String getRevokeUrl(String accessToken) {
         return null;
     }
 

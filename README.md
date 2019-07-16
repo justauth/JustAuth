@@ -88,7 +88,9 @@ authRequest.login(callback);
 
 注：`1.8.0`版本后，增加了`state`参数校验，用于防止[CSRF](https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0)。强烈建议，保证单次流程内`state`的唯一性，且每个`state`只可用一次。
 
-**配套Demo**：[JustAuth-demo](https://gitee.com/yadong.zhang/JustAuth-demo)
+**配套Demo**：
+- [Springboot版](https://gitee.com/yadong.zhang/JustAuth-demo)
+- [jFinal版](https://github.com/zhangyd-c/jfinal-justauth-demo)
 
 具体的例子可以参考：
 

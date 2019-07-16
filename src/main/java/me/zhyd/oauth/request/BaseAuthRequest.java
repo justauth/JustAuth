@@ -9,7 +9,6 @@ import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.url.AbstractUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
 import me.zhyd.oauth.utils.AuthChecker;
 
 /**
@@ -36,6 +35,7 @@ public abstract class BaseAuthRequest implements AuthRequest {
     public BaseAuthRequest(AuthConfig config, AuthSource source, AbstractUrlBuilder urlBuilder) {
         this(config, source);
         this.urlBuilder = urlBuilder;
+        this.urlBuilder.setAuthConfig(config);
     }
 
     protected abstract AuthToken getAccessToken(AuthCallback authCallback);
@@ -71,8 +71,6 @@ public abstract class BaseAuthRequest implements AuthRequest {
      */
     @Override
     public String authorize() {
-        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
-                .config(config)
-                .build());
+        return this.urlBuilder.getAuthorizeUrl();
     }
 }
