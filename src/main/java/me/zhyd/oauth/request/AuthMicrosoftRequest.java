@@ -8,7 +8,11 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.utils.UrlBuilder;
+import me.zhyd.oauth.url.MicrosoftUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthRefreshTokenEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,13 +26,15 @@ import java.util.Map;
  */
 public class AuthMicrosoftRequest extends BaseAuthRequest {
     public AuthMicrosoftRequest(AuthConfig config) {
-        super(config, AuthSource.MICROSOFT);
+        super(config, AuthSource.MICROSOFT, new MicrosoftUrlBuilder());
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getMicrosoftAccessTokenUrl(config.getClientId(), config.getClientSecret(), config
-                .getRedirectUri(), authCallback.getCode());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
 
         return getToken(accessTokenUrl);
     }
@@ -72,7 +78,7 @@ public class AuthMicrosoftRequest extends BaseAuthRequest {
         String token = authToken.getAccessToken();
         String tokenType = authToken.getTokenType();
         String jwt = tokenType + " " + token;
-        HttpResponse response = HttpRequest.get(UrlBuilder.getMicrosoftUserInfoUrl())
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder().build()))
                 .header("Authorization", jwt)
                 .execute();
         String userInfo = response.body();
@@ -96,7 +102,9 @@ public class AuthMicrosoftRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getMicrosoftAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 
     /**
@@ -107,8 +115,10 @@ public class AuthMicrosoftRequest extends BaseAuthRequest {
      */
     @Override
     public AuthResponse refresh(AuthToken authToken) {
-        String refreshTokenUrl = UrlBuilder.getMicrosoftRefreshUrl(config.getClientId(), config.getClientSecret(), config
-                .getRedirectUri(), authToken.getRefreshToken());
+        String refreshTokenUrl = this.urlBuilder.getRefreshUrl(AuthRefreshTokenEntity.builder()
+                .config(config)
+                .refreshToken(authToken.getRefreshToken())
+                .build());
 
         return AuthResponse.builder().code(ResponseStatus.SUCCESS.getCode()).data(getToken(refreshTokenUrl)).build();
     }

@@ -10,8 +10,11 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.url.GithubUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
-import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.Map;
 
@@ -25,12 +28,15 @@ import java.util.Map;
 public class AuthGithubRequest extends BaseAuthRequest {
 
     public AuthGithubRequest(AuthConfig config) {
-        super(config, AuthSource.GITHUB);
+        super(config, AuthSource.GITHUB, new GithubUrlBuilder());
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getGithubAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config.getRedirectUri());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         Map<String, String> res = GlobalAuthUtil.parseStringToMap(response.body());
         if (res.containsKey("error")) {
@@ -42,7 +48,9 @@ public class AuthGithubRequest extends BaseAuthRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getGithubUserInfoUrl(accessToken)).execute();
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
+                .accessToken(accessToken)
+                .build())).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         return AuthUser.builder()
@@ -68,6 +76,8 @@ public class AuthGithubRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getGithubAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 }

@@ -8,8 +8,12 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
+import me.zhyd.oauth.url.LinkedinUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthRefreshTokenEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.StringUtils;
-import me.zhyd.oauth.utils.UrlBuilder;
 
 
 /**
@@ -22,20 +26,22 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthLinkedinRequest extends BaseAuthRequest {
 
     public AuthLinkedinRequest(AuthConfig config) {
-        super(config, AuthSource.LINKEDIN);
+        super(config, AuthSource.LINKEDIN, new LinkedinUrlBuilder());
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getLinkedinAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config
-                .getRedirectUri());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
         return this.getToken(accessTokenUrl);
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getLinkedinUserInfoUrl())
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder().build()))
                 .header("Host", "api.linkedin.com")
                 .header("Connection", "Keep-Alive")
                 .header("Authorization", "Bearer " + accessToken)
@@ -93,7 +99,9 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getLinkedinAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 
     private String getUserEmail(String accessToken) {
@@ -128,8 +136,10 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
         if (StringUtils.isEmpty(oldToken.getRefreshToken())) {
             throw new AuthException(ResponseStatus.UNSUPPORTED);
         }
-        String refreshTokenUrl = UrlBuilder.getLinkedinRefreshUrl(config.getClientId(), config.getClientSecret(), oldToken
-                .getRefreshToken());
+        String refreshTokenUrl = this.urlBuilder.getRefreshUrl(AuthRefreshTokenEntity.builder()
+                .config(config)
+                .refreshToken(oldToken.getRefreshToken())
+                .build());
         return AuthResponse.builder()
                 .code(ResponseStatus.SUCCESS.getCode())
                 .data(this.getToken(refreshTokenUrl))

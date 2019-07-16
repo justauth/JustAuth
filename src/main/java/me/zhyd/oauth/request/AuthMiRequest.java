@@ -8,6 +8,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
+import me.zhyd.oauth.url.MiUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
 import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
 import me.zhyd.oauth.url.entity.AuthRefreshTokenEntity;
@@ -26,7 +27,7 @@ public class AuthMiRequest extends BaseAuthRequest {
     private static final String PREFIX = "&&&START&&&";
 
     public AuthMiRequest(AuthConfig config) {
-        super(config, AuthSource.MI);
+        super(config, AuthSource.MI, new MiUrlBuilder());
     }
 
     @Override

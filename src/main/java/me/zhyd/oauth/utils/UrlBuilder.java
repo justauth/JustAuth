@@ -13,13 +13,6 @@ import java.text.MessageFormat;
  */
 public class UrlBuilder {
 
-    private static final String GITHUB_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}";
-    private static final String GITHUB_USER_INFO_PATTERN = "{0}?access_token={1}";
-    private static final String GITHUB_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}";
-
-    private static final String GOOGLE_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&scope=openid%20email%20profile&redirect_uri={2}&state={3}";
-    private static final String GOOGLE_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
-    private static final String GOOGLE_USER_INFO_PATTERN = "{0}?id_token={1}";
 
 
     private static final String GITEE_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
@@ -54,16 +47,6 @@ public class UrlBuilder {
     private static final String DOUYIN_USER_INFO_PATTERN = "{0}?access_token={1}&open_id={2}";
     private static final String DOUYIN_REFRESH_TOKEN_PATTERN = "{0}?client_key={1}&refresh_token={2}&grant_type=refresh_token";
 
-    private static final String LINKEDIN_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}&response_type=code&scope=r_liteprofile%20r_emailaddress%20w_member_social";
-    private static final String LINKEDIN_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
-    private static final String LINKEDIN_USER_INFO_PATTERN = "{0}?projection=(id,firstName,lastName,profilePicture(displayImage~:playableStreams))";
-    private static final String LINKEDIN_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&refresh_token={3}&grant_type=refresh_token";
-
-    private static final String MICROSOFT_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&response_mode=query&scope=offline_access%20user.read%20mail.read&state={3}";
-    private static final String MICROSOFT_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&code={4}&grant_type=authorization_code";
-    private static final String MICROSOFT_USER_INFO_PATTERN = "{0}";
-    private static final String MICROSOFT_REFRESH_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&scope=user.read%20mail.read&redirect_uri={3}&refresh_token={4}&grant_type=refresh_token";
-
 
 
     /**
@@ -73,41 +56,6 @@ public class UrlBuilder {
      */
     private static Object getState(String state) {
         return StringUtils.isEmpty(state) ? String.valueOf(System.currentTimeMillis()) : state;
-    }
-
-    /**
-     * 获取githubtoken的接口地址
-     *
-     * @param clientId     github 应用的Client ID
-     * @param clientSecret github 应用的Client Secret
-     * @param code         github 授权前的code，用来换token
-     * @param redirectUri  待跳转的页面
-     * @return full url
-     */
-    public static String getGithubAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(GITHUB_ACCESS_TOKEN_PATTERN, AuthSource.GITHUB.accessToken(), clientId, clientSecret, code, redirectUri);
-    }
-
-    /**
-     * 获取github用户详情的接口地址
-     *
-     * @param token github 应用的token
-     * @return full url
-     */
-    public static String getGithubUserInfoUrl(String token) {
-        return MessageFormat.format(GITHUB_USER_INFO_PATTERN, AuthSource.GITHUB.userInfo(), token);
-    }
-
-    /**
-     * 获取github授权地址
-     *
-     * @param clientId    github 应用的Client ID
-     * @param redirectUrl github 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getGithubAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(GITHUB_AUTHORIZE_PATTERN, AuthSource.GITHUB.authorize(), clientId, redirectUrl, getState(state));
     }
 
     /**
@@ -296,41 +244,6 @@ public class UrlBuilder {
     }
 
     /**
-     * 获取Google授权地址
-     *
-     * @param clientId    google 应用的Client ID
-     * @param redirectUrl google 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getGoogleAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(GOOGLE_AUTHORIZE_PATTERN, AuthSource.GOOGLE.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
-     * 获取Google token的接口地址
-     *
-     * @param clientId     google 应用的Client ID
-     * @param clientSecret google 应用的Client Secret
-     * @param code         google 授权前的code，用来换token
-     * @param redirectUri  待跳转的页面
-     * @return full url
-     */
-    public static String getGoogleAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUri) {
-        return MessageFormat.format(GOOGLE_ACCESS_TOKEN_PATTERN, AuthSource.GOOGLE.accessToken(), clientId, clientSecret, code, redirectUri);
-    }
-
-    /**
-     * 获取Google用户详情的接口地址
-     *
-     * @param token google 应用的token
-     * @return full url
-     */
-    public static String getGoogleUserInfoUrl(String token) {
-        return MessageFormat.format(GOOGLE_USER_INFO_PATTERN, AuthSource.GOOGLE.userInfo(), token);
-    }
-
-    /**
      * 获取Facebook授权地址
      *
      * @param clientId    Facebook 应用的Client ID
@@ -409,99 +322,6 @@ public class UrlBuilder {
      */
     public static String getDouyinRefreshUrl(String clientId, String refreshToken) {
         return MessageFormat.format(DOUYIN_REFRESH_TOKEN_PATTERN, AuthSource.DOUYIN.refresh(), clientId, refreshToken);
-    }
-
-    /**
-     * 获取Linkedin授权地址
-     *
-     * @param clientId    Linkedin 应用的Client ID
-     * @param redirectUrl Linkedin 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getLinkedinAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(LINKEDIN_AUTHORIZE_PATTERN, AuthSource.LINKEDIN.authorize(), clientId, redirectUrl, state);
-    }
-
-    /**
-     * 获取Linkedin token的接口地址
-     *
-     * @param clientId     Linkedin 应用的Client ID
-     * @param clientSecret Linkedin 应用的Client Secret
-     * @param code         Linkedin 授权前的code，用来换token
-     * @param redirectUrl  Linkedin 应用授权成功后的回调地址
-     * @return full url
-     */
-    public static String getLinkedinAccessTokenUrl(String clientId, String clientSecret, String code, String redirectUrl) {
-        return MessageFormat.format(LINKEDIN_ACCESS_TOKEN_PATTERN, AuthSource.LINKEDIN.accessToken(), clientId, clientSecret, code, redirectUrl);
-    }
-
-    /**
-     * 获取Linkedin用户详情的接口地址
-     *
-     * @return full url
-     */
-    public static String getLinkedinUserInfoUrl() {
-        return MessageFormat.format(LINKEDIN_USER_INFO_PATTERN, AuthSource.LINKEDIN.userInfo());
-    }
-
-    /**
-     * 获取Linkedin 刷新令牌 地址
-     *
-     * @param clientId     Linkedin 应用的client_key
-     * @param clientSecret Linkedin 应用的Client Secret
-     * @param refreshToken Linkedin 应用返回的refresh_token
-     * @return full url
-     */
-    public static String getLinkedinRefreshUrl(String clientId, String clientSecret, String refreshToken) {
-        return MessageFormat.format(LINKEDIN_REFRESH_TOKEN_PATTERN, AuthSource.LINKEDIN.refresh(), clientId, clientSecret, refreshToken);
-    }
-
-    /**
-     * 获取微软授权地址
-     *
-     * @param clientId    微软 应用的Client ID
-     * @param redirectUrl 微软 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getMicrosoftAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(MICROSOFT_AUTHORIZE_PATTERN, AuthSource.MICROSOFT.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
-     * 获取微软 token的接口地址
-     *
-     * @param clientId     微软 应用的Client ID
-     * @param clientSecret 微软 应用的Client Secret
-     * @param redirectUrl  微软 应用授权成功后的回调地址
-     * @param code         微软 授权前的code，用来换token
-     * @return full url
-     */
-    public static String getMicrosoftAccessTokenUrl(String clientId, String clientSecret, String redirectUrl, String code) {
-        return MessageFormat.format(MICROSOFT_ACCESS_TOKEN_PATTERN, AuthSource.MICROSOFT.accessToken(), clientId, clientSecret, redirectUrl, code);
-    }
-
-    /**
-     * 获取微软用户详情的接口地址
-     *
-     * @return full url
-     */
-    public static String getMicrosoftUserInfoUrl() {
-        return MessageFormat.format(MICROSOFT_USER_INFO_PATTERN, AuthSource.MICROSOFT.userInfo());
-    }
-
-    /**
-     * 获取微软 刷新令牌 地址
-     *
-     * @param clientId     微软 应用的client_key
-     * @param clientSecret 微软 应用的Client Secret
-     * @param redirectUrl  微软 应用授权成功后的回调地址
-     * @param refreshToken 微软 应用返回的refresh_token
-     * @return full url
-     */
-    public static String getMicrosoftRefreshUrl(String clientId, String clientSecret, String redirectUrl, String refreshToken) {
-        return MessageFormat.format(MICROSOFT_REFRESH_TOKEN_PATTERN, AuthSource.MICROSOFT.refresh(), clientId, clientSecret, redirectUrl, refreshToken);
     }
 
 }
