@@ -8,7 +8,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.url.MiUrlBuilder;
+import me.zhyd.oauth.url.AuthMiUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
@@ -20,11 +20,11 @@ import java.text.MessageFormat;
  * @version 1.5
  * @since 1.5
  */
-public class AuthMiRequest extends BaseAuthRequest {
+public class AuthMiRequest extends AuthDefaultRequest {
     private static final String PREFIX = "&&&START&&&";
 
     public AuthMiRequest(AuthConfig config) {
-        super(config, AuthSource.MI, new MiUrlBuilder());
+        super(config, AuthSource.MI, new AuthMiUrlBuilder());
     }
 
     @Override
@@ -105,6 +105,6 @@ public class AuthMiRequest extends BaseAuthRequest {
     public AuthResponse refresh(AuthToken authToken) {
         String miRefreshUrl = this.urlBuilder.getRefreshUrl(authToken.getRefreshToken());
 
-        return AuthResponse.builder().code(ResponseStatus.SUCCESS.getCode()).data(getToken(miRefreshUrl)).build();
+        return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(getToken(miRefreshUrl)).build();
     }
 }

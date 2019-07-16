@@ -6,11 +6,8 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthCallback;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.TaobaoUrlBuilder;
+import me.zhyd.oauth.model.*;
+import me.zhyd.oauth.url.AuthTaobaoUrlBuilder;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 
 /**
@@ -20,10 +17,10 @@ import me.zhyd.oauth.utils.GlobalAuthUtil;
  * @version 1.0
  * @since 1.8
  */
-public class AuthTaobaoRequest extends BaseAuthRequest {
+public class AuthTaobaoRequest extends AuthDefaultRequest {
 
     public AuthTaobaoRequest(AuthConfig config) {
-        super(config, AuthSource.TAOBAO, new TaobaoUrlBuilder());
+        super(config, AuthSource.TAOBAO, new AuthTaobaoUrlBuilder());
     }
 
     @Override
@@ -37,7 +34,7 @@ public class AuthTaobaoRequest extends BaseAuthRequest {
         HttpResponse response = HttpRequest.post(this.urlBuilder.getAccessTokenUrl(accessCode)).execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
-            throw new AuthException(ResponseStatus.FAILURE + ":" + accessTokenObject.getString("error_description"));
+            throw new AuthException(AuthResponseStatus.FAILURE + ":" + accessTokenObject.getString("error_description"));
         }
         authToken.setAccessToken(accessTokenObject.getString("access_token"));
         authToken.setRefreshToken(accessTokenObject.getString("refresh_token"));

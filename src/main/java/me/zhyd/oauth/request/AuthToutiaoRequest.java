@@ -11,7 +11,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.ToutiaoUrlBuilder;
+import me.zhyd.oauth.url.AuthToutiaoUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -21,10 +21,10 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
  * @version 1.5
  * @since 1.5
  */
-public class AuthToutiaoRequest extends BaseAuthRequest {
+public class AuthToutiaoRequest extends AuthDefaultRequest {
 
     public AuthToutiaoRequest(AuthConfig config) {
-        super(config, AuthSource.TOUTIAO, new ToutiaoUrlBuilder());
+        super(config, AuthSource.TOUTIAO, new AuthToutiaoUrlBuilder());
     }
 
     @Override

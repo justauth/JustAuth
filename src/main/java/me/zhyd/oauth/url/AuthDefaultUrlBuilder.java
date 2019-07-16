@@ -2,7 +2,7 @@ package me.zhyd.oauth.url;
 
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.request.ResponseStatus;
+import me.zhyd.oauth.model.AuthResponseStatus;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.StringUtils;
 
@@ -11,7 +11,7 @@ import me.zhyd.oauth.utils.StringUtils;
  * @version 1.0
  * @since 1.8
  */
-public abstract class AbstractUrlBuilder {
+public abstract class AuthDefaultUrlBuilder {
 
     protected AuthConfig config;
 
@@ -64,7 +64,7 @@ public abstract class AbstractUrlBuilder {
      * @return openIdUrl
      */
     public String getOpenIdUrl(String accessToken, boolean unionid) {
-        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 
     /**

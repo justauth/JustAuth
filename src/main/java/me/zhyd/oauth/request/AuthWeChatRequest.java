@@ -7,7 +7,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.url.WechatUrlBuilder;
+import me.zhyd.oauth.url.AuthWechatUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -17,9 +17,9 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
  * @version 1.0
  * @since 1.8
  */
-public class AuthWeChatRequest extends BaseAuthRequest {
+public class AuthWeChatRequest extends AuthDefaultRequest {
     public AuthWeChatRequest(AuthConfig config) {
-        super(config, AuthSource.WECHAT, new WechatUrlBuilder());
+        super(config, AuthSource.WECHAT, new AuthWechatUrlBuilder());
     }
 
     /**
@@ -64,7 +64,7 @@ public class AuthWeChatRequest extends BaseAuthRequest {
     public AuthResponse refresh(AuthToken oldToken) {
         String refreshTokenUrl = this.urlBuilder.getRefreshUrl(oldToken.getRefreshToken());
         return AuthResponse.builder()
-                .code(ResponseStatus.SUCCESS.getCode())
+                .code(AuthResponseStatus.SUCCESS.getCode())
                 .data(this.getToken(refreshTokenUrl))
                 .build();
     }

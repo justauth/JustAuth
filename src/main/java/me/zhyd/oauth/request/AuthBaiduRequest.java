@@ -8,7 +8,7 @@ import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthBaiduErrorCode;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.url.BaiduUrlBuilder;
+import me.zhyd.oauth.url.AuthBaiduUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -18,10 +18,10 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
  * @version 1.0
  * @since 1.8
  */
-public class AuthBaiduRequest extends BaseAuthRequest {
+public class AuthBaiduRequest extends AuthDefaultRequest {
 
     public AuthBaiduRequest(AuthConfig config) {
-        super(config, AuthSource.BAIDU, new BaiduUrlBuilder());
+        super(config, AuthSource.BAIDU, new AuthBaiduUrlBuilder());
     }
 
     @Override
@@ -71,11 +71,11 @@ public class AuthBaiduRequest extends BaseAuthRequest {
         JSONObject object = JSONObject.parseObject(userInfo);
         if (object.containsKey("error_code")) {
             return AuthResponse.builder()
-                    .code(ResponseStatus.FAILURE.getCode())
+                    .code(AuthResponseStatus.FAILURE.getCode())
                     .msg(object.getString("error_msg"))
                     .build();
         }
-        ResponseStatus status = object.getIntValue("result") == 1 ? ResponseStatus.SUCCESS : ResponseStatus.FAILURE;
+        AuthResponseStatus status = object.getIntValue("result") == 1 ? AuthResponseStatus.SUCCESS : AuthResponseStatus.FAILURE;
         return AuthResponse.builder().code(status.getCode()).msg(status.getMsg()).build();
     }
 

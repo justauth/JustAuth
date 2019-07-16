@@ -12,7 +12,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.DingtalkUrlBuilder;
+import me.zhyd.oauth.url.AuthDingtalkUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 
@@ -23,10 +23,10 @@ import me.zhyd.oauth.utils.GlobalAuthUtil;
  * @version 1.0
  * @since 1.8
  */
-public class AuthDingTalkRequest extends BaseAuthRequest {
+public class AuthDingTalkRequest extends AuthDefaultRequest {
 
     public AuthDingTalkRequest(AuthConfig config) {
-        super(config, AuthSource.DINGTALK, new DingtalkUrlBuilder());
+        super(config, AuthSource.DINGTALK, new AuthDingtalkUrlBuilder());
     }
 
     @Override

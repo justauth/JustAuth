@@ -10,7 +10,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.GoogleUrlBuilder;
+import me.zhyd.oauth.url.AuthGoogleUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -20,10 +20,10 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
  * @version 1.3
  * @since 1.3
  */
-public class AuthGoogleRequest extends BaseAuthRequest {
+public class AuthGoogleRequest extends AuthDefaultRequest {
 
     public AuthGoogleRequest(AuthConfig config) {
-        super(config, AuthSource.GOOGLE, new GoogleUrlBuilder());
+        super(config, AuthSource.GOOGLE, new AuthGoogleUrlBuilder());
     }
 
     @Override

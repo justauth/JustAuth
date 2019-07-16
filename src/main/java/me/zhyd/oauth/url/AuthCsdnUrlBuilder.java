@@ -1,6 +1,8 @@
 package me.zhyd.oauth.url;
 
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthResponseStatus;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
@@ -13,7 +15,7 @@ import java.text.MessageFormat;
  * @since 1.8
  */
 @Deprecated
-public class CsdnUrlBuilder extends AbstractUrlBuilder {
+public class AuthCsdnUrlBuilder extends AuthDefaultUrlBuilder {
 
     private static final String CSDN_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
     private static final String CSDN_USER_INFO_PATTERN = "{0}?access_token={1}";
@@ -36,11 +38,11 @@ public class CsdnUrlBuilder extends AbstractUrlBuilder {
 
     @Override
     public String getRefreshUrl(String refreshToken) {
-        return null;
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 
     @Override
     public String getRevokeUrl(String accessToken) {
-        return null;
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 }

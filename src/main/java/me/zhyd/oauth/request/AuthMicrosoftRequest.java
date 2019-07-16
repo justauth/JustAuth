@@ -8,7 +8,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.url.MicrosoftUrlBuilder;
+import me.zhyd.oauth.url.AuthMicrosoftUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.util.HashMap;
@@ -21,9 +21,9 @@ import java.util.Map;
  * @version 1.5
  * @since 1.5
  */
-public class AuthMicrosoftRequest extends BaseAuthRequest {
+public class AuthMicrosoftRequest extends AuthDefaultRequest {
     public AuthMicrosoftRequest(AuthConfig config) {
-        super(config, AuthSource.MICROSOFT, new MicrosoftUrlBuilder());
+        super(config, AuthSource.MICROSOFT, new AuthMicrosoftUrlBuilder());
     }
 
     @Override
@@ -99,6 +99,6 @@ public class AuthMicrosoftRequest extends BaseAuthRequest {
     public AuthResponse refresh(AuthToken authToken) {
         String refreshTokenUrl = this.urlBuilder.getRefreshUrl(authToken.getRefreshToken());
 
-        return AuthResponse.builder().code(ResponseStatus.SUCCESS.getCode()).data(getToken(refreshTokenUrl)).build();
+        return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(getToken(refreshTokenUrl)).build();
     }
 }

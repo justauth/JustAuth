@@ -1,6 +1,6 @@
 package me.zhyd.oauth.exception;
 
-import me.zhyd.oauth.request.ResponseStatus;
+import me.zhyd.oauth.model.AuthResponseStatus;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
@@ -13,7 +13,7 @@ public class AuthException extends RuntimeException {
     private String errorMsg;
 
     public AuthException(String errorMsg) {
-        this(ResponseStatus.FAILURE.getCode(), errorMsg);
+        this(AuthResponseStatus.FAILURE.getCode(), errorMsg);
     }
 
     public AuthException(int errorCode, String errorMsg) {
@@ -22,7 +22,7 @@ public class AuthException extends RuntimeException {
         this.errorMsg = errorMsg;
     }
 
-    public AuthException(ResponseStatus status) {
+    public AuthException(AuthResponseStatus status) {
         super(status.getMsg());
     }
 

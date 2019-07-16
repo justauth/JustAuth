@@ -11,7 +11,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.QqUrlBuilder;
+import me.zhyd.oauth.url.AuthQqUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.StringUtils;
@@ -26,9 +26,9 @@ import java.util.Map;
  * @version 1.0
  * @since 1.8
  */
-public class AuthQqRequest extends BaseAuthRequest {
+public class AuthQqRequest extends AuthDefaultRequest {
     public AuthQqRequest(AuthConfig config) {
-        super(config, AuthSource.QQ, new QqUrlBuilder());
+        super(config, AuthSource.QQ, new AuthQqUrlBuilder());
     }
 
     @Override

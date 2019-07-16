@@ -1,6 +1,8 @@
 package me.zhyd.oauth.url;
 
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthResponseStatus;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
@@ -12,7 +14,7 @@ import java.text.MessageFormat;
  * @version 1.0
  * @since 1.8
  */
-public class LinkedinUrlBuilder extends AbstractUrlBuilder {
+public class AuthLinkedinUrlBuilder extends AuthDefaultUrlBuilder {
 
     private static final String LINKEDIN_AUTHORIZE_PATTERN = "{0}?client_id={1}&redirect_uri={2}&state={3}&response_type=code&scope=r_liteprofile%20r_emailaddress%20w_member_social";
     private static final String LINKEDIN_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
@@ -41,6 +43,6 @@ public class LinkedinUrlBuilder extends AbstractUrlBuilder {
 
     @Override
     public String getRevokeUrl(String accessToken) {
-        return null;
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 }

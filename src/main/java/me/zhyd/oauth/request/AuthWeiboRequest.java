@@ -10,7 +10,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.WeiboUrlBuilder;
+import me.zhyd.oauth.url.AuthWeiboUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.IpUtils;
 import me.zhyd.oauth.utils.StringUtils;
@@ -23,10 +23,10 @@ import me.zhyd.oauth.utils.StringUtils;
  * @version 1.0
  * @since 1.8
  */
-public class AuthWeiboRequest extends BaseAuthRequest {
+public class AuthWeiboRequest extends AuthDefaultRequest {
 
     public AuthWeiboRequest(AuthConfig config) {
-        super(config, AuthSource.WEIBO, new WeiboUrlBuilder());
+        super(config, AuthSource.WEIBO, new AuthWeiboUrlBuilder());
     }
 
     @Override

@@ -1,6 +1,8 @@
 package me.zhyd.oauth.url;
 
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthResponseStatus;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
@@ -12,14 +14,14 @@ import java.text.MessageFormat;
  * @version 1.0
  * @since 1.8
  */
-public class DingtalkUrlBuilder extends AbstractUrlBuilder {
+public class AuthDingtalkUrlBuilder extends AuthDefaultUrlBuilder {
 
     private static final String DING_TALK_QRCONNECT_PATTERN = "{0}?appid={1}&response_type=code&scope=snsapi_login&redirect_uri={2}&state={3}";
     private static final String DING_TALK_USER_INFO_PATTERN = "{0}?signature={1}&timestamp={2}&accessKey={3}";
 
     @Override
     public String getAccessTokenUrl(String code) {
-        return null;
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 
     @Override
@@ -34,11 +36,11 @@ public class DingtalkUrlBuilder extends AbstractUrlBuilder {
 
     @Override
     public String getRefreshUrl(String refreshToken) {
-        return null;
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 
     @Override
     public String getRevokeUrl(String accessToken) {
-        return null;
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 }

@@ -10,7 +10,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.FacebookUrlBuilder;
+import me.zhyd.oauth.url.AuthFacebookUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -20,10 +20,10 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
  * @version 1.0
  * @since 1.8
  */
-public class AuthFacebookRequest extends BaseAuthRequest {
+public class AuthFacebookRequest extends AuthDefaultRequest {
 
     public AuthFacebookRequest(AuthConfig config) {
-        super(config, AuthSource.FACEBOOK, new FacebookUrlBuilder());
+        super(config, AuthSource.FACEBOOK, new AuthFacebookUrlBuilder());
     }
 
     @Override

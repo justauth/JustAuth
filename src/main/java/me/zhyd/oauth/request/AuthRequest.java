@@ -3,6 +3,7 @@ package me.zhyd.oauth.request;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.model.AuthResponseStatus;
 import me.zhyd.oauth.model.AuthToken;
 
 /**
@@ -18,7 +19,7 @@ public interface AuthRequest {
      * @return 返回授权地址
      */
     default String authorize() {
-        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 
     /**
@@ -28,7 +29,7 @@ public interface AuthRequest {
      * @return 返回登录成功后的用户信息
      */
     default AuthResponse login(AuthCallback authCallback) {
-        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 
     /**
@@ -38,7 +39,7 @@ public interface AuthRequest {
      * @return AuthResponse
      */
     default AuthResponse revoke(AuthToken authToken) {
-        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 
     /**
@@ -48,6 +49,6 @@ public interface AuthRequest {
      * @return AuthResponse
      */
     default AuthResponse refresh(AuthToken authToken) {
-        throw new AuthException(ResponseStatus.NOT_IMPLEMENTED);
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 }

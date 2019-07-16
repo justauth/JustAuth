@@ -10,7 +10,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.GiteeUrlBuilder;
+import me.zhyd.oauth.url.AuthGiteeUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -20,10 +20,10 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
  * @version 1.0
  * @since 1.8
  */
-public class AuthGiteeRequest extends BaseAuthRequest {
+public class AuthGiteeRequest extends AuthDefaultRequest {
 
     public AuthGiteeRequest(AuthConfig config) {
-        super(config, AuthSource.GITEE, new GiteeUrlBuilder());
+        super(config, AuthSource.GITEE, new AuthGiteeUrlBuilder());
     }
 
     @Override

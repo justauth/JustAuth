@@ -1,6 +1,8 @@
 package me.zhyd.oauth.url;
 
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthResponseStatus;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
@@ -12,7 +14,7 @@ import java.text.MessageFormat;
  * @version 1.0
  * @since 1.8
  */
-public class WechatUrlBuilder extends AbstractUrlBuilder {
+public class AuthWechatUrlBuilder extends AuthDefaultUrlBuilder {
 
     private static final String WECHAT_AUTHORIZE_PATTERN = "{0}?appid={1}&redirect_uri={2}&response_type=code&scope=snsapi_login&state={3}#wechat_redirect";
     private static final String WECHAT_ACCESS_TOKEN_PATTERN = "{0}?appid={1}&secret={2}&code={3}&grant_type=authorization_code";
@@ -41,6 +43,6 @@ public class WechatUrlBuilder extends AbstractUrlBuilder {
 
     @Override
     public String getRevokeUrl(String accessToken) {
-        return null;
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 }

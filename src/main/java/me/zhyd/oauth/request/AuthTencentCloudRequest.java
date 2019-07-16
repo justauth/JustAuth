@@ -10,7 +10,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.TencentCloudUrlBuilder;
+import me.zhyd.oauth.url.AuthTencentCloudUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -20,10 +20,10 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
  * @version 1.0
  * @since 1.8
  */
-public class AuthTencentCloudRequest extends BaseAuthRequest {
+public class AuthTencentCloudRequest extends AuthDefaultRequest {
 
     public AuthTencentCloudRequest(AuthConfig config) {
-        super(config, AuthSource.TENCENT_CLOUD, new TencentCloudUrlBuilder());
+        super(config, AuthSource.TENCENT_CLOUD, new AuthTencentCloudUrlBuilder());
     }
 
     @Override

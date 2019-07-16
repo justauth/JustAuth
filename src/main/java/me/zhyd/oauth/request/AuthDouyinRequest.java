@@ -7,7 +7,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.url.DouyinUrlBuilder;
+import me.zhyd.oauth.url.AuthDouyinUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 
@@ -18,10 +18,10 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
  * @version 1.0
  * @since 1.8
  */
-public class AuthDouyinRequest extends BaseAuthRequest {
+public class AuthDouyinRequest extends AuthDefaultRequest {
 
     public AuthDouyinRequest(AuthConfig config) {
-        super(config, AuthSource.DOUYIN, new DouyinUrlBuilder());
+        super(config, AuthSource.DOUYIN, new AuthDouyinUrlBuilder());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class AuthDouyinRequest extends BaseAuthRequest {
     public AuthResponse refresh(AuthToken oldToken) {
         String refreshTokenUrl = this.urlBuilder.getRefreshUrl(oldToken.getRefreshToken());
         return AuthResponse.builder()
-                .code(ResponseStatus.SUCCESS.getCode())
+                .code(AuthResponseStatus.SUCCESS.getCode())
                 .data(this.getToken(refreshTokenUrl))
                 .build();
     }

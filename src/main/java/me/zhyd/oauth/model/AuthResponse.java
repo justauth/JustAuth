@@ -3,7 +3,6 @@ package me.zhyd.oauth.model;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import me.zhyd.oauth.request.ResponseStatus;
 
 /**
  * JustAuth统一授权响应类
@@ -37,6 +36,6 @@ public class AuthResponse<T> {
      * @return true or false
      */
     public boolean ok() {
-        return this.code == ResponseStatus.SUCCESS.getCode();
+        return this.code == AuthResponseStatus.SUCCESS.getCode();
     }
 }

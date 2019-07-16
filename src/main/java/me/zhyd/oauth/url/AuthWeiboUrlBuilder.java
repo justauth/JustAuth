@@ -1,6 +1,8 @@
 package me.zhyd.oauth.url;
 
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthResponseStatus;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 import java.text.MessageFormat;
@@ -12,7 +14,7 @@ import java.text.MessageFormat;
  * @version 1.0
  * @since 1.8
  */
-public class WeiboUrlBuilder extends AbstractUrlBuilder {
+public class AuthWeiboUrlBuilder extends AuthDefaultUrlBuilder {
 
     private static final String WEIBO_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&grant_type=authorization_code&code={3}&redirect_uri={4}";
     private static final String WEIBO_USER_INFO_PATTERN = "{0}?{1}";
@@ -35,11 +37,11 @@ public class WeiboUrlBuilder extends AbstractUrlBuilder {
 
     @Override
     public String getRefreshUrl(String refreshToken) {
-        return null;
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 
     @Override
     public String getRevokeUrl(String accessToken) {
-        return null;
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 }

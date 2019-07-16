@@ -8,7 +8,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.url.LinkedinUrlBuilder;
+import me.zhyd.oauth.url.AuthLinkedinUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.StringUtils;
 
@@ -20,10 +20,10 @@ import me.zhyd.oauth.utils.StringUtils;
  * @version 1.0
  * @since 1.8
  */
-public class AuthLinkedinRequest extends BaseAuthRequest {
+public class AuthLinkedinRequest extends AuthDefaultRequest {
 
     public AuthLinkedinRequest(AuthConfig config) {
-        super(config, AuthSource.LINKEDIN, new LinkedinUrlBuilder());
+        super(config, AuthSource.LINKEDIN, new AuthLinkedinUrlBuilder());
     }
 
     @Override
@@ -116,11 +116,11 @@ public class AuthLinkedinRequest extends BaseAuthRequest {
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
         if (StringUtils.isEmpty(oldToken.getRefreshToken())) {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
+            throw new AuthException(AuthResponseStatus.UNSUPPORTED);
         }
         String refreshTokenUrl = this.urlBuilder.getRefreshUrl(oldToken.getRefreshToken());
         return AuthResponse.builder()
-                .code(ResponseStatus.SUCCESS.getCode())
+                .code(AuthResponseStatus.SUCCESS.getCode())
                 .data(this.getToken(refreshTokenUrl))
                 .build();
     }

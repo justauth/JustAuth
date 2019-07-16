@@ -10,7 +10,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.OschinaUrlBuilder;
+import me.zhyd.oauth.url.AuthOschinaUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -20,10 +20,10 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
  * @version 1.0
  * @since 1.8
  */
-public class AuthOschinaRequest extends BaseAuthRequest {
+public class AuthOschinaRequest extends AuthDefaultRequest {
 
     public AuthOschinaRequest(AuthConfig config) {
-        super(config, AuthSource.OSCHINA, new OschinaUrlBuilder());
+        super(config, AuthSource.OSCHINA, new AuthOschinaUrlBuilder());
     }
 
     @Override

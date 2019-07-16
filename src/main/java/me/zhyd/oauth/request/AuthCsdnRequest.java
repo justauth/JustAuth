@@ -10,7 +10,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.CsdnUrlBuilder;
+import me.zhyd.oauth.url.AuthCsdnUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
@@ -21,10 +21,10 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
  * @since 1.8
  */
 @Deprecated
-public class AuthCsdnRequest extends BaseAuthRequest {
+public class AuthCsdnRequest extends AuthDefaultRequest {
 
     public AuthCsdnRequest(AuthConfig config) {
-        super(config, AuthSource.CSDN, new CsdnUrlBuilder());
+        super(config, AuthSource.CSDN, new AuthCsdnUrlBuilder());
     }
 
     @Override

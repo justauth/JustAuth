@@ -4,35 +4,34 @@ import lombok.Data;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthCallback;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.url.AbstractUrlBuilder;
+import me.zhyd.oauth.model.*;
+import me.zhyd.oauth.url.AuthDefaultUrlBuilder;
 import me.zhyd.oauth.utils.AuthChecker;
 
 /**
+ * 默认的request处理类
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @since 1.8
  */
 @Data
-public abstract class BaseAuthRequest implements AuthRequest {
+public abstract class AuthDefaultRequest implements AuthRequest {
     protected AuthConfig config;
     protected AuthSource source;
-    protected AbstractUrlBuilder urlBuilder;
+    protected AuthDefaultUrlBuilder urlBuilder;
 
-    public BaseAuthRequest(AuthConfig config, AuthSource source) {
+    public AuthDefaultRequest(AuthConfig config, AuthSource source) {
         this.config = config;
         this.source = source;
         if (!AuthChecker.isSupportedAuth(config, source)) {
-            throw new AuthException(ResponseStatus.PARAMETER_INCOMPLETE);
+            throw new AuthException(AuthResponseStatus.PARAMETER_INCOMPLETE);
         }
         // 校验配置合法性
         AuthChecker.checkConfig(config, source);
     }
 
-    public BaseAuthRequest(AuthConfig config, AuthSource source, AbstractUrlBuilder urlBuilder) {
+    public AuthDefaultRequest(AuthConfig config, AuthSource source, AuthDefaultUrlBuilder urlBuilder) {
         this(config, source);
         this.urlBuilder = urlBuilder;
         this.urlBuilder.setAuthConfig(config);
@@ -50,14 +49,14 @@ public abstract class BaseAuthRequest implements AuthRequest {
 
             AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
-            return AuthResponse.builder().code(ResponseStatus.SUCCESS.getCode()).data(user).build();
+            return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
         } catch (Exception e) {
             return this.responseError(e);
         }
     }
 
     private AuthResponse responseError(Exception e) {
-        int errorCode = ResponseStatus.FAILURE.getCode();
+        int errorCode = AuthResponseStatus.FAILURE.getCode();
         if (e instanceof AuthException) {
             errorCode = ((AuthException) e).getErrorCode();
         }

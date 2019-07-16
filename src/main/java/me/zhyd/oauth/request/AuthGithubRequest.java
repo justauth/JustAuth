@@ -10,7 +10,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.GithubUrlBuilder;
+import me.zhyd.oauth.url.AuthGithubUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 
@@ -23,10 +23,10 @@ import java.util.Map;
  * @version 1.0
  * @since 1.8
  */
-public class AuthGithubRequest extends BaseAuthRequest {
+public class AuthGithubRequest extends AuthDefaultRequest {
 
     public AuthGithubRequest(AuthConfig config) {
-        super(config, AuthSource.GITHUB, new GithubUrlBuilder());
+        super(config, AuthSource.GITHUB, new AuthGithubUrlBuilder());
     }
 
     @Override

@@ -3,7 +3,7 @@ package me.zhyd.oauth.utils;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.request.ResponseStatus;
+import me.zhyd.oauth.model.AuthResponseStatus;
 
 /**
  * 授权配置类的校验器
@@ -38,15 +38,15 @@ public class AuthChecker {
     public static void checkConfig(AuthConfig config, AuthSource source) {
         String redirectUri = config.getRedirectUri();
         if (!GlobalAuthUtil.isHttpProtocol(redirectUri) && !GlobalAuthUtil.isHttpsProtocol(redirectUri)) {
-            throw new AuthException(ResponseStatus.ILLEGAL_REDIRECT_URI);
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI);
         }
         // facebook的回调地址必须为https的链接
         if (AuthSource.FACEBOOK == source && !GlobalAuthUtil.isHttpsProtocol(redirectUri)) {
-            throw new AuthException(ResponseStatus.ILLEGAL_REDIRECT_URI);
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI);
         }
         // 支付宝在创建回调地址时，不允许使用localhost或者127.0.0.1
         if (AuthSource.ALIPAY == source && GlobalAuthUtil.isLocalHost(redirectUri)) {
-            throw new AuthException(ResponseStatus.ILLEGAL_REDIRECT_URI);
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI);
         }
     }
 
@@ -57,7 +57,7 @@ public class AuthChecker {
      */
     public static void checkCode(String code) {
         if (StringUtils.isEmpty(code)) {
-            throw new AuthException(ResponseStatus.ILLEGAL_CODE);
+            throw new AuthException(AuthResponseStatus.ILLEGAL_CODE);
         }
     }
 
@@ -74,11 +74,11 @@ public class AuthChecker {
         }
         // 如果授权之前使用了state，但是回调时未返回state，则表示当前请求为非法的请求，可能正在被CSRF攻击
         if (StringUtils.isEmpty(newState)) {
-            throw new AuthException(ResponseStatus.ILLEGAL_REQUEST);
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
         }
         // 如果授权前后的state不一致，则表示当前请求为非法的请求，新的state可能为伪造
         if (!newState.equals(originalState)) {
-            throw new AuthException(ResponseStatus.ILLEGAL_REQUEST);
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
         }
     }
 }

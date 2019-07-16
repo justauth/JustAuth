@@ -14,7 +14,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AlipayUrlBuilder;
+import me.zhyd.oauth.url.AuthAlipayUrlBuilder;
 import me.zhyd.oauth.utils.StringUtils;
 
 /**
@@ -24,12 +24,12 @@ import me.zhyd.oauth.utils.StringUtils;
  * @version 1.0
  * @since 1.8
  */
-public class AuthAlipayRequest extends BaseAuthRequest {
+public class AuthAlipayRequest extends AuthDefaultRequest {
 
     private AlipayClient alipayClient;
 
     public AuthAlipayRequest(AuthConfig config) {
-        super(config, AuthSource.ALIPAY, new AlipayUrlBuilder());
+        super(config, AuthSource.ALIPAY, new AuthAlipayUrlBuilder());
         this.alipayClient = new DefaultAlipayClient(AuthSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
                 .getAlipayPublicKey(), "RSA2");
     }

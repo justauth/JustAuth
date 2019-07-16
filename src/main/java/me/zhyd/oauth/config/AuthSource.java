@@ -1,7 +1,7 @@
 package me.zhyd.oauth.config;
 
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.request.ResponseStatus;
+import me.zhyd.oauth.model.AuthResponseStatus;
 
 /**
  * 各api需要的url， 用枚举类分平台类型管理
@@ -79,7 +79,7 @@ public enum AuthSource {
 
         @Override
         public String accessToken() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
+            throw new AuthException(AuthResponseStatus.UNSUPPORTED);
         }
 
         @Override
@@ -265,7 +265,7 @@ public enum AuthSource {
 
         @Override
         public String userInfo() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
+            throw new AuthException(AuthResponseStatus.UNSUPPORTED);
         }
     },
     /**
@@ -473,7 +473,7 @@ public enum AuthSource {
      * @return url
      */
     public String revoke() {
-        throw new AuthException(ResponseStatus.UNSUPPORTED);
+        throw new AuthException(AuthResponseStatus.UNSUPPORTED);
     }
 
     /**
@@ -482,7 +482,7 @@ public enum AuthSource {
      * @return url
      */
     public String refresh() {
-        throw new AuthException(ResponseStatus.UNSUPPORTED);
+        throw new AuthException(AuthResponseStatus.UNSUPPORTED);
     }
 
 }

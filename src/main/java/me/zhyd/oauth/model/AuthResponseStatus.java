@@ -1,11 +1,11 @@
-package me.zhyd.oauth.request;
+package me.zhyd.oauth.model;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @since 1.8
  */
-public enum ResponseStatus {
+public enum AuthResponseStatus {
     SUCCESS(2000, "Success"),
     FAILURE(5000, "Failure"),
     NOT_IMPLEMENTED(5001, "Not Implemented"),
@@ -21,7 +21,7 @@ public enum ResponseStatus {
     private int code;
     private String msg;
 
-    ResponseStatus(int code, String msg) {
+    AuthResponseStatus(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
