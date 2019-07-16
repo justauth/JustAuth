@@ -11,4 +11,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class AuthRefreshTokenEntity {
+
+    private String clientId;
+    private String refreshToken;
 }

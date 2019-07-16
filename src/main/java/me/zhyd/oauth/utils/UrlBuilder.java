@@ -57,11 +57,6 @@ public class UrlBuilder {
     private static final String QQ_AUTHORIZE_PATTERN = "{0}?client_id={1}&response_type=code&redirect_uri={2}&state={3}";
     private static final String QQ_OPENID_PATTERN = "{0}?access_token={1}&unionid={2}";
 
-    private static final String WECHAT_AUTHORIZE_PATTERN = "{0}?appid={1}&redirect_uri={2}&response_type=code&scope=snsapi_login&state={3}#wechat_redirect";
-    private static final String WECHAT_ACCESS_TOKEN_PATTERN = "{0}?appid={1}&secret={2}&code={3}&grant_type=authorization_code";
-    private static final String WECHAT_REFRESH_TOKEN_PATTERN = "{0}?appid={1}&grant_type=refresh_token&refresh_token={2}";
-    private static final String WECHAT_USER_INFO_PATTERN = "{0}?access_token={1}&openid={2}&lang=zh_CN";
-
     private static final String TAOBAO_AUTHORIZE_PATTERN = "{0}?response_type=code&client_id={1}&redirect_uri={2}&state={3}&view=web";
     private static final String TAOBAO_ACCESS_TOKEN_PATTERN = "{0}?client_id={1}&client_secret={2}&code={3}&redirect_uri={4}&grant_type=authorization_code";
 
@@ -438,52 +433,6 @@ public class UrlBuilder {
      */
     public static String getAlipayAuthorizeUrl(String clientId, String redirectUrl, String state) {
         return MessageFormat.format(ALIPAY_AUTHORIZE_PATTERN, AuthSource.ALIPAY.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
-     * 获取微信 授权地址
-     *
-     * @param clientId    微信 应用的appid
-     * @param redirectUrl 微信 应用授权成功后的回调地址
-     * @param state       随机字符串，用于保持会话状态，防止CSRF攻击
-     * @return full url
-     */
-    public static String getWeChatAuthorizeUrl(String clientId, String redirectUrl, String state) {
-        return MessageFormat.format(WECHAT_AUTHORIZE_PATTERN, AuthSource.WECHAT.authorize(), clientId, redirectUrl, getState(state));
-    }
-
-    /**
-     * 获取微信 token的接口地址
-     *
-     * @param clientId     微信 应用的appid
-     * @param clientSecret 微信 应用的secret
-     * @param code         微信 授权前的code，用来换token
-     * @return full url
-     */
-    public static String getWeChatAccessTokenUrl(String clientId, String clientSecret, String code) {
-        return MessageFormat.format(WECHAT_ACCESS_TOKEN_PATTERN, AuthSource.WECHAT.accessToken(), clientId, clientSecret, code);
-    }
-
-    /**
-     * 获取微信 用户详情的接口地址
-     *
-     * @param token  微信 应用返回的 access token
-     * @param openId 微信 应用返回的openId
-     * @return full url
-     */
-    public static String getWeChatUserInfoUrl(String token, String openId) {
-        return MessageFormat.format(WECHAT_USER_INFO_PATTERN, AuthSource.WECHAT.userInfo(), token, openId);
-    }
-
-    /**
-     * 获取微信 刷新令牌 地址
-     *
-     * @param clientId     微信 应用的appid
-     * @param refreshToken 微信 应用返回的刷新token
-     * @return full url
-     */
-    public static String getWeChatRefreshUrl(String clientId, String refreshToken) {
-        return MessageFormat.format(WECHAT_REFRESH_TOKEN_PATTERN, AuthSource.WECHAT.refresh(), clientId, refreshToken);
     }
 
     /**

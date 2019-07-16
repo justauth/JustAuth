@@ -7,7 +7,11 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.utils.UrlBuilder;
+import me.zhyd.oauth.url.WechatUrlBuilder;
+import me.zhyd.oauth.url.entity.AuthAccessTokenEntity;
+import me.zhyd.oauth.url.entity.AuthAuthorizeEntity;
+import me.zhyd.oauth.url.entity.AuthRefreshTokenEntity;
+import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
  * 微信登录
@@ -18,7 +22,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  */
 public class AuthWeChatRequest extends BaseAuthRequest {
     public AuthWeChatRequest(AuthConfig config) {
-        super(config, AuthSource.WECHAT);
+        super(config, AuthSource.WECHAT, new WechatUrlBuilder());
     }
 
     /**
@@ -29,7 +33,10 @@ public class AuthWeChatRequest extends BaseAuthRequest {
      */
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getWeChatAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode());
+        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(AuthAccessTokenEntity.builder()
+                .config(config)
+                .code(authCallback.getCode())
+                .build());
         return this.getToken(accessTokenUrl);
     }
 
@@ -38,7 +45,10 @@ public class AuthWeChatRequest extends BaseAuthRequest {
         String accessToken = authToken.getAccessToken();
         String openId = authToken.getOpenId();
 
-        HttpResponse response = HttpRequest.get(UrlBuilder.getWeChatUserInfoUrl(accessToken, openId)).execute();
+        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
+                .accessToken(accessToken)
+                .openId(openId)
+                .build())).execute();
         JSONObject object = JSONObject.parseObject(response.body());
 
         this.checkResponse(object);
@@ -63,12 +73,17 @@ public class AuthWeChatRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getWeChatAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return this.urlBuilder.getAuthorizeUrl(AuthAuthorizeEntity.builder()
+                .config(config)
+                .build());
     }
 
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
-        String refreshTokenUrl = UrlBuilder.getWeChatRefreshUrl(config.getClientId(), oldToken.getRefreshToken());
+        String refreshTokenUrl = this.urlBuilder.getRefreshUrl(AuthRefreshTokenEntity.builder()
+                .clientId(config.getClientId())
+                .refreshToken(oldToken.getRefreshToken())
+                .build());
         return AuthResponse.builder()
                 .code(ResponseStatus.SUCCESS.getCode())
                 .data(this.getToken(refreshTokenUrl))
