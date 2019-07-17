@@ -23,12 +23,12 @@ public enum AuthUserGender {
         if (code == null) {
             return UNKNOW;
         }
-        String[] males = {"m", "男", "1", "male", "F"};
-        if (Arrays.asList(males).contains(code)) {
+        String[] males = {"m", "男", "1", "male"};
+        if (Arrays.asList(males).contains(code.toLowerCase())) {
             return MALE;
         }
         String[] females = {"f", "女", "0", "female"};
-        if (Arrays.asList(females).contains(code)) {
+        if (Arrays.asList(females).contains(code.toLowerCase())) {
             return FEMALE;
         }
         return UNKNOW;
