@@ -442,7 +442,7 @@ public enum AuthSource {
 
         @Override
         public String userInfo() {
-            return "https://account.teambition.com/users/me";
+            return "https://api.teambition.com/users/me";
         }
     };
 
