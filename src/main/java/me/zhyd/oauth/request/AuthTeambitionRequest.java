@@ -10,13 +10,14 @@ import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.url.AuthTeambitionUrlBuilder;
 
 /**
- * 微信登录
+ * Teambition授权登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @since 1.8
  */
 public class AuthTeambitionRequest extends AuthDefaultRequest {
+
     public AuthTeambitionRequest(AuthConfig config) {
         super(config, AuthSource.TEAMBITION, new AuthTeambitionUrlBuilder());
     }
