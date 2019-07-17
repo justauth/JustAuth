@@ -55,7 +55,7 @@ public class AuthGiteeRequest extends AuthDefaultRequest {
                 .location(object.getString("address"))
                 .email(object.getString("email"))
                 .remark(object.getString("bio"))
-                .gender(AuthUserGender.UNKNOW)
+                .gender(AuthUserGender.UNKNOWN)
                 .token(authToken)
                 .source(AuthSource.GITEE)
                 .build();

@@ -49,7 +49,7 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
                 .nickname(userInfoObject.getString("nickname"))
                 .avatar(userInfoObject.getString("avatar"))
                 .remark(userInfoObject.getString("description"))
-                .gender(AuthUserGender.UNKNOW)
+                .gender(AuthUserGender.UNKNOWN)
                 .token(authToken)
                 .source(AuthSource.DOUYIN)
                 .build();

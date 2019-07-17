@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @since 1.8
  */
 public enum AuthUserGender {
-    MALE(1, "男"), FEMALE(0, "女"), UNKNOW(-1, "未知");
+    MALE(1, "男"), FEMALE(0, "女"), UNKNOWN(-1, "未知");
     private int code;
     private String desc;
 
@@ -21,7 +21,7 @@ public enum AuthUserGender {
 
     public static AuthUserGender getRealGender(String code) {
         if (code == null) {
-            return UNKNOW;
+            return UNKNOWN;
         }
         String[] males = {"m", "男", "1", "male"};
         if (Arrays.asList(males).contains(code.toLowerCase())) {
@@ -31,7 +31,7 @@ public enum AuthUserGender {
         if (Arrays.asList(females).contains(code.toLowerCase())) {
             return FEMALE;
         }
-        return UNKNOW;
+        return UNKNOWN;
     }
 
     public int getCode() {

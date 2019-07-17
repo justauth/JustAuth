@@ -81,7 +81,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
                 .avatar(avatar)
                 .email(email)
                 .token(authToken)
-                .gender(AuthUserGender.UNKNOW)
+                .gender(AuthUserGender.UNKNOWN)
                 .source(AuthSource.LINKEDIN)
                 .build();
     }

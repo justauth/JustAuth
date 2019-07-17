@@ -77,7 +77,7 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
     private AuthUserGender getGender(JSONObject userObj) {
         JSONObject basicInformation = userObj.getJSONObject("basicInformation");
         if (Objects.isNull(basicInformation)) {
-            return AuthUserGender.UNKNOW;
+            return AuthUserGender.UNKNOWN;
         }
         return AuthUserGender.getRealGender(basicInformation.getString("sex"));
     }

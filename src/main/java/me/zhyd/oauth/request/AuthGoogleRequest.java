@@ -61,7 +61,7 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
                 .nickname(object.getString("name"))
                 .location(object.getString("locale"))
                 .email(object.getString("email"))
-                .gender(AuthUserGender.UNKNOW)
+                .gender(AuthUserGender.UNKNOWN)
                 .token(authToken)
                 .source(AuthSource.GOOGLE)
                 .build();

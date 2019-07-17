@@ -53,7 +53,7 @@ public class AuthCsdnRequest extends AuthDefaultRequest {
                 .username(object.getString("username"))
                 .remark(object.getString("description"))
                 .blog(object.getString("website"))
-                .gender(AuthUserGender.UNKNOW)
+                .gender(AuthUserGender.UNKNOWN)
                 .token(authToken)
                 .source(AuthSource.CSDN)
                 .build();
