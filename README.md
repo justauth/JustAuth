@@ -41,6 +41,7 @@
             <td align="center" width="200"><a href="#授权微软"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/microsoft.png" width="20"></a></td>
             <td align="center" width="200"><a href="#授权小米"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/mi.png" width="20"></a></td>
             <td align="center" width="200"><a href="#授权今日头条"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/toutiao.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权Teambition"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/teambition.png" width="20"></a></td>
             <td align="center" width="200"><a href="#授权csdn"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20"></a></td>
         </tr>
     </table>
@@ -120,6 +121,7 @@ authRequest.login(callback);
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/microsoft.png" width="20">  | [AuthMicrosoftRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthMicrosoftRequest.java) | <a href="https://docs.microsoft.com/zh-cn/graph/auth/" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/mi.png" width="20">  | [AuthMiRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthMiRequest.java) | <a href="https://dev.mi.com/console/doc/detail?pId=711" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/toutiao.png" width="20">  | [AuthToutiaoRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthToutiaoRequest.java) | <a href="https://open.mp.toutiao.com/#/resource?_k=y7mfgk" target="_blank">参考文档</a> |
+|  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/teambition.png" width="20">  | [AuthTeambitionRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthTeambitionRequest.java) | <a href="https://docs.teambition.com/" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20">  |  [AuthCsdnRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthCsdnRequest.java)  |  无 |
 
 _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经下线。如果以前申请过的应用，可以继续使用，但是不再支持申请新的应用。so, 本项目中的CSDN登录只能针对少部分用户使用了_

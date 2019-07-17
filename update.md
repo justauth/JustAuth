@@ -1,3 +1,7 @@
+### 2019/07/17
+1. 优化代码
+2. 集成Teambition登录
+
 ### 2019/07/16
 1. 重构UrlBuilder类
 2. 将CSDN相关的类置为`Deprecated`，后续可能会删除，也可能一直保留。毕竟CSDN的openAPI已经不对外开放了。
