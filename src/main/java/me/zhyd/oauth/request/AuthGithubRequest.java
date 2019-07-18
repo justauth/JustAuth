@@ -33,7 +33,11 @@ public class AuthGithubRequest extends AuthDefaultRequest {
         if (res.containsKey("error")) {
             throw new AuthException(res.get("error") + ":" + res.get("error_description"));
         }
-        return AuthToken.builder().accessToken(res.get("access_token")).build();
+        return AuthToken.builder()
+            .accessToken(res.get("access_token"))
+            .scope(res.get("scope"))
+            .tokenType(res.get("token_type"))
+            .build();
     }
 
     @Override

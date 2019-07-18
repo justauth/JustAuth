@@ -30,7 +30,13 @@ public class AuthGiteeRequest extends AuthDefaultRequest {
         if (accessTokenObject.containsKey("error")) {
             throw new AuthException("Unable to get token from gitee using code [" + authCallback.getCode() + "]: " + accessTokenObject);
         }
-        return AuthToken.builder().accessToken(accessTokenObject.getString("access_token")).build();
+        return AuthToken.builder()
+            .accessToken(accessTokenObject.getString("access_token"))
+            .refreshToken(accessTokenObject.getString("refresh_token"))
+            .scope(accessTokenObject.getString("scope"))
+            .tokenType(accessTokenObject.getString("token_type"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .build();
     }
 
     @Override
