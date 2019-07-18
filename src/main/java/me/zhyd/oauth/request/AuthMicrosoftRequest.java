@@ -83,7 +83,7 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
                 .nickname(object.getString("displayName"))
                 .location(object.getString("officeLocation"))
                 .email(object.getString("mail"))
-                .gender(AuthUserGender.UNKNOW)
+                .gender(AuthUserGender.UNKNOWN)
                 .token(authToken)
                 .source(AuthSource.MICROSOFT)
                 .build();
