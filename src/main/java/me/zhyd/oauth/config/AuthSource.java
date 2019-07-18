@@ -489,6 +489,26 @@ public enum AuthSource {
         public String userInfo() {
             return "https://api.pinterest.com/v1/me";
         }
+    },
+
+    /**
+     * Stack Overflow
+     */
+    STACK_OVERFLOW {
+        @Override
+        public String authorize() {
+            return "https://stackoverflow.com/oauth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://stackoverflow.com/oauth/access_token/json";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.stackexchange.com/2.2/me";
+        }
     };
 
     /**

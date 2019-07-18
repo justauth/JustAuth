@@ -80,10 +80,6 @@ _注：非全部平台，部分平台可能不存在图例_
 
 暂无
 
-#### 授权csdn
-
-暂无
-
 #### 授权Pinterest
 
 ![授权Pinterest](https://images.gitee.com/uploads/images/2019/0718/155012_6290f500_784199.jpeg "在这里输入图片标题")
@@ -91,5 +87,17 @@ _注：非全部平台，部分平台可能不存在图例_
 #### 授权Renren
 
 ![授权Renre](https://images.gitee.com/uploads/images/2019/0718/155035_8e26c10a_784199.jpeg "在这里输入图片标题")
+
+#### 授权Stack Overflow
+
+暂无
+
+#### 授权Twitter
+
+暂无
+
+#### 授权csdn
+
+暂无
 
 _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经下线。如果以前申请过的应用，可以继续使用，但是不再支持申请新的应用。so, 本项目中的CSDN登录只能针对少部分用户使用了_
