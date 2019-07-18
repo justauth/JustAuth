@@ -1,6 +1,6 @@
 ### 2019/07/18
-1. 合并github上@pengisgood 的pr#19，集成人人
-
+1. 合并github上[@pengisgood](https://github.com/pengisgood) 的[pr#19](https://github.com/zhangyd-c/JustAuth/pull/19)，集成人人
+2. 合并github上[@pengisgood](https://github.com/pengisgood) 的[pr#20](https://github.com/zhangyd-c/JustAuth/pull/20)，集成Pinterest
 
 ### 2019/07/17
 1. 优化代码
