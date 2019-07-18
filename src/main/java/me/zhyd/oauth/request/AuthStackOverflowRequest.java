@@ -2,7 +2,6 @@ package me.zhyd.oauth.request;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
@@ -13,10 +12,8 @@ import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.url.AuthStackOverflowUrlBuilder;
 import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static me.zhyd.oauth.config.AuthSource.STACK_OVERFLOW;
+import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
 
 /**
  * Stack Overflow登录
@@ -36,7 +33,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
         String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
         HttpResponse response = HttpRequest.post(accessTokenUrl)
             .contentType("application/x-www-form-urlencoded")
-            .form(buildBody(accessTokenUrl))
+            .form(parseQueryToMap(accessTokenUrl))
             .execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (!response.isOk()) {
@@ -68,11 +65,4 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .source(STACK_OVERFLOW)
             .build();
     }
-
-    private Map<String, Object> buildBody(String accessTokenUrl) {
-        Map<String, Object> paramMap = new HashMap<>();
-        HttpUtil.decodeParamMap(accessTokenUrl, "UTF-8").forEach(paramMap::put);
-        return paramMap;
-    }
-
 }
