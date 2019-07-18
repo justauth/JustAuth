@@ -14,8 +14,8 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AuthAlipayUrlBuilder;
 import me.zhyd.oauth.utils.StringUtils;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * 支付宝登录
@@ -29,9 +29,9 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
     private AlipayClient alipayClient;
 
     public AuthAlipayRequest(AuthConfig config) {
-        super(config, AuthSource.ALIPAY, new AuthAlipayUrlBuilder());
+        super(config, AuthSource.ALIPAY);
         this.alipayClient = new DefaultAlipayClient(AuthSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
-                .getAlipayPublicKey(), "RSA2");
+            .getAlipayPublicKey(), "RSA2");
     }
 
     @Override
@@ -49,11 +49,11 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
             throw new AuthException(response.getSubMsg());
         }
         return AuthToken.builder()
-                .accessToken(response.getAccessToken())
-                .uid(response.getUserId())
-                .expireIn(Integer.parseInt(response.getExpiresIn()))
-                .refreshToken(response.getRefreshToken())
-                .build();
+            .accessToken(response.getAccessToken())
+            .uid(response.getUserId())
+            .expireIn(Integer.parseInt(response.getExpiresIn()))
+            .refreshToken(response.getRefreshToken())
+            .build();
     }
 
     @Override
@@ -70,19 +70,33 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
             throw new AuthException(response.getSubMsg());
         }
 
-        String province = response.getProvince(),
-                city = response.getCity();
+        String province = response.getProvince(), city = response.getCity();
         String location = String.format("%s %s", StringUtils.isEmpty(province) ? "" : province, StringUtils.isEmpty(city) ? "" : city);
 
         return AuthUser.builder()
-                .uuid(response.getUserId())
-                .username(StringUtils.isEmpty(response.getUserName()) ? response.getNickName() : response.getUserName())
-                .nickname(response.getNickName())
-                .avatar(response.getAvatar())
-                .location(location)
-                .gender(AuthUserGender.getRealGender(response.getGender()))
-                .token(authToken)
-                .source(AuthSource.ALIPAY)
-                .build();
+            .uuid(response.getUserId())
+            .username(StringUtils.isEmpty(response.getUserName()) ? response.getNickName() : response.getUserName())
+            .nickname(response.getNickName())
+            .avatar(response.getAvatar())
+            .location(location)
+            .gender(AuthUserGender.getRealGender(response.getGender()))
+            .token(authToken)
+            .source(AuthSource.ALIPAY)
+            .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.fromBaseUrl(source.authorize())
+            .queryParam("app_id", config.getClientId())
+            .queryParam("scope", "auth_user")
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("state", getRealState(config.getState()))
+            .build();
     }
 }

@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
@@ -10,8 +9,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AuthGoogleUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * Google登录
@@ -23,47 +21,70 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 public class AuthGoogleRequest extends AuthDefaultRequest {
 
     public AuthGoogleRequest(AuthConfig config) {
-        super(config, AuthSource.GOOGLE, new AuthGoogleUrlBuilder());
+        super(config, AuthSource.GOOGLE);
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
 
         if (accessTokenObject.containsKey("error") || accessTokenObject.containsKey("error_description")) {
             throw new AuthException("get google access_token has error:[" + accessTokenObject.getString("error") + "], error_description:[" + accessTokenObject
-                    .getString("error_description") + "]");
+                .getString("error_description") + "]");
         }
 
         return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .expireIn(accessTokenObject.getIntValue("expires_in"))
-                .scope(accessTokenObject.getString("scope"))
-                .tokenType(accessTokenObject.getString("token_type"))
-                .idToken(accessTokenObject.getString("id_token"))
-                .build();
+            .accessToken(accessTokenObject.getString("access_token"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .scope(accessTokenObject.getString("scope"))
+            .tokenType(accessTokenObject.getString("token_type"))
+            .idToken(accessTokenObject.getString("id_token"))
+            .build();
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getIdToken();
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
-                .accessToken(accessToken)
-                .build())).execute();
+        HttpResponse response = doGetUserInfo(authToken);
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         return AuthUser.builder()
-                .uuid(object.getString("sub"))
-                .username(object.getString("name"))
-                .avatar(object.getString("picture"))
-                .nickname(object.getString("name"))
-                .location(object.getString("locale"))
-                .email(object.getString("email"))
-                .gender(AuthUserGender.UNKNOWN)
-                .token(authToken)
-                .source(AuthSource.GOOGLE)
-                .build();
+            .uuid(object.getString("sub"))
+            .username(object.getString("name"))
+            .avatar(object.getString("picture"))
+            .nickname(object.getString("name"))
+            .location(object.getString("locale"))
+            .email(object.getString("email"))
+            .gender(AuthUserGender.UNKNOWN)
+            .token(authToken)
+            .source(AuthSource.GOOGLE)
+            .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.fromBaseUrl(source.authorize())
+            .queryParam("response_type", "code")
+            .queryParam("client_id", config.getClientId())
+            .queryParam("scope", "openid%20email%20profile")
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("state", getRealState(config.getState()))
+            .build();
+    }
+
+    /**
+     * 返回获取userInfo的url
+     *
+     * @param authToken
+     * @return 返回获取userInfo的url
+     */
+    @Override
+    protected String userInfoUrl(AuthToken authToken) {
+        return UrlBuilder.fromBaseUrl(source.userInfo()).queryParam("id_token", authToken.getAccessToken()).build();
     }
 }

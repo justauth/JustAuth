@@ -11,7 +11,7 @@ import org.junit.Test;
  * UrlBuilder测试类
  * </p>
  *
- * @author yangkai.shen
+ * @author yangkai.shen (https://xkcoding.com)
  * @date Created in 2019-07-18 16:36
  */
 public class UrlBuilderTest {
@@ -22,15 +22,13 @@ public class UrlBuilderTest {
         config.setClientSecret("secret-110110110");
         config.setRedirectUri("https://xkcoding.com");
         config.setState(AuthState.create(AuthSource.WECHAT));
-        // @formatter:off
         String build = UrlBuilder.fromBaseUrl(AuthSource.WECHAT.authorize())
-                .queryParam("appid", config.getClientId())
-                .queryParam("redirect_uri", config.getRedirectUri())
-                .queryParam("response_type", "code")
-                .queryParam("scope", "snsapi_login")
-                .queryParam("state", config.getState().concat("#wechat_redirect"))
-                .build(false);
-        // @formatter:on
+            .queryParam("appid", config.getClientId())
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("response_type", "code")
+            .queryParam("scope", "snsapi_login")
+            .queryParam("state", config.getState().concat("#wechat_redirect"))
+            .build(false);
         AuthWeChatRequest request = new AuthWeChatRequest(config);
         String authorize = request.authorize();
         Assert.assertEquals(build, authorize);

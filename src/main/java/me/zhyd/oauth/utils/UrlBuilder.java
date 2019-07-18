@@ -1,6 +1,7 @@
 package me.zhyd.oauth.utils;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.Data;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  * 构造URL
  * </p>
  *
- * @author yangkai.shen
+ * @author yangkai.shen (https://xkcoding.com)
  * @date Created in 2019-07-18 15:47
  */
 @Data
@@ -63,6 +64,9 @@ public class UrlBuilder {
      * @return url
      */
     public String build(boolean encode) {
+        if (MapUtil.isEmpty(this.params)) {
+            return this.baseUrl;
+        }
         String baseUrl = StrUtil.addSuffixIfNot(this.baseUrl, "?");
         String paramString = GlobalAuthUtil.parseMapToString(this.params, encode);
         return baseUrl + paramString;

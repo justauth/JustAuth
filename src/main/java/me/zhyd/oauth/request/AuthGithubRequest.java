@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
@@ -10,8 +9,6 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AuthGithubUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 
 import java.util.Map;
@@ -26,13 +23,12 @@ import java.util.Map;
 public class AuthGithubRequest extends AuthDefaultRequest {
 
     public AuthGithubRequest(AuthConfig config) {
-        super(config, AuthSource.GITHUB, new AuthGithubUrlBuilder());
+        super(config, AuthSource.GITHUB);
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         Map<String, String> res = GlobalAuthUtil.parseStringToMap(response.body());
         if (res.containsKey("error")) {
             throw new AuthException(res.get("error") + ":" + res.get("error_description"));
@@ -42,25 +38,22 @@ public class AuthGithubRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
-                .accessToken(accessToken)
-                .build())).execute();
+        HttpResponse response = doGetUserInfo(authToken);
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         return AuthUser.builder()
-                .uuid(object.getString("id"))
-                .username(object.getString("login"))
-                .avatar(object.getString("avatar_url"))
-                .blog(object.getString("blog"))
-                .nickname(object.getString("name"))
-                .company(object.getString("company"))
-                .location(object.getString("location"))
-                .email(object.getString("email"))
-                .remark(object.getString("bio"))
-                .gender(AuthUserGender.UNKNOWN)
-                .token(authToken)
-                .source(AuthSource.GITHUB)
-                .build();
+            .uuid(object.getString("id"))
+            .username(object.getString("login"))
+            .avatar(object.getString("avatar_url"))
+            .blog(object.getString("blog"))
+            .nickname(object.getString("name"))
+            .company(object.getString("company"))
+            .location(object.getString("location"))
+            .email(object.getString("email"))
+            .remark(object.getString("bio"))
+            .gender(AuthUserGender.UNKNOWN)
+            .token(authToken)
+            .source(AuthSource.GITHUB)
+            .build();
     }
 }

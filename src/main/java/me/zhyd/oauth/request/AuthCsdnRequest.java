@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
@@ -10,8 +9,6 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AuthCsdnUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
  * CSDN登录
@@ -24,13 +21,12 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 public class AuthCsdnRequest extends AuthDefaultRequest {
 
     public AuthCsdnRequest(AuthConfig config) {
-        super(config, AuthSource.CSDN, new AuthCsdnUrlBuilder());
+        super(config, AuthSource.CSDN);
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error_code")) {
             throw new AuthException("Unable to get token from csdn using code [" + authCallback.getCode() + "]: " + accessTokenObject);
@@ -40,22 +36,19 @@ public class AuthCsdnRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
-                .accessToken(accessToken)
-                .build())).execute();
+        HttpResponse response = doGetUserInfo(authToken);
         JSONObject object = JSONObject.parseObject(response.body());
         if (object.containsKey("error_code")) {
             throw new AuthException(object.getString("error"));
         }
         return AuthUser.builder()
-                .uuid(object.getString("username"))
-                .username(object.getString("username"))
-                .remark(object.getString("description"))
-                .blog(object.getString("website"))
-                .gender(AuthUserGender.UNKNOWN)
-                .token(authToken)
-                .source(AuthSource.CSDN)
-                .build();
+            .uuid(object.getString("username"))
+            .username(object.getString("username"))
+            .remark(object.getString("description"))
+            .blog(object.getString("website"))
+            .gender(AuthUserGender.UNKNOWN)
+            .token(authToken)
+            .source(AuthSource.CSDN)
+            .build();
     }
 }

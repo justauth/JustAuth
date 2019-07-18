@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
@@ -10,8 +9,6 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AuthGiteeUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 
 /**
  * Gitee登录
@@ -23,13 +20,12 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 public class AuthGiteeRequest extends AuthDefaultRequest {
 
     public AuthGiteeRequest(AuthConfig config) {
-        super(config, AuthSource.GITEE, new AuthGiteeUrlBuilder());
+        super(config, AuthSource.GITEE);
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
             throw new AuthException("Unable to get token from gitee using code [" + authCallback.getCode() + "]: " + accessTokenObject);
@@ -39,25 +35,22 @@ public class AuthGiteeRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
-                .accessToken(accessToken)
-                .build())).execute();
+        HttpResponse response = doGetUserInfo(authToken);
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         return AuthUser.builder()
-                .uuid(object.getString("id"))
-                .username(object.getString("login"))
-                .avatar(object.getString("avatar_url"))
-                .blog(object.getString("blog"))
-                .nickname(object.getString("name"))
-                .company(object.getString("company"))
-                .location(object.getString("address"))
-                .email(object.getString("email"))
-                .remark(object.getString("bio"))
-                .gender(AuthUserGender.UNKNOWN)
-                .token(authToken)
-                .source(AuthSource.GITEE)
-                .build();
+            .uuid(object.getString("id"))
+            .username(object.getString("login"))
+            .avatar(object.getString("avatar_url"))
+            .blog(object.getString("blog"))
+            .nickname(object.getString("name"))
+            .company(object.getString("company"))
+            .location(object.getString("address"))
+            .email(object.getString("email"))
+            .remark(object.getString("bio"))
+            .gender(AuthUserGender.UNKNOWN)
+            .token(authToken)
+            .source(AuthSource.GITEE)
+            .build();
     }
 }

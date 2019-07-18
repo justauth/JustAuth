@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -10,8 +9,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AuthRenrenUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.Objects;
 
@@ -27,13 +25,12 @@ import static me.zhyd.oauth.config.AuthSource.RENREN;
 public class AuthRenrenRequest extends AuthDefaultRequest {
 
     public AuthRenrenRequest(AuthConfig config) {
-        super(config, RENREN, new AuthRenrenUrlBuilder());
+        super(config, RENREN);
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (!response.isOk()) {
             throw new AuthException("Unable to get token from renren using code [" + authCallback.getCode() + "]: " + accessTokenObject);
@@ -48,11 +45,7 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
-            .openId(authToken.getOpenId())
-            .accessToken(accessToken)
-            .build())).execute();
+        HttpResponse response = doGetUserInfo(authToken);
         JSONObject userObj = JSONObject.parseObject(response.body()).getJSONObject("response");
 
         return AuthUser.builder()
@@ -88,5 +81,19 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
             return null;
         }
         return jsonArray.getJSONObject(0).getString("name");
+    }
+
+    /**
+     * 返回获取userInfo的url
+     *
+     * @param authToken
+     * @return 返回获取userInfo的url
+     */
+    @Override
+    protected String userInfoUrl(AuthToken authToken) {
+        return UrlBuilder.fromBaseUrl(source.userInfo())
+            .queryParam("access_token", authToken.getAccessToken())
+            .queryParam("userId", authToken.getOpenId())
+            .build();
     }
 }
