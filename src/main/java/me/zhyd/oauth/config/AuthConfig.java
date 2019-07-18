@@ -51,4 +51,11 @@ public class AuthConfig {
      * 1.8.0版本新增参数
      */
     private String state;
+
+    /**
+     * Stack Overflow Key
+     * <p>
+     * 1.9.0版本新增参数
+     */
+    private String stackOverflowKey;
 }

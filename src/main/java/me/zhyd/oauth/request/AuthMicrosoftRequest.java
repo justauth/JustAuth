@@ -13,6 +13,8 @@ import me.zhyd.oauth.utils.UrlBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
+import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
+
 /**
  * 微软登录
  *
@@ -37,12 +39,10 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
      * @return token对象
      */
     private AuthToken getToken(String accessTokenUrl) {
-        Map<String, Object> paramMap = new HashMap<>(6);
-        HttpUtil.decodeParamMap(accessTokenUrl, "UTF-8").forEach(paramMap::put);
         HttpResponse response = HttpRequest.post(accessTokenUrl)
             .header("Host", "https://login.microsoftonline.com")
-            .header("Content-Type", "application/x-www-form-urlencoded")
-            .form(paramMap)
+            .contentType("application/x-www-form-urlencoded")
+            .form(parseQueryToMap(accessTokenUrl))
             .execute();
         String accessTokenStr = response.body();
         JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);

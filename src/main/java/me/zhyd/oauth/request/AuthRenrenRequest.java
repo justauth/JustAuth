@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
@@ -14,6 +15,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
 import java.util.Objects;
 
 import static me.zhyd.oauth.config.AuthSource.RENREN;
+import static me.zhyd.oauth.model.AuthResponseStatus.SUCCESS;
 
 /**
  * 人人登录
@@ -30,22 +32,14 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-        if (!response.isOk()) {
-            throw new AuthException("Unable to get token from renren using code [" + authCallback.getCode() + "]: " + accessTokenObject);
-        }
-
-        return AuthToken.builder()
-            .accessToken(accessTokenObject.getString("access_token"))
-            .refreshToken(accessTokenObject.getString("refresh_token"))
-            .openId(accessTokenObject.getJSONObject("user").getString("id"))
-            .build();
+        return getToken(this.urlBuilder.getAccessTokenUrl(authCallback.getCode()));
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
+
         HttpResponse response = doGetUserInfo(authToken);
+      
         JSONObject userObj = JSONObject.parseObject(response.body()).getJSONObject("response");
 
         return AuthUser.builder()
@@ -56,6 +50,30 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
             .gender(getGender(userObj))
             .token(authToken)
             .source(RENREN)
+            .build();
+    }
+
+    @Override
+    public AuthResponse refresh(AuthToken authToken) {
+        return AuthResponse.builder()
+            .code(SUCCESS.getCode())
+            .data(getToken(this.urlBuilder.getRefreshUrl(authToken.getRefreshToken())))
+            .build();
+    }
+
+    private AuthToken getToken(String url) {
+        HttpResponse response = HttpRequest.post(url).execute();
+        JSONObject jsonObject = JSONObject.parseObject(response.body());
+        if (!response.isOk()) {
+            throw new AuthException("Failed to get token from Renren: " + jsonObject);
+        }
+
+        return AuthToken.builder()
+            .tokenType(jsonObject.getString("token_type"))
+            .expireIn(jsonObject.getIntValue("expires_in"))
+            .accessToken(jsonObject.getString("access_token"))
+            .refreshToken(jsonObject.getString("refresh_token"))
+            .openId(jsonObject.getJSONObject("user").getString("id"))
             .build();
     }
 

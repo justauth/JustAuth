@@ -3,6 +3,7 @@ package me.zhyd.oauth.utils;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.http.HttpUtil;
 import me.zhyd.oauth.exception.AuthException;
 
 import javax.crypto.Mac;
@@ -82,6 +83,7 @@ public class GlobalAuthUtil {
         return res;
     }
 
+
     public static String parseMapToString(Map<String, Object> params, boolean encode) {
         List<String> paramList = new ArrayList<>();
         params.forEach((k, v) -> {
@@ -93,6 +95,12 @@ public class GlobalAuthUtil {
             }
         });
         return CollUtil.join(paramList, "&");
+    }
+  
+    public static Map<String, Object> parseQueryToMap(String url) {
+        Map<String, Object> paramMap = new HashMap<>();
+        HttpUtil.decodeParamMap(url, "UTF-8").forEach(paramMap::put);
+        return paramMap;
     }
 
     public static boolean isHttpProtocol(String url) {
