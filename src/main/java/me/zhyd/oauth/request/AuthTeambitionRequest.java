@@ -66,7 +66,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
                 .blog(object.getString("website"))
                 .location(object.getString("location"))
                 .email(object.getString("email"))
-                .gender(AuthUserGender.UNKNOW)
+                .gender(AuthUserGender.UNKNOWN)
                 .token(authToken)
                 .source(AuthSource.TEAMBITION)
                 .build();

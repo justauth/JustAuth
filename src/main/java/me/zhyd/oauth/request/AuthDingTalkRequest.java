@@ -63,7 +63,7 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
                 .uuid(object.getString("unionid"))
                 .nickname(object.getString("nick"))
                 .username(object.getString("nick"))
-                .gender(AuthUserGender.UNKNOW)
+                .gender(AuthUserGender.UNKNOWN)
                 .source(AuthSource.DINGTALK)
                 .token(token)
                 .build();

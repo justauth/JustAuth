@@ -444,6 +444,31 @@ public enum AuthSource {
         public String userInfo() {
             return "https://api.teambition.com/users/me";
         }
+    },
+
+    /**
+     * 人人网
+     */
+    RENREN {
+        @Override
+        public String authorize() {
+            return "https://graph.renren.com/oauth/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://graph.renren.com/oauth/token";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://graph.renren.com/oauth/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.renren.com/v2/user/get";
+        }
     };
 
     /**

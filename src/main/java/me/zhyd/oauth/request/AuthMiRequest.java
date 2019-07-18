@@ -78,7 +78,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
                 .nickname(user.getString("miliaoNick"))
                 .avatar(user.getString("miliaoIcon"))
                 .email(user.getString("mail"))
-                .gender(AuthUserGender.UNKNOW)
+                .gender(AuthUserGender.UNKNOWN)
                 .token(authToken)
                 .source(AuthSource.MI)
                 .build();
