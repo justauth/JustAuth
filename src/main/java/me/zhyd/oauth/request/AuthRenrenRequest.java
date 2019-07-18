@@ -1,15 +1,12 @@
 package me.zhyd.oauth.request;
 
+import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthCallback;
-import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.Objects;
@@ -32,14 +29,12 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        return getToken(this.urlBuilder.getAccessTokenUrl(authCallback.getCode()));
+        return this.getToken(accessTokenUrl(authCallback.getCode()));
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-
         HttpResponse response = doGetUserInfo(authToken);
-      
         JSONObject userObj = JSONObject.parseObject(response.body()).getJSONObject("response");
 
         return AuthUser.builder()
@@ -57,7 +52,7 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
     public AuthResponse refresh(AuthToken authToken) {
         return AuthResponse.builder()
             .code(SUCCESS.getCode())
-            .data(getToken(this.urlBuilder.getRefreshUrl(authToken.getRefreshToken())))
+            .data(getToken(this.refreshTokenUrl(authToken.getRefreshToken())))
             .build();
     }
 

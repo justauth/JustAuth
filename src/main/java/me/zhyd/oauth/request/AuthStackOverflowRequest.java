@@ -9,8 +9,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AuthStackOverflowUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 import static me.zhyd.oauth.config.AuthSource.STACK_OVERFLOW;
 import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
@@ -25,12 +24,12 @@ import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
 public class AuthStackOverflowRequest extends AuthDefaultRequest {
 
     public AuthStackOverflowRequest(AuthConfig config) {
-        super(config, STACK_OVERFLOW, new AuthStackOverflowUrlBuilder());
+        super(config, STACK_OVERFLOW);
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
+        String accessTokenUrl = accessTokenUrl(authCallback.getCode());
         HttpResponse response = HttpRequest.post(accessTokenUrl)
             .contentType("application/x-www-form-urlencoded")
             .form(parseQueryToMap(accessTokenUrl))
@@ -48,10 +47,11 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
-            .accessToken(accessToken)
-            .build())).execute();
+        String userInfoUrl = UrlBuilder.fromBaseUrl(userInfoUrl(authToken))
+            .queryParam("site", "stackoverflow")
+            .queryParam("key", this.config.getStackOverflowKey())
+            .build();
+        HttpResponse response = HttpRequest.get(userInfoUrl).execute();
         JSONObject userObj = JSONObject.parseObject(response.body()).getJSONArray("items").getJSONObject(0);
 
         return AuthUser.builder()

@@ -3,7 +3,7 @@ package me.zhyd.oauth.utils;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
-import lombok.Data;
+import lombok.Setter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -16,11 +16,15 @@ import java.util.Map;
  * @author yangkai.shen (https://xkcoding.com)
  * @date Created in 2019-07-18 15:47
  */
-@Data
+@Setter
 public class UrlBuilder {
-    private String baseUrl;
 
     private final Map<String, Object> params = new LinkedHashMap<>(4);
+    private String baseUrl;
+
+    private UrlBuilder() {
+
+    }
 
     /**
      * @param baseUrl 基础路径

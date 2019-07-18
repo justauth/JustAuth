@@ -9,8 +9,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AuthPinterestUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.Objects;
 
@@ -26,13 +25,12 @@ import static me.zhyd.oauth.config.AuthSource.PINTEREST;
 public class AuthPinterestRequest extends AuthDefaultRequest {
 
     public AuthPinterestRequest(AuthConfig config) {
-        super(config, PINTEREST, new AuthPinterestUrlBuilder());
+        super(config, PINTEREST);
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (!response.isOk()) {
             throw new AuthException("Unable to get token from Pinterest using code [" + authCallback.getCode() + "]: " + accessTokenObject);
@@ -46,10 +44,10 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
-            .accessToken(accessToken)
-            .build())).execute();
+        String userinfoUrl = UrlBuilder.fromBaseUrl(userInfoUrl(authToken))
+            .queryParam("fields", "id,username,first_name,last_name,bio,image")
+            .build();
+        HttpResponse response = HttpRequest.post(userinfoUrl).execute();
         JSONObject userObj = JSONObject.parseObject(response.body()).getJSONObject("data");
 
         return AuthUser.builder()
