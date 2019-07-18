@@ -70,7 +70,7 @@ _注：非全部平台，部分平台可能不存在图例_
 
 #### 授权微软
 
-暂无
+![授权微软](https://images.gitee.com/uploads/images/2019/0718/224146_681aa535_784199.png "授权微软")
 
 #### 授权小米
 
@@ -79,6 +79,10 @@ _注：非全部平台，部分平台可能不存在图例_
 #### 授权今日头条
 
 暂无
+
+#### 授权Teambition
+
+![授权Teambition](https://images.gitee.com/uploads/images/2019/0718/224119_3da514ab_784199.png "授权Teambition")
 
 #### 授权Pinterest
 
