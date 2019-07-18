@@ -1,14 +1,16 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.url.AuthTaobaoUrlBuilder;
+import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.model.AuthToken;
+import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * 淘宝登录
@@ -20,7 +22,7 @@ import me.zhyd.oauth.utils.GlobalAuthUtil;
 public class AuthTaobaoRequest extends AuthDefaultRequest {
 
     public AuthTaobaoRequest(AuthConfig config) {
-        super(config, AuthSource.TAOBAO, new AuthTaobaoUrlBuilder());
+        super(config, AuthSource.TAOBAO);
     }
 
     @Override
@@ -30,8 +32,7 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessCode = authToken.getAccessCode();
-        HttpResponse response = HttpRequest.post(this.urlBuilder.getAccessTokenUrl(accessCode)).execute();
+        HttpResponse response = doPostAuthorizationCode(authToken.getAccessCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
         if (accessTokenObject.containsKey("error")) {
             throw new AuthException(accessTokenObject.getString("error_description"));
@@ -44,12 +45,28 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
 
         String nick = GlobalAuthUtil.urlDecode(accessTokenObject.getString("taobao_user_nick"));
         return AuthUser.builder()
-                .uuid(accessTokenObject.getString("taobao_user_id"))
-                .username(nick)
-                .nickname(nick)
-                .gender(AuthUserGender.UNKNOWN)
-                .token(authToken)
-                .source(AuthSource.TAOBAO)
-                .build();
+            .uuid(accessTokenObject.getString("taobao_user_id"))
+            .username(nick)
+            .nickname(nick)
+            .gender(AuthUserGender.UNKNOWN)
+            .token(authToken)
+            .source(AuthSource.TAOBAO)
+            .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.fromBaseUrl(source.authorize())
+            .queryParam("response_type", "code")
+            .queryParam("client_id", config.getClientId())
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("state", getRealState(config.getState()))
+            .queryParam("view", "web")
+            .build();
     }
 }

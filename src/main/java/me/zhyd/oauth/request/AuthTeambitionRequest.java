@@ -7,7 +7,6 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.url.AuthTeambitionUrlBuilder;
 
 /**
  * Teambition授权登录
@@ -19,7 +18,7 @@ import me.zhyd.oauth.url.AuthTeambitionUrlBuilder;
 public class AuthTeambitionRequest extends AuthDefaultRequest {
 
     public AuthTeambitionRequest(AuthConfig config) {
-        super(config, AuthSource.TEAMBITION, new AuthTeambitionUrlBuilder());
+        super(config, AuthSource.TEAMBITION);
     }
 
     /**
@@ -28,30 +27,29 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
      */
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
-        HttpResponse response = HttpRequest.post(accessTokenUrl)
-                .form("client_id", config.getClientId())
-                .form("client_secret", config.getClientSecret())
-                .form("code", authCallback.getCode())
-                .form("grant_type", "code")
-                .execute();
+        HttpResponse response = HttpRequest.post(source.accessToken())
+            .form("client_id", config.getClientId())
+            .form("client_secret", config.getClientSecret())
+            .form("code", authCallback.getCode())
+            .form("grant_type", "code")
+            .execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
 
         this.checkResponse(accessTokenObject);
 
         return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .refreshToken(accessTokenObject.getString("refresh_token"))
-                .build();
+            .accessToken(accessTokenObject.getString("access_token"))
+            .refreshToken(accessTokenObject.getString("refresh_token"))
+            .build();
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
 
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(null))
-                .header("Authorization", "OAuth2 " + accessToken)
-                .execute();
+        HttpResponse response = HttpRequest.get(source.userInfo())
+            .header("Authorization", "OAuth2 " + accessToken)
+            .execute();
         JSONObject object = JSONObject.parseObject(response.body());
 
         this.checkResponse(object);
@@ -59,39 +57,38 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
         authToken.setUid(object.getString("_id"));
 
         return AuthUser.builder()
-                .uuid(object.getString("_id"))
-                .username(object.getString("name"))
-                .nickname(object.getString("name"))
-                .avatar(object.getString("avatarUrl"))
-                .blog(object.getString("website"))
-                .location(object.getString("location"))
-                .email(object.getString("email"))
-                .gender(AuthUserGender.UNKNOWN)
-                .token(authToken)
-                .source(AuthSource.TEAMBITION)
-                .build();
+            .uuid(object.getString("_id"))
+            .username(object.getString("name"))
+            .nickname(object.getString("name"))
+            .avatar(object.getString("avatarUrl"))
+            .blog(object.getString("website"))
+            .location(object.getString("location"))
+            .email(object.getString("email"))
+            .gender(AuthUserGender.UNKNOWN)
+            .token(authToken)
+            .source(AuthSource.TEAMBITION)
+            .build();
     }
 
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
         String uid = oldToken.getUid();
         String refreshToken = oldToken.getRefreshToken();
-        String refreshTokenUrl = this.urlBuilder.getRefreshUrl(refreshToken);
-        HttpResponse response = HttpRequest.post(refreshTokenUrl)
-                .form("_userId", uid)
-                .form("refresh_token", refreshToken)
-                .execute();
+        HttpResponse response = HttpRequest.post(source.refresh())
+            .form("_userId", uid)
+            .form("refresh_token", refreshToken)
+            .execute();
         JSONObject refreshTokenObject = JSONObject.parseObject(response.body());
 
         this.checkResponse(refreshTokenObject);
 
         return AuthResponse.builder()
-                .code(AuthResponseStatus.SUCCESS.getCode())
-                .data(AuthToken.builder()
-                        .accessToken(refreshTokenObject.getString("access_token"))
-                        .refreshToken(refreshTokenObject.getString("refresh_token"))
-                        .build())
-                .build();
+            .code(AuthResponseStatus.SUCCESS.getCode())
+            .data(AuthToken.builder()
+                .accessToken(refreshTokenObject.getString("access_token"))
+                .refreshToken(refreshTokenObject.getString("refresh_token"))
+                .build())
+            .build();
     }
 
     /**

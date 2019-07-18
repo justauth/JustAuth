@@ -1,17 +1,21 @@
 package me.zhyd.oauth.request;
 
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpResponse;
 import lombok.Data;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.url.AuthDefaultUrlBuilder;
 import me.zhyd.oauth.utils.AuthChecker;
+import me.zhyd.oauth.utils.StringUtils;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * 默认的request处理类
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @author yangkai.shen (https://xkcoding.com)
  * @version 1.0
  * @since 1.8
  */
@@ -19,7 +23,6 @@ import me.zhyd.oauth.utils.AuthChecker;
 public abstract class AuthDefaultRequest implements AuthRequest {
     protected AuthConfig config;
     protected AuthSource source;
-    protected AuthDefaultUrlBuilder urlBuilder;
 
     public AuthDefaultRequest(AuthConfig config, AuthSource source) {
         this.config = config;
@@ -29,12 +32,6 @@ public abstract class AuthDefaultRequest implements AuthRequest {
         }
         // 校验配置合法性
         AuthChecker.checkConfig(config, source);
-    }
-
-    public AuthDefaultRequest(AuthConfig config, AuthSource source, AuthDefaultUrlBuilder urlBuilder) {
-        this(config, source);
-        this.urlBuilder = urlBuilder;
-        this.urlBuilder.setAuthConfig(config);
     }
 
     protected abstract AuthToken getAccessToken(AuthCallback authCallback);
@@ -70,6 +67,100 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     @Override
     public String authorize() {
-        return this.urlBuilder.getAuthorizeUrl();
+        return UrlBuilder.fromBaseUrl(source.authorize())
+            .queryParam("response_type", "code")
+            .queryParam("client_id", config.getClientId())
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("state", getRealState(config.getState()))
+            .build();
+    }
+
+    /**
+     * 返回获取accessToken的url
+     *
+     * @return 返回获取accessToken的url
+     */
+    protected String accessTokenUrl(String code) {
+        return UrlBuilder.fromBaseUrl(source.accessToken())
+            .queryParam("code", code)
+            .queryParam("client_id", config.getClientId())
+            .queryParam("client_secret", config.getClientSecret())
+            .queryParam("grant_type", "authorization_code")
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .build();
+    }
+
+    /**
+     * 返回获取accessToken的url
+     *
+     * @return 返回获取accessToken的url
+     */
+    protected String refreshTokenUrl(String refreshToken) {
+        return UrlBuilder.fromBaseUrl(source.refresh())
+            .queryParam("client_id", config.getClientId())
+            .queryParam("client_secret", config.getClientSecret())
+            .queryParam("refresh_token", refreshToken)
+            .queryParam("grant_type", "refresh_token")
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .build();
+    }
+
+    /**
+     * 返回获取userInfo的url
+     *
+     * @return 返回获取userInfo的url
+     */
+    protected String userInfoUrl(AuthToken authToken) {
+        return UrlBuilder.fromBaseUrl(source.userInfo()).queryParam("access_token", authToken.getAccessToken()).build();
+    }
+
+    /**
+     * 获取state，如果为空， 则默认去当前日期的时间戳
+     *
+     * @param state 原始的state
+     * @return 返回不为null的state
+     */
+    protected String getRealState(String state) {
+        return StringUtils.isEmpty(state) ? String.valueOf(System.currentTimeMillis()) : state;
+    }
+
+    /**
+     * 通用的 authorizationCode 协议
+     *
+     * @param code code码
+     * @return HttpResponse
+     */
+    protected HttpResponse doPostAuthorizationCode(String code) {
+        return HttpRequest.post(accessTokenUrl(code)).execute();
+    }
+
+    /**
+     * 通用的 authorizationCode 协议
+     *
+     * @param code code码
+     * @return HttpResponse
+     */
+    protected HttpResponse doGetAuthorizationCode(String code) {
+        return HttpRequest.get(accessTokenUrl(code)).execute();
+    }
+
+    /**
+     * 通用的 用户信息
+     *
+     * @param authToken token封装
+     * @return HttpResponse
+     */
+    protected HttpResponse doPostUserInfo(AuthToken authToken) {
+        return HttpRequest.post(userInfoUrl(authToken)).execute();
+    }
+
+    /**
+     * 通用的 用户信息
+     *
+     * @param authToken token封装
+     * @return HttpResponse
+     */
+    protected HttpResponse doGetUserInfo(AuthToken authToken) {
+        return HttpRequest.get(userInfoUrl(authToken)).execute();
     }
 }

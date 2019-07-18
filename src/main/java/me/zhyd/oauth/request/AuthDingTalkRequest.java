@@ -12,9 +12,8 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AuthDingtalkUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * 钉钉登录
@@ -26,7 +25,7 @@ import me.zhyd.oauth.utils.GlobalAuthUtil;
 public class AuthDingTalkRequest extends AuthDefaultRequest {
 
     public AuthDingTalkRequest(AuthConfig config) {
-        super(config, AuthSource.DINGTALK, new AuthDingtalkUrlBuilder());
+        super(config, AuthSource.DINGTALK);
     }
 
     @Override
@@ -37,17 +36,9 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String code = authToken.getAccessCode();
-        // 根据timestamp, appSecret计算签名值
-        String timestamp = System.currentTimeMillis() + "";
-        String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), timestamp);
         JSONObject param = new JSONObject();
         param.put("tmp_auth_code", code);
-        HttpResponse response = HttpRequest.post(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
-                .signature(urlEncodeSignature)
-                .timestamp(timestamp)
-                .clientId(config.getClientId())
-                .build()
-        )).body(param.toJSONString()).execute();
+        HttpResponse response = HttpRequest.post(userInfoUrl(authToken)).body(param.toJSONString()).execute();
         String userInfo = response.body();
         JSONObject object = JSON.parseObject(userInfo);
         AuthDingTalkErrorCode errorCode = AuthDingTalkErrorCode.getErrorCode(object.getIntValue("errcode"));
@@ -56,16 +47,51 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
         }
         object = object.getJSONObject("user_info");
         AuthToken token = AuthToken.builder()
-                .openId(object.getString("openid"))
-                .unionId(object.getString("unionid"))
-                .build();
+            .openId(object.getString("openid"))
+            .unionId(object.getString("unionid"))
+            .build();
         return AuthUser.builder()
-                .uuid(object.getString("unionid"))
-                .nickname(object.getString("nick"))
-                .username(object.getString("nick"))
-                .gender(AuthUserGender.UNKNOWN)
-                .source(AuthSource.DINGTALK)
-                .token(token)
-                .build();
+            .uuid(object.getString("unionid"))
+            .nickname(object.getString("nick"))
+            .username(object.getString("nick"))
+            .gender(AuthUserGender.UNKNOWN)
+            .source(AuthSource.DINGTALK)
+            .token(token)
+            .build();
+    }
+
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.fromBaseUrl(source.authorize())
+            .queryParam("response_type", "code")
+            .queryParam("appid", config.getClientId())
+            .queryParam("scope", "snsapi_login")
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("state", getRealState(config.getState()))
+            .build();
+    }
+
+    /**
+     * 返回获取userInfo的url
+     *
+     * @param authToken
+     * @return 返回获取userInfo的url
+     */
+    @Override
+    protected String userInfoUrl(AuthToken authToken) {
+        // 根据timestamp, appSecret计算签名值
+        String timestamp = System.currentTimeMillis() + "";
+        String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), timestamp);
+
+        return UrlBuilder.fromBaseUrl(source.userInfo())
+            .queryParam("signature", urlEncodeSignature)
+            .queryParam("timestamp", timestamp)
+            .queryParam("accessKey", config.getClientId())
+            .build();
     }
 }

@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
@@ -10,8 +9,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.model.AuthUserGender;
-import me.zhyd.oauth.url.AuthFacebookUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * Facebook登录
@@ -23,13 +21,12 @@ import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
 public class AuthFacebookRequest extends AuthDefaultRequest {
 
     public AuthFacebookRequest(AuthConfig config) {
-        super(config, AuthSource.FACEBOOK, new AuthFacebookUrlBuilder());
+        super(config, AuthSource.FACEBOOK);
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
 
         if (accessTokenObject.containsKey("error")) {
@@ -37,18 +34,15 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
         }
 
         return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .expireIn(accessTokenObject.getIntValue("expires_in"))
-                .tokenType(accessTokenObject.getString("token_type"))
-                .build();
+            .accessToken(accessTokenObject.getString("access_token"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .tokenType(accessTokenObject.getString("token_type"))
+            .build();
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder()
-                .accessToken(accessToken)
-                .build())).execute();
+        HttpResponse response = doGetUserInfo(authToken);
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         if (object.containsKey("error")) {
@@ -63,15 +57,29 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
             }
         }
         return AuthUser.builder()
-                .uuid(object.getString("id"))
-                .username(object.getString("name"))
-                .nickname(object.getString("name"))
-                .avatar(picture)
-                .location(object.getString("locale"))
-                .email(object.getString("email"))
-                .gender(AuthUserGender.getRealGender(object.getString("gender")))
-                .token(authToken)
-                .source(AuthSource.FACEBOOK)
-                .build();
+            .uuid(object.getString("id"))
+            .username(object.getString("name"))
+            .nickname(object.getString("name"))
+            .avatar(picture)
+            .location(object.getString("locale"))
+            .email(object.getString("email"))
+            .gender(AuthUserGender.getRealGender(object.getString("gender")))
+            .token(authToken)
+            .source(AuthSource.FACEBOOK)
+            .build();
+    }
+
+    /**
+     * 返回获取userInfo的url
+     *
+     * @param authToken
+     * @return 返回获取userInfo的url
+     */
+    @Override
+    protected String userInfoUrl(AuthToken authToken) {
+        return UrlBuilder.fromBaseUrl(source.userInfo())
+            .queryParam("access_token", authToken.getAccessToken())
+            .queryParam("fields", "id,name,birthday,gender,hometown,email,devices,picture.width(400)")
+            .build();
     }
 }

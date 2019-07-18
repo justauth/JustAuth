@@ -1,6 +1,8 @@
 package me.zhyd.oauth.utils;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.http.HttpUtil;
 import me.zhyd.oauth.exception.AuthException;
 
@@ -13,9 +15,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 全局的工具类
@@ -83,6 +83,20 @@ public class GlobalAuthUtil {
         return res;
     }
 
+
+    public static String parseMapToString(Map<String, Object> params, boolean encode) {
+        List<String> paramList = new ArrayList<>();
+        params.forEach((k, v) -> {
+            if (ObjectUtil.isNull(v)) {
+                paramList.add(k + "=");
+            } else {
+                String valueString = v.toString();
+                paramList.add(k + "=" + (encode ? urlEncode(valueString) : valueString));
+            }
+        });
+        return CollUtil.join(paramList, "&");
+    }
+  
     public static Map<String, Object> parseQueryToMap(String url) {
         Map<String, Object> paramMap = new HashMap<>();
         HttpUtil.decodeParamMap(url, "UTF-8").forEach(paramMap::put);

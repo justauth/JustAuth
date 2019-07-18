@@ -8,8 +8,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
-import me.zhyd.oauth.url.AuthMicrosoftUrlBuilder;
-import me.zhyd.oauth.url.entity.AuthUserInfoEntity;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,14 +24,12 @@ import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
  */
 public class AuthMicrosoftRequest extends AuthDefaultRequest {
     public AuthMicrosoftRequest(AuthConfig config) {
-        super(config, AuthSource.MICROSOFT, new AuthMicrosoftUrlBuilder());
+        super(config, AuthSource.MICROSOFT);
     }
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = this.urlBuilder.getAccessTokenUrl(authCallback.getCode());
-
-        return getToken(accessTokenUrl);
+        return getToken(accessTokenUrl(authCallback.getCode()));
     }
 
     /**
@@ -43,22 +40,22 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
      */
     private AuthToken getToken(String accessTokenUrl) {
         HttpResponse response = HttpRequest.post(accessTokenUrl)
-                .header("Host", "https://login.microsoftonline.com")
-                .contentType("application/x-www-form-urlencoded")
-                .form(parseQueryToMap(accessTokenUrl))
-                .execute();
+            .header("Host", "https://login.microsoftonline.com")
+            .contentType("application/x-www-form-urlencoded")
+            .form(parseQueryToMap(accessTokenUrl))
+            .execute();
         String accessTokenStr = response.body();
         JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
 
         this.checkResponse(accessTokenObject);
 
         return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .expireIn(accessTokenObject.getIntValue("expires_in"))
-                .scope(accessTokenObject.getString("scope"))
-                .tokenType(accessTokenObject.getString("token_type"))
-                .refreshToken(accessTokenObject.getString("refresh_token"))
-                .build();
+            .accessToken(accessTokenObject.getString("access_token"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .scope(accessTokenObject.getString("scope"))
+            .tokenType(accessTokenObject.getString("token_type"))
+            .refreshToken(accessTokenObject.getString("refresh_token"))
+            .build();
     }
 
     private void checkResponse(JSONObject response) {
@@ -72,21 +69,19 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
         String token = authToken.getAccessToken();
         String tokenType = authToken.getTokenType();
         String jwt = tokenType + " " + token;
-        HttpResponse response = HttpRequest.get(this.urlBuilder.getUserInfoUrl(AuthUserInfoEntity.builder().build()))
-                .header("Authorization", jwt)
-                .execute();
+        HttpResponse response = HttpRequest.get(userInfoUrl(authToken)).header("Authorization", jwt).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         return AuthUser.builder()
-                .uuid(object.getString("id"))
-                .username(object.getString("userPrincipalName"))
-                .nickname(object.getString("displayName"))
-                .location(object.getString("officeLocation"))
-                .email(object.getString("mail"))
-                .gender(AuthUserGender.UNKNOWN)
-                .token(authToken)
-                .source(AuthSource.MICROSOFT)
-                .build();
+            .uuid(object.getString("id"))
+            .username(object.getString("userPrincipalName"))
+            .nickname(object.getString("displayName"))
+            .location(object.getString("officeLocation"))
+            .email(object.getString("mail"))
+            .gender(AuthUserGender.UNKNOWN)
+            .token(authToken)
+            .source(AuthSource.MICROSOFT)
+            .build();
     }
 
     /**
@@ -97,8 +92,73 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
      */
     @Override
     public AuthResponse refresh(AuthToken authToken) {
-        String refreshTokenUrl = this.urlBuilder.getRefreshUrl(authToken.getRefreshToken());
+        return AuthResponse.builder()
+            .code(AuthResponseStatus.SUCCESS.getCode())
+            .data(getToken(refreshTokenUrl(authToken.getRefreshToken())))
+            .build();
+    }
 
-        return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(getToken(refreshTokenUrl)).build();
+    /**
+     * 返回认证url，可自行跳转页面
+     *
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize() {
+        return UrlBuilder.fromBaseUrl(source.authorize())
+            .queryParam("response_type", "code")
+            .queryParam("client_id", config.getClientId())
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("response_mode", "query")
+            .queryParam("scope", "offline_access%20user.read%20mail.read")
+            .queryParam("state", getRealState(config.getState()))
+            .build();
+    }
+
+    /**
+     * 返回获取accessToken的url
+     *
+     * @param code
+     * @return 返回获取accessToken的url
+     */
+    @Override
+    protected String accessTokenUrl(String code) {
+        return UrlBuilder.fromBaseUrl(source.accessToken())
+            .queryParam("code", code)
+            .queryParam("client_id", config.getClientId())
+            .queryParam("client_secret", config.getClientSecret())
+            .queryParam("grant_type", "authorization_code")
+            .queryParam("scope", "user.read%20mail.read")
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .build();
+    }
+
+    /**
+     * 返回获取userInfo的url
+     *
+     * @param authToken
+     * @return 返回获取userInfo的url
+     */
+    @Override
+    protected String userInfoUrl(AuthToken authToken) {
+        return UrlBuilder.fromBaseUrl(source.userInfo()).build();
+    }
+
+    /**
+     * 返回获取accessToken的url
+     *
+     * @param refreshToken
+     * @return 返回获取accessToken的url
+     */
+    @Override
+    protected String refreshTokenUrl(String refreshToken) {
+        return UrlBuilder.fromBaseUrl(source.refresh())
+            .queryParam("client_id", config.getClientId())
+            .queryParam("client_secret", config.getClientSecret())
+            .queryParam("refresh_token", refreshToken)
+            .queryParam("grant_type", "refresh_token")
+            .queryParam("scope", "user.read%20mail.read")
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .build();
     }
 }
