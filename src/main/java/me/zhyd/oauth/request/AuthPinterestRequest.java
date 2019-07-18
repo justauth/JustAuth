@@ -71,4 +71,15 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
         return jsonObject.getJSONObject("60x60").getString("url");
     }
 
+    @Override
+    public String authorize() {
+        return UrlBuilder.fromBaseUrl(source.authorize())
+            .queryParam("response_type", "code")
+            .queryParam("client_id", config.getClientId())
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("state", getRealState(config.getState()))
+            .queryParam("scope", "read_public")
+            .build();
+    }
+
 }

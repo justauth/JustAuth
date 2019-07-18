@@ -47,7 +47,8 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String userInfoUrl = UrlBuilder.fromBaseUrl(userInfoUrl(authToken))
+        String userInfoUrl = UrlBuilder.fromBaseUrl(this.source.userInfo())
+            .queryParam("access_token", authToken.getAccessToken())
             .queryParam("site", "stackoverflow")
             .queryParam("key", this.config.getStackOverflowKey())
             .build();
@@ -63,6 +64,17 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
             .source(STACK_OVERFLOW)
+            .build();
+    }
+
+    @Override
+    public String authorize() {
+        return UrlBuilder.fromBaseUrl(source.authorize())
+            .queryParam("response_type", "code")
+            .queryParam("client_id", config.getClientId())
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("state", getRealState(config.getState()))
+            .queryParam("scope", "read_inbox")
             .build();
     }
 }
