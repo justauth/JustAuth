@@ -19,7 +19,7 @@ import java.util.Map;
 @Setter
 public class UrlBuilder {
 
-    private final Map<String, Object> params = new LinkedHashMap<>(4);
+    private final Map<String, Object> params = new LinkedHashMap<>(7);
     private String baseUrl;
 
     private UrlBuilder() {
