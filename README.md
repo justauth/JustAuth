@@ -43,6 +43,7 @@
             <td align="center" width="200"><a href="#授权今日头条"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/toutiao.png" width="20"></a></td>
             <td align="center" width="200"><a href="#授权Teambition"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/teambition.png" width="20"></a></td>
             <td align="center" width="200"><a href="#授权人人"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/renren.png" width="20"></a></td>
+            <td align="center" width="200"><a href="#授权Pinterest"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/pinterest.png" width="20"></a></td>
             <td align="center" width="200"><a href="#授权csdn"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20"></a></td>
         </tr>
     </table>
