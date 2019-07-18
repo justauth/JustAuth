@@ -1,0 +1,19 @@
+# JustAuth 开发组IDE 编辑器标准
+root = true
+
+# 空格替代Tab缩进在各种编辑工具下效果一致
+[*]
+indent_style = space
+indent_size = 2
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.java]
+indent_size = 4
+
+[*.md]
+insert_final_newline = false
+trim_trailing_whitespace = false
+
