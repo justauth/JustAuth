@@ -469,6 +469,26 @@ public enum AuthSource {
         public String userInfo() {
             return "https://api.renren.com/v2/user/get";
         }
+    },
+
+    /**
+     * Pinterest
+     */
+    PINTEREST {
+        @Override
+        public String authorize() {
+            return "https://api.pinterest.com/oauth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://api.pinterest.com/v1/oauth/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.pinterest.com/v1/me";
+        }
     };
 
     /**
