@@ -1,15 +1,14 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -19,7 +18,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * @version 1.0
  * @since 1.8
  */
-public class AuthOschinaRequest extends BaseAuthRequest {
+public class AuthOschinaRequest extends AuthDefaultRequest {
 
     public AuthOschinaRequest(AuthConfig config) {
         super(config, AuthSource.OSCHINA);
@@ -27,50 +26,76 @@ public class AuthOschinaRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getOschinaAccessTokenUrl(config.getClientId(), config.getClientSecret(),
-                authCallback.getCode(), config.getRedirectUri());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-        if (accessTokenObject.containsKey("error")) {
-            throw new AuthException("Unable to get token from oschina using code [" + authCallback.getCode() + "]");
-        }
+        this.checkResponse(accessTokenObject);
         return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .refreshToken(accessTokenObject.getString("refresh_token"))
-                .uid(accessTokenObject.getString("uid"))
-                .expireIn(accessTokenObject.getIntValue("expires_in"))
-                .build();
+            .accessToken(accessTokenObject.getString("access_token"))
+            .refreshToken(accessTokenObject.getString("refresh_token"))
+            .uid(accessTokenObject.getString("uid"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .build();
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getOschinaUserInfoUrl(accessToken)).execute();
+        HttpResponse response = doGetUserInfo(authToken);
         JSONObject object = JSONObject.parseObject(response.body());
-        if (object.containsKey("error")) {
-            throw new AuthException(object.getString("error_description"));
-        }
+        this.checkResponse(object);
         return AuthUser.builder()
-                .uuid(object.getString("id"))
-                .username(object.getString("name"))
-                .nickname(object.getString("name"))
-                .avatar(object.getString("avatar"))
-                .blog(object.getString("url"))
-                .location(object.getString("location"))
-                .gender(AuthUserGender.getRealGender(object.getString("gender")))
-                .email(object.getString("email"))
-                .token(authToken)
-                .source(AuthSource.OSCHINA)
-                .build();
+            .uuid(object.getString("id"))
+            .username(object.getString("name"))
+            .nickname(object.getString("name"))
+            .avatar(object.getString("avatar"))
+            .blog(object.getString("url"))
+            .location(object.getString("location"))
+            .gender(AuthUserGender.getRealGender(object.getString("gender")))
+            .email(object.getString("email"))
+            .token(authToken)
+            .source(AuthSource.OSCHINA)
+            .build();
     }
 
     /**
-     * 返回认证url，可自行跳转页面
+     * 返回获取accessToken的url
      *
-     * @return 返回授权地址
+     * @param code
+     * @return 返回获取accessToken的url
      */
     @Override
-    public String authorize() {
-        return UrlBuilder.getOschinaAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+    protected String accessTokenUrl(String code) {
+        return UrlBuilder.fromBaseUrl(source.accessToken())
+            .queryParam("code", code)
+            .queryParam("client_id", config.getClientId())
+            .queryParam("client_secret", config.getClientSecret())
+            .queryParam("grant_type", "authorization_code")
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("dataType", "json")
+            .build();
+    }
+
+    /**
+     * 返回获取userInfo的url
+     *
+     * @param authToken
+     * @return 返回获取userInfo的url
+     */
+    @Override
+    protected String userInfoUrl(AuthToken authToken) {
+        return UrlBuilder.fromBaseUrl(source.userInfo())
+            .queryParam("access_token", authToken.getAccessToken())
+            .queryParam("dataType", "json")
+            .build();
+    }
+
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.containsKey("error")) {
+            throw new AuthException(object.getString("error_description"));
+        }
     }
 }

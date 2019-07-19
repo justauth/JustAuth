@@ -1,15 +1,14 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -19,7 +18,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * @version 1.0
  * @since 1.8
  */
-public class AuthFacebookRequest extends BaseAuthRequest {
+public class AuthFacebookRequest extends AuthDefaultRequest {
 
     public AuthFacebookRequest(AuthConfig config) {
         super(config, AuthSource.FACEBOOK);
@@ -27,31 +26,36 @@ public class AuthFacebookRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getFacebookAccessTokenUrl(config.getClientId(), config.getClientSecret(),
-                authCallback.getCode(), config.getRedirectUri());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-
-        if (accessTokenObject.containsKey("error")) {
-            throw new AuthException(accessTokenObject.getJSONObject("error").getString("message"));
-        }
-
+        this.checkResponse(accessTokenObject);
         return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .expireIn(accessTokenObject.getIntValue("expires_in"))
-                .tokenType(accessTokenObject.getString("token_type"))
-                .build();
+            .accessToken(accessTokenObject.getString("access_token"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .tokenType(accessTokenObject.getString("token_type"))
+            .build();
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getFacebookUserInfoUrl(accessToken)).execute();
+        HttpResponse response = doGetUserInfo(authToken);
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
-        if (object.containsKey("error")) {
-            throw new AuthException(object.getJSONObject("error").getString("message"));
-        }
+        this.checkResponse(object);
+        return AuthUser.builder()
+            .uuid(object.getString("id"))
+            .username(object.getString("name"))
+            .nickname(object.getString("name"))
+            .avatar(getUserPicture(object))
+            .location(object.getString("locale"))
+            .email(object.getString("email"))
+            .gender(AuthUserGender.getRealGender(object.getString("gender")))
+            .token(authToken)
+            .source(AuthSource.FACEBOOK)
+            .build();
+    }
+
+    private String getUserPicture(JSONObject object) {
         String picture = null;
         if (object.containsKey("picture")) {
             JSONObject pictureObj = object.getJSONObject("picture");
@@ -60,26 +64,31 @@ public class AuthFacebookRequest extends BaseAuthRequest {
                 picture = pictureObj.getString("url");
             }
         }
-        return AuthUser.builder()
-                .uuid(object.getString("id"))
-                .username(object.getString("name"))
-                .nickname(object.getString("name"))
-                .avatar(picture)
-                .location(object.getString("locale"))
-                .email(object.getString("email"))
-                .gender(AuthUserGender.getRealGender(object.getString("gender")))
-                .token(authToken)
-                .source(AuthSource.FACEBOOK)
-                .build();
+        return picture;
     }
 
     /**
-     * 返回认证url，可自行跳转页面
+     * 返回获取userInfo的url
      *
-     * @return 返回授权地址
+     * @param authToken 用户token
+     * @return 返回获取userInfo的url
      */
     @Override
-    public String authorize() {
-        return UrlBuilder.getFacebookAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+    protected String userInfoUrl(AuthToken authToken) {
+        return UrlBuilder.fromBaseUrl(source.userInfo())
+            .queryParam("access_token", authToken.getAccessToken())
+            .queryParam("fields", "id,name,birthday,gender,hometown,email,devices,picture.width(400)")
+            .build();
+    }
+
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.containsKey("error")) {
+            throw new AuthException(object.getJSONObject("error").getString("message"));
+        }
     }
 }

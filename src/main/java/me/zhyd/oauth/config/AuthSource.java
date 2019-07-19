@@ -1,7 +1,7 @@
 package me.zhyd.oauth.config;
 
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.request.ResponseStatus;
+import me.zhyd.oauth.model.AuthResponseStatus;
 
 /**
  * 各api需要的url， 用枚举类分平台类型管理
@@ -79,7 +79,7 @@ public enum AuthSource {
 
         @Override
         public String accessToken() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
+            throw new AuthException(AuthResponseStatus.UNSUPPORTED);
         }
 
         @Override
@@ -109,6 +109,11 @@ public enum AuthSource {
         @Override
         public String revoke() {
             return "https://openapi.baidu.com/rest/2.0/passport/auth/revokeAuthorization";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://openapi.baidu.com/oauth/2.0/token";
         }
     },
     /**
@@ -224,6 +229,11 @@ public enum AuthSource {
         public String userInfo() {
             return "https://graph.qq.com/user/get_user_info";
         }
+
+        @Override
+        public String refresh() {
+            return "https://graph.qq.com/oauth2.0/token";
+        }
     },
     /**
      * 微信
@@ -265,7 +275,7 @@ public enum AuthSource {
 
         @Override
         public String userInfo() {
-            throw new AuthException(ResponseStatus.UNSUPPORTED);
+            throw new AuthException(AuthResponseStatus.UNSUPPORTED);
         }
     },
     /**
@@ -420,6 +430,95 @@ public enum AuthSource {
         public String userInfo() {
             return "https://open.snssdk.com/data/user_profile";
         }
+    },
+    /**
+     * Teambition
+     */
+    TEAMBITION {
+        @Override
+        public String authorize() {
+            return "https://account.teambition.com/oauth2/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://account.teambition.com/oauth2/access_token";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://account.teambition.com/oauth2/refresh_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.teambition.com/users/me";
+        }
+    },
+
+    /**
+     * 人人网
+     */
+    RENREN {
+        @Override
+        public String authorize() {
+            return "https://graph.renren.com/oauth/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://graph.renren.com/oauth/token";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://graph.renren.com/oauth/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.renren.com/v2/user/get";
+        }
+    },
+
+    /**
+     * Pinterest
+     */
+    PINTEREST {
+        @Override
+        public String authorize() {
+            return "https://api.pinterest.com/oauth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://api.pinterest.com/v1/oauth/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.pinterest.com/v1/me";
+        }
+    },
+
+    /**
+     * Stack Overflow
+     */
+    STACK_OVERFLOW {
+        @Override
+        public String authorize() {
+            return "https://stackoverflow.com/oauth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://stackoverflow.com/oauth/access_token/json";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.stackexchange.com/2.2/me";
+        }
     };
 
     /**
@@ -449,7 +548,7 @@ public enum AuthSource {
      * @return url
      */
     public String revoke() {
-        throw new AuthException(ResponseStatus.UNSUPPORTED);
+        throw new AuthException(AuthResponseStatus.UNSUPPORTED);
     }
 
     /**
@@ -458,7 +557,7 @@ public enum AuthSource {
      * @return url
      */
     public String refresh() {
-        throw new AuthException(ResponseStatus.UNSUPPORTED);
+        throw new AuthException(AuthResponseStatus.UNSUPPORTED);
     }
 
 }

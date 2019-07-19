@@ -1,3 +1,32 @@
+### 2019/07/19
+
+1. 合并github上[@dyc12ii](https://github.com/dyc12ii) 的[pr#25](https://github.com/zhangyd-c/JustAuth/pull/25)，升级fastjson版本至1.2.58,避免安全漏洞
+2. `AuthUserGender`枚举类挪到`enums`包下
+3. 删除`AuthBaiduErrorCode`和`AuthDingTalkErrorCode`枚举类
+4. 优化百度授权流程，增加refresh token的方法
+5. 优化`AuthConfig`、`AuthResponse`类，去掉不必要的lombonk注解，减少编译后的代码量
+6. 使用lombok注解优化枚举类
+7. `AuthQqRequest`增加refresh方法
+8. 优化代码
+
+### 2019/07/18
+
+1. 合并github上[@pengisgood](https://github.com/pengisgood) 的[pr#19](https://github.com/zhangyd-c/JustAuth/pull/19)，集成人人
+2. 合并github上[@pengisgood](https://github.com/pengisgood) 的[pr#20](https://github.com/zhangyd-c/JustAuth/pull/20)，集成Pinterest
+3. 合并github上[@pengisgood](https://github.com/pengisgood) 的[pr#21](https://github.com/zhangyd-c/JustAuth/pull/21)，集成StackOverflow
+4. 合并github上[@xkcoding](https://github.com/xkcoding) 的[pr#23](https://github.com/zhangyd-c/JustAuth/pull/23)，重构代码、新增编辑器规范，规范PR代码风格
+
+### 2019/07/17
+1. 优化代码
+2. 集成Teambition登录
+
+### 2019/07/16
+1. 重构UrlBuilder类
+2. 将CSDN相关的类置为`Deprecated`，后续可能会删除，也可能一直保留。毕竟CSDN的openAPI已经不对外开放了。
+3. `BaseAuthRequest` 改名为 `AuthDefaultRequest`
+4. `ResponseStatus` 改名为 `AuthResponseStatus` 并且移动到 `me.zhyd.oauth.model`
+5. 合并github上[@xkcoding](https://github.com/xkcoding) 的[pr#18](https://github.com/zhangyd-c/JustAuth/pull/18)，修复小米回调错误问题 同时 支持微信获取 
+
 ### 2019/07/15
 1. 新增 `AuthState` 类，内置默认的state生成规则和校验规则
 

@@ -4,8 +4,9 @@ import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.request.ResponseStatus;
+import me.zhyd.oauth.model.AuthResponseStatus;
 
 import java.nio.charset.Charset;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,6 +30,16 @@ public class AuthState {
      * state存储器
      */
     private static ConcurrentHashMap<String, String> stateBucket = new ConcurrentHashMap<>();
+
+    /**
+     * 生成随机的state
+     *
+     * @param source oauth平台
+     * @return state
+     */
+    public static String create(AuthSource source) {
+        return create(source.name());
+    }
 
     /**
      * 生成随机的state
@@ -113,7 +124,7 @@ public class AuthState {
         String noneSourceState = decodedState.substring(source.length() + 1);
         if (!noneSourceState.startsWith(currentIp)) {
             // ip不相同，可能为非法的请求
-            throw new AuthException(ResponseStatus.ILLEGAL_REQUEST);
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
         }
         String body = noneSourceState.substring(currentIp.length() + 1);
         log.debug("body is [{}]", body);
@@ -156,6 +167,15 @@ public class AuthState {
         String key = Base64.encode(simpleKey.getBytes(Charset.forName("UTF-8")));
         log.debug("Delete used state[{}] by the key[{}], current ip[{}]", stateBucket.get(key), key, currentIp);
         stateBucket.remove(key);
+    }
+
+    /**
+     * 登录成功后，清除state
+     *
+     * @param source oauth平台
+     */
+    public static void delete(AuthSource source) {
+        delete(source.name());
     }
 
     private static String getCurrentIp() {

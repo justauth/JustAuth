@@ -70,7 +70,7 @@ _注：非全部平台，部分平台可能不存在图例_
 
 #### 授权微软
 
-暂无
+![授权微软](https://images.gitee.com/uploads/images/2019/0718/224146_681aa535_784199.png "授权微软")
 
 #### 授权小米
 
@@ -80,16 +80,28 @@ _注：非全部平台，部分平台可能不存在图例_
 
 暂无
 
-#### 授权csdn
+#### 授权Teambition
 
-暂无
+![授权Teambition](https://images.gitee.com/uploads/images/2019/0718/224119_3da514ab_784199.png "授权Teambition")
 
 #### 授权Pinterest
 
-![授权Pinterest](https://images.gitee.com/uploads/images/2019/0718/155012_6290f500_784199.jpeg "在这里输入图片标题")
+![授权Pinterest](https://images.gitee.com/uploads/images/2019/0718/155012_6290f500_784199.jpeg "授权Pinterest")
 
 #### 授权Renren
 
-![授权Renre](https://images.gitee.com/uploads/images/2019/0718/155035_8e26c10a_784199.jpeg "在这里输入图片标题")
+![授权Renre](https://images.gitee.com/uploads/images/2019/0718/155035_8e26c10a_784199.jpeg "授权Renren")
+
+#### 授权Stack Overflow
+
+![授权Stack Overflow](https://images.gitee.com/uploads/images/2019/0718/192639_cc301ba7_784199.png "授权Stack Overflow")
+
+#### 授权Twitter
+
+暂无
+
+#### 授权csdn
+
+暂无
 
 _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经下线。如果以前申请过的应用，可以继续使用，但是不再支持申请新的应用。so, 本项目中的CSDN登录只能针对少部分用户使用了_

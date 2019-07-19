@@ -5,7 +5,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.enums.AuthBaiduErrorCode;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -17,7 +17,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * @version 1.0
  * @since 1.8
  */
-public class AuthBaiduRequest extends BaseAuthRequest {
+public class AuthBaiduRequest extends AuthDefaultRequest {
 
     public AuthBaiduRequest(AuthConfig config) {
         super(config, AuthSource.BAIDU);
@@ -25,40 +25,51 @@ public class AuthBaiduRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getBaiduAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config
-                .getRedirectUri());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-        AuthBaiduErrorCode errorCode = AuthBaiduErrorCode.getErrorCode(accessTokenObject.getString("error"));
-        if (AuthBaiduErrorCode.OK != errorCode) {
-            throw new AuthException(errorCode.getDesc());
-        }
-        return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .refreshToken(accessTokenObject.getString("refresh_token"))
-                .scope(accessTokenObject.getString("scope"))
-                .expireIn(accessTokenObject.getIntValue("expires_in"))
-                .build();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
+        return getAuthToken(response);
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getBaiduUserInfoUrl(accessToken)).execute();
+        HttpResponse response = doGetUserInfo(authToken);
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
-        AuthBaiduErrorCode errorCode = AuthBaiduErrorCode.getErrorCode(object.getString("error"));
-        if (AuthBaiduErrorCode.OK != errorCode) {
-            throw new AuthException(errorCode.getDesc());
-        }
+        this.checkResponse(object);
         return AuthUser.builder()
-                .uuid(object.getString("userid"))
-                .username(object.getString("username"))
-                .nickname(object.getString("username"))
-                .gender(AuthUserGender.getRealGender(object.getString("sex")))
-                .token(authToken)
-                .source(AuthSource.BAIDU)
-                .build();
+            .uuid(object.getString("userid"))
+            .username(object.getString("username"))
+            .nickname(object.getString("username"))
+            .avatar(object.getString("portrait"))
+            .remark(object.getString("userdetail"))
+            .gender(AuthUserGender.getRealGender(object.getString("sex")))
+            .token(authToken)
+            .source(AuthSource.BAIDU)
+            .build();
+    }
+
+    @Override
+    public AuthResponse revoke(AuthToken authToken) {
+        HttpResponse response = doGetRevoke(authToken);
+        JSONObject object = JSONObject.parseObject(response.body());
+        this.checkResponse(object);
+        // 返回1表示取消授权成功，否则失败
+        AuthResponseStatus status = object.getIntValue("result") == 1 ? AuthResponseStatus.SUCCESS : AuthResponseStatus.FAILURE;
+        return AuthResponse.builder().code(status.getCode()).msg(status.getMsg()).build();
+    }
+
+    @Override
+    public AuthResponse refresh(AuthToken authToken) {
+        String refreshUrl = UrlBuilder.fromBaseUrl(this.source.refresh())
+            .queryParam("grant_type", "refresh_token")
+            .queryParam("refresh_token", authToken.getRefreshToken())
+            .queryParam("client_id", this.config.getClientId())
+            .queryParam("client_secret", this.config.getClientSecret())
+            .build();
+        HttpResponse response = HttpRequest.get(refreshUrl).execute();
+        return AuthResponse.builder()
+            .code(AuthResponseStatus.SUCCESS.getCode())
+            .data(this.getAuthToken(response))
+            .build();
     }
 
     /**
@@ -68,23 +79,35 @@ public class AuthBaiduRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getBaiduAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return UrlBuilder.fromBaseUrl(source.authorize())
+            .queryParam("response_type", "code")
+            .queryParam("client_id", config.getClientId())
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("display", "popup")
+            .queryParam("state", getRealState(config.getState()))
+            .build();
     }
 
-    @Override
-    public AuthResponse revoke(AuthToken authToken) {
-        String accessToken = authToken.getAccessToken();
-        HttpResponse response = HttpRequest.get(UrlBuilder.getBaiduRevokeUrl(accessToken)).execute();
-        String userInfo = response.body();
-        JSONObject object = JSONObject.parseObject(userInfo);
-        if (object.containsKey("error_code")) {
-            return AuthResponse.builder()
-                    .code(ResponseStatus.FAILURE.getCode())
-                    .msg(object.getString("error_msg"))
-                    .build();
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.containsKey("error") || object.containsKey("error_code")) {
+            String msg = object.containsKey("error_description") ? object.getString("error_description") : object.getString("error_msg");
+            throw new AuthException(msg);
         }
-        ResponseStatus status = object.getIntValue("result") == 1 ? ResponseStatus.SUCCESS : ResponseStatus.FAILURE;
-        return AuthResponse.builder().code(status.getCode()).msg(status.getMsg()).build();
     }
 
+    private AuthToken getAuthToken(HttpResponse response) {
+        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+        this.checkResponse(accessTokenObject);
+        return AuthToken.builder()
+            .accessToken(accessTokenObject.getString("access_token"))
+            .refreshToken(accessTokenObject.getString("refresh_token"))
+            .scope(accessTokenObject.getString("scope"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .build();
+    }
 }

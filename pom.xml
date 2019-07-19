@@ -6,7 +6,7 @@
 
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.8.1</version>
+    <version>1.9.0</version>
 
     <name>JustAuth</name>
     <url>https://gitee.com/yadong.zhang/JustAuth</url>
@@ -30,7 +30,7 @@
 
     <developers>
         <developer>
-            <name>yadong.zhang</name>
+            <name>Yadong.Zhang</name>
             <email>yadong.zhang0415@gmail.com</email>
             <url>https://www.zhyd.me</url>
         </developer>
@@ -38,6 +38,11 @@
             <name>Yangkai.Shen</name>
             <email>shenyangkai1994@gmail.com</email>
             <url>https://xkcoding.com</url>
+        </developer>
+        <developer>
+            <name>Hongwei.Peng</name>
+            <email>pengisgood@gmail.com</email>
+            <url>https://github.com/pengisgood</url>
         </developer>
     </developers>
 

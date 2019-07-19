@@ -9,11 +9,11 @@ import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.alipay.api.response.AlipayUserInfoShareResponse;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -24,14 +24,14 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * @version 1.0
  * @since 1.8
  */
-public class AuthAlipayRequest extends BaseAuthRequest {
+public class AuthAlipayRequest extends AuthDefaultRequest {
 
     private AlipayClient alipayClient;
 
     public AuthAlipayRequest(AuthConfig config) {
         super(config, AuthSource.ALIPAY);
         this.alipayClient = new DefaultAlipayClient(AuthSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
-                .getAlipayPublicKey(), "RSA2");
+            .getAlipayPublicKey(), "RSA2");
     }
 
     @Override
@@ -43,17 +43,17 @@ public class AuthAlipayRequest extends BaseAuthRequest {
         try {
             response = this.alipayClient.execute(request);
         } catch (Exception e) {
-            throw new AuthException("Unable to get token from alipay using code [" + authCallback.getAuth_code() + "]", e);
+            throw new AuthException(e);
         }
         if (!response.isSuccess()) {
             throw new AuthException(response.getSubMsg());
         }
         return AuthToken.builder()
-                .accessToken(response.getAccessToken())
-                .uid(response.getUserId())
-                .expireIn(Integer.parseInt(response.getExpiresIn()))
-                .refreshToken(response.getRefreshToken())
-                .build();
+            .accessToken(response.getAccessToken())
+            .uid(response.getUserId())
+            .expireIn(Integer.parseInt(response.getExpiresIn()))
+            .refreshToken(response.getRefreshToken())
+            .build();
     }
 
     @Override
@@ -70,20 +70,19 @@ public class AuthAlipayRequest extends BaseAuthRequest {
             throw new AuthException(response.getSubMsg());
         }
 
-        String province = response.getProvince(),
-                city = response.getCity();
+        String province = response.getProvince(), city = response.getCity();
         String location = String.format("%s %s", StringUtils.isEmpty(province) ? "" : province, StringUtils.isEmpty(city) ? "" : city);
 
         return AuthUser.builder()
-                .uuid(response.getUserId())
-                .username(StringUtils.isEmpty(response.getUserName()) ? response.getNickName() : response.getUserName())
-                .nickname(response.getNickName())
-                .avatar(response.getAvatar())
-                .location(location)
-                .gender(AuthUserGender.getRealGender(response.getGender()))
-                .token(authToken)
-                .source(AuthSource.ALIPAY)
-                .build();
+            .uuid(response.getUserId())
+            .username(StringUtils.isEmpty(response.getUserName()) ? response.getNickName() : response.getUserName())
+            .nickname(response.getNickName())
+            .avatar(response.getAvatar())
+            .location(location)
+            .gender(AuthUserGender.getRealGender(response.getGender()))
+            .token(authToken)
+            .source(AuthSource.ALIPAY)
+            .build();
     }
 
     /**
@@ -93,6 +92,11 @@ public class AuthAlipayRequest extends BaseAuthRequest {
      */
     @Override
     public String authorize() {
-        return UrlBuilder.getAlipayAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+        return UrlBuilder.fromBaseUrl(source.authorize())
+            .queryParam("app_id", config.getClientId())
+            .queryParam("scope", "auth_user")
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("state", getRealState(config.getState()))
+            .build();
     }
 }

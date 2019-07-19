@@ -1,9 +1,9 @@
 package me.zhyd.oauth.request;
 
+import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -11,17 +11,23 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.UrlBuilder;
 
-/**
- * Google登录
- *
- * @author yangkai.shen (https://xkcoding.com)
- * @version 1.3
- * @since 1.3
- */
-public class AuthGoogleRequest extends AuthDefaultRequest {
+import java.util.Objects;
 
-    public AuthGoogleRequest(AuthConfig config) {
-        super(config, AuthSource.GOOGLE);
+import static me.zhyd.oauth.config.AuthSource.PINTEREST;
+
+/**
+ * Pinterest登录
+ *
+ * @author hongwei.peng (pengisgood(at)gmail(dot)com)
+ * @version 1.9.0
+ * @since 1.9.0
+ */
+public class AuthPinterestRequest extends AuthDefaultRequest {
+
+    private static final String FAILURE = "failure";
+
+    public AuthPinterestRequest(AuthConfig config) {
+        super(config, PINTEREST);
     }
 
     @Override
@@ -31,57 +37,49 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
         this.checkResponse(accessTokenObject);
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))
-            .expireIn(accessTokenObject.getIntValue("expires_in"))
-            .scope(accessTokenObject.getString("scope"))
             .tokenType(accessTokenObject.getString("token_type"))
-            .idToken(accessTokenObject.getString("id_token"))
             .build();
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse response = doGetUserInfo(authToken);
-        String userInfo = response.body();
-        JSONObject object = JSONObject.parseObject(userInfo);
+        String userinfoUrl = UrlBuilder.fromBaseUrl(userInfoUrl(authToken))
+            .queryParam("fields", "id,username,first_name,last_name,bio,image")
+            .build();
+        HttpResponse response = HttpRequest.post(userinfoUrl).execute();
+        JSONObject object = JSONObject.parseObject(response.body());
         this.checkResponse(object);
+        JSONObject userObj = object.getJSONObject("data");
         return AuthUser.builder()
-            .uuid(object.getString("sub"))
-            .username(object.getString("name"))
-            .avatar(object.getString("picture"))
-            .nickname(object.getString("name"))
-            .location(object.getString("locale"))
-            .email(object.getString("email"))
+            .uuid(userObj.getString("id"))
+            .avatar(getAvatarUrl(userObj))
+            .username(userObj.getString("username"))
+            .nickname(userObj.getString("first_name") + " " + userObj.getString("last_name"))
             .gender(AuthUserGender.UNKNOWN)
+            .remark(userObj.getString("bio"))
             .token(authToken)
-            .source(AuthSource.GOOGLE)
+            .source(PINTEREST)
             .build();
     }
 
-    /**
-     * 返回认证url，可自行跳转页面
-     *
-     * @return 返回授权地址
-     */
+    private String getAvatarUrl(JSONObject userObj) {
+        // image is a map data structure
+        JSONObject jsonObject = userObj.getJSONObject("image");
+        if (Objects.isNull(jsonObject)) {
+            return null;
+        }
+        return jsonObject.getJSONObject("60x60").getString("url");
+    }
+
     @Override
     public String authorize() {
         return UrlBuilder.fromBaseUrl(source.authorize())
             .queryParam("response_type", "code")
             .queryParam("client_id", config.getClientId())
-            .queryParam("scope", "openid%20email%20profile")
             .queryParam("redirect_uri", config.getRedirectUri())
             .queryParam("state", getRealState(config.getState()))
+            .queryParam("scope", "read_public")
             .build();
-    }
-
-    /**
-     * 返回获取userInfo的url
-     *
-     * @param authToken
-     * @return 返回获取userInfo的url
-     */
-    @Override
-    protected String userInfoUrl(AuthToken authToken) {
-        return UrlBuilder.fromBaseUrl(source.userInfo()).queryParam("id_token", authToken.getAccessToken()).build();
     }
 
     /**
@@ -90,8 +88,9 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
      * @param object 请求响应内容
      */
     private void checkResponse(JSONObject object) {
-        if (object.containsKey("error") || object.containsKey("error_description")) {
-            throw new AuthException(object.getString("error_description"));
+        if (!object.containsKey("status") && FAILURE.equals(object.getString("status"))) {
+            throw new AuthException(object.getString("message"));
         }
     }
+
 }

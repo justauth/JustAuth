@@ -5,11 +5,11 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.IpUtils;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -22,7 +22,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * @version 1.0
  * @since 1.8
  */
-public class AuthWeiboRequest extends BaseAuthRequest {
+public class AuthWeiboRequest extends AuthDefaultRequest {
 
     public AuthWeiboRequest(AuthConfig config) {
         super(config, AuthSource.WEIBO);
@@ -30,20 +30,18 @@ public class AuthWeiboRequest extends BaseAuthRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String accessTokenUrl = UrlBuilder.getWeiboAccessTokenUrl(config.getClientId(), config.getClientSecret(), authCallback.getCode(), config
-                .getRedirectUri());
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
+        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         String accessTokenStr = response.body();
         JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
         if (accessTokenObject.containsKey("error")) {
-            throw new AuthException("Unable to get token from weibo using code [" + authCallback.getCode() + "]:" + accessTokenObject.getString("error_description"));
+            throw new AuthException(accessTokenObject.getString("error_description"));
         }
         return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .uid(accessTokenObject.getString("uid"))
-                .openId(accessTokenObject.getString("uid"))
-                .expireIn(accessTokenObject.getIntValue("expires_in"))
-                .build();
+            .accessToken(accessTokenObject.getString("access_token"))
+            .uid(accessTokenObject.getString("uid"))
+            .openId(accessTokenObject.getString("uid"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .build();
     }
 
     @Override
@@ -51,37 +49,41 @@ public class AuthWeiboRequest extends BaseAuthRequest {
         String accessToken = authToken.getAccessToken();
         String uid = authToken.getUid();
         String oauthParam = String.format("uid=%s&access_token=%s", uid, accessToken);
-        HttpResponse response = HttpRequest.get(UrlBuilder.getWeiboUserInfoUrl(oauthParam))
-                .header("Authorization", "OAuth2 " + oauthParam)
-                .header("API-RemoteIP", IpUtils.getIp())
-                .execute();
+        HttpResponse response = HttpRequest.get(userInfoUrl(authToken))
+            .header("Authorization", "OAuth2 " + oauthParam)
+            .header("API-RemoteIP", IpUtils.getIp())
+            .execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         if (object.containsKey("error")) {
             throw new AuthException(object.getString("error"));
         }
         return AuthUser.builder()
-                .uuid(object.getString("id"))
-                .username(object.getString("name"))
-                .avatar(object.getString("profile_image_url"))
-                .blog(StringUtils.isEmpty(object.getString("url")) ? "https://weibo.com/" + object.getString("profile_url") : object
-                        .getString("url"))
-                .nickname(object.getString("screen_name"))
-                .location(object.getString("location"))
-                .remark(object.getString("description"))
-                .gender(AuthUserGender.getRealGender(object.getString("gender")))
-                .token(authToken)
-                .source(AuthSource.WEIBO)
-                .build();
+            .uuid(object.getString("id"))
+            .username(object.getString("name"))
+            .avatar(object.getString("profile_image_url"))
+            .blog(StringUtils.isEmpty(object.getString("url")) ? "https://weibo.com/" + object.getString("profile_url") : object
+                .getString("url"))
+            .nickname(object.getString("screen_name"))
+            .location(object.getString("location"))
+            .remark(object.getString("description"))
+            .gender(AuthUserGender.getRealGender(object.getString("gender")))
+            .token(authToken)
+            .source(AuthSource.WEIBO)
+            .build();
     }
 
     /**
-     * 返回认证url，可自行跳转页面
+     * 返回获取userInfo的url
      *
-     * @return 返回授权地址
+     * @param authToken
+     * @return 返回获取userInfo的url
      */
     @Override
-    public String authorize() {
-        return UrlBuilder.getWeiboAuthorizeUrl(config.getClientId(), config.getRedirectUri(), config.getState());
+    protected String userInfoUrl(AuthToken authToken) {
+        return UrlBuilder.fromBaseUrl(source.userInfo())
+            .queryParam("access_token", authToken.getAccessToken())
+            .queryParam("uid", authToken.getUid())
+            .build();
     }
 }
