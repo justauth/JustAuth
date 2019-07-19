@@ -20,7 +20,6 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * @version 1.0
  * @since 1.8
  */
-@Data
 @Slf4j
 public abstract class AuthDefaultRequest implements AuthRequest {
     protected AuthConfig config;

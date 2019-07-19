@@ -63,7 +63,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .blog(userObj.getString("website_url"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(STACK_OVERFLOW)
+            .source(source)
             .build();
     }
 

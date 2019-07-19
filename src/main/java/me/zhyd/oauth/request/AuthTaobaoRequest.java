@@ -50,7 +50,7 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
             .nickname(nick)
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(AuthSource.TAOBAO)
+            .source(source)
             .build();
     }
 

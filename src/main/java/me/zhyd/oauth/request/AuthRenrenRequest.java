@@ -45,7 +45,7 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
             .company(getCompany(userObj))
             .gender(getGender(userObj))
             .token(authToken)
-            .source(RENREN)
+            .source(source)
             .build();
     }
 

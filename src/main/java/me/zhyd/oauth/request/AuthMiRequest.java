@@ -75,7 +75,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
             .email(user.getString("mail"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(AuthSource.MI)
+            .source(source)
             .build();
 
         // 获取用户邮箱手机号等信息

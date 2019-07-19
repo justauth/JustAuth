@@ -52,7 +52,7 @@ public class AuthOschinaRequest extends AuthDefaultRequest {
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
             .email(object.getString("email"))
             .token(authToken)
-            .source(AuthSource.OSCHINA)
+            .source(source)
             .build();
     }
 

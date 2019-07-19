@@ -56,7 +56,7 @@ public class AuthWeChatRequest extends AuthDefaultRequest {
             .uuid(openId)
             .gender(AuthUserGender.getRealGender(object.getString("sex")))
             .token(authToken)
-            .source(AuthSource.WECHAT)
+            .source(source)
             .build();
     }
 

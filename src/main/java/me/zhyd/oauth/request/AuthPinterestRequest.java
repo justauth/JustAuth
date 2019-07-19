@@ -58,7 +58,7 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
             .gender(AuthUserGender.UNKNOWN)
             .remark(userObj.getString("bio"))
             .token(authToken)
-            .source(PINTEREST)
+            .source(source)
             .build();
     }
 

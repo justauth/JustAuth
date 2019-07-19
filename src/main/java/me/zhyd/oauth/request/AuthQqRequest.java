@@ -65,7 +65,7 @@ public class AuthQqRequest extends AuthDefaultRequest {
             .uuid(openId)
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
             .token(authToken)
-            .source(AuthSource.QQ)
+            .source(source)
             .build();
     }
 

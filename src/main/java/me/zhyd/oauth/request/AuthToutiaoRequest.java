@@ -60,7 +60,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
             .remark(user.getString("description"))
             .gender(AuthUserGender.getRealGender(user.getString("gender")))
             .token(authToken)
-            .source(AuthSource.TOUTIAO)
+            .source(source)
             .build();
     }
 

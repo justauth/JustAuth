@@ -1,5 +1,6 @@
 package me.zhyd.oauth.request;
 
+import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
@@ -40,25 +41,28 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse response = doGetUserInfo(authToken);
+        HttpResponse response = HttpRequest.post(userInfoUrl(authToken))
+            .header("Authorization", "Bearer " + authToken.getAccessToken())
+            .execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
         this.checkResponse(object);
         return AuthUser.builder()
             .uuid(object.getString("sub"))
-            .username(object.getString("name"))
+            .username(object.getString("email"))
             .avatar(object.getString("picture"))
             .nickname(object.getString("name"))
             .location(object.getString("locale"))
             .email(object.getString("email"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(AuthSource.GOOGLE)
+            .source(source)
             .build();
     }
 
     /**
      * 返回认证url，可自行跳转页面
+     * https://openidconnect.googleapis.com/v1/userinfo
      *
      * @return 返回授权地址
      */
@@ -81,7 +85,7 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
      */
     @Override
     protected String userInfoUrl(AuthToken authToken) {
-        return UrlBuilder.fromBaseUrl(source.userInfo()).queryParam("id_token", authToken.getAccessToken()).build();
+        return UrlBuilder.fromBaseUrl(source.userInfo()).queryParam("access_token", authToken.getAccessToken()).build();
     }
 
     /**
@@ -91,7 +95,7 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
      */
     private void checkResponse(JSONObject object) {
         if (object.containsKey("error") || object.containsKey("error_description")) {
-            throw new AuthException(object.getString("error_description"));
+            throw new AuthException(object.containsKey("error") + ":" + object.getString("error_description"));
         }
     }
 }

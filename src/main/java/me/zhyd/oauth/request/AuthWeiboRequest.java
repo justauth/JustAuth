@@ -69,7 +69,7 @@ public class AuthWeiboRequest extends AuthDefaultRequest {
             .remark(object.getString("description"))
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
             .token(authToken)
-            .source(AuthSource.WEIBO)
+            .source(source)
             .build();
     }
 

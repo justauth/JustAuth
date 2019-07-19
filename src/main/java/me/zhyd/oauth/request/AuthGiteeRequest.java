@@ -55,7 +55,7 @@ public class AuthGiteeRequest extends AuthDefaultRequest {
             .remark(object.getString("bio"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(AuthSource.GITEE)
+            .source(source)
             .build();
     }
 

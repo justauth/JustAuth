@@ -55,7 +55,7 @@ public class AuthCodingRequest extends AuthDefaultRequest {
             .email(object.getString("email"))
             .remark(object.getString("slogan"))
             .token(authToken)
-            .source(AuthSource.CODING)
+            .source(source)
             .build();
     }
 
