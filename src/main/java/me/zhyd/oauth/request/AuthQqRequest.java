@@ -6,11 +6,9 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthCallback;
-import me.zhyd.oauth.model.AuthToken;
-import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.enums.AuthUserGender;
+import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -33,14 +31,15 @@ public class AuthQqRequest extends AuthDefaultRequest {
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         HttpResponse response = doGetAuthorizationCode(authCallback.getCode());
-        Map<String, String> accessTokenObject = GlobalAuthUtil.parseStringToMap(response.body());
-        if (!accessTokenObject.containsKey("access_token")) {
-            throw new AuthException("Unable to get token from qq using code [" + authCallback.getCode() + "]: " + accessTokenObject);
-        }
-        return AuthToken.builder()
-            .accessToken(accessTokenObject.get("access_token"))
-            .expireIn(Integer.valueOf(accessTokenObject.get("expires_in")))
-            .refreshToken(accessTokenObject.get("refresh_token"))
+        return getAuthToken(response);
+    }
+
+    @Override
+    public AuthResponse refresh(AuthToken authToken) {
+        HttpResponse response = HttpRequest.get(refreshTokenUrl(authToken.getRefreshToken())).execute();
+        return AuthResponse.builder()
+            .code(AuthResponseStatus.SUCCESS.getCode())
+            .data(getAuthToken(response))
             .build();
     }
 
@@ -97,7 +96,7 @@ public class AuthQqRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken 用户授权token
      * @return 返回获取userInfo的url
      */
     @Override
@@ -106,6 +105,18 @@ public class AuthQqRequest extends AuthDefaultRequest {
             .queryParam("access_token", authToken.getAccessToken())
             .queryParam("oauth_consumer_key", config.getClientId())
             .queryParam("openid", authToken.getOpenId())
+            .build();
+    }
+
+    private AuthToken getAuthToken(HttpResponse response) {
+        Map<String, String> accessTokenObject = GlobalAuthUtil.parseStringToMap(response.body());
+        if (!accessTokenObject.containsKey("access_token") || accessTokenObject.containsKey("code")) {
+            throw new AuthException(accessTokenObject.get("msg"));
+        }
+        return AuthToken.builder()
+            .accessToken(accessTokenObject.get("access_token"))
+            .expireIn(Integer.valueOf(accessTokenObject.get("expires_in")))
+            .refreshToken(accessTokenObject.get("refresh_token"))
             .build();
     }
 }

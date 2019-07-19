@@ -4,11 +4,11 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import static me.zhyd.oauth.config.AuthSource.STACK_OVERFLOW;
@@ -35,9 +35,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .form(parseQueryToMap(accessTokenUrl))
             .execute();
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-        if (!response.isOk()) {
-            throw new AuthException("Unable to get token from Stack Overflow using code [" + authCallback.getCode() + "]: " + accessTokenObject);
-        }
+        this.checkResponse(accessTokenObject);
 
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))
@@ -53,7 +51,9 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .queryParam("key", this.config.getStackOverflowKey())
             .build();
         HttpResponse response = HttpRequest.get(userInfoUrl).execute();
-        JSONObject userObj = JSONObject.parseObject(response.body()).getJSONArray("items").getJSONObject(0);
+        JSONObject object = JSONObject.parseObject(response.body());
+        this.checkResponse(object);
+        JSONObject userObj = object.getJSONArray("items").getJSONObject(0);
 
         return AuthUser.builder()
             .uuid(userObj.getString("user_id"))
@@ -76,5 +76,16 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .queryParam("state", getRealState(config.getState()))
             .queryParam("scope", "read_inbox")
             .build();
+    }
+
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.containsKey("error")) {
+            throw new AuthException(object.getString("error_description"));
+        }
     }
 }

@@ -32,10 +32,8 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         HttpResponse response = doGetUserInfo(authToken);
-        JSONObject object = JSONObject.parseObject(response.body());
-
-        JSONObject userInfoObject = this.checkResponse(object);
-
+        JSONObject userInfoObject = JSONObject.parseObject(response.body());
+        this.checkResponse(userInfoObject);
         return AuthUser.builder()
             .uuid(userInfoObject.getString("union_id"))
             .username(userInfoObject.getString("nickname"))
@@ -52,7 +50,7 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
     public AuthResponse refresh(AuthToken oldToken) {
         return AuthResponse.builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
-            .data(refreshTokenUrl(oldToken.getRefreshToken()))
+            .data(getToken(refreshTokenUrl(oldToken.getRefreshToken())))
             .build();
     }
 
@@ -60,16 +58,14 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
      * 检查响应内容是否正确
      *
      * @param object 请求响应内容
-     * @return 实际请求数据的json对象
      */
-    private JSONObject checkResponse(JSONObject object) {
+    private void checkResponse(JSONObject object) {
         String message = object.getString("message");
         JSONObject data = object.getJSONObject("data");
         int errorCode = data.getIntValue("error_code");
         if ("error".equals(message) || errorCode != 0) {
             throw new AuthException(errorCode, data.getString("description"));
         }
-        return data;
     }
 
     /**
@@ -82,14 +78,13 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
         HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
         String accessTokenStr = response.body();
         JSONObject object = JSONObject.parseObject(accessTokenStr);
-
-        JSONObject accessTokenObject = this.checkResponse(object);
+        this.checkResponse(object);
         return AuthToken.builder()
-            .accessToken(accessTokenObject.getString("access_token"))
-            .openId(accessTokenObject.getString("open_id"))
-            .expireIn(accessTokenObject.getIntValue("expires_in"))
-            .refreshToken(accessTokenObject.getString("refresh_token"))
-            .scope(accessTokenObject.getString("scope"))
+            .accessToken(object.getString("access_token"))
+            .openId(object.getString("open_id"))
+            .expireIn(object.getIntValue("expires_in"))
+            .refreshToken(object.getString("refresh_token"))
+            .scope(object.getString("scope"))
             .build();
     }
 
@@ -112,7 +107,7 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
     /**
      * 返回获取accessToken的url
      *
-     * @param code
+     * @param code oauth的授权码
      * @return 返回获取accessToken的url
      */
     @Override
@@ -128,7 +123,7 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken oauth返回的token
      * @return 返回获取userInfo的url
      */
     @Override
@@ -142,7 +137,7 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
     /**
      * 返回获取accessToken的url
      *
-     * @param refreshToken
+     * @param refreshToken oauth返回的refreshtoken
      * @return 返回获取accessToken的url
      */
     @Override

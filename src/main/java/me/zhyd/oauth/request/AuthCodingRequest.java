@@ -28,9 +28,7 @@ public class AuthCodingRequest extends AuthDefaultRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         HttpResponse response = doGetAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-        if (accessTokenObject.getIntValue("code") != 0) {
-            throw new AuthException("Unable to get token from coding using code [" + authCallback.getCode() + "]: " + accessTokenObject);
-        }
+        this.checkResponse(accessTokenObject);
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))
             .expireIn(accessTokenObject.getIntValue("expires_in"))
@@ -42,9 +40,7 @@ public class AuthCodingRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         HttpResponse response = doGetUserInfo(authToken);
         JSONObject object = JSONObject.parseObject(response.body());
-        if (object.getIntValue("code") != 0) {
-            throw new AuthException(object.getString("msg"));
-        }
+        this.checkResponse(object);
 
         object = object.getJSONObject("data");
         return AuthUser.builder()
@@ -61,6 +57,17 @@ public class AuthCodingRequest extends AuthDefaultRequest {
             .token(authToken)
             .source(AuthSource.CODING)
             .build();
+    }
+
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.getIntValue("code") != 0) {
+            throw new AuthException(object.getString("msg"));
+        }
     }
 
     /**

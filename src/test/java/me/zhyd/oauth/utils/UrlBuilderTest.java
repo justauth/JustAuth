@@ -17,11 +17,12 @@ import org.junit.Test;
 public class UrlBuilderTest {
     @Test
     public void testUrlBuilder() {
-        AuthConfig config = new AuthConfig();
-        config.setClientId("appid-110110110");
-        config.setClientSecret("secret-110110110");
-        config.setRedirectUri("https://xkcoding.com");
-        config.setState(AuthState.create(AuthSource.WECHAT));
+        AuthConfig config = AuthConfig.builder()
+            .clientId("appid-110110110")
+            .clientSecret("secret-110110110")
+            .redirectUri("https://xkcoding.com")
+            .state(AuthState.create(AuthSource.WECHAT))
+            .build();
         String build = UrlBuilder.fromBaseUrl(AuthSource.WECHAT.authorize())
             .queryParam("appid", config.getClientId())
             .queryParam("redirect_uri", config.getRedirectUri())

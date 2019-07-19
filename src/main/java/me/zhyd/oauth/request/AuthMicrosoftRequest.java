@@ -55,9 +55,14 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
             .build();
     }
 
-    private void checkResponse(JSONObject response) {
-        if (response.containsKey("error")) {
-            throw new AuthException(response.getString("error_description"));
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.containsKey("error")) {
+            throw new AuthException(object.getString("error_description"));
         }
     }
 
@@ -69,6 +74,7 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
         HttpResponse response = HttpRequest.get(userInfoUrl(authToken)).header("Authorization", jwt).execute();
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
+        this.checkResponse(object);
         return AuthUser.builder()
             .uuid(object.getString("id"))
             .username(object.getString("userPrincipalName"))

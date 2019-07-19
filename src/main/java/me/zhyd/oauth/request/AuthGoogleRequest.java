@@ -4,11 +4,11 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -28,12 +28,7 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-
-        if (accessTokenObject.containsKey("error") || accessTokenObject.containsKey("error_description")) {
-            throw new AuthException("get google access_token has error:[" + accessTokenObject.getString("error") + "], error_description:[" + accessTokenObject
-                .getString("error_description") + "]");
-        }
-
+        this.checkResponse(accessTokenObject);
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))
             .expireIn(accessTokenObject.getIntValue("expires_in"))
@@ -48,6 +43,7 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
         HttpResponse response = doGetUserInfo(authToken);
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
+        this.checkResponse(object);
         return AuthUser.builder()
             .uuid(object.getString("sub"))
             .username(object.getString("name"))
@@ -86,5 +82,16 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
     @Override
     protected String userInfoUrl(AuthToken authToken) {
         return UrlBuilder.fromBaseUrl(source.userInfo()).queryParam("id_token", authToken.getAccessToken()).build();
+    }
+
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.containsKey("error") || object.containsKey("error_description")) {
+            throw new AuthException(object.getString("error_description"));
+        }
     }
 }

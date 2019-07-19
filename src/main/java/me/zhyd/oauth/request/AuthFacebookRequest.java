@@ -4,11 +4,11 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -28,11 +28,7 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-
-        if (accessTokenObject.containsKey("error")) {
-            throw new AuthException(accessTokenObject.getJSONObject("error").getString("message"));
-        }
-
+        this.checkResponse(accessTokenObject);
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))
             .expireIn(accessTokenObject.getIntValue("expires_in"))
@@ -45,22 +41,12 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
         HttpResponse response = doGetUserInfo(authToken);
         String userInfo = response.body();
         JSONObject object = JSONObject.parseObject(userInfo);
-        if (object.containsKey("error")) {
-            throw new AuthException(object.getJSONObject("error").getString("message"));
-        }
-        String picture = null;
-        if (object.containsKey("picture")) {
-            JSONObject pictureObj = object.getJSONObject("picture");
-            pictureObj = pictureObj.getJSONObject("data");
-            if (null != pictureObj) {
-                picture = pictureObj.getString("url");
-            }
-        }
+        this.checkResponse(object);
         return AuthUser.builder()
             .uuid(object.getString("id"))
             .username(object.getString("name"))
             .nickname(object.getString("name"))
-            .avatar(picture)
+            .avatar(getUserPicture(object))
             .location(object.getString("locale"))
             .email(object.getString("email"))
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
@@ -69,10 +55,22 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
             .build();
     }
 
+    private String getUserPicture(JSONObject object) {
+        String picture = null;
+        if (object.containsKey("picture")) {
+            JSONObject pictureObj = object.getJSONObject("picture");
+            pictureObj = pictureObj.getJSONObject("data");
+            if (null != pictureObj) {
+                picture = pictureObj.getString("url");
+            }
+        }
+        return picture;
+    }
+
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken 用户token
      * @return 返回获取userInfo的url
      */
     @Override
@@ -81,5 +79,16 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
             .queryParam("access_token", authToken.getAccessToken())
             .queryParam("fields", "id,name,birthday,gender,hometown,email,devices,picture.width(400)")
             .build();
+    }
+
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.containsKey("error")) {
+            throw new AuthException(object.getJSONObject("error").getString("message"));
+        }
     }
 }

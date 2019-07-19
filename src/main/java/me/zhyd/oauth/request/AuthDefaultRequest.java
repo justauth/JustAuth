@@ -3,6 +3,7 @@ package me.zhyd.oauth.request;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
@@ -20,6 +21,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * @since 1.8
  */
 @Data
+@Slf4j
 public abstract class AuthDefaultRequest implements AuthRequest {
     protected AuthConfig config;
     protected AuthSource source;
@@ -48,6 +50,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
             AuthUser user = this.getUserInfo(authToken);
             return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
         } catch (Exception e) {
+            log.error("Failed to login with oauth authorization.", e);
             return this.responseError(e);
         }
     }

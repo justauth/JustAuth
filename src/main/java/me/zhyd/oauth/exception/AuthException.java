@@ -30,6 +30,10 @@ public class AuthException extends RuntimeException {
         super(message, cause);
     }
 
+    public AuthException(Throwable cause) {
+        super(cause);
+    }
+
     public int getErrorCode() {
         return errorCode;
     }

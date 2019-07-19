@@ -4,11 +4,11 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -28,10 +28,7 @@ public class AuthTencentCloudRequest extends AuthDefaultRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         HttpResponse response = doGetAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-        if (accessTokenObject.getIntValue("code") != 0) {
-            throw new AuthException("Unable to get token from tencent cloud using code [" + authCallback.getCode() + "]: " + accessTokenObject
-                .get("msg"));
-        }
+        this.checkResponse(accessTokenObject);
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))
             .expireIn(accessTokenObject.getIntValue("expires_in"))
@@ -43,9 +40,8 @@ public class AuthTencentCloudRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         HttpResponse response = doGetUserInfo(authToken);
         JSONObject object = JSONObject.parseObject(response.body());
-        if (object.getIntValue("code") != 0) {
-            throw new AuthException(object.getString("msg"));
-        }
+        this.checkResponse(object);
+
         object = object.getJSONObject("data");
         return AuthUser.builder()
             .uuid(object.getString("id"))
@@ -61,6 +57,17 @@ public class AuthTencentCloudRequest extends AuthDefaultRequest {
             .token(authToken)
             .source(AuthSource.TENCENT_CLOUD)
             .build();
+    }
+
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.getIntValue("code") != 0) {
+            throw new AuthException(object.getString("msg"));
+        }
     }
 
     /**

@@ -4,11 +4,11 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.Objects;
@@ -24,6 +24,8 @@ import static me.zhyd.oauth.config.AuthSource.PINTEREST;
  */
 public class AuthPinterestRequest extends AuthDefaultRequest {
 
+    private static final String FAILURE = "failure";
+
     public AuthPinterestRequest(AuthConfig config) {
         super(config, PINTEREST);
     }
@@ -32,10 +34,7 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-        if (!response.isOk()) {
-            throw new AuthException("Unable to get token from Pinterest using code [" + authCallback.getCode() + "]: " + accessTokenObject);
-        }
-
+        this.checkResponse(accessTokenObject);
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))
             .tokenType(accessTokenObject.getString("token_type"))
@@ -48,8 +47,9 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
             .queryParam("fields", "id,username,first_name,last_name,bio,image")
             .build();
         HttpResponse response = HttpRequest.post(userinfoUrl).execute();
-        JSONObject userObj = JSONObject.parseObject(response.body()).getJSONObject("data");
-
+        JSONObject object = JSONObject.parseObject(response.body());
+        this.checkResponse(object);
+        JSONObject userObj = object.getJSONObject("data");
         return AuthUser.builder()
             .uuid(userObj.getString("id"))
             .avatar(getAvatarUrl(userObj))
@@ -80,6 +80,17 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
             .queryParam("state", getRealState(config.getState()))
             .queryParam("scope", "read_public")
             .build();
+    }
+
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (!object.containsKey("status") && FAILURE.equals(object.getString("status"))) {
+            throw new AuthException(object.getString("message"));
+        }
     }
 
 }

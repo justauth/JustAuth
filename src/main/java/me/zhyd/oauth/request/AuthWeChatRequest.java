@@ -118,7 +118,7 @@ public class AuthWeChatRequest extends AuthDefaultRequest {
     /**
      * 返回获取accessToken的url
      *
-     * @param code
+     * @param code 授权码
      * @return 返回获取accessToken的url
      */
     @Override
@@ -134,7 +134,7 @@ public class AuthWeChatRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken 用户授权后的token
      * @return 返回获取userInfo的url
      */
     @Override
@@ -147,10 +147,10 @@ public class AuthWeChatRequest extends AuthDefaultRequest {
     }
 
     /**
-     * 返回获取accessToken的url
+     * 返回获取userInfo的url
      *
-     * @param refreshToken
-     * @return 返回获取accessToken的url
+     * @param refreshToken getAccessToken方法返回的refreshToken
+     * @return 返回获取userInfo的url
      */
     @Override
     protected String refreshTokenUrl(String refreshToken) {

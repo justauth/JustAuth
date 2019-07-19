@@ -5,11 +5,11 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.utils.IpUtils;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
@@ -34,8 +34,7 @@ public class AuthWeiboRequest extends AuthDefaultRequest {
         String accessTokenStr = response.body();
         JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
         if (accessTokenObject.containsKey("error")) {
-            throw new AuthException("Unable to get token from weibo using code [" + authCallback.getCode() + "]:" + accessTokenObject
-                .getString("error_description"));
+            throw new AuthException(accessTokenObject.getString("error_description"));
         }
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))

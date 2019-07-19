@@ -9,11 +9,11 @@ import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.alipay.api.response.AlipayUserInfoShareResponse;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -43,7 +43,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
         try {
             response = this.alipayClient.execute(request);
         } catch (Exception e) {
-            throw new AuthException("Unable to get token from alipay using code [" + authCallback.getAuth_code() + "]", e);
+            throw new AuthException(e);
         }
         if (!response.isSuccess()) {
             throw new AuthException(response.getSubMsg());

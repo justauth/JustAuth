@@ -5,11 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthToutiaoErrorCode;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -30,10 +30,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
         HttpResponse response = doGetAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response.body());
 
-        if (accessTokenObject.containsKey("error_code")) {
-            throw new AuthException(AuthToutiaoErrorCode.getErrorCode(accessTokenObject.getIntValue("error_code"))
-                .getDesc());
-        }
+        this.checkResponse(accessTokenObject);
 
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))
@@ -48,9 +45,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
 
         JSONObject userProfile = JSONObject.parseObject(userResponse.body());
 
-        if (userProfile.containsKey("error_code")) {
-            throw new AuthException(AuthToutiaoErrorCode.getErrorCode(userProfile.getIntValue("error_code")).getDesc());
-        }
+        this.checkResponse(userProfile);
 
         JSONObject user = userProfile.getJSONObject("data");
 
@@ -89,7 +84,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
     /**
      * 返回获取accessToken的url
      *
-     * @param code
+     * @param code 授权码
      * @return 返回获取accessToken的url
      */
     @Override
@@ -105,7 +100,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken 用户授权后的token
      * @return 返回获取userInfo的url
      */
     @Override
@@ -114,5 +109,17 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
             .queryParam("client_key", config.getClientId())
             .queryParam("access_token", authToken.getAccessToken())
             .build();
+    }
+
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.containsKey("error_code")) {
+            throw new AuthException(AuthToutiaoErrorCode.getErrorCode(object.getIntValue("error_code"))
+                .getDesc());
+        }
     }
 }

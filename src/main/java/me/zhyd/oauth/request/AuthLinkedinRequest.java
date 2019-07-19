@@ -43,33 +43,10 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
 
         this.checkResponse(userInfoObject);
 
-        // 组装用户名
-        String firstName, lastName;
-        // 获取firstName
-        if (userInfoObject.containsKey("localizedFirstName")) {
-            firstName = userInfoObject.getString("localizedFirstName");
-        } else {
-            firstName = getUserName(userInfoObject, "firstName");
-        }
-        // 获取lastName
-        if (userInfoObject.containsKey("localizedLastName")) {
-            lastName = userInfoObject.getString("localizedLastName");
-        } else {
-            lastName = getUserName(userInfoObject, "lastName");
-        }
-        String userName = firstName + " " + lastName;
+        String userName = getUserName(userInfoObject);
 
         // 获取用户头像
-        String avatar = null;
-        JSONObject profilePictureObject = userInfoObject.getJSONObject("profilePicture");
-        if (profilePictureObject.containsKey("displayImage~")) {
-            JSONArray displayImageElements = profilePictureObject.getJSONObject("displayImage~")
-                .getJSONArray("elements");
-            if (null != displayImageElements && displayImageElements.size() > 0) {
-                JSONObject largestImageObj = displayImageElements.getJSONObject(displayImageElements.size() - 1);
-                avatar = largestImageObj.getJSONArray("identifiers").getJSONObject(0).getString("identifier");
-            }
-        }
+        String avatar = this.getAvatar(userInfoObject);
 
         // 获取用户邮箱地址
         String email = this.getUserEmail(accessToken);
@@ -85,6 +62,55 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
             .build();
     }
 
+    /**
+     * 获取用户的真实名
+     *
+     * @param userInfoObject 用户json对象
+     * @return 用户名
+     */
+    private String getUserName(JSONObject userInfoObject) {
+        String firstName, lastName;
+        // 获取firstName
+        if (userInfoObject.containsKey("localizedFirstName")) {
+            firstName = userInfoObject.getString("localizedFirstName");
+        } else {
+            firstName = getUserName(userInfoObject, "firstName");
+        }
+        // 获取lastName
+        if (userInfoObject.containsKey("localizedLastName")) {
+            lastName = userInfoObject.getString("localizedLastName");
+        } else {
+            lastName = getUserName(userInfoObject, "lastName");
+        }
+        return firstName + " " + lastName;
+    }
+
+    /**
+     * 获取用户的头像
+     *
+     * @param userInfoObject 用户json对象
+     * @return 用户的头像地址
+     */
+    private String getAvatar(JSONObject userInfoObject) {
+        String avatar = null;
+        JSONObject profilePictureObject = userInfoObject.getJSONObject("profilePicture");
+        if (profilePictureObject.containsKey("displayImage~")) {
+            JSONArray displayImageElements = profilePictureObject.getJSONObject("displayImage~")
+                .getJSONArray("elements");
+            if (null != displayImageElements && displayImageElements.size() > 0) {
+                JSONObject largestImageObj = displayImageElements.getJSONObject(displayImageElements.size() - 1);
+                avatar = largestImageObj.getJSONArray("identifiers").getJSONObject(0).getString("identifier");
+            }
+        }
+        return avatar;
+    }
+
+    /**
+     * 获取用户的email
+     *
+     * @param accessToken 用户授权后返回的token
+     * @return 用户的邮箱地址
+     */
     private String getUserEmail(String accessToken) {
         String email = null;
         HttpResponse emailResponse = HttpRequest.get("https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))")
@@ -92,8 +118,8 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
             .header("Connection", "Keep-Alive")
             .header("Authorization", "Bearer " + accessToken)
             .execute();
-        System.out.println(emailResponse.body());
         JSONObject emailObj = JSONObject.parseObject(emailResponse.body());
+        this.checkResponse(emailObj);
         if (emailObj.containsKey("elements")) {
             email = emailObj.getJSONArray("elements")
                 .getJSONObject(0)
@@ -125,9 +151,14 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
             .build();
     }
 
-    private void checkResponse(JSONObject userInfoObject) {
-        if (userInfoObject.containsKey("error")) {
-            throw new AuthException(userInfoObject.getString("error_description"));
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
+    private void checkResponse(JSONObject object) {
+        if (object.containsKey("error")) {
+            throw new AuthException(object.getString("error_description"));
         }
     }
 

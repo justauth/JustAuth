@@ -26,14 +26,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-        this.checkResponse(accessTokenObject);
-        return AuthToken.builder()
-            .accessToken(accessTokenObject.getString("access_token"))
-            .refreshToken(accessTokenObject.getString("refresh_token"))
-            .scope(accessTokenObject.getString("scope"))
-            .expireIn(accessTokenObject.getIntValue("expires_in"))
-            .build();
+        return getAuthToken(response);
     }
 
     @Override
@@ -58,12 +51,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
     public AuthResponse revoke(AuthToken authToken) {
         HttpResponse response = doGetRevoke(authToken);
         JSONObject object = JSONObject.parseObject(response.body());
-        if (object.containsKey("error_code")) {
-            return AuthResponse.builder()
-                .code(AuthResponseStatus.FAILURE.getCode())
-                .msg(object.getString("error_msg"))
-                .build();
-        }
+        this.checkResponse(object);
         // 返回1表示取消授权成功，否则失败
         AuthResponseStatus status = object.getIntValue("result") == 1 ? AuthResponseStatus.SUCCESS : AuthResponseStatus.FAILURE;
         return AuthResponse.builder().code(status.getCode()).msg(status.getMsg()).build();
@@ -78,16 +66,9 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
             .queryParam("client_secret", this.config.getClientSecret())
             .build();
         HttpResponse response = HttpRequest.get(refreshUrl).execute();
-        JSONObject object = JSONObject.parseObject(response.body());
-        this.checkResponse(object);
         return AuthResponse.builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
-            .data(AuthToken.builder()
-                .accessToken(object.getString("access_token"))
-                .refreshToken(object.getString("refresh_token"))
-                .scope(object.getString("scope"))
-                .expireIn(object.getIntValue("expires_in"))
-                .build())
+            .data(this.getAuthToken(response))
             .build();
     }
 
@@ -107,9 +88,26 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
             .build();
     }
 
+    /**
+     * 检查响应内容是否正确
+     *
+     * @param object 请求响应内容
+     */
     private void checkResponse(JSONObject object) {
-        if (object.containsKey("error")) {
-            throw new AuthException(object.getString("error_description"));
+        if (object.containsKey("error") || object.containsKey("error_code")) {
+            String msg = object.containsKey("error_description") ? object.getString("error_description") : object.getString("error_msg");
+            throw new AuthException(msg);
         }
+    }
+
+    private AuthToken getAuthToken(HttpResponse response) {
+        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+        this.checkResponse(accessTokenObject);
+        return AuthToken.builder()
+            .accessToken(accessTokenObject.getString("access_token"))
+            .refreshToken(accessTokenObject.getString("refresh_token"))
+            .scope(accessTokenObject.getString("scope"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .build();
     }
 }

@@ -229,6 +229,11 @@ public enum AuthSource {
         public String userInfo() {
             return "https://graph.qq.com/user/get_user_info";
         }
+
+        @Override
+        public String refresh() {
+            return "https://graph.qq.com/oauth2.0/token";
+        }
     },
     /**
      * 微信

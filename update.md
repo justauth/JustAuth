@@ -6,6 +6,8 @@
 4. 优化百度授权流程，增加refresh token的方法
 5. 优化`AuthConfig`、`AuthResponse`类，去掉不必要的lombonk注解，减少编译后的代码量
 6. 使用lombok注解优化枚举类
+7. `AuthQqRequest`增加refresh方法
+8. 优化代码
 
 ### 2019/07/18
 
