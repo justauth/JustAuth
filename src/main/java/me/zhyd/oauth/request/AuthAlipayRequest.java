@@ -13,7 +13,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 

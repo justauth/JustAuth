@@ -2,16 +2,13 @@ package me.zhyd.oauth.request;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
 

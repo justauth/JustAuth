@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
@@ -9,7 +8,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**

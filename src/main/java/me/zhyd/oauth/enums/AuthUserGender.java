@@ -1,4 +1,7 @@
-package me.zhyd.oauth.model;
+package me.zhyd.oauth.enums;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Arrays;
 
@@ -9,15 +12,12 @@ import java.util.Arrays;
  * @version 1.0
  * @since 1.8
  */
+@Getter
+@AllArgsConstructor
 public enum AuthUserGender {
     MALE(1, "男"), FEMALE(0, "女"), UNKNOWN(-1, "未知");
     private int code;
     private String desc;
-
-    AuthUserGender(int code, String desc) {
-        this.code = code;
-        this.desc = desc;
-    }
 
     public static AuthUserGender getRealGender(String code) {
         if (code == null) {
@@ -32,13 +32,5 @@ public enum AuthUserGender {
             return FEMALE;
         }
         return UNKNOWN;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getDesc() {
-        return desc;
     }
 }

@@ -6,12 +6,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
-import me.zhyd.oauth.enums.AuthDingTalkErrorCode;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.model.AuthUserGender;
 import me.zhyd.oauth.utils.GlobalAuthUtil;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -39,11 +38,9 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
         JSONObject param = new JSONObject();
         param.put("tmp_auth_code", code);
         HttpResponse response = HttpRequest.post(userInfoUrl(authToken)).body(param.toJSONString()).execute();
-        String userInfo = response.body();
-        JSONObject object = JSON.parseObject(userInfo);
-        AuthDingTalkErrorCode errorCode = AuthDingTalkErrorCode.getErrorCode(object.getIntValue("errcode"));
-        if (AuthDingTalkErrorCode.EC0 != errorCode) {
-            throw new AuthException(errorCode.getDesc());
+        JSONObject object = JSON.parseObject(response.body());
+        if (object.getIntValue("errcode") != 0) {
+            throw new AuthException(object.getString("errmsg"));
         }
         object = object.getJSONObject("user_info");
         AuthToken token = AuthToken.builder()

@@ -1,10 +1,10 @@
 package me.zhyd.oauth.model;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 
 /**
  * 授权成功后的用户信息，根据授权平台的不同，获取的数据完整性也不同

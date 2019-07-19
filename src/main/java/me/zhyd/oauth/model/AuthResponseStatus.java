@@ -1,10 +1,15 @@
 package me.zhyd.oauth.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @since 1.8
  */
+@Getter
+@AllArgsConstructor
 public enum AuthResponseStatus {
     SUCCESS(2000, "Success"),
     FAILURE(5000, "Failure"),
@@ -20,18 +25,5 @@ public enum AuthResponseStatus {
 
     private int code;
     private String msg;
-
-    AuthResponseStatus(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
 }
 

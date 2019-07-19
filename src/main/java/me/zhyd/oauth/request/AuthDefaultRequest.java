@@ -115,6 +115,15 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     }
 
     /**
+     * 返回获取revoke authorization的url
+     *
+     * @return 返回获取revoke authorization的url
+     */
+    protected String revokeUrl(AuthToken authToken) {
+        return UrlBuilder.fromBaseUrl(source.revoke()).queryParam("access_token", authToken.getAccessToken()).build();
+    }
+
+    /**
      * 获取state，如果为空， 则默认去当前日期的时间戳
      *
      * @param state 原始的state
@@ -162,5 +171,25 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     protected HttpResponse doGetUserInfo(AuthToken authToken) {
         return HttpRequest.get(userInfoUrl(authToken)).execute();
+    }
+
+    /**
+     * 通用的post形式的取消授权方法
+     *
+     * @param authToken token封装
+     * @return HttpResponse
+     */
+    protected HttpResponse doPostRevoke(AuthToken authToken) {
+        return HttpRequest.post(revokeUrl(authToken)).execute();
+    }
+
+    /**
+     * 通用的post形式的取消授权方法
+     *
+     * @param authToken token封装
+     * @return HttpResponse
+     */
+    protected HttpResponse doGetRevoke(AuthToken authToken) {
+        return HttpRequest.get(revokeUrl(authToken)).execute();
     }
 }

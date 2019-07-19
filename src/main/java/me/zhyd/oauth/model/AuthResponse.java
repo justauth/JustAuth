@@ -12,7 +12,6 @@ import lombok.Setter;
  * @since 1.8
  */
 @Getter
-@Setter
 @Builder
 public class AuthResponse<T> {
     /**
