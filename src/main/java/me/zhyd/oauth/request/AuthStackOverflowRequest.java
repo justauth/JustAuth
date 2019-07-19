@@ -19,7 +19,7 @@ import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
  *
  * @author hongwei.peng (pengisgood(at)gmail(dot)com)
  * @version 1.9.0
- * @since 1.9.0
+ * @since 1.8
  */
 public class AuthStackOverflowRequest extends AuthDefaultRequest {
 

@@ -20,7 +20,7 @@ import static me.zhyd.oauth.config.AuthSource.PINTEREST;
  *
  * @author hongwei.peng (pengisgood(at)gmail(dot)com)
  * @version 1.9.0
- * @since 1.9.0
+ * @since 1.8
  */
 public class AuthPinterestRequest extends AuthDefaultRequest {
 
