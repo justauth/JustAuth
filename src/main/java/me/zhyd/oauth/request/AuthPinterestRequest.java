@@ -43,10 +43,8 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        String userinfoUrl = UrlBuilder.fromBaseUrl(userInfoUrl(authToken))
-            .queryParam("fields", "id,username,first_name,last_name,bio,image")
-            .build();
-        HttpResponse response = HttpRequest.post(userinfoUrl).execute();
+        String userinfoUrl = userInfoUrl(authToken);
+        HttpResponse response = HttpRequest.get(userinfoUrl).setFollowRedirects(true).execute();
         JSONObject object = JSONObject.parseObject(response.body());
         this.checkResponse(object);
         JSONObject userObj = object.getJSONObject("data");
@@ -79,6 +77,19 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
             .queryParam("redirect_uri", config.getRedirectUri())
             .queryParam("state", getRealState(config.getState()))
             .queryParam("scope", "read_public")
+            .build();
+    }
+
+    /**
+     * 返回获取userInfo的url
+     *
+     * @param authToken token
+     * @return 返回获取userInfo的url
+     */
+    protected String userInfoUrl(AuthToken authToken) {
+        return UrlBuilder.fromBaseUrl(source.userInfo())
+            .queryParam("access_token", authToken.getAccessToken())
+            .queryParam("fields", "id,username,first_name,last_name,bio,image")
             .build();
     }
 

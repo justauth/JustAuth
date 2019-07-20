@@ -45,7 +45,7 @@ public class GlobalAuthUtil {
         }
     }
 
-    private static String urlEncode(String value) {
+    public static String urlEncode(String value) {
         if (value == null) {
             return "";
         }

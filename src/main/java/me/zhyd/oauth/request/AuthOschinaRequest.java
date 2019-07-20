@@ -77,7 +77,7 @@ public class AuthOschinaRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken 用户授权后的token
      * @return 返回获取userInfo的url
      */
     @Override

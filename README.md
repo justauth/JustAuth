@@ -6,7 +6,7 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
-		<img src="https://img.shields.io/badge/Maven Central-1.9.0-blue.svg" ></img>
+		<img src="https://img.shields.io/badge/Maven Central-1.9.1-blue.svg" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
@@ -15,7 +15,7 @@
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
 	</a>
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/">
-		<img src="https://img.shields.io/badge/Docs-1.9.0-orange.svg" ></img>
+		<img src="https://img.shields.io/badge/Docs-1.9.1-orange.svg" ></img>
 	</a>
 </p>
 
@@ -76,7 +76,7 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.9.0</version>
+    <version>1.9.1</version>
 </dependency>
 ```
 - 调用api
@@ -148,7 +148,7 @@ _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经�
 2. 把fork过去的项目也就是你仓库中的项目clone到你的本地
 3. 修改代码
 4. commit后push到自己的库
-5. 发起PR（pull request） 请求
+5. 发起PR（pull request） 请求，提交到`dev`分支
 6. 等待作者合并
 
 ## 致谢

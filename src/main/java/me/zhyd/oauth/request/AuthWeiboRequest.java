@@ -76,7 +76,7 @@ public class AuthWeiboRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken authToken
      * @return 返回获取userInfo的url
      */
     @Override
