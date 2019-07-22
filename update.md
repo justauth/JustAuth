@@ -1,5 +1,5 @@
 ### 2019/07/22  （[v1.9.2](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.2)）
-1. 合并github上[@xkcoding](https://github.com/xkcoding) 的[pr#26](https://github.com/zhangyd-c/JustAuth/pull/26)，AuthConfig类添加lombok注解，方便 [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter) 直接使用 
+1. 合并github上[xkcoding](https://github.com/xkcoding) 的[pr#26](https://github.com/zhangyd-c/JustAuth/pull/26)，AuthConfig类添加lombok注解，方便 [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter) 直接使用 
 
 ### 2019/07/22  （[v1.9.1](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.1)）
 1. 增加`stackoverflow`参数校验
