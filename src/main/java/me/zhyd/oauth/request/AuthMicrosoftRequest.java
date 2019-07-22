@@ -83,7 +83,7 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
             .email(object.getString("mail"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(AuthSource.MICROSOFT)
+            .source(source)
             .build();
     }
 
@@ -139,7 +139,7 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken 用户授权后的token
      * @return 返回获取userInfo的url
      */
     @Override
@@ -150,7 +150,7 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
     /**
      * 返回获取accessToken的url
      *
-     * @param refreshToken
+     * @param refreshToken 用户授权后的token
      * @return 返回获取accessToken的url
      */
     @Override

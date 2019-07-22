@@ -4,6 +4,7 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPath;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -120,13 +121,8 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
             .execute();
         JSONObject emailObj = JSONObject.parseObject(emailResponse.body());
         this.checkResponse(emailObj);
-        if (emailObj.containsKey("elements")) {
-            email = emailObj.getJSONArray("elements")
-                .getJSONObject(0)
-                .getJSONObject("handle~")
-                .getString("emailAddress");
-        }
-        return email;
+        Object obj = JSONPath.eval(emailObj, "$['elements'][0]['handle~']['emailAddress']");
+        return null == obj ? null : (String) obj;
     }
 
     private String getUserName(JSONObject userInfoObject, String nameKey) {
@@ -204,7 +200,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken 用户授权后的token
      * @return 返回获取userInfo的url
      */
     @Override

@@ -51,7 +51,7 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
             .email(object.getString("email"))
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
             .token(authToken)
-            .source(AuthSource.FACEBOOK)
+            .source(source)
             .build();
     }
 

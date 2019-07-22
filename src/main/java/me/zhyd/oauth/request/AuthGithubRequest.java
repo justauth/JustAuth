@@ -9,6 +9,9 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.utils.GlobalAuthUtil;
+
+import java.util.Map;
 
 /**
  * Github登录
@@ -26,12 +29,14 @@ public class AuthGithubRequest extends AuthDefaultRequest {
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
-        this.checkResponse(accessTokenObject);
+        Map<String, String> res = GlobalAuthUtil.parseStringToMap(response.body());
+        if (res.containsKey("error")) {
+            throw new AuthException(res.get("error") + ":" + res.get("error_description"));
+        }
         return AuthToken.builder()
-            .accessToken(accessTokenObject.getString("access_token"))
-            .scope(accessTokenObject.getString("scope"))
-            .tokenType(accessTokenObject.getString("token_type"))
+            .accessToken(res.get("access_token"))
+            .scope(res.get("scope"))
+            .tokenType(res.get("token_type"))
             .build();
     }
 
@@ -39,7 +44,9 @@ public class AuthGithubRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         HttpResponse response = doGetUserInfo(authToken);
         JSONObject object = JSONObject.parseObject(response.body());
-        this.checkResponse(object);
+        if (object.containsKey("error")) {
+            throw new AuthException(object.getString("error_description"));
+        }
         return AuthUser.builder()
             .uuid(object.getString("id"))
             .username(object.getString("login"))
@@ -52,7 +59,7 @@ public class AuthGithubRequest extends AuthDefaultRequest {
             .remark(object.getString("bio"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(AuthSource.GITHUB)
+            .source(source)
             .build();
     }
 
@@ -62,8 +69,6 @@ public class AuthGithubRequest extends AuthDefaultRequest {
      * @param object 请求响应内容
      */
     private void checkResponse(JSONObject object) {
-        if (object.containsKey("error")) {
-            throw new AuthException(object.getString("error_description"));
-        }
+
     }
 }

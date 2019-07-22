@@ -19,7 +19,7 @@ import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
  *
  * @author hongwei.peng (pengisgood(at)gmail(dot)com)
  * @version 1.9.0
- * @since 1.9.0
+ * @since 1.8
  */
 public class AuthStackOverflowRequest extends AuthDefaultRequest {
 
@@ -63,7 +63,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .blog(userObj.getString("website_url"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(STACK_OVERFLOW)
+            .source(source)
             .build();
     }
 

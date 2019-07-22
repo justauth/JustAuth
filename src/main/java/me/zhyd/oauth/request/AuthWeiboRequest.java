@@ -69,14 +69,14 @@ public class AuthWeiboRequest extends AuthDefaultRequest {
             .remark(object.getString("description"))
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
             .token(authToken)
-            .source(AuthSource.WEIBO)
+            .source(source)
             .build();
     }
 
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken authToken
      * @return 返回获取userInfo的url
      */
     @Override

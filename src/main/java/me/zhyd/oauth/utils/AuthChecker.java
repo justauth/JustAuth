@@ -26,6 +26,9 @@ public class AuthChecker {
         if (isSupported && AuthSource.ALIPAY == source) {
             isSupported = StringUtils.isNotEmpty(config.getAlipayPublicKey());
         }
+        if (isSupported && AuthSource.STACK_OVERFLOW == source) {
+            isSupported = StringUtils.isNotEmpty(config.getStackOverflowKey());
+        }
         return isSupported;
     }
 

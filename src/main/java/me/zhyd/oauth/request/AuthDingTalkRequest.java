@@ -52,7 +52,7 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
             .nickname(object.getString("nick"))
             .username(object.getString("nick"))
             .gender(AuthUserGender.UNKNOWN)
-            .source(AuthSource.DINGTALK)
+            .source(source)
             .token(token)
             .build();
     }
@@ -76,7 +76,7 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken 用户授权后的token
      * @return 返回获取userInfo的url
      */
     @Override

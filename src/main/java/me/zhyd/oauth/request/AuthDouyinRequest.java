@@ -42,7 +42,7 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
             .remark(userInfoObject.getString("description"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(AuthSource.DOUYIN)
+            .source(source)
             .build();
     }
 

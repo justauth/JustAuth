@@ -75,7 +75,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
             .email(user.getString("mail"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(AuthSource.MI)
+            .source(source)
             .build();
 
         // 获取用户邮箱手机号等信息
@@ -128,7 +128,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken 用户授权后的token
      * @return 返回获取userInfo的url
      */
     @Override

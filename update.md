@@ -1,5 +1,11 @@
 ### 2019/07/19
 
+1. 增加`stackoverflow`参数校验
+2. 解决`Pinterest`获取用户失败的问题
+3. 添加注释
+
+### 2019/07/19
+
 1. 合并github上[@dyc12ii](https://github.com/dyc12ii) 的[pr#25](https://github.com/zhangyd-c/JustAuth/pull/25)，升级fastjson版本至1.2.58,避免安全漏洞
 2. `AuthUserGender`枚举类挪到`enums`包下
 3. 删除`AuthBaiduErrorCode`和`AuthDingTalkErrorCode`枚举类
@@ -7,7 +13,8 @@
 5. 优化`AuthConfig`、`AuthResponse`类，去掉不必要的lombonk注解，减少编译后的代码量
 6. 使用lombok注解优化枚举类
 7. `AuthQqRequest`增加refresh方法
-8. 优化代码
+8. 修复google登录无法获取用户信息的问题
+9. 优化代码
 
 ### 2019/07/18
 

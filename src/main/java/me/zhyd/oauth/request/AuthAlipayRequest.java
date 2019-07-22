@@ -81,7 +81,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
             .location(location)
             .gender(AuthUserGender.getRealGender(response.getGender()))
             .token(authToken)
-            .source(AuthSource.ALIPAY)
+            .source(source)
             .build();
     }
 

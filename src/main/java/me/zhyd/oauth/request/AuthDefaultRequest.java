@@ -20,7 +20,6 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * @version 1.0
  * @since 1.8
  */
-@Data
 @Slf4j
 public abstract class AuthDefaultRequest implements AuthRequest {
     protected AuthConfig config;
@@ -81,6 +80,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     /**
      * 返回获取accessToken的url
      *
+     * @param code 授权码
      * @return 返回获取accessToken的url
      */
     protected String accessTokenUrl(String code) {
@@ -96,6 +96,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     /**
      * 返回获取accessToken的url
      *
+     * @param refreshToken refreshToken
      * @return 返回获取accessToken的url
      */
     protected String refreshTokenUrl(String refreshToken) {
@@ -111,6 +112,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     /**
      * 返回获取userInfo的url
      *
+     * @param authToken token
      * @return 返回获取userInfo的url
      */
     protected String userInfoUrl(AuthToken authToken) {
@@ -120,6 +122,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     /**
      * 返回获取revoke authorization的url
      *
+     * @param authToken token
      * @return 返回获取revoke authorization的url
      */
     protected String revokeUrl(AuthToken authToken) {

@@ -8,6 +8,7 @@ import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
+import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -39,12 +40,17 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
             .uuid(object.getString("userid"))
             .username(object.getString("username"))
             .nickname(object.getString("username"))
-            .avatar(object.getString("portrait"))
+            .avatar(getAvatar(object))
             .remark(object.getString("userdetail"))
             .gender(AuthUserGender.getRealGender(object.getString("sex")))
             .token(authToken)
-            .source(AuthSource.BAIDU)
+            .source(source)
             .build();
+    }
+
+    private String getAvatar(JSONObject object) {
+        String protrait = object.getString("portrait");
+        return StringUtils.isEmpty(protrait) ? null : String.format("http://himg.bdimg.com/sys/portrait/item/%s.jpg", protrait);
     }
 
     @Override

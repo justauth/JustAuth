@@ -19,8 +19,8 @@ import static me.zhyd.oauth.model.AuthResponseStatus.SUCCESS;
  * 人人登录
  *
  * @author hongwei.peng (pengisgood(at)gmail(dot)com)
- * @version 1.8.1
- * @since 1.8.1
+ * @version 1.9.0
+ * @since 1.8
  */
 public class AuthRenrenRequest extends AuthDefaultRequest {
 
@@ -45,7 +45,7 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
             .company(getCompany(userObj))
             .gender(getGender(userObj))
             .token(authToken)
-            .source(RENREN)
+            .source(source)
             .build();
     }
 
@@ -100,7 +100,7 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
     /**
      * 返回获取userInfo的url
      *
-     * @param authToken
+     * @param authToken 用户授权后的token
      * @return 返回获取userInfo的url
      */
     @Override

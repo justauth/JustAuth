@@ -55,7 +55,7 @@ public class AuthTencentCloudRequest extends AuthDefaultRequest {
             .email(object.getString("email"))
             .remark(object.getString("slogan"))
             .token(authToken)
-            .source(AuthSource.TENCENT_CLOUD)
+            .source(source)
             .build();
     }
 
