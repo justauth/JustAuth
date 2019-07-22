@@ -100,6 +100,10 @@ authRequest.login(callback);
 - [Springboot版](https://gitee.com/yadong.zhang/JustAuth-demo)
 - [jFinal版](https://github.com/zhangyd-c/jfinal-justauth-demo)
 
+**配套SpringBoot starter**：
+
+[justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter)
+
 具体的例子可以参考：
 
 - [实现Gitee授权登录](http://t.cn/ExDKxQs)
