@@ -58,8 +58,30 @@ public class AuthState {
      * @param body   希望加密到state的消息体
      * @return state
      */
+    public static String create(AuthSource source, Object body) {
+        return create(source, JSON.toJSONString(body));
+    }
+
+    /**
+     * 创建state
+     *
+     * @param source oauth平台
+     * @param body   希望加密到state的消息体
+     * @return state
+     */
     public static String create(String source, Object body) {
         return create(source, JSON.toJSONString(body));
+    }
+
+    /**
+     * 创建state
+     *
+     * @param source oauth平台
+     * @param body   希望加密到state的消息体
+     * @return state
+     */
+    public static String create(AuthSource source, String body) {
+        return create(source.name(), body);
     }
 
     /**
@@ -93,12 +115,35 @@ public class AuthState {
      * @param source oauth平台
      * @return state
      */
+    public static String get(AuthSource source) {
+        return get(source.name());
+    }
+
+    /**
+     * 获取state
+     *
+     * @param source oauth平台
+     * @return state
+     */
     public static String get(String source) {
         String currentIp = getCurrentIp();
         String simpleKey = ((source + currentIp));
         String key = Base64.encode(simpleKey.getBytes(Charset.forName("UTF-8")));
         log.debug("Get state by the key[{}], current ip[{}]", key, currentIp);
         return stateBucket.get(key);
+    }
+
+    /**
+     * 获取state中保存的body内容
+     *
+     * @param source oauth平台
+     * @param state  加密后的state
+     * @param clazz  body的实际类型
+     * @param <T>    需要转换的具体的class类型
+     * @return state
+     */
+    public static <T> T getBody(AuthSource source, String state, Class<T> clazz) {
+        return getBody(source.name(), state, clazz);
     }
 
     /**
