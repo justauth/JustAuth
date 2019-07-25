@@ -1,3 +1,9 @@
+### 2019/07/25
+
+1. `AuthConfig`类中去掉state参数
+2. 删除`AuthState`类
+3. 增加`authorize(String)`方法，并且使用`@Deprecated`标记`authorize()`方法
+
 ### 2019/07/22  （[v1.9.2](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.2)）
 1. 合并github上[@xkcoding](https://github.com/xkcoding) 的[pr#26](https://github.com/zhangyd-c/JustAuth/pull/26)，AuthConfig类添加lombok注解，方便 [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter) 直接使用 
 
