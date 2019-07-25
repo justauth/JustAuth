@@ -15,6 +15,9 @@ public interface AuthRequest {
 
     /**
      * 返回认证url，可自行跳转页面
+     * <p>
+     * 不建议使用该方式获取授权地址，不带{@code state}的授权地址，容易受到csrf攻击。
+     * 建议使用{@link AuthDefaultRequest#authorize(String)}方法生成授权地址，在回调方法中对{@code state}进行校验
      *
      * @return 返回授权地址
      */
