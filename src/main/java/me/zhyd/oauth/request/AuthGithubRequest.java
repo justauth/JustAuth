@@ -63,12 +63,4 @@ public class AuthGithubRequest extends AuthDefaultRequest {
             .build();
     }
 
-    /**
-     * 检查响应内容是否正确
-     *
-     * @param object 请求响应内容
-     */
-    private void checkResponse(JSONObject object) {
-
-    }
 }

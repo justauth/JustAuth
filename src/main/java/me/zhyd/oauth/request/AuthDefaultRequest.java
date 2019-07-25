@@ -2,7 +2,6 @@ package me.zhyd.oauth.request;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
@@ -43,7 +42,6 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     public AuthResponse login(AuthCallback authCallback) {
         try {
             AuthChecker.checkCode(source == AuthSource.ALIPAY ? authCallback.getAuth_code() : authCallback.getCode());
-            AuthChecker.checkState(authCallback.getState(), config.getState());
 
             AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
@@ -64,16 +62,31 @@ public abstract class AuthDefaultRequest implements AuthRequest {
 
     /**
      * 返回认证url，可自行跳转页面
+     * <p>
+     * 不建议使用该方式获取授权地址，不带{@code state}的授权地址，容易受到csrf攻击。
+     * 建议使用{@link AuthDefaultRequest#authorize(String)}方法生成授权地址，在回调方法中对{@code state}进行校验
      *
      * @return 返回授权地址
      */
+    @Deprecated
     @Override
     public String authorize() {
+        return this.authorize(null);
+    }
+
+    /**
+     * 返回带{@code state}参数的认证url，授权回调时会带上这个{@code state}
+     *
+     * @param state state 验证授权流程的参数，可以防止csrf
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize(String state) {
         return UrlBuilder.fromBaseUrl(source.authorize())
             .queryParam("response_type", "code")
             .queryParam("client_id", config.getClientId())
             .queryParam("redirect_uri", config.getRedirectUri())
-            .queryParam("state", getRealState(config.getState()))
+            .queryParam("state", getRealState(state))
             .build();
     }
 
@@ -130,7 +143,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     }
 
     /**
-     * 获取state，如果为空， 则默认去当前日期的时间戳
+     * 获取state，如果为空， 则默认取当前日期的时间戳
      *
      * @param state 原始的state
      * @return 返回不为null的state

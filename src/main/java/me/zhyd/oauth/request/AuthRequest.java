@@ -18,7 +18,18 @@ public interface AuthRequest {
      *
      * @return 返回授权地址
      */
+    @Deprecated
     default String authorize() {
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
+    }
+
+    /**
+     * 返回带{@code state}参数的认证url，授权回调时会带上这个{@code state}
+     *
+     * @param state state 验证授权流程的参数，可以防止csrf
+     * @return 返回授权地址
+     */
+    default String authorize(String state) {
         throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 

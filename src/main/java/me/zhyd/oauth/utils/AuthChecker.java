@@ -63,25 +63,4 @@ public class AuthChecker {
             throw new AuthException(AuthResponseStatus.ILLEGAL_CODE);
         }
     }
-
-    /**
-     * 校验state的合法性防止被CSRF
-     *
-     * @param newState      新的state，一般为回调时传回的state（可能被篡改）
-     * @param originalState 原始的state，发起授权时向第三方平台传递的state
-     */
-    public static void checkState(String newState, String originalState) {
-        // 如果原始state为空，表示当前平台未使用state
-        if (StringUtils.isEmpty(originalState)) {
-            return;
-        }
-        // 如果授权之前使用了state，但是回调时未返回state，则表示当前请求为非法的请求，可能正在被CSRF攻击
-        if (StringUtils.isEmpty(newState)) {
-            throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
-        }
-        // 如果授权前后的state不一致，则表示当前请求为非法的请求，新的state可能为伪造
-        if (!newState.equals(originalState)) {
-            throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
-        }
-    }
 }

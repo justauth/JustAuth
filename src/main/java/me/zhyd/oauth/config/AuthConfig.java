@@ -6,7 +6,7 @@ import lombok.*;
  * JustAuth配置类
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
+ * @version 1.9.3
  * @since 1.8
  */
 @Getter
@@ -44,13 +44,6 @@ public class AuthConfig {
      * 1.7.1版本新增参数
      */
     private boolean unionId;
-
-    /**
-     * 一个神奇的参数，最好使用随机的不可测的内容，可以用来防止CSRF攻击
-     * <p>
-     * 1.8.0版本新增参数
-     */
-    private String state;
 
     /**
      * Stack Overflow Key
