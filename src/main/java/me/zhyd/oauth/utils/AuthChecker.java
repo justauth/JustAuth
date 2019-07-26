@@ -9,7 +9,7 @@ import me.zhyd.oauth.model.AuthResponseStatus;
  * 授权配置类的校验器
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.8
+ * @since 1.6.1-beta
  */
 public class AuthChecker {
 
@@ -19,6 +19,7 @@ public class AuthChecker {
      * @param config config
      * @param source source
      * @return true or false
+     * @since 1.6.1-beta
      */
     public static boolean isSupportedAuth(AuthConfig config, AuthSource source) {
         boolean isSupported = StringUtils.isNotEmpty(config.getClientId()) && StringUtils.isNotEmpty(config.getClientSecret()) && StringUtils.isNotEmpty(config.getRedirectUri());
@@ -36,6 +37,7 @@ public class AuthChecker {
      *
      * @param config config
      * @param source source
+     * @since 1.6.1-beta
      */
     public static void checkConfig(AuthConfig config, AuthSource source) {
         String redirectUri = config.getRedirectUri();
@@ -56,6 +58,7 @@ public class AuthChecker {
      * 校验回调传回的code
      *
      * @param code 回调时传回的code
+     * @since 1.8.0
      */
     public static void checkCode(String code) {
         if (StringUtils.isEmpty(code)) {

@@ -16,7 +16,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @author yangkai.shen (https://xkcoding.com)
- * @since 1.8
+ * @since 1.0.0
  */
 @Slf4j
 public abstract class AuthDefaultRequest implements AuthRequest {

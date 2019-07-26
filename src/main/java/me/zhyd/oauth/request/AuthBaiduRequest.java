@@ -15,7 +15,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * 百度账号登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.8
+ * @since 1.0.0
  */
 public class AuthBaiduRequest extends AuthDefaultRequest {
 

@@ -16,7 +16,7 @@ import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
  * 微软登录
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @since 1.5
+ * @since 1.5.0
  */
 public class AuthMicrosoftRequest extends AuthDefaultRequest {
     public AuthMicrosoftRequest(AuthConfig config) {

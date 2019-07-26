@@ -13,7 +13,7 @@ import me.zhyd.oauth.model.*;
  * Teambition授权登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.8
+ * @since 1.9.0
  */
 public class AuthTeambitionRequest extends AuthDefaultRequest {
 

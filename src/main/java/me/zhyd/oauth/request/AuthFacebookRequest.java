@@ -15,7 +15,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * Facebook登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.8
+ * @since 1.3.0
  */
 public class AuthFacebookRequest extends AuthDefaultRequest {
 

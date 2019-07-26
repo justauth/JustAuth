@@ -14,7 +14,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * 微信登录
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @since 1.8
+ * @since 1.1.0
  */
 public class AuthWeChatRequest extends AuthDefaultRequest {
     public AuthWeChatRequest(AuthConfig config) {

@@ -21,7 +21,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * 支付宝登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.8
+ * @since 1.0.1
  */
 public class AuthAlipayRequest extends AuthDefaultRequest {
 

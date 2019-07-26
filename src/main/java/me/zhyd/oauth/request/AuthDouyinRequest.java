@@ -15,7 +15,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * 抖音登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.8
+ * @since 1.4.0
  */
 public class AuthDouyinRequest extends AuthDefaultRequest {
 

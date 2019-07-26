@@ -16,7 +16,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * Google登录
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @since 1.3
+ * @since 1.3.0
  */
 public class AuthGoogleRequest extends AuthDefaultRequest {
 

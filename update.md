@@ -45,7 +45,7 @@
 2. 将CSDN相关的类置为`Deprecated`，后续可能会删除，也可能一直保留。毕竟CSDN的openAPI已经不对外开放了。
 3. `BaseAuthRequest` 改名为 `AuthDefaultRequest`
 4. `ResponseStatus` 改名为 `AuthResponseStatus` 并且移动到 `me.zhyd.oauth.model`
-5. 合并github上[@xkcoding](https://github.com/xkcoding) 的[pr#18](https://github.com/zhangyd-c/JustAuth/pull/18)，修复小米回调错误问题 同时 支持微信获取 
+5. 合并github上[@xkcoding](https://github.com/xkcoding) 的[pr#18](https://github.com/zhangyd-c/JustAuth/pull/18)，修复小米回调错误问题 同时 支持微信获取unionId 
 
 ### 2019/07/15  （[v1.8.1](https://gitee.com/yadong.zhang/JustAuth/releases/v1.8.1)）
 1. 新增 `AuthState` 类，内置默认的state生成规则和校验规则

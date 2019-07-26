@@ -18,7 +18,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * 领英登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.8
+ * @since 1.4.0
  */
 public class AuthLinkedinRequest extends AuthDefaultRequest {
 

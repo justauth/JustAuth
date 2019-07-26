@@ -14,7 +14,7 @@ import me.zhyd.oauth.model.AuthUser;
  * Gitee登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.8
+ * @since 1.0.0
  */
 public class AuthGiteeRequest extends AuthDefaultRequest {
 

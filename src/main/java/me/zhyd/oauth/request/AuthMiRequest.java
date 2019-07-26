@@ -18,7 +18,7 @@ import java.text.MessageFormat;
  * 小米登录
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @since 1.5
+ * @since 1.5.0
  */
 @Slf4j
 public class AuthMiRequest extends AuthDefaultRequest {

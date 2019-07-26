@@ -7,7 +7,7 @@ import lombok.Setter;
  * 授权回调时的参数类
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.8
+ * @since 1.8.0
  */
 @Getter
 @Setter

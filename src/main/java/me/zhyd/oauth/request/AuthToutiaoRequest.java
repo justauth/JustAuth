@@ -16,7 +16,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * 今日头条登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @since 1.5
+ * @since 1.6.0-beta
  */
 public class AuthToutiaoRequest extends AuthDefaultRequest {
 

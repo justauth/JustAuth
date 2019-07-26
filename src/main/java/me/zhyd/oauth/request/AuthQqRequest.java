@@ -20,7 +20,7 @@ import java.util.Map;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @author yangkai.shen (https://xkcoding.com)
- * @since 1.8
+ * @since 1.1.0
  */
 public class AuthQqRequest extends AuthDefaultRequest {
     public AuthQqRequest(AuthConfig config) {
@@ -68,6 +68,13 @@ public class AuthQqRequest extends AuthDefaultRequest {
             .build();
     }
 
+    /**
+     * 获取QQ用户的OpenId，支持自定义是否启用查询unionid的功能，如果启用查询unionid的功能，
+     * 那就需要调用者先通过邮件申请unionid功能，参考链接 {@see http://wiki.connect.qq.com/unionid%E4%BB%8B%E7%BB%8D}
+     *
+     * @param authToken 通过{@link AuthQqRequest#getAccessToken(AuthCallback)}获取到的{@code authToken}
+     * @return openId
+     */
     private String getOpenId(AuthToken authToken) {
         HttpResponse response = HttpRequest.get(UrlBuilder.fromBaseUrl("https://graph.qq.com/oauth2.0/me")
             .queryParam("access_token", authToken.getAccessToken())
