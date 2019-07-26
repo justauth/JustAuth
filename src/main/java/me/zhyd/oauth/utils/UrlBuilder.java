@@ -14,7 +14,6 @@ import java.util.Map;
  * </p>
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @version 1.0
  * @since 1.8
  */
 @Setter

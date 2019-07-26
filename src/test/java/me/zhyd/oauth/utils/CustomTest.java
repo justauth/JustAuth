@@ -13,9 +13,6 @@ import java.util.Map;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
- * @website https://www.zhyd.me
- * @date 2019/7/19 15:52
  * @since 1.8
  */
 public class CustomTest {

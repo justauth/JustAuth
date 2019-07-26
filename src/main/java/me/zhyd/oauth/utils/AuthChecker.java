@@ -9,7 +9,6 @@ import me.zhyd.oauth.model.AuthResponseStatus;
  * 授权配置类的校验器
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
  * @since 1.8
  */
 public class AuthChecker {

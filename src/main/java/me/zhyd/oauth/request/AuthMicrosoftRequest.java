@@ -16,7 +16,6 @@ import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
  * 微软登录
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @version 1.5
  * @since 1.5
  */
 public class AuthMicrosoftRequest extends AuthDefaultRequest {
@@ -106,6 +105,7 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
      *
      * @param state state 验证授权流程的参数，可以防止csrf
      * @return 返回授权地址
+     * @since 1.9.3
      */
     @Override
     public String authorize(String state) {

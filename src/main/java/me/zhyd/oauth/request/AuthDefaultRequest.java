@@ -16,7 +16,6 @@ import me.zhyd.oauth.utils.UrlBuilder;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @author yangkai.shen (https://xkcoding.com)
- * @version 1.0
  * @since 1.8
  */
 @Slf4j
@@ -67,6 +66,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * 建议使用{@link AuthDefaultRequest#authorize(String)}方法生成授权地址，在回调方法中对{@code state}进行校验
      *
      * @return 返回授权地址
+     * @see AuthDefaultRequest#authorize(String)
      */
     @Deprecated
     @Override
@@ -79,6 +79,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      *
      * @param state state 验证授权流程的参数，可以防止csrf
      * @return 返回授权地址
+     * @since 1.9.3
      */
     @Override
     public String authorize(String state) {
@@ -178,6 +179,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @param authToken token封装
      * @return HttpResponse
      */
+    @Deprecated
     protected HttpResponse doPostUserInfo(AuthToken authToken) {
         return HttpRequest.post(userInfoUrl(authToken)).execute();
     }
@@ -197,7 +199,9 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      *
      * @param authToken token封装
      * @return HttpResponse
+     * @since
      */
+    @Deprecated
     protected HttpResponse doPostRevoke(AuthToken authToken) {
         return HttpRequest.post(revokeUrl(authToken)).execute();
     }

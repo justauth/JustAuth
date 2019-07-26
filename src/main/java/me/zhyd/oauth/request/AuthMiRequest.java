@@ -18,7 +18,6 @@ import java.text.MessageFormat;
  * 小米登录
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @version 1.5
  * @since 1.5
  */
 @Slf4j
@@ -113,6 +112,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
      *
      * @param state state 验证授权流程的参数，可以防止csrf
      * @return 返回授权地址
+     * @since 1.9.3
      */
     @Override
     public String authorize(String state) {

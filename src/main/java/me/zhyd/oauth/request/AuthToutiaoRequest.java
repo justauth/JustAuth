@@ -16,7 +16,6 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * 今日头条登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.5
  * @since 1.5
  */
 public class AuthToutiaoRequest extends AuthDefaultRequest {
@@ -69,6 +68,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
      *
      * @param state state 验证授权流程的参数，可以防止csrf
      * @return 返回授权地址
+     * @since 1.9.3
      */
     @Override
     public String authorize(String state) {

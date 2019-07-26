@@ -21,7 +21,6 @@ import java.util.*;
  * 全局的工具类
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
  * @since 1.8
  */
 public class GlobalAuthUtil {

@@ -20,7 +20,6 @@ import java.util.Map;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @author yangkai.shen (https://xkcoding.com)
- * @version 1.0
  * @since 1.8
  */
 public class AuthQqRequest extends AuthDefaultRequest {

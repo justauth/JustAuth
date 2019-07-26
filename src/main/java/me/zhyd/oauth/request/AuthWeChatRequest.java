@@ -14,7 +14,6 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * 微信登录
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @version 1.0
  * @since 1.8
  */
 public class AuthWeChatRequest extends AuthDefaultRequest {
@@ -104,6 +103,7 @@ public class AuthWeChatRequest extends AuthDefaultRequest {
      *
      * @param state state 验证授权流程的参数，可以防止csrf
      * @return 返回授权地址
+     * @since 1.9.3
      */
     @Override
     public String authorize(String state) {

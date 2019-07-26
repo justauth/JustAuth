@@ -18,7 +18,6 @@ import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
  * Stack Overflow登录
  *
  * @author hongwei.peng (pengisgood(at)gmail(dot)com)
- * @version 1.9.0
  * @since 1.8
  */
 public class AuthStackOverflowRequest extends AuthDefaultRequest {
@@ -72,6 +71,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
      *
      * @param state state 验证授权流程的参数，可以防止csrf
      * @return 返回授权地址
+     * @since 1.9.3
      */
     @Override
     public String authorize(String state) {

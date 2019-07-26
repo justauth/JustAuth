@@ -1,3 +1,8 @@
+### 2019/07/27
+
+1. `IpUtils.getIp`改名为`IpUtils.getLocalIp`
+2. 规范注释
+
 ### 2019/07/25
 
 1. `AuthConfig`类中去掉state参数
