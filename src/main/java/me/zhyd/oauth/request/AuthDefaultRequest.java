@@ -206,7 +206,6 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      *
      * @param authToken token封装
      * @return HttpResponse
-     * @since
      */
     @Deprecated
     protected HttpResponse doPostRevoke(AuthToken authToken) {

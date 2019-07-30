@@ -9,7 +9,7 @@ package me.zhyd.oauth.utils;
 public class AuthStateUtils {
 
     /**
-     * 生成随机state，采用{@see https://github.com/lets-mica/mica}的UUID工具
+     * 生成随机state，采用https://github.com/lets-mica/mica的UUID工具
      *
      * @return 随机的state字符串
      */

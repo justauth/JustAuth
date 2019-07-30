@@ -122,7 +122,7 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
     /**
      * 返回获取accessToken的url
      *
-     * @param code
+     * @param code 授权code
      * @return 返回获取accessToken的url
      */
     @Override
