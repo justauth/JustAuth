@@ -1,10 +1,10 @@
 package me.zhyd.oauth.utils;
 
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthCallback;
-import me.zhyd.oauth.model.AuthResponseStatus;
 
 /**
  * 授权配置类的校验器
@@ -69,11 +69,9 @@ public class AuthChecker {
 
     /**
      * 校验回调传回的state
-     *
-     * @param authCallback 回调
      */
-    public static void checkState(AuthCallback authCallback) {
-        if (!authCallback.checkState()) {
+    public static void checkState(String state) {
+        if (!AuthStateCache.containsKey(state)) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
         }
     }
