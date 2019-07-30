@@ -69,9 +69,11 @@ public class AuthChecker {
 
     /**
      * 校验回调传回的state
+     *
+     * @param state {@code state}一定不为空
      */
     public static void checkState(String state) {
-        if (!AuthStateCache.containsKey(state)) {
+        if (StringUtils.isEmpty(state) || !AuthStateCache.containsKey(state)) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
         }
     }
