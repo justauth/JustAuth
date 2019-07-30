@@ -3,7 +3,7 @@ package me.zhyd.oauth.request;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.model.AuthResponseStatus;
+import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.model.AuthToken;
 
 /**

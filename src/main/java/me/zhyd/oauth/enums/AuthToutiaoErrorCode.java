@@ -12,6 +12,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum AuthToutiaoErrorCode {
+    /**
+     * 0：正常；
+     * other：调用异常，具体异常内容见{@code desc}
+     */
     EC0(0, "接口调用成功"),
     EC1(1, "API配置错误，未传入Client Key"),
     EC2(2, "API配置错误，Client Key错误，请检查是否和开放平台的ClientKey一致"),

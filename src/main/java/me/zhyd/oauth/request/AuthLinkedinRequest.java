@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.*;
@@ -112,7 +113,6 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
      * @return 用户的邮箱地址
      */
     private String getUserEmail(String accessToken) {
-        String email = null;
         HttpResponse emailResponse = HttpRequest.get("https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))")
             .header("Host", "api.linkedin.com")
             .header("Connection", "Keep-Alive")

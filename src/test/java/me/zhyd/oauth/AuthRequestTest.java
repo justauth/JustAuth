@@ -21,7 +21,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         authRequest.login(new AuthCallback());
     }
@@ -36,7 +35,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         authRequest.login(new AuthCallback());
     }
@@ -51,7 +49,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         authRequest.login(new AuthCallback());
     }
@@ -66,7 +63,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         authRequest.login(new AuthCallback());
     }
@@ -81,7 +77,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         authRequest.login(new AuthCallback());
     }
@@ -96,7 +91,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         authRequest.login(new AuthCallback());
     }
@@ -111,7 +105,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         authRequest.login(new AuthCallback());
     }
@@ -126,7 +119,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         authRequest.login(new AuthCallback());
     }
@@ -142,7 +134,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }
@@ -157,7 +148,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }
@@ -172,7 +162,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }
@@ -187,7 +176,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }
@@ -202,7 +190,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }
@@ -217,7 +204,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }
@@ -232,7 +218,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }
@@ -247,7 +232,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }
@@ -262,7 +246,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }
@@ -277,7 +260,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }
@@ -292,7 +274,6 @@ public class AuthRequestTest {
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
         // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的入参
-        // 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
         // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
         AuthResponse login = authRequest.login(new AuthCallback());
     }

@@ -1,7 +1,7 @@
 package me.zhyd.oauth.config;
 
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthResponseStatus;
+import me.zhyd.oauth.enums.AuthResponseStatus;
 
 /**
  * 各api需要的url， 用枚举类分平台类型管理

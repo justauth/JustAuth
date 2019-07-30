@@ -1,3 +1,10 @@
+### 2019/07/30 （[v1.9.4](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.4)）
+
+1. 升级`hutool-http`版本到`v4.6.1`
+2. 去除`AuthCallback`中增加的默认的校验state的方法，挪到`AuthDefaultRequest`中做统一处理
+3. `alipay-sdk-java`依赖改为`provided`，如果需要使用支付宝登录，需要使用方手动引入相关依赖，具体操作方式，见项目WIKI；
+4. 规范注释
+
 ### 2019/07/30 （[v1.9.3](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.3)）
 
 1. 规范注释
@@ -18,7 +25,7 @@
 3. 增加`authorize(String)`方法，并且使用`@Deprecated`标记`authorize()`方法
 
 ### 2019/07/22  （[v1.9.2](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.2)）
-1. 合并github上[@xkcoding](https://github.com/xkcoding) 的[pr#26](https://github.com/zhangyd-c/JustAuth/pull/26)，AuthConfig类添加lombok注解，方便 [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter) 直接使用 
+1. 合并github上[xkcoding](https://github.com/xkcoding) 的[pr#26](https://github.com/zhangyd-c/JustAuth/pull/26)，AuthConfig类添加lombok注解，方便 [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter) 直接使用 
 
 ### 2019/07/22  （[v1.9.1](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.1)）
 1. 增加`stackoverflow`参数校验

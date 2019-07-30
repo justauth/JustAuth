@@ -13,7 +13,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
 import java.util.Objects;
 
 import static me.zhyd.oauth.config.AuthSource.RENREN;
-import static me.zhyd.oauth.model.AuthResponseStatus.SUCCESS;
+import static me.zhyd.oauth.enums.AuthResponseStatus.SUCCESS;
 
 /**
  * 人人登录

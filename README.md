@@ -6,7 +6,7 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
-		<img src="https://img.shields.io/badge/Maven Central-1.9.3-blue.svg" ></img>
+		<img src="https://img.shields.io/badge/Maven Central-1.9.4-blue.svg" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
@@ -15,7 +15,7 @@
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
 	</a>
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/">
-		<img src="https://img.shields.io/badge/Docs-1.9.3-orange.svg" ></img>
+		<img src="https://img.shields.io/badge/Docs-1.9.4-orange.svg" ></img>
 	</a>
 </p>
 
@@ -76,7 +76,7 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.9.3</version>
+    <version>1.9.4</version>
 </dependency>
 ```
 - 调用api
@@ -86,12 +86,10 @@ AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
         .clientId("clientId")
         .clientSecret("clientSecret")
         .redirectUri("redirectUri")
-        .state("state")
         .build());
 // 生成授权页面
 authRequest.authorize();
 // 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的参数
-// 1.9.3版本后 如果需要验证state，可以在login之前调用{@see AuthCallback#checkState}方法校验state合法性
 // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
 authRequest.login(callback);
 ```
@@ -104,6 +102,10 @@ authRequest.login(callback);
 **扩展工具**
 
 - [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot 集成 JustAuth 的最佳实践
+
+**配套SpringBoot starter**：
+
+[justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter)
 
 具体的例子可以参考：
 
