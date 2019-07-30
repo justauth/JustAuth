@@ -86,7 +86,6 @@ AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
         .clientId("clientId")
         .clientSecret("clientSecret")
         .redirectUri("redirectUri")
-        .state("state")
         .build());
 // 生成授权页面
 authRequest.authorize();
