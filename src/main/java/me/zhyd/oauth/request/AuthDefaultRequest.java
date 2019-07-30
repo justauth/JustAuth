@@ -72,6 +72,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
                 throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
             }
             AuthChecker.checkCode(source == AuthSource.ALIPAY ? authCallback.getAuth_code() : authCallback.getCode());
+            AuthChecker.checkState(authCallback);
 
             AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
