@@ -3,7 +3,7 @@ package me.zhyd.oauth.utils;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.AuthResponseStatus;
+import me.zhyd.oauth.enums.AuthResponseStatus;
 
 /**
  * 授权配置类的校验器

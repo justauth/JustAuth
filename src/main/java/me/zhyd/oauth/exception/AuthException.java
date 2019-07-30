@@ -1,8 +1,10 @@
 package me.zhyd.oauth.exception;
 
-import me.zhyd.oauth.model.AuthResponseStatus;
+import me.zhyd.oauth.enums.AuthResponseStatus;
 
 /**
+ * JustAuth通用异常类
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @since 1.8
  */

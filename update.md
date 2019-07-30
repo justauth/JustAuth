@@ -1,3 +1,10 @@
+### 2019/07/30 （[v1.9.4](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.4)）
+
+1. 升级`hutool-http`版本到`v4.6.1`
+2. 去除`AuthCallback`中增加的默认的校验state的方法，挪到`AuthDefaultRequest`中做统一处理
+3. `alipay-sdk-java`依赖改为`provided`，如果需要使用支付宝登录，需要使用方手动引入相关依赖，具体操作方式，见项目WIKI；
+4. 规范注释
+
 ### 2019/07/30 （[v1.9.3](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.3)）
 
 1. 规范注释

@@ -2,7 +2,7 @@ package me.zhyd.oauth.model;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import me.zhyd.oauth.enums.AuthResponseStatus;
 
 /**
  * JustAuth统一授权响应类
