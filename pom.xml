@@ -54,7 +54,7 @@
     <maven-source.version>2.2.1</maven-source.version>
     <maven-compiler.version>3.7.0</maven-compiler.version>
     <maven.test.skip>true</maven.test.skip>
-    <hutool-version>4.6.0</hutool-version>
+    <hutool-version>4.6.1</hutool-version>
     <lombok-version>1.18.4</lombok-version>
     <junit-version>4.11</junit-version>
     <fastjson-version>1.2.58</fastjson-version>
@@ -89,7 +89,7 @@
       <groupId>com.alipay.sdk</groupId>
       <artifactId>alipay-sdk-java</artifactId>
       <version>${alipay-sdk-version}</version>
-      <scope>compile</scope>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>

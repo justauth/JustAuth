@@ -92,6 +92,7 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
      * @param authToken token
      * @return 返回获取userInfo的url
      */
+    @Override
     protected String userInfoUrl(AuthToken authToken) {
         return UrlBuilder.fromBaseUrl(source.userInfo())
             .queryParam("access_token", authToken.getAccessToken())

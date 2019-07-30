@@ -3,6 +3,7 @@ package me.zhyd.oauth.utils;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponseStatus;
 
 /**
@@ -22,7 +23,8 @@ public class AuthChecker {
      * @since 1.6.1-beta
      */
     public static boolean isSupportedAuth(AuthConfig config, AuthSource source) {
-        boolean isSupported = StringUtils.isNotEmpty(config.getClientId()) && StringUtils.isNotEmpty(config.getClientSecret()) && StringUtils.isNotEmpty(config.getRedirectUri());
+        boolean isSupported = StringUtils.isNotEmpty(config.getClientId()) && StringUtils.isNotEmpty(config.getClientSecret()) && StringUtils
+            .isNotEmpty(config.getRedirectUri());
         if (isSupported && AuthSource.ALIPAY == source) {
             isSupported = StringUtils.isNotEmpty(config.getAlipayPublicKey());
         }
@@ -63,6 +65,17 @@ public class AuthChecker {
     public static void checkCode(String code) {
         if (StringUtils.isEmpty(code)) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_CODE);
+        }
+    }
+
+    /**
+     * 校验回调传回的state
+     *
+     * @param authCallback 回调
+     */
+    public static void checkState(AuthCallback authCallback) {
+        if (!authCallback.checkState()) {
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
         }
     }
 }
