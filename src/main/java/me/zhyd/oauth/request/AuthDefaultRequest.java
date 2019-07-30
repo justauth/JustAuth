@@ -3,6 +3,7 @@ package me.zhyd.oauth.request;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.exception.AuthException;
@@ -10,6 +11,7 @@ import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.AuthChecker;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
+import me.zhyd.oauth.utils.UuidUtils;
 
 /**
  * 默认的request处理类
@@ -60,7 +62,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     }
 
     /**
-     * 返回认证url，可自行跳转页面
+     * 返回授权url，可自行跳转页面
      * <p>
      * 不建议使用该方式获取授权地址，不带{@code state}的授权地址，容易受到csrf攻击。
      * 建议使用{@link AuthDefaultRequest#authorize(String)}方法生成授权地址，在回调方法中对{@code state}进行校验
@@ -75,7 +77,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     }
 
     /**
-     * 返回带{@code state}参数的认证url，授权回调时会带上这个{@code state}
+     * 返回带{@code state}参数的授权url，授权回调时会带上这个{@code state}
      *
      * @param state state 验证授权流程的参数，可以防止csrf
      * @return 返回授权地址
@@ -150,7 +152,12 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return 返回不为null的state
      */
     protected String getRealState(String state) {
-        return StringUtils.isEmpty(state) ? String.valueOf(System.currentTimeMillis()) : state;
+        if (StringUtils.isEmpty(state)) {
+            state = UuidUtils.getUUID();
+        }
+        // 缓存state
+        AuthStateCache.cache(state, state);
+        return state;
     }
 
     /**

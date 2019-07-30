@@ -1,3 +1,11 @@
+### 2019/07/30 （[v1.9.3](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.3)）
+
+1. 规范注释
+2. 增加State缓存，`AuthCallback`中增加默认的校验state的方法
+3. 增加默认的state生成方法，参考`AuthStateUtils.java`和`UuidUtils.java`
+4. 升级`hutool-http`版本到`v4.6.0`
+5. 修复其他一些问题
+
 ### 2019/07/27
 
 1. `IpUtils.getIp`改名为`IpUtils.getLocalIp`

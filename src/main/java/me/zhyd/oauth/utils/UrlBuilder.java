@@ -71,7 +71,7 @@ public class UrlBuilder {
         if (MapUtil.isEmpty(this.params)) {
             return this.baseUrl;
         }
-        String baseUrl = StrUtil.addSuffixIfNot(this.baseUrl, "?");
+        String baseUrl = StringUtils.appendIfNotContain(this.baseUrl, "?", "&");
         String paramString = GlobalAuthUtil.parseMapToString(this.params, encode);
         return baseUrl + paramString;
     }
