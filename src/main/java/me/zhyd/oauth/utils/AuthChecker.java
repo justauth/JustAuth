@@ -23,8 +23,7 @@ public class AuthChecker {
      * @since 1.6.1-beta
      */
     public static boolean isSupportedAuth(AuthConfig config, AuthSource source) {
-        boolean isSupported = StringUtils.isNotEmpty(config.getClientId()) && StringUtils.isNotEmpty(config.getClientSecret()) && StringUtils
-            .isNotEmpty(config.getRedirectUri());
+        boolean isSupported = StringUtils.isNotEmpty(config.getClientId()) && StringUtils.isNotEmpty(config.getClientSecret()) && StringUtils.isNotEmpty(config.getRedirectUri());
         if (isSupported && AuthSource.ALIPAY == source) {
             isSupported = StringUtils.isNotEmpty(config.getAlipayPublicKey());
         }
