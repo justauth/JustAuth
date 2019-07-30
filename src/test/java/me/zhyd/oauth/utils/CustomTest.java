@@ -1,7 +1,6 @@
 package me.zhyd.oauth.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import org.junit.Test;
@@ -12,11 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 其他测试方法
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
- * @website https://www.zhyd.me
- * @date 2019/7/19 15:52
- * @since 1.8
  */
 public class CustomTest {
 
@@ -71,7 +68,7 @@ public class CustomTest {
     }
 
     @Test
-    public void jsonpath(){
+    public void jsonpath() {
         List<Map<String, Map<String, Object>>> list = new ArrayList<>();
 
         Map<String, Map<String, Object>> map = new HashMap<>();

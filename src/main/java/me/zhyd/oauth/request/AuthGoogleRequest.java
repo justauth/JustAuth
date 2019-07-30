@@ -16,8 +16,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * Google登录
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @version 1.3
- * @since 1.3
+ * @since 1.3.0
  */
 public class AuthGoogleRequest extends AuthDefaultRequest {
 
@@ -61,19 +60,20 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
     }
 
     /**
-     * 返回认证url，可自行跳转页面
-     * https://openidconnect.googleapis.com/v1/userinfo
+     * 返回带{@code state}参数的授权url，授权回调时会带上这个{@code state}
      *
+     * @param state state 验证授权流程的参数，可以防止csrf
      * @return 返回授权地址
+     * @since 1.9.3
      */
     @Override
-    public String authorize() {
+    public String authorize(String state) {
         return UrlBuilder.fromBaseUrl(source.authorize())
             .queryParam("response_type", "code")
             .queryParam("client_id", config.getClientId())
             .queryParam("scope", "openid%20email%20profile")
             .queryParam("redirect_uri", config.getRedirectUri())
-            .queryParam("state", getRealState(config.getState()))
+            .queryParam("state", getRealState(state))
             .build();
     }
 

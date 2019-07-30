@@ -8,7 +8,6 @@ import lombok.Setter;
  * JustAuth统一授权响应类
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
  * @since 1.8
  */
 @Getter

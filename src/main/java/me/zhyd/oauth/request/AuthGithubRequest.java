@@ -17,8 +17,7 @@ import java.util.Map;
  * Github登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
- * @since 1.8
+ * @since 1.0.0
  */
 public class AuthGithubRequest extends AuthDefaultRequest {
 
@@ -63,12 +62,4 @@ public class AuthGithubRequest extends AuthDefaultRequest {
             .build();
     }
 
-    /**
-     * 检查响应内容是否正确
-     *
-     * @param object 请求响应内容
-     */
-    private void checkResponse(JSONObject object) {
-
-    }
 }

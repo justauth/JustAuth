@@ -15,8 +15,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * oschina登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
- * @since 1.8
+ * @since 1.0.0
  */
 public class AuthOschinaRequest extends AuthDefaultRequest {
 
@@ -59,7 +58,7 @@ public class AuthOschinaRequest extends AuthDefaultRequest {
     /**
      * 返回获取accessToken的url
      *
-     * @param code
+     * @param code 授权回调时带回的授权码
      * @return 返回获取accessToken的url
      */
     @Override

@@ -7,8 +7,7 @@ import java.net.UnknownHostException;
  * 获取IP的工具类
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
- * @since 1.0
+ * @since 1.0.0
  */
 public class IpUtils {
 
@@ -17,7 +16,7 @@ public class IpUtils {
      *
      * @return ip
      */
-    public static String getIp() {
+    public static String getLocalIp() {
         try {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {

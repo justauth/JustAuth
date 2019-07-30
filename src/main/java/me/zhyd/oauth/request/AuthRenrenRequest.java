@@ -19,8 +19,7 @@ import static me.zhyd.oauth.model.AuthResponseStatus.SUCCESS;
  * 人人登录
  *
  * @author hongwei.peng (pengisgood(at)gmail(dot)com)
- * @version 1.9.0
- * @since 1.8
+ * @since 1.9.0
  */
 public class AuthRenrenRequest extends AuthDefaultRequest {
 

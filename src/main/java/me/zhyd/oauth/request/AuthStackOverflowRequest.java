@@ -18,8 +18,7 @@ import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
  * Stack Overflow登录
  *
  * @author hongwei.peng (pengisgood(at)gmail(dot)com)
- * @version 1.9.0
- * @since 1.8
+ * @since 1.9.0
  */
 public class AuthStackOverflowRequest extends AuthDefaultRequest {
 
@@ -67,14 +66,21 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .build();
     }
 
+    /**
+     * 返回带{@code state}参数的授权url，授权回调时会带上这个{@code state}
+     *
+     * @param state state 验证授权流程的参数，可以防止csrf
+     * @return 返回授权地址
+     * @since 1.9.3
+     */
     @Override
-    public String authorize() {
+    public String authorize(String state) {
         return UrlBuilder.fromBaseUrl(source.authorize())
             .queryParam("response_type", "code")
             .queryParam("client_id", config.getClientId())
             .queryParam("redirect_uri", config.getRedirectUri())
-            .queryParam("state", getRealState(config.getState()))
             .queryParam("scope", "read_inbox")
+            .queryParam("state", getRealState(state))
             .build();
     }
 

@@ -8,17 +8,30 @@ import me.zhyd.oauth.model.AuthToken;
 
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
  * @since 1.8
  */
 public interface AuthRequest {
 
     /**
-     * 返回认证url，可自行跳转页面
+     * 返回授权url，可自行跳转页面
+     * <p>
+     * 不建议使用该方式获取授权地址，不带{@code state}的授权地址，容易受到csrf攻击。
+     * 建议使用{@link AuthDefaultRequest#authorize(String)}方法生成授权地址，在回调方法中对{@code state}进行校验
      *
      * @return 返回授权地址
      */
+    @Deprecated
     default String authorize() {
+        throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
+    }
+
+    /**
+     * 返回带{@code state}参数的授权url，授权回调时会带上这个{@code state}
+     *
+     * @param state state 验证授权流程的参数，可以防止csrf
+     * @return 返回授权地址
+     */
+    default String authorize(String state) {
         throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 

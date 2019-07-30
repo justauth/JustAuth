@@ -14,8 +14,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * 微信登录
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @version 1.0
- * @since 1.8
+ * @since 1.1.0
  */
 public class AuthWeChatRequest extends AuthDefaultRequest {
     public AuthWeChatRequest(AuthConfig config) {
@@ -100,18 +99,20 @@ public class AuthWeChatRequest extends AuthDefaultRequest {
     }
 
     /**
-     * 返回认证url，可自行跳转页面
+     * 返回带{@code state}参数的授权url，授权回调时会带上这个{@code state}
      *
+     * @param state state 验证授权流程的参数，可以防止csrf
      * @return 返回授权地址
+     * @since 1.9.3
      */
     @Override
-    public String authorize() {
+    public String authorize(String state) {
         return UrlBuilder.fromBaseUrl(source.authorize())
             .queryParam("response_type", "code")
             .queryParam("appid", config.getClientId())
             .queryParam("redirect_uri", config.getRedirectUri())
             .queryParam("scope", "snsapi_login")
-            .queryParam("state", getRealState(config.getState()).concat("#wechat_redirect"))
+            .queryParam("state", getRealState(state))
             .build();
     }
 

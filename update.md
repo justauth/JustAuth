@@ -1,3 +1,22 @@
+### 2019/07/30 （[v1.9.3](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.3)）
+
+1. 规范注释
+2. 增加State缓存，`AuthCallback`中增加默认的校验state的方法
+3. 增加默认的state生成方法，参考`AuthStateUtils.java`和`UuidUtils.java`
+4. 升级`hutool-http`版本到`v4.6.0`
+5. 修复其他一些问题
+
+### 2019/07/27
+
+1. `IpUtils.getIp`改名为`IpUtils.getLocalIp`
+2. 规范注释
+
+### 2019/07/25
+
+1. `AuthConfig`类中去掉state参数
+2. 删除`AuthState`类
+3. 增加`authorize(String)`方法，并且使用`@Deprecated`标记`authorize()`方法
+
 ### 2019/07/22  （[v1.9.2](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.2)）
 1. 合并github上[xkcoding](https://github.com/xkcoding) 的[pr#26](https://github.com/zhangyd-c/JustAuth/pull/26)，AuthConfig类添加lombok注解，方便 [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter) 直接使用 
 
@@ -34,7 +53,7 @@
 2. 将CSDN相关的类置为`Deprecated`，后续可能会删除，也可能一直保留。毕竟CSDN的openAPI已经不对外开放了。
 3. `BaseAuthRequest` 改名为 `AuthDefaultRequest`
 4. `ResponseStatus` 改名为 `AuthResponseStatus` 并且移动到 `me.zhyd.oauth.model`
-5. 合并github上[@xkcoding](https://github.com/xkcoding) 的[pr#18](https://github.com/zhangyd-c/JustAuth/pull/18)，修复小米回调错误问题 同时 支持微信获取 
+5. 合并github上[@xkcoding](https://github.com/xkcoding) 的[pr#18](https://github.com/zhangyd-c/JustAuth/pull/18)，修复小米回调错误问题 同时 支持微信获取unionId 
 
 ### 2019/07/15  （[v1.8.1](https://gitee.com/yadong.zhang/JustAuth/releases/v1.8.1)）
 1. 新增 `AuthState` 类，内置默认的state生成规则和校验规则

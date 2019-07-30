@@ -14,8 +14,7 @@ import java.util.Map;
  * </p>
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @version 1.0
- * @since 1.8
+ * @since 1.9.0
  */
 @Setter
 public class UrlBuilder {
@@ -72,7 +71,7 @@ public class UrlBuilder {
         if (MapUtil.isEmpty(this.params)) {
             return this.baseUrl;
         }
-        String baseUrl = StrUtil.addSuffixIfNot(this.baseUrl, "?");
+        String baseUrl = StringUtils.appendIfNotContain(this.baseUrl, "?", "&");
         String paramString = GlobalAuthUtil.parseMapToString(this.params, encode);
         return baseUrl + paramString;
     }
