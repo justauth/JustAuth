@@ -6,7 +6,7 @@
 
   <groupId>me.zhyd.oauth</groupId>
   <artifactId>JustAuth</artifactId>
-  <version>1.9.4</version>
+  <version>1.9.5</version>
 
   <name>JustAuth</name>
   <url>https://gitee.com/yadong.zhang/JustAuth</url>
@@ -52,8 +52,12 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven-source.version>2.2.1</maven-source.version>
-    <maven-compiler.version>3.7.0</maven-compiler.version>
-    <maven.test.skip>true</maven.test.skip>
+    <maven-compiler.version>3.8.1</maven-compiler.version>
+    <maven-javadoc.version>3.1.0</maven-javadoc.version>
+    <cobertura-version>2.7</cobertura-version>
+    <maven-surefire-version>2.20</maven-surefire-version>
+    <maven-gpg-version>1.6</maven-gpg-version>
+    <maven.test.skip>false</maven.test.skip>
     <hutool-version>4.6.1</hutool-version>
     <lombok-version>1.18.4</lombok-version>
     <junit-version>4.11</junit-version>
@@ -112,6 +116,7 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <version>${maven-source.version}</version>
         <inherited>true</inherited>
@@ -127,10 +132,30 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven-javadoc.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-version}</version>
+        <configuration>
+          <!-- 包含其他测试类 -->
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+          <!-- 排除掉AuthRequestTest测试类，该类只做api演示用 -->
+          <excludes>
+            <exclude>**/AuthRequestTest.java</exclude>
+          </excludes>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -154,20 +179,21 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>cobertura-maven-plugin</artifactId>
+            <version>${cobertura-version}</version>
+            <configuration>
+              <formats>
+                <format>html</format>
+                <format>xml</format>
+              </formats>
+              <check/>
+            </configuration>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-version}</version>
             <executions>
               <execution>
                 <phase>verify</phase>

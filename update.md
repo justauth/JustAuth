@@ -1,3 +1,10 @@
+### 2019/07/31 （[v1.9.5](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.5)）
+
+`v1.9.4`版本发布失败，请升级到`1.9.5`版本！
+
+由此给您带来的不便，敬请谅解！
+
+
 ### 2019/07/30 （[v1.9.4](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.4)）
 
 1. 升级`hutool-http`版本到`v4.6.1`
