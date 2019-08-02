@@ -76,7 +76,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     public AuthResponse login(AuthCallback authCallback) {
         try {
             AuthChecker.checkCode(source == AuthSource.ALIPAY ? authCallback.getAuth_code() : authCallback.getCode());
-            AuthChecker.checkState(authCallback.getState());
+            this.checkState(authCallback.getState());
 
             AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
@@ -158,12 +158,12 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     protected String refreshTokenUrl(String refreshToken) {
         return UrlBuilder.fromBaseUrl(source.refresh())
             .queryParam("client_id", config.getClientId())
-            .queryParam("client_secret", config.getClientSecret())
-            .queryParam("refresh_token", refreshToken)
+        .queryParam("client_secret", config.getClientSecret())
+        .queryParam("refresh_token", refreshToken)
             .queryParam("grant_type", "refresh_token")
             .queryParam("redirect_uri", config.getRedirectUri())
-            .build();
-    }
+        .build();
+}
 
     /**
      * 返回获取userInfo的url
@@ -260,5 +260,17 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     protected HttpResponse doGetRevoke(AuthToken authToken) {
         return HttpRequest.get(revokeUrl(authToken)).execute();
+    }
+
+
+    /**
+     * 校验回调传回的state
+     *
+     * @param state {@code state}一定不为空
+     */
+    protected void checkState(String state) {
+        if (StringUtils.isEmpty(state) || !authStateCache.containsKey(state)) {
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
+        }
     }
 }
