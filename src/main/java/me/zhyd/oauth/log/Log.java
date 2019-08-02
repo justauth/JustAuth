@@ -13,6 +13,12 @@ import java.time.format.DateTimeFormatter;
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @date 2019/8/1 17:14
+ * @see Log#debug(String)
+ * @see Log#debug(String, Throwable)
+ * @see Log#warn(String)
+ * @see Log#warn(String, Throwable)
+ * @see Log#error(String)
+ * @see Log#error(String, Throwable)
  * @since 1.8
  */
 public class Log {
@@ -41,6 +47,14 @@ public class Log {
         print(Level.ERROR, msg, t, System.err);
     }
 
+    /**
+     * 打印日志内容，格式：2019-08-02 20:44:07 main me.zhyd.oauth.log.Log(debug:39) [DEBUG] - xxxx
+     *
+     * @param level 日志级别
+     * @param msg   日志内容
+     * @param t     异常信息
+     * @param ps    实际执行打印的PrintStream
+     */
     private static void print(Level level, String msg, Throwable t, PrintStream ps) {
         if (Config.enable) {
             if (level.getLevelNum() >= Config.level.getLevelNum()) {
@@ -51,6 +65,11 @@ public class Log {
         }
     }
 
+    /**
+     * 获取调用方的信息
+     *
+     * @return 返回调用方的信息，格式：class(method:lineNumber)
+     */
     private static String getCaller() {
         int offset = 2;
         StackTraceElement[] stackTraceArr = (new Throwable()).getStackTrace();
@@ -67,10 +86,21 @@ public class Log {
             ")";
     }
 
+    /**
+     * 获取格式化后的日期
+     *
+     * @return string
+     */
     private static String getDate() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
+    /**
+     * 打印异常信息
+     *
+     * @param t            异常
+     * @param targetStream 实际执行打印的PrintStream
+     */
     private static void writeThrowable(Throwable t, PrintStream targetStream) {
         if (t != null) {
             t.printStackTrace(targetStream);
