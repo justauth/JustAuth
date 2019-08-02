@@ -3,6 +3,7 @@ package me.zhyd.oauth.request;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.cache.AuthDefaultStateCache;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
@@ -28,10 +29,16 @@ import me.zhyd.oauth.utils.UuidUtils;
 public abstract class AuthDefaultRequest implements AuthRequest {
     protected AuthConfig config;
     protected AuthSource source;
+    protected AuthStateCache authStateCache;
 
     public AuthDefaultRequest(AuthConfig config, AuthSource source) {
+        this(config, source, AuthDefaultStateCache.INSTANCE);
+    }
+
+    public AuthDefaultRequest(AuthConfig config, AuthSource source, AuthStateCache authStateCache) {
         this.config = config;
         this.source = source;
+        this.authStateCache = authStateCache;
         if (!AuthChecker.isSupportedAuth(config, source)) {
             throw new AuthException(AuthResponseStatus.PARAMETER_INCOMPLETE);
         }
@@ -189,7 +196,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
             state = UuidUtils.getUUID();
         }
         // 缓存state
-        AuthStateCache.cache(state, state);
+        authStateCache.cache(state, state);
         return state;
     }
 

@@ -13,6 +13,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public enum AuthCacheScheduler {
 
+    /**
+     * 当前实例
+     */
     INSTANCE;
 
     private AtomicInteger cacheTaskNumber = new AtomicInteger(1);
