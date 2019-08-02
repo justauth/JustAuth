@@ -3,6 +3,7 @@ package me.zhyd.oauth.request;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -24,6 +25,10 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
 
     public AuthStackOverflowRequest(AuthConfig config) {
         super(config, STACK_OVERFLOW);
+    }
+
+    public AuthStackOverflowRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, STACK_OVERFLOW, authStateCache);
     }
 
     @Override

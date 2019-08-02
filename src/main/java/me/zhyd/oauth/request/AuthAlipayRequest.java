@@ -7,6 +7,7 @@ import com.alipay.api.request.AlipaySystemOauthTokenRequest;
 import com.alipay.api.request.AlipayUserInfoShareRequest;
 import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.alipay.api.response.AlipayUserInfoShareResponse;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -29,6 +30,12 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
 
     public AuthAlipayRequest(AuthConfig config) {
         super(config, AuthSource.ALIPAY);
+        this.alipayClient = new DefaultAlipayClient(AuthSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
+            .getAlipayPublicKey(), "RSA2");
+    }
+
+    public AuthAlipayRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthSource.ALIPAY, authStateCache);
         this.alipayClient = new DefaultAlipayClient(AuthSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
             .getAlipayPublicKey(), "RSA2");
     }

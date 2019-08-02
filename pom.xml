@@ -238,13 +238,11 @@
       </build>
       <distributionManagement>
         <repository>
-          <id>releases</id>
-          <name>Nexus Release Repository</name>
+          <id>xkcoding-nexus</id>
           <url>https://nexus.xkcoding.com/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-          <id>snapshots</id>
-          <name>Nexus Snapshot Repository</name>
+          <id>xkcoding-nexus</id>
           <url>https://nexus.xkcoding.com/repository/maven-snapshots/</url>
         </snapshotRepository>
       </distributionManagement>

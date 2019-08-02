@@ -2,6 +2,7 @@ package me.zhyd.oauth.request;
 
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthToutiaoErrorCode;
@@ -22,6 +23,10 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
 
     public AuthToutiaoRequest(AuthConfig config) {
         super(config, AuthSource.TOUTIAO);
+    }
+
+    public AuthToutiaoRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthSource.TOUTIAO, authStateCache);
     }
 
     @Override
@@ -119,8 +124,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
      */
     private void checkResponse(JSONObject object) {
         if (object.containsKey("error_code")) {
-            throw new AuthException(AuthToutiaoErrorCode.getErrorCode(object.getIntValue("error_code"))
-                .getDesc());
+            throw new AuthException(AuthToutiaoErrorCode.getErrorCode(object.getIntValue("error_code")).getDesc());
         }
     }
 }

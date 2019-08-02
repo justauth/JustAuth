@@ -2,6 +2,7 @@ package me.zhyd.oauth.request;
 
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -23,6 +24,10 @@ public class AuthGithubRequest extends AuthDefaultRequest {
 
     public AuthGithubRequest(AuthConfig config) {
         super(config, AuthSource.GITHUB);
+    }
+
+    public AuthGithubRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthSource.GITHUB, authStateCache);
     }
 
     @Override

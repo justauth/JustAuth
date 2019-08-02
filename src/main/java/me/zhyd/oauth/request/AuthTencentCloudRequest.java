@@ -2,6 +2,7 @@ package me.zhyd.oauth.request;
 
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -21,6 +22,10 @@ public class AuthTencentCloudRequest extends AuthDefaultRequest {
 
     public AuthTencentCloudRequest(AuthConfig config) {
         super(config, AuthSource.TENCENT_CLOUD);
+    }
+
+    public AuthTencentCloudRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthSource.TENCENT_CLOUD, authStateCache);
     }
 
     @Override
