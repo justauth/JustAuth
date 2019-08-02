@@ -8,6 +8,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.log.Log;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
@@ -24,7 +25,6 @@ import me.zhyd.oauth.utils.UuidUtils;
  * @author yangkai.shen (https://xkcoding.com)
  * @since 1.0.0
  */
-@Slf4j
 public abstract class AuthDefaultRequest implements AuthRequest {
     protected AuthConfig config;
     protected AuthSource source;
@@ -75,7 +75,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
             AuthUser user = this.getUserInfo(authToken);
             return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
         } catch (Exception e) {
-            log.error("Failed to login with oauth authorization.", e);
+            Log.error("Failed to login with oauth authorization.", e);
             return this.responseError(e);
         }
     }

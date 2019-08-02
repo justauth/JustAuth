@@ -4,12 +4,12 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
-import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.log.Log;
 import me.zhyd.oauth.model.*;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -21,7 +21,6 @@ import java.text.MessageFormat;
  * @author yangkai.shen (https://xkcoding.com)
  * @since 1.5.0
  */
-@Slf4j
 public class AuthMiRequest extends AuthDefaultRequest {
     private static final String PREFIX = "&&&START&&&";
 
@@ -88,7 +87,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
             JSONObject emailPhone = userEmailPhone.getJSONObject("data");
             authUser.setEmail(emailPhone.getString("email"));
         } else {
-            log.warn("小米开发平台暂时不对外开放用户手机及邮箱信息的获取");
+            Log.warn("小米开发平台暂时不对外开放用户手机及邮箱信息的获取");
         }
 
         return authUser;
