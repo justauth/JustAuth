@@ -6,7 +6,7 @@
 
   <groupId>me.zhyd.oauth</groupId>
   <artifactId>JustAuth</artifactId>
-  <version>1.9.5</version>
+  <version>1.9.6-SNAPSHOT</version>
 
   <name>JustAuth</name>
   <url>https://gitee.com/yadong.zhang/JustAuth</url>
@@ -214,6 +214,39 @@
           <id>sonatype-nexus-staging</id>
           <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
+      </distributionManagement>
+    </profile>
+    <!--私服-->
+    <profile>
+      <id>nexus</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-version}</version>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <distributionManagement>
+        <repository>
+          <id>releases</id>
+          <name>Nexus Release Repository</name>
+          <url>https://nexus.xkcoding.com/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+          <id>snapshots</id>
+          <name>Nexus Snapshot Repository</name>
+          <url>https://nexus.xkcoding.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
       </distributionManagement>
     </profile>
   </profiles>
