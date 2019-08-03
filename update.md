@@ -1,3 +1,9 @@
+### 2019/08/02
+
+- 增加`AuthCache`配置类`AuthCacheConfig.java`，可以自定义缓存有效期以及是否开启定时任务
+- 去掉`slf4j`依赖，封装`Log.java`工具类
+- 规范测试类
+
 ### 2019/07/31 （[v1.9.5](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.5)）
 
 `v1.9.4`版本发布失败，请升级到`1.9.5`版本！

@@ -19,12 +19,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class AuthDefaultCache implements AuthCache {
 
     /**
-     * 默认缓存过期时间：3分钟
-     * 鉴于授权过程中，根据个人的操作习惯，或者授权平台的不同（google等），每个授权流程的耗时也有差异，不过单个授权流程一般不会太长
-     * 本缓存工具默认的过期时间设置为3分钟，即程序默认认为3分钟内的授权有效，超过3分钟则默认失效，失效后删除
-     */
-    private static final long DEF_TIMEOUT = 3 * 60 * 1000;
-    /**
      * state cache
      */
     private static Map<String, CacheState> stateCache = new ConcurrentHashMap<>();
@@ -33,7 +27,9 @@ public class AuthDefaultCache implements AuthCache {
     private final Lock readLock = cacheLock.readLock();
 
     public AuthDefaultCache() {
-        this.schedulePrune(DEF_TIMEOUT);
+        if (AuthCacheConfig.schedulePrune) {
+            this.schedulePrune(AuthCacheConfig.timeout);
+        }
     }
 
     /**
@@ -44,7 +40,7 @@ public class AuthDefaultCache implements AuthCache {
      */
     @Override
     public void set(String key, String value) {
-        set(key, value, DEF_TIMEOUT);
+        set(key, value, AuthCacheConfig.timeout);
     }
 
     /**

@@ -63,7 +63,7 @@
     <junit-version>4.11</junit-version>
     <fastjson-version>1.2.58</fastjson-version>
     <alipay-sdk-version>3.7.4.ALL</alipay-sdk-version>
-    <slf4j-version>1.7.25</slf4j-version>
+    <jacoco-version>0.8.2</jacoco-version>
   </properties>
 
   <dependencies>
@@ -94,11 +94,6 @@
       <artifactId>alipay-sdk-java</artifactId>
       <version>${alipay-sdk-version}</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>${slf4j-version}</version>
     </dependency>
   </dependencies>
 
@@ -189,6 +184,25 @@
               </formats>
               <check/>
             </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco-version}</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>prepare-agent</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>report</id>
+                <phase>test</phase>
+                <goals>
+                  <goal>report</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>

@@ -17,6 +17,15 @@
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/">
 		<img src="https://img.shields.io/badge/Docs-1.9.5-orange.svg" ></img>
 	</a>
+	<a href="https://codecov.io/gh/zhangyd-c/JustAuth">
+		<img src="https://codecov.io/gh/zhangyd-c/JustAuth/branch/master/graph/badge.svg" />
+	</a>
+	<a href='https://gitee.com/yadong.zhang/JustAuth/stargazers'>
+	  <img src='https://gitee.com/yadong.zhang/JustAuth/badge/star.svg?theme=white' alt='star'></img>
+	</a>
+	<a target="_blank" href='https://github.com/zhangyd-c/JustAuth'>
+		<img src="https://img.shields.io/github/stars/zhangyd-c/JustAuth.svg?style=social" alt="github star"></img>
+	</a>
 </p>
 
 <center>
