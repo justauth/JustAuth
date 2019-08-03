@@ -3,6 +3,7 @@ package me.zhyd.oauth.request;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.cache.AuthDefaultStateCache;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
@@ -28,10 +29,16 @@ import me.zhyd.oauth.utils.UuidUtils;
 public abstract class AuthDefaultRequest implements AuthRequest {
     protected AuthConfig config;
     protected AuthSource source;
+    protected AuthStateCache authStateCache;
 
     public AuthDefaultRequest(AuthConfig config, AuthSource source) {
+        this(config, source, AuthDefaultStateCache.INSTANCE);
+    }
+
+    public AuthDefaultRequest(AuthConfig config, AuthSource source, AuthStateCache authStateCache) {
         this.config = config;
         this.source = source;
+        this.authStateCache = authStateCache;
         if (!AuthChecker.isSupportedAuth(config, source)) {
             throw new AuthException(AuthResponseStatus.PARAMETER_INCOMPLETE);
         }
@@ -69,7 +76,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     public AuthResponse login(AuthCallback authCallback) {
         try {
             AuthChecker.checkCode(source == AuthSource.ALIPAY ? authCallback.getAuth_code() : authCallback.getCode());
-            AuthChecker.checkState(authCallback.getState());
+            this.checkState(authCallback.getState());
 
             AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
@@ -151,12 +158,12 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     protected String refreshTokenUrl(String refreshToken) {
         return UrlBuilder.fromBaseUrl(source.refresh())
             .queryParam("client_id", config.getClientId())
-            .queryParam("client_secret", config.getClientSecret())
-            .queryParam("refresh_token", refreshToken)
+        .queryParam("client_secret", config.getClientSecret())
+        .queryParam("refresh_token", refreshToken)
             .queryParam("grant_type", "refresh_token")
             .queryParam("redirect_uri", config.getRedirectUri())
-            .build();
-    }
+        .build();
+}
 
     /**
      * 返回获取userInfo的url
@@ -189,7 +196,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
             state = UuidUtils.getUUID();
         }
         // 缓存state
-        AuthStateCache.cache(state, state);
+        authStateCache.cache(state, state);
         return state;
     }
 
@@ -253,5 +260,17 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     protected HttpResponse doGetRevoke(AuthToken authToken) {
         return HttpRequest.get(revokeUrl(authToken)).execute();
+    }
+
+
+    /**
+     * 校验回调传回的state
+     *
+     * @param state {@code state}一定不为空
+     */
+    protected void checkState(String state) {
+        if (StringUtils.isEmpty(state) || !authStateCache.containsKey(state)) {
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
+        }
     }
 }

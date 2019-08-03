@@ -5,12 +5,16 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.model.*;
+import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.model.AuthResponse;
+import me.zhyd.oauth.model.AuthToken;
+import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -25,6 +29,10 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
 
     public AuthLinkedinRequest(AuthConfig config) {
         super(config, AuthSource.LINKEDIN);
+    }
+
+    public AuthLinkedinRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthSource.LINKEDIN, authStateCache);
     }
 
     @Override

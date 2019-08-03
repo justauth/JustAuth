@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
@@ -26,6 +27,10 @@ public class AuthMiRequest extends AuthDefaultRequest {
 
     public AuthMiRequest(AuthConfig config) {
         super(config, AuthSource.MI);
+    }
+
+    public AuthMiRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthSource.MI, authStateCache);
     }
 
     @Override

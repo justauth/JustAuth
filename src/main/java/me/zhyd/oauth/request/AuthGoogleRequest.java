@@ -3,6 +3,7 @@ package me.zhyd.oauth.request;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -22,6 +23,10 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
 
     public AuthGoogleRequest(AuthConfig config) {
         super(config, AuthSource.GOOGLE);
+    }
+
+    public AuthGoogleRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthSource.GOOGLE, authStateCache);
     }
 
     @Override

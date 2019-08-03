@@ -3,6 +3,7 @@ package me.zhyd.oauth.request;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -25,6 +26,10 @@ public class AuthWeiboRequest extends AuthDefaultRequest {
 
     public AuthWeiboRequest(AuthConfig config) {
         super(config, AuthSource.WEIBO);
+    }
+
+    public AuthWeiboRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthSource.WEIBO, authStateCache);
     }
 
     @Override

@@ -2,6 +2,7 @@ package me.zhyd.oauth.request;
 
 import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -21,6 +22,10 @@ public class AuthOschinaRequest extends AuthDefaultRequest {
 
     public AuthOschinaRequest(AuthConfig config) {
         super(config, AuthSource.OSCHINA);
+    }
+
+    public AuthOschinaRequest(AuthConfig config, AuthStateCache authStateCache) {
+        super(config, AuthSource.OSCHINA, authStateCache);
     }
 
     @Override
