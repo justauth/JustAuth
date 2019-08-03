@@ -1,9 +1,10 @@
 package me.zhyd.oauth.cache;
 
 /**
+ * 默认的state缓存实现
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
- * @since 1.8
+ * @since 1.9.6
  */
 public enum AuthDefaultStateCache implements AuthStateCache {
 

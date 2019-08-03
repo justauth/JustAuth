@@ -6,7 +6,7 @@ package me.zhyd.oauth.cache;
  * </p>
  *
  * @author yangkai.shen
- * @date Created in 2019-08-02 10:55
+ * @since 1.9.6
  */
 public interface AuthStateCache {
     /**

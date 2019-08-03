@@ -11,15 +11,13 @@ import java.time.format.DateTimeFormatter;
  * 针对JustAuth提供的轻量级的日志打印工具
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
- * @date 2019/8/1 17:14
  * @see Log#debug(String)
  * @see Log#debug(String, Throwable)
  * @see Log#warn(String)
  * @see Log#warn(String, Throwable)
  * @see Log#error(String)
  * @see Log#error(String, Throwable)
- * @since 1.8
+ * @since 1.9.6
  */
 public class Log {
 
@@ -111,9 +109,7 @@ public class Log {
      * 日志级别
      *
      * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
-     * @version 1.0
-     * @date 2019/8/2 19:49
-     * @since 1.8
+     * @since 1.9.6
      */
     @Getter
     @AllArgsConstructor
@@ -138,9 +134,7 @@ public class Log {
      * 日志配置
      *
      * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
-     * @version 1.0
-     * @date 2019/8/1 17:14
-     * @since 1.8
+     * @since 1.9.6
      */
     static class Config {
 

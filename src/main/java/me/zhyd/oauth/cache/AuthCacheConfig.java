@@ -4,9 +4,7 @@ package me.zhyd.oauth.cache;
  * AuthCache配置类
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
- * @version 1.0
- * @date 2019/8/1 17:15
- * @since 1.8
+ * @since 1.9.6
  */
 public class AuthCacheConfig {
 

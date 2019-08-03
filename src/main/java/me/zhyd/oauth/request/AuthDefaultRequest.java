@@ -2,7 +2,6 @@ package me.zhyd.oauth.request;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
-import lombok.extern.slf4j.Slf4j;
 import me.zhyd.oauth.cache.AuthDefaultStateCache;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
@@ -158,12 +157,12 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     protected String refreshTokenUrl(String refreshToken) {
         return UrlBuilder.fromBaseUrl(source.refresh())
             .queryParam("client_id", config.getClientId())
-        .queryParam("client_secret", config.getClientSecret())
-        .queryParam("refresh_token", refreshToken)
+            .queryParam("client_secret", config.getClientSecret())
+            .queryParam("refresh_token", refreshToken)
             .queryParam("grant_type", "refresh_token")
             .queryParam("redirect_uri", config.getRedirectUri())
-        .build();
-}
+            .build();
+    }
 
     /**
      * 返回获取userInfo的url
