@@ -1,9 +1,7 @@
-## v1.9.6
+## v1.9.6 （暂未发布）
 ### 2019/08/03
 
-- 增加`AuthCache`配置类`AuthCacheConfig.java`，可以自定义缓存有效期以及是否开启定时任务
-- 去掉`slf4j`依赖，封装`Log.java`工具类
-- 规范测试类
+合并github上[xkcoding](https://github.com/xkcoding) 的[pr#32](https://github.com/zhangyd-c/JustAuth/pull/32)，抽取 cache 接口，方便用户自行集成 cache
 
 ### 2019/08/02
 
