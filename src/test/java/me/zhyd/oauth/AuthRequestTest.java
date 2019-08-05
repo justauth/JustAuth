@@ -16,7 +16,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -30,7 +30,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthGithubRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -44,7 +44,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthWeiboRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -58,7 +58,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthDingTalkRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -72,7 +72,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthBaiduRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -86,7 +86,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthCodingRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -100,7 +100,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthTencentCloudRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -114,7 +114,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthOschinaRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -128,7 +128,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthAlipayRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .alipayPublicKey("publicKey")
             .build());
         // 返回授权页面，可自行跳转
@@ -143,7 +143,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthQqRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -157,7 +157,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthWeChatRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -171,7 +171,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthTaobaoRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -185,7 +185,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthGoogleRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -199,7 +199,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthFacebookRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("https://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -213,7 +213,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthDouyinRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -227,7 +227,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthLinkedinRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -241,7 +241,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthMicrosoftRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -255,7 +255,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthMiRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
@@ -269,7 +269,7 @@ public class AuthRequestTest {
         AuthRequest authRequest = new AuthToutiaoRequest(AuthConfig.builder()
             .clientId("clientId")
             .clientSecret("clientSecret")
-            .redirectUri("redirectUri")
+            .redirectUri("http://redirectUri")
             .build());
         // 返回授权页面，可自行跳转
         authRequest.authorize("state");
