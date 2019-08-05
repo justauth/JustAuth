@@ -9,7 +9,7 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
-		<img src="https://img.shields.io/badge/Maven Central-1.9.5-blue.svg" ></img>
+		<img src="https://img.shields.io/badge/Maven Central-1.9.6-blue.svg" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
@@ -18,7 +18,7 @@
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
 	</a>
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/" title="API文档">
-		<img src="https://img.shields.io/badge/Api Docs-1.9.5-orange.svg" ></img>
+		<img src="https://img.shields.io/badge/Api Docs-1.9.6-orange.svg" ></img>
 	</a>
 	<a target="_blank" href="https://docs.justauth.whnb.wang" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
@@ -91,7 +91,7 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.9.5</version>
+    <version>1.9.6</version>
 </dependency>
 ```
 - 调用api
@@ -119,6 +119,13 @@ authRequest.login(callback);
 6. 等待作者合并
 
 _注：JustAuth只接受集成oauth2.0的平台_
+
+## 关于功能尝鲜
+
+JustAuth一共有两个主要分支：
+- 线上版分支（master）：稳定版，发布版就是这个分支的代码
+- 开发版分支（dev）：不保证稳定，新功能都会优先推送到该分支，对于想尝鲜的朋友，可以直接下载代码，然后源码编译dev分支
+
 
 ## 捐赠
 
