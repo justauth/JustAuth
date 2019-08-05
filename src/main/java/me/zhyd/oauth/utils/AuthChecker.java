@@ -4,6 +4,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.model.AuthCallback;
 
 /**
  * 授权配置类的校验器
@@ -56,11 +57,20 @@ public class AuthChecker {
 
     /**
      * 校验回调传回的code
+     * <p>
+     * {@code v1.9.6}版本中改为传入{@code source}和{@code callback}，对于不同平台使用不同参数接受code的情况统一做处理
      *
-     * @param code 回调时传回的code
+     * @param source   当前授权平台
+     * @param callback 从第三方授权回调回来时传入的参数集合
      * @since 1.8.0
      */
-    public static void checkCode(String code) {
+    public static void checkCode(AuthSource source, AuthCallback callback) {
+        String code = callback.getCode();
+        if (source == AuthSource.ALIPAY) {
+            code = callback.getAuth_code();
+        } else if (source == AuthSource.HUAWEI) {
+            code = callback.getAuthorization_code();
+        }
         if (StringUtils.isEmpty(code)) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_CODE);
         }

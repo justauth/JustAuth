@@ -27,4 +27,11 @@ public class AuthCallback {
      * 访问AuthorizeUrl后回调时带的参数state，用于和请求AuthorizeUrl前的state比较，防止CSRF攻击
      */
     private String state;
+
+    /**
+     * 华为授权登录接受code的参数名
+     *
+     * @since 1.9.6
+     */
+    private String authorization_code;
 }

@@ -1,4 +1,9 @@
 ## v1.9.6
+### 2019/08/05
+
+- 集成华为登录
+- 修改`AuthChecker#checkCode`方法，对于不同平台使用不同参数接受code的情况统一做处理
+
 ### 2019/08/03
 
 合并github上[xkcoding](https://github.com/xkcoding) 的[pr#32](https://github.com/zhangyd-c/JustAuth/pull/32)，抽取 cache 接口，方便用户自行集成 cache

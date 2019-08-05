@@ -518,6 +518,32 @@ public enum AuthSource {
         public String userInfo() {
             return "https://api.stackexchange.com/2.2/me";
         }
+    },
+
+    /**
+     * 华为
+     * @since 1.9.6
+     */
+    HUAWEI {
+        @Override
+        public String authorize() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v2/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v2/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.vmall.com/rest.php";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v2/token";
+        }
     };
 
     /**

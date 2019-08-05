@@ -74,7 +74,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     @Override
     public AuthResponse login(AuthCallback authCallback) {
         try {
-            AuthChecker.checkCode(source == AuthSource.ALIPAY ? authCallback.getAuth_code() : authCallback.getCode());
+            AuthChecker.checkCode(source, authCallback);
             this.checkState(authCallback.getState());
 
             AuthToken authToken = this.getAccessToken(authCallback);
