@@ -79,6 +79,8 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
             .nickname(object.getString("userName"))
             .gender(gender)
             .avatar(object.getString("headPictureURL"))
+            .token(authToken)
+            .source(source)
             .build();
     }
 

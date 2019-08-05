@@ -24,7 +24,7 @@ public class ThirdPartSdkTest {
             .execute();
         System.out.println(response.body());
 
-        // {"access_token":"CF1IGrYGi\/s0JddMwEQ1i0xBwWI7CepxuAm9HP9wvjuPOYyXItkSh6PVLfeD7AcDD3BS0APzgyyrS\/GK9FF9Hk91WrAROGfTfTVlh0DdEw9k4NW77EjQmA==","expires_in":3600,"refresh_token":"CF41WqZNkgaJhDtW1Kv5rypr8PklmwVsKlAbFLXmxte0mrTdvJd9k8vTrIlw5NoMnNn7nZ2b3fpgsl4zabm10QQEHY2H+s5qwx1dxXR\/arV6JQ9OYMDk+A==","scope":"https:\/\/www.huawei.com\/auth\/account\/mobile.number https:\/\/www.huawei.com\/auth\/account\/base.profile","token_type":"Bearer"}
+        // {"access_token":"accessToken","expires_in":3600,"refresh_token":"refreshToken","scope":"https:\/\/www.huawei.com\/auth\/account\/base.profile","token_type":"Bearer"}
 
         //
         HttpResponse response2 = HttpRequest.post("https://api.vmall.com/rest.php")
