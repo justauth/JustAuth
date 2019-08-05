@@ -14,12 +14,12 @@ public class ThirdPartSdkTest {
 
     @Test
     public void huawei() {
-        String code = "CF1IE8WDUI7HR0cTOcl59SHBmIo0EGugnY99HTnLjH0BiCu5+maSDDejA7V2FJntFGfdTXY/jD68WZAVW2cMZoXrHW0LHVQ+uYqb498PkdI453sejJcaSIS6bBCZJBNzrYKGk4PYWc5OS/yuPorSSNRlXXhjN9selraIOF+TBMb7wzXDho7FVz/Es2rInRfttnr3AEaIvkg=";
+        String code = "CF1IvwdXw18r6LTfoRSgs+LrdP/DuO1VJJmAD0up2grQrSs3gcuyrt1O+jjWp7/TFiBy9IlPepNs/PUggcLe8cgjesqj1+DGXXojJsjEqsokFCCU0eJVt1F02zLDWH1+bq40HSlljXDaTvCBNrqWJJnIZhRetoV9pocrWPLZpYrx/h0iaC9T0GjMRVEXC//LnTAlTjg7";
         HttpResponse response = HttpRequest.post("https://oauth-login.cloud.huawei.com/oauth2/v2/token")
             .form("grant_type", "authorization_code")
             .form("code", code)
-            .form("client_id", "100994535")
-            .form("client_secret", "22aea400bef603fef26d15a79c806eb477b35de0a529758f2a3b1bda32bfb80d")
+            .form("client_id", "100xxxxx")
+            .form("client_secret", "22aea400bef603xxxxxbfb80d")
             .form("redirect_uri", "http://localhost:8443/huawei/login")
             .execute();
         System.out.println(response.body());
