@@ -1,7 +1,7 @@
 package me.zhyd.oauth.config;
 
-import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.enums.AuthResponseStatus;
+import me.zhyd.oauth.exception.AuthException;
 
 /**
  * 各api需要的url， 用枚举类分平台类型管理
@@ -517,6 +517,26 @@ public enum AuthSource {
         @Override
         public String userInfo() {
             return "https://api.stackexchange.com/2.2/me";
+        }
+    },
+
+    /**
+     * 企业微信
+     */
+    WECHAT_ENTERPRISE {
+        @Override
+        public String authorize() {
+            return "https://open.work.weixin.qq.com/wwopen/sso/qrConnect";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://qyapi.weixin.qq.com/cgi-bin/gettoken";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo";
         }
     };
 
