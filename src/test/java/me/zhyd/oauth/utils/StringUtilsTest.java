@@ -6,7 +6,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class StringUtilsTest {
-    @Rule public final ExpectedException thrown =
+    @Rule
+    public final ExpectedException thrown =
         ExpectedException.none();
 
     @Test
