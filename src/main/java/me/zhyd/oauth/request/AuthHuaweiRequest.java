@@ -21,7 +21,7 @@ import static me.zhyd.oauth.enums.AuthResponseStatus.SUCCESS;
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @since 1.9.6
+ * @since 1.10.0
  */
 public class AuthHuaweiRequest extends AuthDefaultRequest {
 

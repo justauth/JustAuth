@@ -1,6 +1,6 @@
 
 ![](_media/logo.png)
-# JustAuth <small>1.9.6</small>
+# JustAuth <small>1.10.0</small>
 
 <strong>史上最全的整合第三方登录的开源库</strong>
 

@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
  * @see Log#warn(String, Throwable)
  * @see Log#error(String)
  * @see Log#error(String, Throwable)
- * @since 1.9.6
+ * @since 1.10.0
  */
 public class Log {
 
@@ -109,7 +109,7 @@ public class Log {
      * 日志级别
      *
      * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
-     * @since 1.9.6
+     * @since 1.10.0
      */
     @Getter
     @AllArgsConstructor
@@ -134,7 +134,7 @@ public class Log {
      * 日志配置
      *
      * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
-     * @since 1.9.6
+     * @since 1.10.0
      */
     static class Config {
 

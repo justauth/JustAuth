@@ -9,7 +9,7 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
-		<img src="https://img.shields.io/badge/Maven Central-1.9.6-blue.svg" ></img>
+		<img src="https://img.shields.io/badge/Maven Central-1.10.0-blue.svg" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
@@ -18,7 +18,7 @@
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
 	</a>
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/" title="API文档">
-		<img src="https://img.shields.io/badge/Api Docs-1.9.6-orange.svg" ></img>
+		<img src="https://img.shields.io/badge/Api Docs-1.10.0-orange.svg" ></img>
 	</a>
 	<a target="_blank" href="https://docs.justauth.whnb.wang" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
@@ -91,7 +91,7 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.9.6</version>
+    <version>1.10.0</version>
 </dependency>
 ```
 - 调用api

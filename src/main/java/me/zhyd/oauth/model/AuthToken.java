@@ -1,7 +1,6 @@
 package me.zhyd.oauth.model;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,5 +34,12 @@ public class AuthToken {
      */
     private String macAlgorithm;
     private String macKey;
+
+    /**
+     * 企业微信附带属性
+     *
+     * @since 1.10.0
+     */
+    private String code;
 
 }

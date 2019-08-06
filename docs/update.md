@@ -1,4 +1,9 @@
-## v1.9.6
+## v1.10.0
+### 2019/08/06
+
+- 合并[PR-34](https://github.com/zhangyd-c/JustAuth/pull/34)，添加StringUtil单元测试，修复bug
+- 合并[PR-35](https://github.com/zhangyd-c/JustAuth/pull/35)，集成企业微信
+
 ### 2019/08/05
 
 - 集成华为登录

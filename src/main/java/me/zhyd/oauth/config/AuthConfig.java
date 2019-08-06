@@ -47,7 +47,15 @@ public class AuthConfig {
     /**
      * Stack Overflow Key
      * <p>
-     * 1.9.0版本新增参数
+     *
+     * @since 1.9.0
      */
     private String stackOverflowKey;
+
+    /**
+     * 企业微信，授权方的网页应用ID
+     *
+     * @since 1.10.0
+     */
+    private String agentId;
 }

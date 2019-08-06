@@ -8,19 +8,19 @@ import org.junit.Test;
 /**
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @since 1.9.6
+ * @since 1.10.0
  */
 public class ThirdPartSdkTest {
 
     @Test
     public void huawei() {
-        String code = "CF1IvwdXw18r6LTfoRSgs+LrdP/DuO1VJJmAD0up2grQrSs3gcuyrt1O+jjWp7/TFiBy9IlPepNs/PUggcLe8cgjesqj1+DGXXojJsjEqsokFCCU0eJVt1F02zLDWH1+bq40HSlljXDaTvCBNrqWJJnIZhRetoV9pocrWPLZpYrx/h0iaC9T0GjMRVEXC//LnTAlTjg7";
+        String code = "CF1IwmFc6uZABI9Y795BkhXfvHidIFFw04I4Zc4KML4n+vlXxwNUcQKS4xlopjFDpEk6LzQbjwdTNxvjZ9jqnd/1m5nswhx8X7e0/dL2kyGAMVZWFgVq9ClxNN18b+Z0xtfJjkm7bDnfC3W5h4COgTCoLSjiWKSHWp5hCunp6pQRo1FHovZXm13TLNlhF9mCVtJx3kTQ";
         HttpResponse response = HttpRequest.post("https://oauth-login.cloud.huawei.com/oauth2/v2/token")
             .form("grant_type", "authorization_code")
             .form("code", code)
-            .form("client_id", "100xxxxx")
-            .form("client_secret", "22aea400bef603xxxxxbfb80d")
-            .form("redirect_uri", "http://localhost:8443/huawei/login")
+            .form("client_id", "100994535")
+            .form("client_secret", "22aea400bef603fef26d15a79c806eb477b35de0a529758f2a3b1bda32bfb80d")
+            .form("redirect_uri", "http://127.0.0.1:8443/oauth/callback/huawei")
             .execute();
         System.out.println(response.body());
 
@@ -31,7 +31,7 @@ public class ThirdPartSdkTest {
             .form("nsp_ts", System.currentTimeMillis())
             .form("access_token", JSONObject.parseObject(response.body()).getString("access_token"))
             .form("nsp_fmt", "JS")
-//            .form("nsp_cb", "")
+//            .form("nsp_cb", "_jqjsp")
             .form("nsp_svc", "OpenUP.User.getInfo")
             .execute();
         System.out.println(response2.body());

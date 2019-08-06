@@ -31,7 +31,7 @@ public class AuthCallback {
     /**
      * 华为授权登录接受code的参数名
      *
-     * @since 1.9.6
+     * @since 1.10.0
      */
     private String authorization_code;
 }

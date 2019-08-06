@@ -6,7 +6,7 @@ package me.zhyd.oauth.cache;
  * </p>
  *
  * @author yangkai.shen
- * @since 1.9.6
+ * @since 1.10.0
  */
 public interface AuthStateCache {
     /**
