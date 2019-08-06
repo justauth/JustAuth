@@ -29,6 +29,9 @@ public class AuthChecker {
         if (isSupported && AuthSource.STACK_OVERFLOW == source) {
             isSupported = StringUtils.isNotEmpty(config.getStackOverflowKey());
         }
+        if (isSupported && AuthSource.WECHAT_ENTERPRISE == source){
+            isSupported = StringUtils.isNotEmpty(config.getAgentId());
+        }
         return isSupported;
     }
 
