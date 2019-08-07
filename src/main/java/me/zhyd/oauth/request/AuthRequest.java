@@ -1,12 +1,20 @@
 package me.zhyd.oauth.request;
 
+import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
-import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.model.AuthToken;
 
 /**
+ * JustAuth {@code Request}公共接口，所有平台的{@code Request}都需要实现该接口
+ * <p>
+ * {@link AuthRequest#authorize()}
+ * {@link AuthRequest#authorize(String)}
+ * {@link AuthRequest#login(AuthCallback)}
+ * {@link AuthRequest#revoke(AuthToken)}
+ * {@link AuthRequest#refresh(AuthToken)}
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @since 1.8
  */
