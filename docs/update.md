@@ -1,3 +1,7 @@
+### 2019/08/08
+
+- 项目迁移到组织[justauth](https://github.com/justauth)
+
 ## v1.10.0
 ### 2019/08/06
 
