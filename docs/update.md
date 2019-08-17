@@ -1,3 +1,8 @@
+## v1.10.1
+### 2019/08/17
+
+- AuthUser添加构造函数，支持反序列化
+
 ### 2019/08/08
 
 - 项目迁移到组织[justauth](https://github.com/justauth)

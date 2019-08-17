@@ -1,8 +1,6 @@
 package me.zhyd.oauth.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 
@@ -15,6 +13,8 @@ import me.zhyd.oauth.enums.AuthUserGender;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthUser {
     /**
      * 用户第三方系统的唯一id。在调用方集成改组件时，可以用uuid + source唯一确定一个用户
