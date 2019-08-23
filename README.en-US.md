@@ -1,11 +1,8 @@
 <p align="center">
-	<a href="https://www.justauth.cn/"><img src="./_media/cover.png" width="400"></a>
+	<a href="https://www.justauth.cn/"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/logo.png" width="400"></a>
 </p>
 <p align="center">
-	<strong>Login, so easy!</strong>
-</p>
-<p align="center">
-	<strong>史上最全的整合第三方登录的开源库</strong>
+	<strong>Login, so easy.</strong>
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
@@ -33,34 +30,96 @@
 		<img src="https://img.shields.io/github/stars/zhangyd-c/JustAuth.svg?style=social" alt="github star"></img>
 	</a>
 </p>
-<p align="center">
-	<strong>开源地址：</strong> <a target="_blank" href='https://gitee.com/yadong.zhang/JustAuth'>Gitee</a> | <a target="_blank" href='https://github.com/zhangyd-c/JustAuth'>Github</a>
-</p>
-<p align="center">
-    <strong>QQ群：</strong>230017570
-</p>
-<p align="center"> 
-    <strong>文档更新日期：</strong> {docsify-updated}
-</p>
 
-## 简介
+<center>
+    <table>
+        <tr>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/gitee.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/weibo.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/dingtalk.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/baidu.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/coding.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/tencentCloud.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/oschina.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/alipay.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechat.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/taobao.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/google.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/facebook.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/douyin.png" width="20"></td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/linkedin.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/microsoft.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/mi.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/toutiao.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/teambition.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/renren.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/pinterest.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/stackoverflow.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/huawei.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechat.png" width="20" title="微信企业版"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20"></td>
+        </tr>
+    </table>
+</center>
 
-JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具类库**，它可以让我们脱离繁琐的第三方登录SDK，让登录变得**So easy!**
+-------------------------------------------------------------------------------
 
-## 特点
 
-废话不多说，就俩字：
 
-1. **全**：已集成十多家第三方平台（国内外常用的基本都已包含），后续依然还有扩展计划！
-2. **简**：API就是奔着最简单去设计的，尽量让您用起来没有障碍感！
+`JustAuth`, as you see, It is just a Java library of third-party authorized login, It's smaller and easier to use. JustAuth is the best third-party login tool written in JAVA.
 
-## 项目关注度趋势
+Source Code：[gitee](https://gitee.com/yadong.zhang/JustAuth) | [github](https://github.com/zhangyd-c/JustAuth)    
+Docs：[Reference Doc](https://docs.justauth.whnb.wang)
 
-[![Stargazers over time](https://starchart.cc/justauth/JustAuth.svg)](https://starchart.cc/justauth/JustAuth)
+## Features
 
-## 已集成的平台
+1. **Multiple platform**: Has integrated more than a dozen third-party platforms.
+2. **Minimalist**: The minimalist design is very simple to use.
 
-|  :computer: 平台  |  :coffee: API类  |  :page_facing_up: SDK  |
+## Quick start
+
+- Add maven dependency
+
+These artifacts are available from Maven Central:
+```xml
+<dependency>
+    <groupId>me.zhyd.oauth</groupId>
+    <artifactId>JustAuth</artifactId>
+    <version>1.10.1</version>
+</dependency>
+```
+- Using JustAuth
+```java
+// Create authorization request
+AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
+        .clientId("clientId")
+        .clientSecret("clientSecret")
+        .redirectUri("redirectUri")
+        .build());
+// Generate authorization url
+authRequest.authorize();
+// After authorization to login, it will return: code(auth_code(Alipay only)),state, After version 1.8.0, you can use the AuthCallback as a parameter to the callback interface
+// Note: JustAuth saves state for 3 minutes by default. If it is not used within 3 minutes, the expired state will be cleared automatically.
+authRequest.login(callback);
+```
+
+**Examples**：
+- [Springboot Example](https://gitee.com/yadong.zhang/JustAuth-demo)
+- [jFinal Example](https://github.com/xkcoding/jfinal-justauth-demo)
+- [ActFramework Example](https://github.com/xkcoding/act-justauth-demo)
+
+**Springboot Starter**
+
+- [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot integrates best practices with JustAuth
+
+#### API
+|  :computer: platform  |  :coffee: API  |  :page_facing_up: Official document  |
 |:------:|:-------:|:-------:|
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/gitee.png" width="20">  |  [AuthGiteeRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthGiteeRequest.java)  | <a href="https://gitee.com/api/v5/oauth_doc#list_1" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png" width="20">  |  [AuthGithubRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthGiteeRequest.java)  |  <a href="https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/" target="_blank">参考文档</a> |
@@ -90,52 +149,19 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20">  |  [AuthCsdnRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthCsdnRequest.java)  |  无 |
 
 
-## 快速开始
 
-- 引入依赖
-```xml
-<dependency>
-    <groupId>me.zhyd.oauth</groupId>
-    <artifactId>JustAuth</artifactId>
-    <version>1.10.1</version>
-</dependency>
-```
-- 调用api
-```java
-// 创建授权request
-AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
-        .clientId("clientId")
-        .clientSecret("clientSecret")
-        .redirectUri("redirectUri")
-        .build());
-// 生成授权页面
-authRequest.authorize();
-// 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的参数
-// 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
-authRequest.login(callback);
-```
+## Contributions
 
-## 贡献代码
+1. Fork this project to your repository
+2. Clone the project after fork.
+3. Modify the code (either to fix issue, or to add new features)
+4. Commit and push code to a remote repository
+5. Create a new PR (pull request), and select `dev` branch
+6. Waiting for author to merge
 
-1. fork本项目到自己的repo
-2. 把fork过去的项目也就是你仓库中的项目clone到你的本地
-3. 修改代码
-4. commit后push到自己的库
-5. 发起PR（pull request） 请求，提交到`dev`分支
-6. 等待作者合并
+I look forward to your joining us.
 
-_注：JustAuth只接受集成oauth2.0的平台_
+## References
 
-## 关于功能尝鲜
-
-JustAuth一共有两个主要分支：
-- 线上版分支（master）：稳定版，发布版就是这个分支的代码
-- 开发版分支（dev）：不保证稳定，新功能都会优先推送到该分支，对于想尝鲜的朋友，可以直接下载代码，然后源码编译dev分支
-
-
-## 捐赠
-
-| 支付宝  | 微信  |
-| :------------: | :------------: |
-| <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/zfb_code.png" width="200"/> | <img src="https://gitee.com/yadong.zhang/static/raw/master/qrcode/wx_code.png" width="200" /> |
-
+- [The OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749)
+- [OAuth 2.0](https://oauth.net/2/)

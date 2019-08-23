@@ -48,6 +48,29 @@
       auto2top: true,
       coverpage: true,
       formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}:{ss}',
+      plugins: [
+        function (hook, vm) {
+          var footer = [
+            '<hr/>',
+            '<footer>',
+            '<span>JustAuth: <a href="https://github.com/justauth/JustAuth">Github</a> | <a href="https://gitee.com/yadong.zhang/JustAuth">Gitee</a> &copy;2019.</span>',
+            '<span>Proudly published with <a href="https://github.com/docsifyjs/docsify" target="_blank">docsify</a>.</span>',
+            '</footer>'
+          ].join('');
+          hook.afterEach(function (html) {
+            return html + footer
+          });
+          hook.beforeEach(function (html) {
+            var url = 'https://gitee.com/yadong.zhang/JustAuth/tree/master/docs/' + vm.route.file;
+            var editHtml = '[📝 编辑该文档](' + url + ')\n';
+
+            return  html
+              + '\n----\n'
+              + 'Last modified {docsify-updated} '
+              + editHtml
+          })
+        }
+      ]
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>

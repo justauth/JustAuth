@@ -187,7 +187,8 @@ _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经�
 
 ## 关于OAuth
 
-[The OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749)
+- [The OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749)
+- [OAuth 2.0](https://oauth.net/2/)
 
 ## 关注&交流
 

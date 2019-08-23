@@ -16,12 +16,12 @@ import lombok.*;
 public class AuthConfig {
 
     /**
-     * 客户端id：对应个平台的appKey
+     * 客户端id：对应各平台的appKey
      */
     private String clientId;
 
     /**
-     * 客户端Secret：对应个平台的appSecret
+     * 客户端Secret：对应各平台的appSecret
      */
     private String clientSecret;
 
