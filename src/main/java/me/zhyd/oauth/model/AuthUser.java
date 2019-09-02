@@ -66,4 +66,5 @@ public class AuthUser {
      * 用户授权的token信息
      */
     private AuthToken token;
+
 }

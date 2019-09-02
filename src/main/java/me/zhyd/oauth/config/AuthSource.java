@@ -567,6 +567,32 @@ public enum AuthSource {
         public String userInfo() {
             return "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo";
         }
+    },
+    /**
+     * 酷家乐
+     *
+     * @since 1.10.1
+     */
+    KUJIALE {
+        @Override
+        public String authorize() {
+            return "https://oauth.kujiale.com/oauth2/show";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://oauth.kujiale.com/oauth2/auth/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://oauth.kujiale.com/oauth2/openapi/user";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://oauth.kujiale.com/oauth2/auth/token/refresh";
+        }
     };
 
     /**
