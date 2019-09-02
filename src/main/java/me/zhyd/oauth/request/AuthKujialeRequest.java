@@ -94,21 +94,11 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
         }
         JSONObject resultObject = object.getJSONObject("d");
 
-        JSONObject extraInfoObject = object.getJSONObject("extraInfo");
-        boolean isVip = false;
-        String organizationUuid = null;
-        if (extraInfoObject != null) {
-            isVip = extraInfoObject.getBoolean("isVip");
-            organizationUuid = extraInfoObject.getString("partnerId");
-        }
-
         return AuthUser.builder()
             .username(resultObject.getString("userName"))
             .nickname(resultObject.getString("userName"))
             .avatar(resultObject.getString("avatar"))
             .uuid(resultObject.getString("openId"))
-            .isVip(isVip)
-            .organizationUuid(organizationUuid)
             .token(authToken)
             .source(source)
             .build();

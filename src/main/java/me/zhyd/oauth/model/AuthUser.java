@@ -67,17 +67,4 @@ public class AuthUser {
      */
     private AuthToken token;
 
-    /**
-     * 用户在平台上的用户类型(类似是C类用户或者B类用户，或者各个平台自己的细分分类)
-     */
-    private Integer userType;
-    /**
-     * 在平台上是否为VIP
-     */
-    private Boolean isVip;
-
-    /**
-     * 所属平台组织的唯一识别id
-     */
-    private String organizationUuid;
 }
