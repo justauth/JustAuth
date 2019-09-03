@@ -571,7 +571,7 @@ public enum AuthSource {
     /**
      * 酷家乐
      *
-     * @since 1.10.1
+     * @since 1.11.0
      */
     KUJIALE {
         @Override

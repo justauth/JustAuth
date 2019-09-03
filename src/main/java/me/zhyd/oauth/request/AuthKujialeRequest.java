@@ -16,9 +16,10 @@ import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
+ * 酷家乐授权登录
+ *
  * @author shahuang
- * @Date: 2019/8/29 18:50
- * @since 1.10.1
+ * @since 1.11.0
  */
 public class AuthKujialeRequest extends AuthDefaultRequest {
 
@@ -33,9 +34,10 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
     /**
      * 返回带{@code state}参数的授权url，授权回调时会带上这个{@code state}
      * 默认只向用户请求用户信息授权
+     *
      * @param state state 验证授权流程的参数，可以防止csrf
      * @return 返回授权地址
-     * @since 1.10.1
+     * @since 1.11.0
      */
     @Override
     public String authorize(String state) {
@@ -44,10 +46,11 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
 
     /**
      * 请求授权url
-     * @param state state 验证授权流程的参数，可以防止csrf
+     *
+     * @param state    state 验证授权流程的参数，可以防止csrf
      * @param scopeStr 请求用户授权时向用户显示的可进行授权的列表。如果要填写多个接口名称，请用逗号隔开
      *                 参考https://open.kujiale.com/open/apps/2/docs?doc_id=95#Step1%EF%BC%9A%E8%8E%B7%E5%8F%96Authorization%20Code参数表内的scope字段
-     * @return
+     * @return authorize url
      */
     public String authorize(String state, String scopeStr) {
         UrlBuilder urlBuilder = UrlBuilder.fromBaseUrl(source.authorize())
@@ -68,17 +71,22 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
     }
 
     private AuthToken getAuthToken(HttpResponse response) {
-        String accessTokenStr = response.body();
-        JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
-        if (!"0".equals(accessTokenObject.getString("c"))) {
-            throw new AuthException(accessTokenObject.getString("m"));
-        }
+        JSONObject accessTokenObject = checkResponse(response);
         JSONObject resultObject = accessTokenObject.getJSONObject("d");
         return AuthToken.builder()
             .accessToken(resultObject.getString("accessToken"))
             .refreshToken(resultObject.getString("refreshToken"))
             .expireIn(resultObject.getIntValue("expiresIn"))
             .build();
+    }
+
+    private JSONObject checkResponse(HttpResponse response) {
+        String accessTokenStr = response.body();
+        JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
+        if (!"0".equals(accessTokenObject.getString("c"))) {
+            throw new AuthException(accessTokenObject.getString("m"));
+        }
+        return accessTokenObject;
     }
 
     @Override
@@ -114,11 +122,7 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
         HttpResponse response = HttpRequest.get(UrlBuilder.fromBaseUrl("https://oauth.kujiale.com/oauth2/auth/user")
             .queryParam("access_token", authToken.getAccessToken())
             .build()).execute();
-        String accessTokenStr = response.body();
-        JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
-        if (!"0".equals(accessTokenObject.getString("c"))) {
-            throw new AuthException(accessTokenObject.getString("m"));
-        }
+        JSONObject accessTokenObject = checkResponse(response);
         return accessTokenObject.getString("d");
     }
 
