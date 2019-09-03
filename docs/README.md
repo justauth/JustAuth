@@ -89,6 +89,7 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechat.png" width="20">  | [AuthWeChatEnterpriseRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthWeChatEnterpriseRequest.java) | <a href="https://open.work.weixin.qq.com/api/doc#90000/90135/90664" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20">  |  [AuthCsdnRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthCsdnRequest.java)  |  无 |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/kujiale.png" width="20">  |  [AuthKujialeRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthKujialeRequest.java)  |  <a href="https://open.kujiale.com/open/apps/2/docs?doc_id=95" target="_blank">参考文档</a> |
+|  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/gitlab.png" width="20">  |  [AuthGitlabRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthGitlabRequest.java)  |  <a href="https://docs.gitlab.com/ee/api/oauth2.html" target="_blank">参考文档</a> |
 
 
 ## 快速开始
@@ -98,7 +99,7 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.11.0</version>
+    <version>${latest.version}</version>
 </dependency>
 ```
 - 调用api
@@ -116,18 +117,37 @@ authRequest.authorize("state");
 authRequest.login(callback);
 ```
 
-## 贡献代码
+## 参与&贡献
+
+JustAuth的发展离不开朋友们的支持，时至今日，JustAuth已渐趋完善，但仍有很大的改善空间。欢迎各位朋友为JustAuth贡献一份力量。
+
+### 提供bug或建议
+
+- [Gitee](https://gitee.com/yadong.zhang/JustAuth/issues)
+- [Github](https://github.com/justauth/JustAuth/issues)
+
+如果你正在使用JustAuth，可以在这儿留下你的足迹，获得优先推送、曝光
+
+- [Gitee](https://gitee.com/yadong.zhang/JustAuth/issues/IZ2T7)
+- [Github](https://github.com/justauth/JustAuth/issues/17)
+
+### 贡献代码的步骤
 
 1. fork本项目到自己的repo
-2. 把fork过去的项目也就是你仓库中的项目clone到你的本地
-3. 修改代码
-4. commit后push到自己的库
+2. 把fork过去的项目也就是你仓库中的项目clone到你本地
+3. 修改代码（`dev`分支）
+4. commit后push到自己的仓库
 5. 发起PR（pull request） 请求，提交到`dev`分支
-6. 等待作者合并
+6. 等待合并
 
-_注：JustAuth只接受集成oauth2.0的平台_
+### 注意事项
 
-## 关于功能尝鲜
+1. JustAuth只接受集成**OAuth2.0**的平台
+2. 建议安装“**阿里编码规约**”插件，然后进行开发
+3. 提交PR前请格式化好自己的代码
+4. 注释规范，自定义的方法一定要加上：方法说明、参数说明、返回值说明等
+
+## 功能尝鲜
 
 JustAuth一共有两个主要分支：
 - 线上版分支（master）：稳定版，发布版就是这个分支的代码

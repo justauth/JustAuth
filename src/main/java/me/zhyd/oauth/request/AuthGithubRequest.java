@@ -34,9 +34,9 @@ public class AuthGithubRequest extends AuthDefaultRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
         Map<String, String> res = GlobalAuthUtil.parseStringToMap(response.body());
-        if (res.containsKey("error")) {
-            throw new AuthException(res.get("error") + ":" + res.get("error_description"));
-        }
+
+        this.checkResponse(res.containsKey("error"), res.get("error_description"));
+
         return AuthToken.builder()
             .accessToken(res.get("access_token"))
             .scope(res.get("scope"))
@@ -48,9 +48,9 @@ public class AuthGithubRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         HttpResponse response = doGetUserInfo(authToken);
         JSONObject object = JSONObject.parseObject(response.body());
-        if (object.containsKey("error")) {
-            throw new AuthException(object.getString("error_description"));
-        }
+
+        this.checkResponse(object.containsKey("error"), object.getString("error_description"));
+
         return AuthUser.builder()
             .uuid(object.getString("id"))
             .username(object.getString("login"))
@@ -65,6 +65,12 @@ public class AuthGithubRequest extends AuthDefaultRequest {
             .token(authToken)
             .source(source)
             .build();
+    }
+
+    private void checkResponse(boolean error, String error_description) {
+        if (error) {
+            throw new AuthException(error_description);
+        }
     }
 
 }

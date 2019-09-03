@@ -2,10 +2,10 @@
 
 既然牛皮吹下了， 那么如何才能用JustAuth实现第三方登录呢？
 
-使用JustAuth总共分三步（**这三步也适合于任何一个支持的平台**）：
+使用JustAuth总共分三步（**这三步也适合于JustAuth支持的任何一个平台**）：
 
 1. 申请注册第三方平台的开发者账号
-2. 创建第三方平台的应用，获取配置信息(id, secret, callbackUrl)
+2. 创建第三方平台的应用，获取配置信息(`accessKey`, `secretKey`, `redirectUri`)
 3. 使用该工具实现授权登陆
 
 
@@ -14,7 +14,7 @@
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.11.0</version>
+    <version>${latest.version}</version>
 </dependency>
 ```
 - 调用api

@@ -34,37 +34,38 @@
 <center>
     <table>
         <tr>
-            <td align="center" width="200"><a href="#授权gitee"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/gitee.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权github"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权weibo"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/weibo.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权钉钉"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/dingtalk.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权百度"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/baidu.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权coding"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/coding.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权腾讯云开发者平台"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/tencentCloud.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权oschina"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/oschina.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权支付宝"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/alipay.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权qq"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权微信"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechat.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权淘宝"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/taobao.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权google"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/google.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权facebook"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/facebook.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权抖音"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/douyin.png" width="20"></a></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/gitee.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/github.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/weibo.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/dingtalk.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/baidu.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/coding.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/tencentCloud.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/oschina.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/alipay.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/qq.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechat.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/taobao.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/google.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/facebook.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/douyin.png" width="20"></td>
         </tr>
     </table>
     <table>
         <tr>
-            <td align="center" width="200"><a href="#授权领英"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/linkedin.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权微软"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/microsoft.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权小米"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/mi.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权今日头条"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/toutiao.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权Teambition"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/teambition.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权人人"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/renren.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权Pinterest"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/pinterest.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权Stack Overflow"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/stackoverflow.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权华为"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/huawei.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权微信企业版" title="微信企业版"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechat.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权csdn"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20"></a></td>
-            <td align="center" width="200"><a href="#授权酷家乐"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/kujiale.png" width="20"></a></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/linkedin.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/microsoft.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/mi.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/toutiao.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/teambition.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/renren.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/pinterest.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/stackoverflow.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/huawei.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechat.png" width="20" title="微信企业版"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/kujiale.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/gitlab.png" width="20"></td>
         </tr>
     </table>
 </center>
@@ -157,8 +158,9 @@ authRequest.login(callback);
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/stackoverflow.png" width="20">  | [AuthStackOverflowRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthStackOverflowRequest.java) | <a href="https://api.stackexchange.com/docs/authentication" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/huawei.png" width="20">  | [AuthHuaweiRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthHuaweiRequest.java) | <a href="https://developer.huawei.com/consumer/cn/devservice/doc/30101" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/wechat.png" width="20">  | [AuthWeChatEnterpriseRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthWeChatEnterpriseRequest.java) | <a href="https://open.work.weixin.qq.com/api/doc#90000/90135/90664" target="_blank">参考文档</a> |
-|  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20">  |  [AuthCsdnRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthCsdnRequest.java)  |  无 |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/kujiale.png" width="20">  |  [AuthKujialeRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthKujialeRequest.java)  |  <a href="https://open.kujiale.com/open/apps/2/docs?doc_id=95" target="_blank">参考文档</a> |
+|  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/gitlab.png" width="20">  |  [AuthGitlabRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthGitlabRequest.java)  |  <a href="https://docs.gitlab.com/ee/api/oauth2.html" target="_blank">参考文档</a> |
+|  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20">  |  [AuthCsdnRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthCsdnRequest.java)  |  无 |
 
 _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经下线。如果以前申请过的应用，可以继续使用，但是不再支持申请新的应用。so, 本项目中的CSDN登录只能针对少部分用户使用了_
 

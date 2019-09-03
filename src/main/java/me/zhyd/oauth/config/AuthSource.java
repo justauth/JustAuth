@@ -568,6 +568,7 @@ public enum AuthSource {
             return "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo";
         }
     },
+
     /**
      * 酷家乐
      *
@@ -592,6 +593,28 @@ public enum AuthSource {
         @Override
         public String refresh() {
             return "https://oauth.kujiale.com/oauth2/auth/token/refresh";
+        }
+    },
+
+    /**
+     * Gitlab
+     *
+     * @since 1.11.0
+     */
+    GITLAB {
+        @Override
+        public String authorize() {
+            return "https://gitlab.com/oauth/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://gitlab.com/oauth/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://gitlab.com/api/v4/user";
         }
     };
 
