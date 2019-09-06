@@ -616,6 +616,33 @@ public enum AuthSource {
         public String userInfo() {
             return "https://gitlab.com/api/v4/user";
         }
+    },
+
+    /**
+     * 美团
+     *
+     * @since 1.12.0
+     */
+    MEITUAN {
+        @Override
+        public String authorize() {
+            return "https://openapi.waimai.meituan.com/oauth/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://openapi.waimai.meituan.com/oauth/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://openapi.waimai.meituan.com/oauth/userinfo";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://openapi.waimai.meituan.com/oauth/refresh_token";
+        }
     };
 
     /**
