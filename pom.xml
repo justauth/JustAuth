@@ -62,7 +62,7 @@
     <hutool-version>4.6.1</hutool-version>
     <lombok-version>1.18.4</lombok-version>
     <junit-version>4.11</junit-version>
-    <fastjson-version>1.2.58</fastjson-version>
+    <fastjson-version>1.2.60</fastjson-version>
     <alipay-sdk-version>3.7.4.ALL</alipay-sdk-version>
     <jacoco-version>0.8.2</jacoco-version>
   </properties>
