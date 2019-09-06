@@ -3,7 +3,6 @@ package me.zhyd.oauth.request;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthExtendSource;
-import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.model.AuthCallback;
@@ -24,7 +23,7 @@ public class AuthExtendRequest extends AuthDefaultRequest {
         super(config, AuthExtendSource.OTHER);
     }
 
-    public AuthExtendRequest(AuthConfig config, AuthSource source, AuthStateCache authStateCache) {
+    public AuthExtendRequest(AuthConfig config, AuthStateCache authStateCache) {
         super(config, AuthExtendSource.OTHER, authStateCache);
     }
 
