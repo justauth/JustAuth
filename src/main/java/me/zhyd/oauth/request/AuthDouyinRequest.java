@@ -5,7 +5,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -25,11 +25,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthDouyinRequest extends AuthDefaultRequest {
 
     public AuthDouyinRequest(AuthConfig config) {
-        super(config, AuthSource.DOUYIN);
+        super(config, AuthDefaultSource.DOUYIN);
     }
 
     public AuthDouyinRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.DOUYIN, authStateCache);
+        super(config, AuthDefaultSource.DOUYIN, authStateCache);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
             .remark(userInfoObject.getString("description"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

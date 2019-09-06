@@ -5,7 +5,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -26,11 +26,11 @@ import static me.zhyd.oauth.enums.AuthResponseStatus.SUCCESS;
 public class AuthHuaweiRequest extends AuthDefaultRequest {
 
     public AuthHuaweiRequest(AuthConfig config) {
-        super(config, AuthSource.HUAWEI);
+        super(config, AuthDefaultSource.HUAWEI);
     }
 
     public AuthHuaweiRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.HUAWEI, authStateCache);
+        super(config, AuthDefaultSource.HUAWEI, authStateCache);
     }
 
     /**
@@ -80,7 +80,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
             .gender(gender)
             .avatar(object.getString("headPictureURL"))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

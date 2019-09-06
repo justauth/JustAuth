@@ -9,7 +9,7 @@ import com.alipay.api.response.AlipaySystemOauthTokenResponse;
 import com.alipay.api.response.AlipayUserInfoShareResponse;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -29,14 +29,14 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
     private AlipayClient alipayClient;
 
     public AuthAlipayRequest(AuthConfig config) {
-        super(config, AuthSource.ALIPAY);
-        this.alipayClient = new DefaultAlipayClient(AuthSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
+        super(config, AuthDefaultSource.ALIPAY);
+        this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
             .getAlipayPublicKey(), "RSA2");
     }
 
     public AuthAlipayRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.ALIPAY, authStateCache);
-        this.alipayClient = new DefaultAlipayClient(AuthSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
+        super(config, AuthDefaultSource.ALIPAY, authStateCache);
+        this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
             .getAlipayPublicKey(), "RSA2");
     }
 
@@ -87,7 +87,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
             .location(location)
             .gender(AuthUserGender.getRealGender(response.getGender()))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

@@ -14,7 +14,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.Objects;
 
-import static me.zhyd.oauth.config.AuthSource.PINTEREST;
+import static me.zhyd.oauth.config.AuthDefaultSource.PINTEREST;
 
 /**
  * Pinterest登录
@@ -60,7 +60,7 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
             .gender(AuthUserGender.UNKNOWN)
             .remark(userObj.getString("bio"))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

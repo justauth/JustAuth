@@ -4,7 +4,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -23,11 +23,11 @@ import java.util.Map;
 public class AuthGithubRequest extends AuthDefaultRequest {
 
     public AuthGithubRequest(AuthConfig config) {
-        super(config, AuthSource.GITHUB);
+        super(config, AuthDefaultSource.GITHUB);
     }
 
     public AuthGithubRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.GITHUB, authStateCache);
+        super(config, AuthDefaultSource.GITHUB, authStateCache);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class AuthGithubRequest extends AuthDefaultRequest {
             .remark(object.getString("bio"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

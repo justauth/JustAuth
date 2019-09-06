@@ -16,7 +16,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.Objects;
 
-import static me.zhyd.oauth.config.AuthSource.RENREN;
+import static me.zhyd.oauth.config.AuthDefaultSource.RENREN;
 import static me.zhyd.oauth.enums.AuthResponseStatus.SUCCESS;
 
 /**
@@ -52,7 +52,7 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
             .company(getCompany(userObj))
             .gender(getGender(userObj))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

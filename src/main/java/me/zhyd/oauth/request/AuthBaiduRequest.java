@@ -5,7 +5,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -25,11 +25,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthBaiduRequest extends AuthDefaultRequest {
 
     public AuthBaiduRequest(AuthConfig config) {
-        super(config, AuthSource.BAIDU);
+        super(config, AuthDefaultSource.BAIDU);
     }
 
     public AuthBaiduRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.BAIDU, authStateCache);
+        super(config, AuthDefaultSource.BAIDU, authStateCache);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
             .remark(object.getString("userdetail"))
             .gender(AuthUserGender.getRealGender(object.getString("sex")))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

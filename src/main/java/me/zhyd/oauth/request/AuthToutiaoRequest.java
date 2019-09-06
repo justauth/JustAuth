@@ -4,7 +4,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthToutiaoErrorCode;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -22,11 +22,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthToutiaoRequest extends AuthDefaultRequest {
 
     public AuthToutiaoRequest(AuthConfig config) {
-        super(config, AuthSource.TOUTIAO);
+        super(config, AuthDefaultSource.TOUTIAO);
     }
 
     public AuthToutiaoRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.TOUTIAO, authStateCache);
+        super(config, AuthDefaultSource.TOUTIAO, authStateCache);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
             .remark(user.getString("description"))
             .gender(AuthUserGender.getRealGender(user.getString("gender")))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

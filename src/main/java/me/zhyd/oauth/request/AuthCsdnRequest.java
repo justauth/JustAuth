@@ -4,7 +4,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -21,11 +21,11 @@ import me.zhyd.oauth.model.AuthUser;
 public class AuthCsdnRequest extends AuthDefaultRequest {
 
     public AuthCsdnRequest(AuthConfig config) {
-        super(config, AuthSource.CSDN);
+        super(config, AuthDefaultSource.CSDN);
     }
 
     public AuthCsdnRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.CSDN, authStateCache);
+        super(config, AuthDefaultSource.CSDN, authStateCache);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class AuthCsdnRequest extends AuthDefaultRequest {
             .blog(object.getString("website"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

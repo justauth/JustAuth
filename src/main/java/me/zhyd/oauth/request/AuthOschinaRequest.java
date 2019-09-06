@@ -4,7 +4,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -21,11 +21,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthOschinaRequest extends AuthDefaultRequest {
 
     public AuthOschinaRequest(AuthConfig config) {
-        super(config, AuthSource.OSCHINA);
+        super(config, AuthDefaultSource.OSCHINA);
     }
 
     public AuthOschinaRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.OSCHINA, authStateCache);
+        super(config, AuthDefaultSource.OSCHINA, authStateCache);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class AuthOschinaRequest extends AuthDefaultRequest {
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
             .email(object.getString("email"))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

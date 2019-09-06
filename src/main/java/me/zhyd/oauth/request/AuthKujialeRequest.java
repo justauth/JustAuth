@@ -5,7 +5,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -24,11 +24,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthKujialeRequest extends AuthDefaultRequest {
 
     public AuthKujialeRequest(AuthConfig config) {
-        super(config, AuthSource.KUJIALE);
+        super(config, AuthDefaultSource.KUJIALE);
     }
 
     public AuthKujialeRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.KUJIALE, authStateCache);
+        super(config, AuthDefaultSource.KUJIALE, authStateCache);
     }
 
     /**
@@ -108,7 +108,7 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
             .avatar(resultObject.getString("avatar"))
             .uuid(resultObject.getString("openId"))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

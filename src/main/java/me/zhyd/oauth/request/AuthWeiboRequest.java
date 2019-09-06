@@ -5,7 +5,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -25,11 +25,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthWeiboRequest extends AuthDefaultRequest {
 
     public AuthWeiboRequest(AuthConfig config) {
-        super(config, AuthSource.WEIBO);
+        super(config, AuthDefaultSource.WEIBO);
     }
 
     public AuthWeiboRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.WEIBO, authStateCache);
+        super(config, AuthDefaultSource.WEIBO, authStateCache);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class AuthWeiboRequest extends AuthDefaultRequest {
             .remark(object.getString("description"))
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -28,11 +28,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthLinkedinRequest extends AuthDefaultRequest {
 
     public AuthLinkedinRequest(AuthConfig config) {
-        super(config, AuthSource.LINKEDIN);
+        super(config, AuthDefaultSource.LINKEDIN);
     }
 
     public AuthLinkedinRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.LINKEDIN, authStateCache);
+        super(config, AuthDefaultSource.LINKEDIN, authStateCache);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
             .email(email)
             .token(authToken)
             .gender(AuthUserGender.UNKNOWN)
-            .source(AuthSource.LINKEDIN)
+            .source(source.toString())
             .build();
     }
 

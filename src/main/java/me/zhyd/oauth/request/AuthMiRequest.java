@@ -6,7 +6,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -29,11 +29,11 @@ public class AuthMiRequest extends AuthDefaultRequest {
     private static final String PREFIX = "&&&START&&&";
 
     public AuthMiRequest(AuthConfig config) {
-        super(config, AuthSource.MI);
+        super(config, AuthDefaultSource.MI);
     }
 
     public AuthMiRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.MI, authStateCache);
+        super(config, AuthDefaultSource.MI, authStateCache);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
             .email(user.getString("mail"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
 
         // 获取用户邮箱手机号等信息

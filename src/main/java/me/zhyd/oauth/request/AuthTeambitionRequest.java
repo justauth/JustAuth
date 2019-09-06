@@ -5,7 +5,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -23,11 +23,11 @@ import me.zhyd.oauth.model.AuthUser;
 public class AuthTeambitionRequest extends AuthDefaultRequest {
 
     public AuthTeambitionRequest(AuthConfig config) {
-        super(config, AuthSource.TEAMBITION);
+        super(config, AuthDefaultSource.TEAMBITION);
     }
 
     public AuthTeambitionRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.TEAMBITION, authStateCache);
+        super(config, AuthDefaultSource.TEAMBITION, authStateCache);
     }
 
     /**
@@ -75,7 +75,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
             .email(object.getString("email"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -24,11 +24,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthDingTalkRequest extends AuthDefaultRequest {
 
     public AuthDingTalkRequest(AuthConfig config) {
-        super(config, AuthSource.DINGTALK);
+        super(config, AuthDefaultSource.DINGTALK);
     }
 
     public AuthDingTalkRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.DINGTALK, authStateCache);
+        super(config, AuthDefaultSource.DINGTALK, authStateCache);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
             .nickname(object.getString("nick"))
             .username(object.getString("nick"))
             .gender(AuthUserGender.UNKNOWN)
-            .source(source)
+            .source(source.toString())
             .token(token)
             .build();
     }

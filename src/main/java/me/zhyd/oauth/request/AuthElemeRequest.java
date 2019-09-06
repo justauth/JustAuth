@@ -6,7 +6,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -32,11 +32,11 @@ import java.util.Map;
 public class AuthElemeRequest extends AuthDefaultRequest {
 
     public AuthElemeRequest(AuthConfig config) {
-        super(config, AuthSource.ELEME);
+        super(config, AuthDefaultSource.ELEME);
     }
 
     public AuthElemeRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.ELEME, authStateCache);
+        super(config, AuthDefaultSource.ELEME, authStateCache);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class AuthElemeRequest extends AuthDefaultRequest {
             .nickname(result.getString("userName"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

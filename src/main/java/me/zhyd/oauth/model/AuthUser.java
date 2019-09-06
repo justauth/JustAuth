@@ -1,7 +1,6 @@
 package me.zhyd.oauth.model;
 
 import lombok.*;
-import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 
 /**
@@ -61,7 +60,7 @@ public class AuthUser {
     /**
      * 用户来源
      */
-    private AuthSource source;
+    private String source;
     /**
      * 用户授权的token信息
      */

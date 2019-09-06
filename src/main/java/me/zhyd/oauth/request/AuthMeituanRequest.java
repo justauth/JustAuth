@@ -5,7 +5,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -24,11 +24,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthMeituanRequest extends AuthDefaultRequest {
 
     public AuthMeituanRequest(AuthConfig config) {
-        super(config, AuthSource.MEITUAN);
+        super(config, AuthDefaultSource.MEITUAN);
     }
 
     public AuthMeituanRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.MEITUAN, authStateCache);
+        super(config, AuthDefaultSource.MEITUAN, authStateCache);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
             .avatar(object.getString("avatar"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

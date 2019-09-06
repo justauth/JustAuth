@@ -4,7 +4,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -21,11 +21,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthTencentCloudRequest extends AuthDefaultRequest {
 
     public AuthTencentCloudRequest(AuthConfig config) {
-        super(config, AuthSource.TENCENT_CLOUD);
+        super(config, AuthDefaultSource.TENCENT_CLOUD);
     }
 
     public AuthTencentCloudRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.TENCENT_CLOUD, authStateCache);
+        super(config, AuthDefaultSource.TENCENT_CLOUD, authStateCache);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class AuthTencentCloudRequest extends AuthDefaultRequest {
             .email(object.getString("email"))
             .remark(object.getString("slogan"))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

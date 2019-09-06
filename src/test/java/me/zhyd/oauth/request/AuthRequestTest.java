@@ -1,4 +1,4 @@
-package me.zhyd.oauth;
+package me.zhyd.oauth.request;
 
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.model.AuthCallback;

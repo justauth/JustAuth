@@ -5,7 +5,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -24,11 +24,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
  */
 public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
     public AuthWeChatEnterpriseRequest(AuthConfig config) {
-        super(config, AuthSource.WECHAT_ENTERPRISE);
+        super(config, AuthDefaultSource.WECHAT_ENTERPRISE);
     }
 
     public AuthWeChatEnterpriseRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.WECHAT_ENTERPRISE, authStateCache);
+        super(config, AuthDefaultSource.WECHAT_ENTERPRISE, authStateCache);
     }
 
     /**
@@ -74,7 +74,7 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
             .uuid(userId)
             .gender(AuthUserGender.getRealGender(gender))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

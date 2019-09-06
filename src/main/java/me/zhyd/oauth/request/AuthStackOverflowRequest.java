@@ -12,7 +12,7 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.UrlBuilder;
 
-import static me.zhyd.oauth.config.AuthSource.STACK_OVERFLOW;
+import static me.zhyd.oauth.config.AuthDefaultSource.STACK_OVERFLOW;
 import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
 
 /**
@@ -67,7 +67,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .blog(userObj.getString("website_url"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

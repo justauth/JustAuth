@@ -4,7 +4,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -21,11 +21,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthFacebookRequest extends AuthDefaultRequest {
 
     public AuthFacebookRequest(AuthConfig config) {
-        super(config, AuthSource.FACEBOOK);
+        super(config, AuthDefaultSource.FACEBOOK);
     }
 
     public AuthFacebookRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.FACEBOOK, authStateCache);
+        super(config, AuthDefaultSource.FACEBOOK, authStateCache);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
             .email(object.getString("email"))
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

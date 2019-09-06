@@ -4,7 +4,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
@@ -21,11 +21,11 @@ import me.zhyd.oauth.utils.UrlBuilder;
 public class AuthCodingRequest extends AuthDefaultRequest {
 
     public AuthCodingRequest(AuthConfig config) {
-        super(config, AuthSource.CODING);
+        super(config, AuthDefaultSource.CODING);
     }
 
     public AuthCodingRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.CODING, authStateCache);
+        super(config, AuthDefaultSource.CODING, authStateCache);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class AuthCodingRequest extends AuthDefaultRequest {
             .email(object.getString("email"))
             .remark(object.getString("slogan"))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

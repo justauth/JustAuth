@@ -6,7 +6,7 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.exception.AuthException;
@@ -29,11 +29,11 @@ import java.util.Map;
  */
 public class AuthQqRequest extends AuthDefaultRequest {
     public AuthQqRequest(AuthConfig config) {
-        super(config, AuthSource.QQ);
+        super(config, AuthDefaultSource.QQ);
     }
 
     public AuthQqRequest(AuthConfig config, AuthStateCache authStateCache) {
-        super(config, AuthSource.QQ, authStateCache);
+        super(config, AuthDefaultSource.QQ, authStateCache);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class AuthQqRequest extends AuthDefaultRequest {
             .uuid(openId)
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
             .token(authToken)
-            .source(source)
+            .source(source.toString())
             .build();
     }
 

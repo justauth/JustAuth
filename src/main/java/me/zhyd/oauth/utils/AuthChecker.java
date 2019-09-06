@@ -1,6 +1,7 @@
 package me.zhyd.oauth.utils;
 
 import me.zhyd.oauth.config.AuthConfig;
+import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
@@ -24,13 +25,13 @@ public class AuthChecker {
      */
     public static boolean isSupportedAuth(AuthConfig config, AuthSource source) {
         boolean isSupported = StringUtils.isNotEmpty(config.getClientId()) && StringUtils.isNotEmpty(config.getClientSecret()) && StringUtils.isNotEmpty(config.getRedirectUri());
-        if (isSupported && AuthSource.ALIPAY == source) {
+        if (isSupported && AuthDefaultSource.ALIPAY == source) {
             isSupported = StringUtils.isNotEmpty(config.getAlipayPublicKey());
         }
-        if (isSupported && AuthSource.STACK_OVERFLOW == source) {
+        if (isSupported && AuthDefaultSource.STACK_OVERFLOW == source) {
             isSupported = StringUtils.isNotEmpty(config.getStackOverflowKey());
         }
-        if (isSupported && AuthSource.WECHAT_ENTERPRISE == source){
+        if (isSupported && AuthDefaultSource.WECHAT_ENTERPRISE == source){
             isSupported = StringUtils.isNotEmpty(config.getAgentId());
         }
         return isSupported;
@@ -49,11 +50,11 @@ public class AuthChecker {
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI);
         }
         // facebook的回调地址必须为https的链接
-        if (AuthSource.FACEBOOK == source && !GlobalAuthUtil.isHttpsProtocol(redirectUri)) {
+        if (AuthDefaultSource.FACEBOOK == source && !GlobalAuthUtil.isHttpsProtocol(redirectUri)) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI);
         }
         // 支付宝在创建回调地址时，不允许使用localhost或者127.0.0.1
-        if (AuthSource.ALIPAY == source && GlobalAuthUtil.isLocalHost(redirectUri)) {
+        if (AuthDefaultSource.ALIPAY == source && GlobalAuthUtil.isLocalHost(redirectUri)) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI);
         }
     }
@@ -69,9 +70,9 @@ public class AuthChecker {
      */
     public static void checkCode(AuthSource source, AuthCallback callback) {
         String code = callback.getCode();
-        if (source == AuthSource.ALIPAY) {
+        if (source == AuthDefaultSource.ALIPAY) {
             code = callback.getAuth_code();
-        } else if (source == AuthSource.HUAWEI) {
+        } else if (source == AuthDefaultSource.HUAWEI) {
             code = callback.getAuthorization_code();
         }
         if (StringUtils.isEmpty(code)) {
