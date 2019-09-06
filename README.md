@@ -67,6 +67,7 @@
             <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/kujiale.png" width="20"></td>
             <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/gitlab.png" width="20"></td>
             <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/meituan.png" width="20"></td>
+            <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/eleme.png" width="20"></td>
         </tr>
     </table>
 </center>
@@ -162,6 +163,7 @@ authRequest.login(callback);
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/kujiale.png" width="20">  |  [AuthKujialeRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthKujialeRequest.java)  |  <a href="https://open.kujiale.com/open/apps/2/docs?doc_id=95" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/gitlab.png" width="20">  |  [AuthGitlabRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthGitlabRequest.java)  |  <a href="https://docs.gitlab.com/ee/api/oauth2.html" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/meituan.png" width="20">  |  [AuthMeituanRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthMeituanRequest.java)  |  <a href="http://open.waimai.meituan.com/openapi_docs/oauth/" target="_blank">参考文档</a> |
+|  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/eleme.png" width="20">  |  [AuthElemeRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthElemeRequest.java)  |  <a href="https://open.shop.ele.me/openapi/documents/khd001" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20">  |  [AuthCsdnRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthCsdnRequest.java)  |  无 |
 
 _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经下线。如果以前申请过的应用，可以继续使用，但是不再支持申请新的应用。so, 本项目中的CSDN登录只能针对少部分用户使用了_

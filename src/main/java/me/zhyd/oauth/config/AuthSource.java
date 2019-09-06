@@ -643,6 +643,35 @@ public enum AuthSource {
         public String refresh() {
             return "https://openapi.waimai.meituan.com/oauth/refresh_token";
         }
+    },
+
+    /**
+     * 饿了么
+     * <p>
+     * 注：集成的是正式环境，非沙箱环境
+     *
+     * @since 1.12.0
+     */
+    ELEME {
+        @Override
+        public String authorize() {
+            return "https://open-api.shop.ele.me/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://open-api.shop.ele.me/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://open-api.shop.ele.me/api/v1/";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://open-api.shop.ele.me/token";
+        }
     };
 
     /**

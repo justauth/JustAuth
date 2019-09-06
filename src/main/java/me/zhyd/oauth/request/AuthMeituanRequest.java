@@ -74,11 +74,11 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
 
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
-        HttpResponse response = HttpRequest.post(source.accessToken())
+        HttpResponse response = HttpRequest.post(source.refresh())
             .form("app_id", config.getClientId())
             .form("secret", config.getClientSecret())
             .form("refresh_token", oldToken.getRefreshToken())
-            .form("grant_type", "authorization_code")
+            .form("grant_type", "refresh_token")
             .execute();
         JSONObject object = JSONObject.parseObject(response.body());
 
