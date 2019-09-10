@@ -113,6 +113,7 @@ authRequest.login(callback);
 
 **配套Demo**：
 - [Springboot版](https://gitee.com/yadong.zhang/JustAuth-demo)
+- [Nutzboot版](https://github.com/EggsBlue/nutzboot-justauth-demo)
 - [jFinal版](https://github.com/xkcoding/jfinal-justauth-demo)
 - [ActFramework版](https://github.com/xkcoding/act-justauth-demo)
 
