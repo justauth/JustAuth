@@ -672,6 +672,31 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://open-api.shop.ele.me/token";
         }
+    },
+    /**
+     * 京东
+     * @since
+     */
+    JD {
+        @Override
+        public String authorize() {
+            return "https://open-oauth.jd.com/oauth2/to_login";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://open-oauth.jd.com/oauth2/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return null;
+        }
+
+        @Override
+        public String refresh() {
+            return "https://open-oauth.jd.com/oauth2/refresh_token";
+        }
     }
 
 }
