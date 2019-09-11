@@ -115,13 +115,13 @@ authRequest.login(callback);
 
 **Examples**：
 - [Springboot Example](https://gitee.com/yadong.zhang/JustAuth-demo)
-- [jFinal Example](https://github.com/xkcoding/jfinal-justauth-demo)
-- [ActFramework Example](https://github.com/xkcoding/act-justauth-demo)
-- [Nutzboot版](https://github.com/EggsBlue/nutzboot-justauth-demo)
+- [jFinal Example](https://github.com/xkcoding/jfinal-justauth-demo): by [xkcoding](https://github.com/xkcoding)
+- [ActFramework Example](https://github.com/xkcoding/act-justauth-demo): by [xkcoding](https://github.com/xkcoding)
+- [Nutzboot版](https://github.com/EggsBlue/nutzboot-justauth-demo): by [蛋蛋](https://github.com/EggsBlue)
 
 **Springboot Starter**
 
-- [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot integrates best practices with JustAuth
+- [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot integrates best practices with JustAuth by [xkcoding](https://github.com/xkcoding)
 
 #### API
 |  :computer: platform  |  :coffee: API  |  :page_facing_up: Official document  |

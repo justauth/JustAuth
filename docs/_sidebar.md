@@ -1,4 +1,5 @@
 - [入门和使用](README.md)
+- [贡献者名单](contributors.md)
 - 快速开始
   - [名词解释](explain.md)
   - [如何使用](how-to-use.md)

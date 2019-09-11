@@ -115,12 +115,12 @@ authRequest.login(callback);
 
 **配套Demo**：
 - [Springboot版](https://gitee.com/yadong.zhang/JustAuth-demo)
-- [Nutzboot版](https://github.com/EggsBlue/nutzboot-justauth-demo)
-- [jFinal版](https://github.com/xkcoding/jfinal-justauth-demo)
-- [ActFramework版](https://github.com/xkcoding/act-justauth-demo)
+- [jFinal版](https://github.com/xkcoding/jfinal-justauth-demo): Jfinal集成JustAuth的demo by [xkcoding](https://github.com/xkcoding)
+- [ActFramework版](https://github.com/xkcoding/act-justauth-demo): ActFramework 集成 JustAuth 的 demo by [xkcoding](https://github.com/xkcoding)
+- [Nutzboot版](https://github.com/EggsBlue/nutzboot-justauth-demo): NutzBoot集成JustAuth的demo  by [蛋蛋](https://github.com/EggsBlue)
 
 ## 插件
-- [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter) ：Spring Boot 集成 JustAuth 的最佳实践
+- [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot 集成 JustAuth 的最佳实践 by [xkcoding](https://github.com/xkcoding)
 
 具体的例子可以参考：
 
@@ -178,6 +178,10 @@ _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经�
 4. commit后push到自己的库
 5. 发起PR（pull request） 请求，提交到`dev`分支
 6. 等待作者合并
+
+## 贡献者名单
+
+[contributors](https://docs.justauth.whnb.wang/#/contributors)
 
 ## 致谢
 
