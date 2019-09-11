@@ -2,7 +2,6 @@ package me.zhyd.oauth.utils;
 
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.StrUtil;
 import lombok.Setter;
 
 import java.util.LinkedHashMap;
@@ -24,6 +23,17 @@ public class UrlBuilder {
 
     private UrlBuilder() {
 
+    }
+
+    /**
+     * 只读的 Map, clone 内部实现也是 putAll
+     * HashMap#putAll 可实现对 基本类型 和 String 类型的深度复制
+     *
+     * @return Map<String, Object>
+     */
+    @SuppressWarnings("unchecked")
+    public Map<String, Object> getReadParams() {
+        return (Map<String, Object>) ((LinkedHashMap<String, Object>) params).clone();
     }
 
     /**

@@ -690,7 +690,7 @@ public enum AuthDefaultSource implements AuthSource {
 
         @Override
         public String userInfo() {
-            return null;
+            return "https://api.jd.com/routerjson";
         }
 
         @Override

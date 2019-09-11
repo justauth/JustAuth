@@ -238,4 +238,24 @@ public class GlobalAuthUtil {
         return null == buffer ? "" : buffer.toString();
     }
 
+    /**
+     * 京东md5加密
+     * link: https://github.com/pingjiang/jd-open-api-sdk-src/blob/master/src/main/java/com/jd/open/api/sdk/internal/util/CodecUtil.java
+     * @param source
+     * @return
+     * @throws Exception
+     */
+    public static String jdMd5(String source) throws Exception {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] bytes = md.digest(source.getBytes(StandardCharsets.UTF_8));
+        StringBuilder sign = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            String hex = Integer.toHexString(bytes[i] & 0xff);
+            if (hex.length() == 1) {
+                sign.append("0");
+            }
+            sign.append(hex.toUpperCase());
+        }
+        return sign.toString();
+    }
 }
