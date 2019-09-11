@@ -57,7 +57,6 @@ public class AuthElemeRequest extends AuthDefaultRequest {
         this.checkResponse(object);
 
         return AuthToken.builder()
-            .openId(this.getOpenId(authCallback.getCode()))
             .accessToken(object.getString("access_token"))
             .refreshToken(object.getString("refresh_token"))
             .tokenType(object.getString("token_type"))
@@ -73,29 +72,38 @@ public class AuthElemeRequest extends AuthDefaultRequest {
         // 时间戳，单位秒。API服务端允许客户端请求最大时间误差为正负5分钟。
         final long timestamp = System.currentTimeMillis();
         // 公共参数
-        Map<String, Object> metasHashMap = new HashMap<String, Object>();
+        Map<String, Object> metasHashMap = new HashMap<>();
         metasHashMap.put("app_key", config.getClientId());
         metasHashMap.put("timestamp", timestamp);
         String signature = GlobalAuthUtil.generateElemeSignature(config.getClientId(), config.getClientSecret(), timestamp, action, authToken.getAccessToken(), parameters);
 
+        String requestId = this.getRequestId();
+
+
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("nop", "1.0.0");
+        paramsMap.put("id", requestId);
+        paramsMap.put("action", action);
+        paramsMap.put("token", authToken.getAccessToken());
+        paramsMap.put("metas", metasHashMap);
+        paramsMap.put("params", parameters);
+        paramsMap.put("signature", signature);
+
         HttpRequest request = HttpRequest.post(source.userInfo())
-            .form("nop", "1.0.0")
-            .form("id", this.getRequestId())
-            .form("metas", metasHashMap)
-            .form("action", action)
-            .form("token", authToken.getAccessToken())
-            .form("params", parameters)
-            .form("signature", signature);
+            .body(JSONObject.toJSONBytes(paramsMap));
 
         // 设置header
-        this.setHeader(request, "application/json; charset=utf-8");
+        this.setHeader(request, "application/json; charset=utf-8", requestId);
 
         HttpResponse response = request.execute();
 
         JSONObject object = JSONObject.parseObject(response.body());
 
         // 校验请求
-        if (object.containsKey("error")) {
+        if (object.containsKey("name")) {
+            throw new AuthException(object.getString("message"));
+        }
+        if (object.containsKey("error") && null != object.get("error")) {
             throw new AuthException(object.getJSONObject("error").getString("message"));
         }
 
@@ -143,23 +151,6 @@ public class AuthElemeRequest extends AuthDefaultRequest {
             .build();
     }
 
-    private String getOpenId(String code) {
-        HttpRequest request = HttpRequest.post("https://open-api.shop.ele.me/identity")
-            .form("grant_type", "authorization_code")
-            .form("code", code)
-            .form("redirect_uri", config.getRedirectUri())
-            .form("client_id", config.getClientId());
-
-        // 设置header
-        this.setHeader(request);
-
-        HttpResponse response = request.execute();
-        JSONObject object = JSONObject.parseObject(response.body());
-
-        this.checkResponse(object);
-        return object.getString("openId");
-    }
-
     private String getBasic(String appKey, String appSecret) {
         StringBuilder sb = new StringBuilder();
         String encodeToString = Base64.encode((appKey + ":" + appSecret).getBytes());
@@ -168,20 +159,20 @@ public class AuthElemeRequest extends AuthDefaultRequest {
     }
 
     private void setHeader(HttpRequest request) {
-        setHeader(request, "application/x-www-form-urlencoded;charset=UTF-8");
+        setHeader(request, "application/x-www-form-urlencoded;charset=UTF-8", getRequestId());
+        request.header("Authorization", this.getBasic(config.getClientId(), config.getClientSecret()));
     }
 
-    private void setHeader(HttpRequest request, String contentType) {
+    private void setHeader(HttpRequest request, String contentType, String requestId) {
         request.header("Accept", "text/xml,text/javascript,text/html")
             .header("Content-Type", contentType)
             .header("Accept-Encoding", "gzip")
             .header("User-Agent", "eleme-openapi-java-sdk")
-            .header("x-eleme-requestid", getRequestId())
-            .header("Authorization", this.getBasic(config.getClientId(), config.getClientSecret()));
+            .header("x-eleme-requestid", requestId);
     }
 
     private String getRequestId() {
-        return UuidUtils.getUUID() + "|" + System.currentTimeMillis();
+        return (UuidUtils.getUUID() + "|" + System.currentTimeMillis()).toUpperCase();
     }
 
     private void checkResponse(JSONObject object) {

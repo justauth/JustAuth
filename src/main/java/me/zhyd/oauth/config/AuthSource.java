@@ -14,13 +14,12 @@ import me.zhyd.oauth.model.AuthCallback;
  * <p>
  * 注：
  * ①、如需通过JustAuth扩展实现第三方授权，请参考{@link AuthDefaultSource}自行创建对应的枚举类并实现{@link AuthSource}接口
- * ②、如果不是使用的枚举类，那么在授权成功后获取用户信息时，需要单独处理{@link me.zhyd.oauth.model.AuthUser#setSource}字段的赋值
+ * ②、如果不是使用的枚举类，那么在授权成功后获取用户信息时，需要单独处理sourcec字段的赋值
  * ③、如果扩展了对应枚举类时，在{@link me.zhyd.oauth.request.AuthRequest#login(AuthCallback)}中可以通过{@code xx.toString()}获取对应的source
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
- * @date 2019/9/6 21:17
- * @since 1.8
+ * @since 1.12.0
  */
 public interface AuthSource {
 
