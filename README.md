@@ -115,16 +115,12 @@ authRequest.login(callback);
 
 **配套Demo**：
 - [Springboot版](https://gitee.com/yadong.zhang/JustAuth-demo)
+- [Nutzboot版](https://github.com/EggsBlue/nutzboot-justauth-demo)
 - [jFinal版](https://github.com/xkcoding/jfinal-justauth-demo)
 - [ActFramework版](https://github.com/xkcoding/act-justauth-demo)
 
-**扩展工具**
-
-- [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot 集成 JustAuth 的最佳实践
-
-**配套SpringBoot starter**：
-
-[justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter)
+## 插件
+- [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter) ：Spring Boot 集成 JustAuth 的最佳实践
 
 具体的例子可以参考：
 
