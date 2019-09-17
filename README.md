@@ -187,11 +187,17 @@ _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经�
 
 在项目立项初期，也对当前开源圈的一些相同类型的项目作过调研，同时本项目也参考过这些项目，再次感谢开源圈内的朋友。
 
-[YurunOAuthLogin](https://gitee.com/yurunsoft/YurunOAuthLogin): PHP 第三方登录授权 SDK
+- [YurunOAuthLogin](https://gitee.com/yurunsoft/YurunOAuthLogin): PHP 第三方登录授权 SDK
+- [阿里妈妈MUX倾力打造的矢量图标库-iconfont](https://www.iconfont.cn/search/index): 本文档中的图标大部分取自该平台
+- [mica](https://github.com/lets-mica/mica)：Spring Cloud 微服务开发核心包，支持 `web `和 `webflux`。注：JustAuth项目中的[UuidUtils](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/utils/UuidUtils.java)就是直接使用的mica提供的高性能的uuid创建工具类源码[StringUtil.java](https://github.com/lets-mica/mica/blob/master/mica-core/src/main/java/net/dreamlu/mica/core/utils/StringUtil.java#L335)
+- 感谢 JetBrains 提供的免费开源 License：
+<img src="https://github.com/lets-mica/mica/raw/c251e176b81518a6a570bf4eb21f525c4f582a81/docs/img/jetbrains.png" alt="图片引用自lets-mica" style="float:left;">
 
-[阿里妈妈MUX倾力打造的矢量图标库-iconfont](https://www.iconfont.cn/search/index): 本文档中的图标大部分取自该平台
-
-[mica](https://github.com/lets-mica/mica)：Spring Cloud 微服务开发核心包，支持 `web `和 `webflux`。注：JustAuth项目中的[UuidUtils](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/utils/UuidUtils.java)就是直接使用的mica提供的高性能的uuid创建工具类源码[StringUtil.java](https://github.com/lets-mica/mica/blob/master/mica-core/src/main/java/net/dreamlu/mica/core/utils/StringUtil.java#L335)
+## 开源推荐
+- `spring-boot-demo` 深度学习并实战 spring boot 的项目: [https://github.com/xkcoding/spring-boot-demo](https://github.com/xkcoding/spring-boot-demo)
+- `mica` SpringBoot 微服务高效开发工具集: [https://github.com/lets-mica/mica](https://github.com/lets-mica/mica)
+- `pig` 宇宙最强微服务认证授权脚手架(架构师必备): [https://gitee.com/log4j/pig](https://gitee.com/log4j/pig)
+- `SpringBlade` 完整的线上解决方案（企业开发必备）: https://gitee.com/smallc/SpringBlade
 
 ## 关于OAuth
 
@@ -209,7 +215,6 @@ _请知悉：经咨询CSDN官方客服得知，CSDN的授权开放平台已经�
 - JustAuth交流群 （230017570）：专业交流该项目
 
 - 开源总群 （190886500）：各个开源项目的都有，也有博客建设等方面的朋友。
-
 
 ## 请喝咖啡
 

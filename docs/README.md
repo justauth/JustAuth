@@ -155,6 +155,11 @@ JustAuth一共有两个主要分支：
 - 线上版分支（master）：稳定版，发布版就是这个分支的代码
 - 开发版分支（dev）：不保证稳定，新功能都会优先推送到该分支，对于想尝鲜的朋友，可以直接下载代码，然后源码编译dev分支
 
+## 开源推荐
+- `spring-boot-demo` 深度学习并实战 spring boot 的项目: [https://github.com/xkcoding/spring-boot-demo](https://github.com/xkcoding/spring-boot-demo)
+- `mica` SpringBoot 微服务高效开发工具集: [https://github.com/lets-mica/mica](https://github.com/lets-mica/mica)
+- `pig` 宇宙最强微服务认证授权脚手架(架构师必备): [https://gitee.com/log4j/pig](https://gitee.com/log4j/pig)
+- `SpringBlade` 完整的线上解决方案（企业开发必备）: https://gitee.com/smallc/SpringBlade
 
 ## 捐赠
 
