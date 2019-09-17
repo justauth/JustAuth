@@ -4,6 +4,8 @@
 - 集成“美团”授权登录
 - 集成“饿了么”授权登录
 - 升级Fastjson依赖到1.2.60，预防[“Fastjson ＜ 1.2.60 远程拒绝服务漏洞预警”](https://card.weibo.com/article/m/show/id/2309404413257925394542)
+- 添加Nutzboot版的demo
+- 提取公共的Source接口，支持自定义扩展第三方平台的授权登录，具体扩展例子可参考[AuthExtendRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/test/java/me/zhyd/oauth/request/AuthExtendRequest.java)
 
 ## v1.11.0
 ### 2019/09/03
