@@ -6,3 +6,4 @@
 
 ## 插件
 - [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot 集成 JustAuth 的最佳实践 by [xkcoding](https://github.com/xkcoding)
+- [justauth-spring-boot-starter-demo](https://github.com/justauth/justauth-spring-boot-starter-demo): Spring Boot 使用 justauth-spring-boot-starter 快速集成 JustAuth by [xkcoding](https://github.com/xkcoding)

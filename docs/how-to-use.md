@@ -146,3 +146,10 @@ public Object revokeAuth(@PathVariable("source") String source, @PathVariable("t
     return authRequest.revoke(AuthToken.builder().accessToken(token).build());
 }
 ```
+
+## 参考文章
+
+- [实现Gitee授权登录](http://t.cn/ExDKxQs)
+- [实现Github授权登录](http://t.cn/EJ0Fxqo)
+- [Spring Boot 快速集成第三方登录功能](http://t.cn/AiWWx5kH) : QQ、Github、微信、谷歌、微软、小米、企业微信
+- [集成企业微信](https://mp.weixin.qq.com/s?__biz=MzA3NDk3OTIwMg==&mid=2450633170&idx=2&sn=456b70742a86948a193c691f3e47b72e&chksm=8892933fbfe51a29c1da386a2252d4bf91bfbd14e1ac0b99b783763a0d12e2e4b2d7c4369933&token=482455242&lang=zh_CN#rd)

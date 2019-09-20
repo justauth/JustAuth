@@ -83,7 +83,7 @@ Docs：[Reference Doc](https://docs.justauth.whnb.wang)
 
 ## Features
 
-1. **Multiple platform**: Has integrated more than a dozen third-party platforms.
+1. **Multiple platform**: Has integrated more than a dozen third-party platforms.([plan](https://gitee.com/yadong.zhang/JustAuth/issues/IUGRK))
 2. **Minimalist**: The minimalist design is very simple to use.
 
 ## Quick start
@@ -122,6 +122,7 @@ authRequest.login(callback);
 **Springboot Starter**
 
 - [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot integrates best practices with JustAuth by [xkcoding](https://github.com/xkcoding)
+- [justauth-spring-boot-starter-demo](https://github.com/justauth/justauth-spring-boot-starter-demo): Justauth-spring-boot-starter demo project by [xkcoding](https://github.com/xkcoding)
 
 #### API
 |  :computer: platform  |  :coffee: API  |  :page_facing_up: Official document  |

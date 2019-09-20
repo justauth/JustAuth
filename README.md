@@ -85,7 +85,7 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 
 废话不多说，就俩字：
 
-1. **全**：已集成十多家第三方平台（国内外常用的基本都已包含），后续依然还有扩展计划！
+1. **全**：已集成十多家第三方平台（国内外常用的基本都已包含），仍然还在持续扩展中（[开发计划](https://gitee.com/yadong.zhang/JustAuth/issues/IUGRK)）！
 2. **简**：API就是奔着最简单去设计的（见后面`快速开始`），尽量让您用起来没有障碍感！
 
 ## 快速开始
@@ -121,12 +121,14 @@ authRequest.login(callback);
 
 ## 插件
 - [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot 集成 JustAuth 的最佳实践 by [xkcoding](https://github.com/xkcoding)
+- [justauth-spring-boot-starter-demo](https://github.com/justauth/justauth-spring-boot-starter-demo): Spring Boot 使用 justauth-spring-boot-starter 快速集成 JustAuth by [xkcoding](https://github.com/xkcoding)
 
 具体的例子可以参考：
 
 - [实现Gitee授权登录](http://t.cn/ExDKxQs)
 - [实现Github授权登录](http://t.cn/EJ0Fxqo)
-- [Spring Boot 快速集成第三方登录功能](http://t.cn/AiWWx5kH)
+- [Spring Boot 快速集成第三方登录功能](http://t.cn/AiWWx5kH) : QQ、Github、微信、谷歌、微软、小米、企业微信
+- [集成企业微信](https://mp.weixin.qq.com/s?__biz=MzA3NDk3OTIwMg==&mid=2450633170&idx=2&sn=456b70742a86948a193c691f3e47b72e&chksm=8892933fbfe51a29c1da386a2252d4bf91bfbd14e1ac0b99b783763a0d12e2e4b2d7c4369933&token=482455242&lang=zh_CN#rd)
 
 #### API列表
 |  :computer: 平台  |  :coffee: API类  |  :page_facing_up: SDK  |
