@@ -32,6 +32,7 @@ public class AuthConfig {
 
     /**
      * 支付宝公钥：当选择支付宝登录时，该值可用
+     * 对应“RSA2(SHA256)密钥”中的“支付宝公钥”
      */
     private String alipayPublicKey;
 
