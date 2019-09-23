@@ -114,10 +114,11 @@ authRequest.login(callback);
 ```
 
 **Examples**：
-- [Springboot Example](https://gitee.com/yadong.zhang/JustAuth-demo)
+- [Springboot Example](https://github.com/justauth/JustAuth-demo)
 - [jFinal Example](https://github.com/xkcoding/jfinal-justauth-demo): by [xkcoding](https://github.com/xkcoding)
 - [ActFramework Example](https://github.com/xkcoding/act-justauth-demo): by [xkcoding](https://github.com/xkcoding)
-- [Nutzboot版](https://github.com/EggsBlue/nutzboot-justauth-demo): by [蛋蛋](https://github.com/EggsBlue)
+- [Nutzboot Example](https://github.com/EggsBlue/nutzboot-justauth-demo): by [蛋蛋](https://github.com/EggsBlue)
+- [Blade Example](https://github.com/justauth/blade-justauth-demo)
 
 **Springboot Starter**
 

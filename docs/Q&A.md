@@ -28,7 +28,7 @@ public Object login(@PathVariable("source") String source, AuthCallback callback
 	return response;
 }
 ```
- ~~_代码截取自_ ：https://gitee.com/yadong.zhang/JustAuth-demo~~
+ ~~_代码截取自_ ：https://github.com/justauth/JustAuth-demo~~
 
 ## ~~升级到1.8.0后对于state参数有什么特殊要求吗？~~
 
@@ -48,7 +48,7 @@ public Object login(@PathVariable("source") String source, AuthCallback callback
 
 这是因为从`v1.9.3`版本开始，对项目进行了一些优化，具体优化内容参考：[v1.9.3](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.3)和[v1.9.4](https://gitee.com/yadong.zhang/JustAuth/releases/v1.9.4)。
 
-新版本的使用方式，参考[JustAuth-demo](https://gitee.com/yadong.zhang/JustAuth-demo/blob/master/src/main/java/me/zhyd/justauth/RestAuthController.java)
+新版本的使用方式，参考[JustAuth-demo](https://github.com/justauth/JustAuth-demo/blob/master/src/main/java/me/zhyd/justauth/RestAuthController.java)
 ```
 @RequestMapping("/render/{source}")
 public void renderAuth(@PathVariable("source") String source, HttpServletResponse response) throws IOException {
