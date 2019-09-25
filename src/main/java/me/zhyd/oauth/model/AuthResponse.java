@@ -3,6 +3,7 @@ package me.zhyd.oauth.model;
 import lombok.Builder;
 import lombok.Getter;
 import me.zhyd.oauth.enums.AuthResponseStatus;
+import java.io.Serializable;
 
 /**
  * JustAuth统一授权响应类
@@ -12,7 +13,7 @@ import me.zhyd.oauth.enums.AuthResponseStatus;
  */
 @Getter
 @Builder
-public class AuthResponse<T> {
+public class AuthResponse<T> implements Serializable {
     /**
      * 授权响应状态码
      */
