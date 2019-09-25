@@ -2,6 +2,7 @@ package me.zhyd.oauth.model;
 
 import lombok.*;
 import me.zhyd.oauth.enums.AuthUserGender;
+import java.io.Serializable;
 
 /**
  * 授权成功后的用户信息，根据授权平台的不同，获取的数据完整性也不同
@@ -14,7 +15,7 @@ import me.zhyd.oauth.enums.AuthUserGender;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthUser {
+public class AuthUser implements Serializable {
     /**
      * 用户第三方系统的唯一id。在调用方集成改组件时，可以用uuid + source唯一确定一个用户
      *
