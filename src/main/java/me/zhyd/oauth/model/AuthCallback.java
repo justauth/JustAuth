@@ -2,6 +2,7 @@ package me.zhyd.oauth.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import java.io.Serializable;
 
 /**
  * 授权回调时的参数类
@@ -11,7 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class AuthCallback {
+public class AuthCallback implements Serializable {
 
     /**
      * 访问AuthorizeUrl后回调时带的参数code
