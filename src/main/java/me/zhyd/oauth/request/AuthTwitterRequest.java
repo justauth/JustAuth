@@ -50,9 +50,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
         oauthParams.put("oauth_callback", config.getRedirectUri());
         oauthParams.put("oauth_signature", generateTwitterSignature(oauthParams, "POST", baseUrl, config.getClientSecret(), null));
         String header = buildHeader(oauthParams);
-        HttpResponse requestToken = HttpRequest.post(baseUrl)
-            .header("Authorization", header)
-            .execute();
+        HttpResponse requestToken = HttpRequest.post(baseUrl).header("Authorization", header).execute();
         checkResponse(requestToken);
 
         Map<String, Object> res = GlobalAuthUtil.parseQueryToMap(requestToken.body());
@@ -96,7 +94,6 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-
         Map<String, Object> queryParams = new HashMap<>();
         queryParams.put("user_id", authToken.getUserId());
         queryParams.put("screen_name", authToken.getScreenName());
@@ -109,9 +106,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
         params.putAll(queryParams);
         oauthParams.put("oauth_signature", generateTwitterSignature(params, "GET", source.userInfo(), config.getClientSecret(), authToken.getOauthTokenSecret()));
         String header = buildHeader(oauthParams);
-        HttpResponse response = HttpRequest.get(userInfoUrl(authToken))
-            .header("Authorization", header)
-            .execute();
+        HttpResponse response = HttpRequest.get(userInfoUrl(authToken)).header("Authorization", header).execute();
         checkResponse(response);
         JSONObject userInfo = JSONObject.parseObject(response.body());
 
