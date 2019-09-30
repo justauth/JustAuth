@@ -27,6 +27,8 @@ import static me.zhyd.oauth.utils.GlobalAuthUtil.urlEncode;
  */
 public class AuthTwitterRequest extends AuthDefaultRequest {
 
+    private static final String PREAMBLE = "OAuth";
+
     public AuthTwitterRequest(AuthConfig config) {
         super(config, TWITTER);
     }
@@ -47,10 +49,9 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
         Map<String, Object> oauthParams = buildOauthParams();
         oauthParams.put("oauth_callback", config.getRedirectUri());
         oauthParams.put("oauth_signature", generateTwitterSignature(oauthParams, "POST", baseUrl, config.getClientSecret(), null));
-        oauthParams.forEach((k, v) -> oauthParams.put(k, "\"" + urlEncode(v.toString()) + "\""));
-
+        String header = buildHeader(oauthParams);
         HttpResponse requestToken = HttpRequest.post(baseUrl)
-            .header("Authorization", "OAuth " + GlobalAuthUtil.parseMapToString(oauthParams, false).replaceAll("&", ", "))
+            .header("Authorization", header)
             .execute();
         checkResponse(requestToken);
 
@@ -75,10 +76,9 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
         oauthParams.put("oauth_token", authCallback.getOauthToken());
         oauthParams.put("oauth_verifier", authCallback.getOauthVerifier());
         oauthParams.put("oauth_signature", generateTwitterSignature(oauthParams, "POST", source.accessToken(), config.getClientSecret(), authCallback.getOauthToken()));
-        oauthParams.forEach((k, v) -> oauthParams.put(k, "\"" + urlEncode(v.toString()) + "\""));
-
+        String header = buildHeader(oauthParams);
         HttpResponse response = HttpRequest.post(source.accessToken())
-            .header("Authorization", "OAuth " + GlobalAuthUtil.parseMapToString(oauthParams, false).replaceAll("&", ", "))
+            .header("Authorization", header)
             .header("Content-Type", "application/x-www-form-urlencoded")
             .form("oauth_verifier", authCallback.getOauthVerifier())
             .execute();
@@ -108,10 +108,9 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
         Map<String, Object> params = new HashMap<>(oauthParams);
         params.putAll(queryParams);
         oauthParams.put("oauth_signature", generateTwitterSignature(params, "GET", source.userInfo(), config.getClientSecret(), authToken.getOauthTokenSecret()));
-        oauthParams.forEach((k, v) -> oauthParams.put(k, "\"" + urlEncode(v.toString()) + "\""));
-
+        String header = buildHeader(oauthParams);
         HttpResponse response = HttpRequest.get(userInfoUrl(authToken))
-            .header("Authorization", "OAuth " + GlobalAuthUtil.parseMapToString(oauthParams, false).replaceAll("&", ", "))
+            .header("Authorization", header)
             .execute();
         checkResponse(response);
         JSONObject userInfo = JSONObject.parseObject(response.body());
@@ -146,6 +145,22 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
         params.put("oauth_timestamp", GlobalAuthUtil.getTimestamp());
         params.put("oauth_version", "1.0");
         return params;
+    }
+
+    private String buildHeader(Map<String, Object> oauthParams) {
+        final StringBuilder sb = new StringBuilder(PREAMBLE);
+
+        for (Map.Entry<String, Object> param : oauthParams.entrySet()) {
+            if (sb.length() > PREAMBLE.length()) {
+                sb.append(", ");
+            }
+            sb.append(param.getKey())
+                .append("=\"")
+                .append(urlEncode(param.getValue().toString()))
+                .append('"');
+        }
+
+        return sb.toString();
     }
 
     private void checkResponse(HttpResponse response) {
