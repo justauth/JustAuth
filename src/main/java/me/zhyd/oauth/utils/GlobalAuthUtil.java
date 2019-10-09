@@ -17,7 +17,13 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
 
 /**
  * 全局的工具类
@@ -27,7 +33,8 @@ import java.util.*;
  */
 public class GlobalAuthUtil {
     private static final Charset DEFAULT_ENCODING = StandardCharsets.UTF_8;
-    private static final String ALGORITHM = "HmacSHA256";
+    private static final String HMAC_SHA1 = "HmacSHA1";
+    private static final String HMAC_SHA_256 = "HmacSHA256";
 
     /**
      * 生成钉钉请求的Signature
@@ -37,24 +44,25 @@ public class GlobalAuthUtil {
      * @return Signature
      */
     public static String generateDingTalkSignature(String secretKey, String timestamp) {
-        byte[] signData = sign(secretKey.getBytes(DEFAULT_ENCODING), timestamp.getBytes(DEFAULT_ENCODING));
+        byte[] signData = sign(secretKey.getBytes(DEFAULT_ENCODING), timestamp.getBytes(DEFAULT_ENCODING), HMAC_SHA_256);
         return urlEncode(new String(Base64.encode(signData, false)));
     }
 
     /**
      * 签名
      *
-     * @param key  key
-     * @param data data
+     * @param key       key
+     * @param data      data
+     * @param algorithm algorithm
      * @return byte[]
      */
-    private static byte[] sign(byte[] key, byte[] data) {
+    private static byte[] sign(byte[] key, byte[] data, String algorithm) {
         try {
-            Mac mac = Mac.getInstance(ALGORITHM);
-            mac.init(new SecretKeySpec(key, ALGORITHM));
+            Mac mac = Mac.getInstance(algorithm);
+            mac.init(new SecretKeySpec(key, algorithm));
             return mac.doFinal(data);
         } catch (NoSuchAlgorithmException ex) {
-            throw new AuthException("Unsupported algorithm: " + ALGORITHM, ex);
+            throw new AuthException("Unsupported algorithm: " + algorithm, ex);
         } catch (InvalidKeyException ex) {
             throw new AuthException("Invalid key: " + Arrays.toString(key), ex);
         }
@@ -182,6 +190,57 @@ public class GlobalAuthUtil {
      */
     public static boolean isLocalHost(String url) {
         return StringUtils.isEmpty(url) || url.contains("127.0.0.1") || url.contains("localhost");
+    }
+
+
+    /**
+     * Generate nonce with given length
+     *
+     * @param len length
+     * @return nonce string
+     */
+    public static String generateNonce(int len) {
+        String s = "0123456789QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm";
+        Random rng = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            int index = rng.nextInt(62);
+            sb.append(s, index, index + 1);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Get current timestamp
+     *
+     * @return timestamp string
+     */
+    public static String getTimestamp() {
+        return String.valueOf(System.currentTimeMillis() / 1000);
+    }
+
+    /**
+     * Generate Twitter signature
+     * https://developer.twitter.com/en/docs/basics/authentication/guides/creating-a-signature
+     *
+     * @param params      parameters including: oauth headers, query params, body params
+     * @param method      HTTP method
+     * @param baseUrl     base url
+     * @param apiSecret   api key secret can be found in the developer portal by viewing the app details page
+     * @param tokenSecret oauth token secret
+     * @return BASE64 encoded signature string
+     */
+    public static String generateTwitterSignature(Map<String, Object> params, String method, String baseUrl, String apiSecret, String tokenSecret) {
+        TreeMap<String, Object> map = new TreeMap<>();
+        for (Map.Entry<String, Object> e : params.entrySet()) {
+            map.put(urlEncode(e.getKey()), e.getValue());
+        }
+        String str = parseMapToString(map, true);
+        String baseStr = method.toUpperCase() + "&" + urlEncode(baseUrl) + "&" + urlEncode(str);
+        String signKey = apiSecret + "&" + (StringUtils.isEmpty(tokenSecret) ? "" : tokenSecret);
+        byte[] signature = sign(signKey.getBytes(DEFAULT_ENCODING), baseStr.getBytes(DEFAULT_ENCODING), HMAC_SHA1);
+
+        return new String(Base64.encode(signature, false));
     }
 
     /**

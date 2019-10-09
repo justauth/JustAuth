@@ -41,9 +41,10 @@ public class AuthExtendRequestTest {
 
         String state = AuthStateUtils.createState();
         request.authorize(state);
-        AuthCallback callback = new AuthCallback();
-        callback.setCode("code");
-        callback.setState(state);
+        AuthCallback callback = AuthCallback.builder()
+            .code("code")
+            .state(state)
+            .build();
         AuthResponse response = request.login(callback);
         Assert.assertNotNull(response);
 

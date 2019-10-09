@@ -1,5 +1,6 @@
 package me.zhyd.oauth.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Builder
 public class AuthCallback {
 
     /**
@@ -34,4 +36,18 @@ public class AuthCallback {
      * @since 1.10.0
      */
     private String authorization_code;
+
+    /**
+     * Twitter回调后返回的oauth_token
+     *
+     * @since 1.12.0
+     */
+    private String oauthToken;
+
+    /**
+     * Twitter回调后返回的oauth_verifier
+     *
+     * @since 1.12.0
+     */
+    private String oauthVerifier;
 }

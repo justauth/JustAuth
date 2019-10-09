@@ -70,6 +70,11 @@
             <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/eleme.png" width="20"></td>
         </tr>
     </table>
+    <table>
+            <tr>
+                <td align="center" width="200"><img src="" width="20" title="Twitter"></td>
+            </tr>
+        </table>
 </center>
 
 -------------------------------------------------------------------------------
@@ -157,6 +162,7 @@ authRequest.login(callback);
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/gitlab.png" width="20">  |  [AuthGitlabRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthGitlabRequest.java)  |  <a href="https://docs.gitlab.com/ee/api/oauth2.html" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/meituan.png" width="20">  |  [AuthMeituanRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthMeituanRequest.java)  |  <a href="http://open.waimai.meituan.com/openapi_docs/oauth/" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/eleme.png" width="20">  |  [AuthElemeRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthElemeRequest.java)  |  <a href="https://open.shop.ele.me/openapi/documents/khd001" target="_blank">参考文档</a> |
+|  <img src="" width="20">  |  [AuthTwitterRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthTwitterRequest.java)  |  <a href="https://developer.twitter.com/en/docs/twitter-for-websites/log-in-with-twitter/guides/implementing-sign-in-with-twitter" target="_blank">参考文档</a> |
 |  <img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/csdn.png" width="20">  |  [AuthCsdnRequest](https://gitee.com/yadong.zhang/JustAuth/blob/master/src/main/java/me/zhyd/oauth/request/AuthCsdnRequest.java)  |  无 |
 
 

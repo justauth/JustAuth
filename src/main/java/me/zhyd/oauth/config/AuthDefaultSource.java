@@ -672,6 +672,28 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://open-api.shop.ele.me/token";
         }
+    },
+
+    /**
+     * Twitter
+     *
+     * @since 1.12.0
+     */
+    TWITTER {
+        @Override
+        public String authorize() {
+            return "https://api.twitter.com/oauth/authenticate";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://api.twitter.com/oauth/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.twitter.com/1.1/users/show.json";
+        }
     }
 
 }

@@ -42,4 +42,15 @@ public class AuthToken {
      */
     private String code;
 
+    /**
+     * Twitter附带属性
+     *
+     * @since 1.12.0
+     */
+    private String oauthToken;
+    private String oauthTokenSecret;
+    private String userId;
+    private String screenName;
+    private Boolean oauthCallbackConfirmed;
+
 }
