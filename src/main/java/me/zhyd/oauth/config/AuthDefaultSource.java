@@ -677,7 +677,7 @@ public enum AuthDefaultSource implements AuthSource {
     /**
      * Twitter
      *
-     * @since 1.12.0
+     * @since 1.13.0
      */
     TWITTER {
         @Override

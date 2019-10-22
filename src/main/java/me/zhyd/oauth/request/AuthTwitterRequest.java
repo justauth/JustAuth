@@ -23,7 +23,7 @@ import static me.zhyd.oauth.utils.GlobalAuthUtil.urlEncode;
  * Twitter登录
  *
  * @author hongwei.peng (pengisgood(at)gmail(dot)com)
- * @since 1.12.0
+ * @since 1.13.0
  */
 public class AuthTwitterRequest extends AuthDefaultRequest {
 

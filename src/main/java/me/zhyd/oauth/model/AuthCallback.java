@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * 授权回调时的参数类
  *
@@ -13,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class AuthCallback {
+public class AuthCallback implements Serializable {
 
     /**
      * 访问AuthorizeUrl后回调时带的参数code
@@ -40,14 +42,14 @@ public class AuthCallback {
     /**
      * Twitter回调后返回的oauth_token
      *
-     * @since 1.12.0
+     * @since 1.13.0
      */
     private String oauthToken;
 
     /**
      * Twitter回调后返回的oauth_verifier
      *
-     * @since 1.12.0
+     * @since 1.13.0
      */
     private String oauthVerifier;
 }
