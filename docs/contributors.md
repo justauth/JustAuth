@@ -10,7 +10,7 @@
   - 提供ActFramework版demo
   - 提供SpringBoot快速集成的justauth-spring-boot-starter
 - <img src="https://avatars2.githubusercontent.com/u/2988765?s=115&v=4" width="20"> · pengisgood :  <a href="https://github.com/pengisgood" target="_blank">[Github]</a> | <a href="https://pengisgood.github.io" target="_blank">[个人网站]</a>
-  - 集成人人登录、Pinterest登录、StackOverflow登录
+  - 集成人人登录、Pinterest登录、StackOverflow登录、Twitter登录
 - <img src="https://avatar.gitee.com/uploads/51/1651_dolphinboy.png!avatar100?1479346570" width="20"> · skqing :  <a href="https://gitee.com/skqing" target="_blank">[Gitee]</a> | <a href="https://my.oschina.net/dolphinboy" target="_blank">[个人网站]</a>    
   - 修复钉钉登录的部分问题
   - 优化微博登录

@@ -5,12 +5,12 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 
 /**
- * OAuth平台的API管理类的统一接口，提供以下接口：
- * 1) {@link AuthSource#authorize()}: 获取授权api. 必须实现
- * 2) {@link AuthSource#accessToken()}: 获取授权api. 必须实现
- * 3) {@link AuthSource#userInfo()}: 获取授权api. 必须实现
- * 4) {@link AuthSource#revoke()}: 获取授权api. 非必须实现接口（部分平台不支持）
- * 5) {@link AuthSource#refresh()} ()}: 获取授权api. 非必须实现接口（部分平台不支持）
+ * OAuth平台的API地址的统一接口，提供以下方法：
+ * 1) {@link AuthSource#authorize()}: 获取授权url. 必须实现
+ * 2) {@link AuthSource#accessToken()}: 获取accessToken的url. 必须实现
+ * 3) {@link AuthSource#userInfo()}: 获取用户信息的url. 必须实现
+ * 4) {@link AuthSource#revoke()}: 获取取消授权的url. 非必须实现接口（部分平台不支持）
+ * 5) {@link AuthSource#refresh()}: 获取刷新授权的url. 非必须实现接口（部分平台不支持）
  * <p>
  * 注：
  * ①、如需通过JustAuth扩展实现第三方授权，请参考{@link AuthDefaultSource}自行创建对应的枚举类并实现{@link AuthSource}接口
