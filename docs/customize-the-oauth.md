@@ -187,8 +187,9 @@ public class AuthMyGitlabRequest extends AuthDefaultRequest {
 }
 ```
 
-## 使用`AuthMyGitlabRequest`实现Gitlab登录
+## 测试效果
 
+创建`AuthMyGitlabRequest`
 ```java
 AuthRequest authRequest = new AuthMyGitlabRequest(AuthConfig.builder()
     .clientId("63398e403231d4aa7e856cf5413620d536a876cb94e8d10ced0d3191b5d1d246")
@@ -199,7 +200,7 @@ AuthRequest authRequest = new AuthMyGitlabRequest(AuthConfig.builder()
 
 > 注：完整代码都在[JustAuth-demo](https://github.com/justauth/JustAuth-demo)Demo项目中，本节只讲解关键代码
 
-## 效果
+登录后的效果为
 
 ![gitlab私服验证授权](./_media/custom/gitlab3.png)
 ![gitlab私服登录完成](./_media/custom/gitlab4.png)
