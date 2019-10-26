@@ -6,7 +6,7 @@
   - [如何使用](how-to-use.md)
 - [Q&A](Q&A.md)
 - 集成第三方
-  - [Gitee登录](oauth/gitee.md)
+  - [√ Gitee登录](oauth/gitee.md)
   - [Github登录](oauth/github.md)
   - [qq登录](oauth/qq.md)
   - [微信登录](oauth/wechat.md)
@@ -31,7 +31,7 @@
   - [Stackoverflow登录](oauth/stackoverflow.md)
   - [华为登录](oauth/huawei.md)
   - [微信企业版登录](oauth/wechatEnterprise.md)
-  - [酷家乐登录](oauth/kujiale.md)
+  - [√ 酷家乐登录](oauth/kujiale.md)
   - [Gitlab登录](oauth/gitlab.md)
   - [美团登录](oauth/meituan.md)
   - [饿了么登录](oauth/eleme.md)
