@@ -5,7 +5,7 @@
 - [The OAuth 2.0 Authorization Framework](https://tools.ietf.org/html/rfc6749)
 - [OAuth 2.0](https://oauth.net/2/)
 
-## OAuth 2的授权流程
+## OAuth 2 的授权流程
 
 ### 参与的角色
 
@@ -38,6 +38,8 @@
 
 上面的流程图取自[The OAuth 2.0 Authorization Framework#1.2](https://tools.ietf.org/html/rfc6749#section-1.2)
 
+**流程解析**
+
 - (A)  用户打开**客户端**以后，**客户端**要求**用户**给予授权。
 - (B)  **用户**同意给予**客户端**授权。
 - (C)  **客户端**使用上一步获得的授权，向**认证服务器**申请令牌。
@@ -56,6 +58,25 @@
 - Client Credentials
   - 适用于客户端调用主服务API型应用（比如百度API Store）
   
-在`JustAuth`中是使用的`Authorization Code`授权方式，下面将主要讲解`Authorization Code`的授权流程
+## 直白话 OAuth 2 流程
 
-（未完待续）
+以上流程理解起来可能有些难度，这儿我们给出一个白话版的流程图
+
+这儿引入三个角色：
+- 用户A：可以理解成你自己
+- 网站B：可以理解成 Oschina
+- 第三方C：可以理解成 Github
+
+需求：你想通过Github第三方登录Oschina
+
+<div class="mermaid">
+    sequenceDiagram
+      用户A->>网站B: 1.我想登录你
+      网站B->>用户A: 2.我不认识你
+      用户A->>第三方C: 3.老铁我去过你那儿，咱俩认识，你帮我授权给网站B
+      第三方C->>网站B: 4.用户A是我老铁，给你他的授权码
+      网站B->>第三方C: 5.这个授权码是你那儿的人吗？是的话给我他的令牌
+      第三方C->>网站B: 6.是我这儿的人，让他登录吧
+      网站B->>用户A: 7.得嘞，您走着
+      用户A->>网站B: 8.登录成功
+</div>

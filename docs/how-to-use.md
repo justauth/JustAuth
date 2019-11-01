@@ -153,3 +153,16 @@ public Object revokeAuth(@PathVariable("source") String source, @PathVariable("t
 - [实现Github授权登录](http://t.cn/EJ0Fxqo)
 - [Spring Boot 快速集成第三方登录功能](http://t.cn/AiWWx5kH) : QQ、Github、微信、谷歌、微软、小米、企业微信
 - [集成企业微信](https://mp.weixin.qq.com/s?__biz=MzA3NDk3OTIwMg==&mid=2450633170&idx=2&sn=456b70742a86948a193c691f3e47b72e&chksm=8892933fbfe51a29c1da386a2252d4bf91bfbd14e1ac0b99b783763a0d12e2e4b2d7c4369933&token=482455242&lang=zh_CN#rd)
+
+## 配套项目
+
+**配套Demo**：
+- [JustAuth-demo](https://github.com/justauth/JustAuth-demo)：普通版springboot项目demo
+- [jFinal版](https://github.com/xkcoding/jfinal-justauth-demo): Jfinal集成JustAuth的demo by [xkcoding](https://github.com/xkcoding)
+- [ActFramework版](https://github.com/xkcoding/act-justauth-demo): ActFramework 集成 JustAuth 的 demo by [xkcoding](https://github.com/xkcoding)
+- [Nutzboot版](https://github.com/EggsBlue/nutzboot-justauth-demo): NutzBoot集成JustAuth的demo  by [蛋蛋](https://github.com/EggsBlue)
+- [Blade版](https://github.com/justauth/blade-justauth-demo): Blade集成JustAuth的demo
+
+## springboot starter插件
+- [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot 集成 JustAuth 的最佳实践 by [xkcoding](https://github.com/xkcoding)
+- [justauth-spring-boot-starter-demo](https://github.com/justauth/justauth-spring-boot-starter-demo): Spring Boot 使用 justauth-spring-boot-starter 快速集成 JustAuth by [xkcoding](https://github.com/xkcoding)

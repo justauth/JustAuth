@@ -3,6 +3,7 @@ package me.zhyd.oauth.model;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import java.io.Serializable;
 
 /**
  * 授权所需的token
@@ -13,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class AuthToken {
+public class AuthToken implements Serializable {
     private String accessToken;
     private int expireIn;
     private String refreshToken;
@@ -41,5 +42,16 @@ public class AuthToken {
      * @since 1.10.0
      */
     private String code;
+
+    /**
+     * Twitter附带属性
+     *
+     * @since 1.13.0
+     */
+    private String oauthToken;
+    private String oauthTokenSecret;
+    private String userId;
+    private String screenName;
+    private Boolean oauthCallbackConfirmed;
 
 }
