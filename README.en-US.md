@@ -71,11 +71,7 @@
             <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/twitter.png" width="20"></td>
         </tr>
     </table>
-    <table>
-            <tr>
-                <td align="center" width="200"><img src="" width="20" title="Twitter"></td>
-            </tr>
-        </table>
+    <center><a href="https://docs.justauth.whnb.wang/#/?id=%E5%B7%B2%E9%9B%86%E6%88%90%E7%9A%84%E5%B9%B3%E5%8F%B0" target="_blank">查看更多</a></center>
 </center>
 
 -------------------------------------------------------------------------------
