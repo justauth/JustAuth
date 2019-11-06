@@ -6,7 +6,7 @@
 
   <groupId>me.zhyd.oauth</groupId>
   <artifactId>JustAuth</artifactId>
-  <version>1.13.0</version>
+  <version>1.13.1-SNAPSHOT</version>
 
   <name>JustAuth</name>
   <url>https://gitee.com/yadong.zhang/JustAuth</url>
@@ -64,7 +64,7 @@
     <lombok-version>1.18.4</lombok-version>
     <junit-version>4.11</junit-version>
     <fastjson-version>1.2.60</fastjson-version>
-    <alipay-sdk-version>3.7.4.ALL</alipay-sdk-version>
+    <alipay-sdk-version>4.5.0.ALL</alipay-sdk-version>
     <jacoco-version>0.8.2</jacoco-version>
   </properties>
 
