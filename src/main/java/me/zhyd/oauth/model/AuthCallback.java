@@ -1,11 +1,8 @@
 package me.zhyd.oauth.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import me.zhyd.oauth.enums.AuthUserGender;
 
 import java.io.Serializable;
 
@@ -18,8 +15,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class AuthCallback implements Serializable {
 
     /**
