@@ -138,3 +138,14 @@ AuthRequest authRequest = new AuthQqRequest(AuthConfig.builder()
         .build());
 ```
 > 注：使用unionId要求开发者必须已在qq开放平台申请了获取unionId的权限，否则可能会发生错误！切记！参考链接：[unionid介绍](http://wiki.connect.qq.com/unionid%E4%BB%8B%E7%BB%8D)
+
+## 12. `AuthCallback`报错？
+
+在使用JustAuth 1.13.0时，遇到如下所示错误：
+![](./_media/authcallback_error.png)
+
+这是因为我没有做好代码审查和测试，所以才导致的问题。我检讨！深刻的检讨！
+
+请遇到该问题的朋友及时升级到最新版本（`1.13.1`修复该问题）
+
+
