@@ -1,8 +1,7 @@
 package me.zhyd.oauth.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
 import java.io.Serializable;
 
 /**
@@ -14,6 +13,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthToken implements Serializable {
     private String accessToken;
     private int expireIn;
