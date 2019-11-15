@@ -148,4 +148,6 @@ AuthRequest authRequest = new AuthQqRequest(AuthConfig.builder()
 
 请遇到该问题的朋友及时升级到最新版本（`1.13.1`修复该问题）
 
+ps: 我要去祭天了
+
 
