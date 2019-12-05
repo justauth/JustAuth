@@ -60,11 +60,11 @@
     <maven-surefire-version>2.20</maven-surefire-version>
     <maven-gpg-version>1.6</maven-gpg-version>
     <maven.test.skip>false</maven.test.skip>
-    <hutool-version>4.6.1</hutool-version>
-    <lombok-version>1.18.4</lombok-version>
+    <hutool-version>5.0.5</hutool-version>
+    <lombok-version>1.18.10</lombok-version>
     <junit-version>4.11</junit-version>
-    <fastjson-version>1.2.60</fastjson-version>
-    <alipay-sdk-version>3.7.4.ALL</alipay-sdk-version>
+    <fastjson-version>1.2.62</fastjson-version>
+    <alipay-sdk-version>4.8.10.ALL</alipay-sdk-version>
     <jacoco-version>0.8.2</jacoco-version>
   </properties>
 
