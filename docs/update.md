@@ -1,3 +1,7 @@
+## v1.1x(未发布)
+- 修复抖音登录取值取错层级的问题（[issue#I15SIG@Gitee](https://gitee.com/yadong.zhang/JustAuth/issues/I15SIG)）
+- 升级相关依赖：lombok@v1.18.10，hutool@5.0.5，fastjson@1.2.62，alipay@4.8.10.ALL（[PR#11@Gitee](https://gitee.com/yadong.zhang/JustAuth/pulls/11)）
+
 ## v1.13.1
 ### 2019/11/12
 
