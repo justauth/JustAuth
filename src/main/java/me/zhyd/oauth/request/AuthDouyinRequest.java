@@ -42,13 +42,15 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
         HttpResponse response = doGetUserInfo(authToken);
         JSONObject userInfoObject = JSONObject.parseObject(response.body());
         this.checkResponse(userInfoObject);
+        JSONObject dataObj = userInfoObject.getJSONObject("data");
         return AuthUser.builder()
-            .uuid(userInfoObject.getString("union_id"))
-            .username(userInfoObject.getString("nickname"))
-            .nickname(userInfoObject.getString("nickname"))
-            .avatar(userInfoObject.getString("avatar"))
-            .remark(userInfoObject.getString("description"))
-            .gender(AuthUserGender.UNKNOWN)
+            .uuid(dataObj.getString("union_id"))
+            .username(dataObj.getString("nickname"))
+            .nickname(dataObj.getString("nickname"))
+            .avatar(dataObj.getString("avatar"))
+            .remark(dataObj.getString("description"))
+            .gender(AuthUserGender.getRealGender(dataObj.getString("gender")))
+            .location(String.format("%s %s %s", dataObj.getString("country"), dataObj.getString("province"), dataObj.getString("city")))
             .token(authToken)
             .source(source.toString())
             .build();
@@ -87,12 +89,13 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
         String accessTokenStr = response.body();
         JSONObject object = JSONObject.parseObject(accessTokenStr);
         this.checkResponse(object);
+        JSONObject dataObj = object.getJSONObject("data");
         return AuthToken.builder()
-            .accessToken(object.getString("access_token"))
-            .openId(object.getString("open_id"))
-            .expireIn(object.getIntValue("expires_in"))
-            .refreshToken(object.getString("refresh_token"))
-            .scope(object.getString("scope"))
+            .accessToken(dataObj.getString("access_token"))
+            .openId(dataObj.getString("open_id"))
+            .expireIn(dataObj.getIntValue("expires_in"))
+            .refreshToken(dataObj.getString("refresh_token"))
+            .scope(dataObj.getString("scope"))
             .build();
     }
 
