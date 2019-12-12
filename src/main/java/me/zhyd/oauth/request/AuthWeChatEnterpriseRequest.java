@@ -57,7 +57,7 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
 
         // 返回 OpenId 或其他，均代表非当前企业用户，不支持
         if (!object.containsKey("UserId")) {
-            throw new AuthException(AuthResponseStatus.UNIDENTIFIED_PLATFORM);
+            throw new AuthException(AuthResponseStatus.UNIDENTIFIED_PLATFORM, source);
         }
         String userId = object.getString("UserId");
         HttpResponse userDetailResponse = getUserDetail(authToken.getAccessToken(), userId);
@@ -88,7 +88,7 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
         JSONObject object = JSONObject.parseObject(response.body());
 
         if (object.containsKey("errcode") && object.getIntValue("errcode") != 0) {
-            throw new AuthException(object.getIntValue("errcode"), object.getString("errmsg"));
+            throw new AuthException(object.getString("errmsg"), source);
         }
 
         return object;

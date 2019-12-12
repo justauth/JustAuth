@@ -1,5 +1,6 @@
 package me.zhyd.oauth.exception;
 
+import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 
 /**
@@ -17,6 +18,10 @@ public class AuthException extends RuntimeException {
         this(AuthResponseStatus.FAILURE.getCode(), errorMsg);
     }
 
+    public AuthException(String errorMsg, AuthSource source) {
+        this(AuthResponseStatus.FAILURE.getCode(), errorMsg, source);
+    }
+
     public AuthException(int errorCode, String errorMsg) {
         super(errorMsg);
         this.errorCode = errorCode;
@@ -24,7 +29,15 @@ public class AuthException extends RuntimeException {
     }
 
     public AuthException(AuthResponseStatus status) {
-        super(status.getMsg());
+        this(status.getCode(), status.getMsg());
+    }
+
+    public AuthException(int errorCode, String errorMsg, AuthSource source) {
+        this(errorCode, String.format("%s [%s]", errorMsg, source.getName()));
+    }
+
+    public AuthException(AuthResponseStatus status, AuthSource source) {
+        this(status.getCode(), status.getMsg(), source);
     }
 
     public AuthException(String message, Throwable cause) {

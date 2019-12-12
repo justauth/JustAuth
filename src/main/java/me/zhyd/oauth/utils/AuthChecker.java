@@ -1,5 +1,6 @@
 package me.zhyd.oauth.utils;
 
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.config.AuthSource;
@@ -31,7 +32,7 @@ public class AuthChecker {
         if (isSupported && AuthDefaultSource.STACK_OVERFLOW == source) {
             isSupported = StringUtils.isNotEmpty(config.getStackOverflowKey());
         }
-        if (isSupported && AuthDefaultSource.WECHAT_ENTERPRISE == source){
+        if (isSupported && AuthDefaultSource.WECHAT_ENTERPRISE == source) {
             isSupported = StringUtils.isNotEmpty(config.getAgentId());
         }
         return isSupported;
@@ -47,15 +48,17 @@ public class AuthChecker {
     public static void checkConfig(AuthConfig config, AuthSource source) {
         String redirectUri = config.getRedirectUri();
         if (!GlobalAuthUtil.isHttpProtocol(redirectUri) && !GlobalAuthUtil.isHttpsProtocol(redirectUri)) {
-            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI);
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }
         // facebook的回调地址必须为https的链接
         if (AuthDefaultSource.FACEBOOK == source && !GlobalAuthUtil.isHttpsProtocol(redirectUri)) {
-            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI);
+            // Facebook's redirect uri must use the HTTPS protocol
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }
         // 支付宝在创建回调地址时，不允许使用localhost或者127.0.0.1
         if (AuthDefaultSource.ALIPAY == source && GlobalAuthUtil.isLocalHost(redirectUri)) {
-            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI);
+            // The redirect uri of alipay is forbidden to use localhost or 127.0.0.1
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }
     }
 
@@ -76,7 +79,23 @@ public class AuthChecker {
             code = callback.getAuthorization_code();
         }
         if (StringUtils.isEmpty(code)) {
-            throw new AuthException(AuthResponseStatus.ILLEGAL_CODE);
+            throw new AuthException(AuthResponseStatus.ILLEGAL_CODE, source);
+        }
+    }
+
+    /**
+     * 校验回调传回的{@code state}，为空或者不存在
+     * <p>
+     * {@code state}不存在的情况只有两种：
+     * 1. {@code state}已使用，被正常清除
+     * 2. {@code state}为前端伪造，本身就不存在
+     *
+     * @param state          {@code state}一定不为空
+     * @param authStateCache {@code authStateCache} state缓存实现
+     */
+    public static void checkState(String state, AuthSource source, AuthStateCache authStateCache) {
+        if (StringUtils.isEmpty(state) || !authStateCache.containsKey(state)) {
+            throw new AuthException(AuthResponseStatus.ILLEGAL_STATUS, source);
         }
     }
 }

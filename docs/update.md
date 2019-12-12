@@ -1,7 +1,10 @@
 ## v1.1x(未发布)
 - 修复抖音登录取值取错层级的问题（[issue#I15SIG@Gitee](https://gitee.com/yadong.zhang/JustAuth/issues/I15SIG)）
 - 升级相关依赖：lombok@v1.18.10，hutool@5.0.5，fastjson@1.2.62，alipay@4.8.10.ALL（[PR#11@Gitee](https://gitee.com/yadong.zhang/JustAuth/pulls/11)）
-
+- 完善异常提示的逻辑，支持传入Source（平台），发生异常时显示对应的source（平台）
+- `checkState`方法从`AuthDefaultRequest`中提出到`AuthChecker`中
+- `AuthResponseStatus`枚举类中增加`ILLEGAL_STATUS`、`REQUIRED_REFRESH_TOKEN`两个枚举值
+- `AuthSource`接口中增加`getName`方法，用来对外提供实际`source`的字符串值
 ## v1.13.1
 ### 2019/11/12
 

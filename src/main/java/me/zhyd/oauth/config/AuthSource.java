@@ -61,4 +61,16 @@ public interface AuthSource {
     default String refresh() {
         throw new AuthException(AuthResponseStatus.UNSUPPORTED);
     }
+
+    /**
+     * 获取Source的字符串名字
+     *
+     * @return name
+     */
+    default String getName() {
+        if (this instanceof Enum) {
+            return String.valueOf(this);
+        }
+        return this.getClass().getSimpleName();
+    }
 }
