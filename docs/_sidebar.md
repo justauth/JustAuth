@@ -8,7 +8,7 @@
 - 集成第三方
   - [√ Gitee登录](oauth/gitee.md)
   - [√ Github登录](oauth/github.md)
-  - [qq登录](oauth/qq.md)
+  - [√ qq登录](oauth/qq.md)
   - [√ 微信登录](oauth/wechat.md)
   - [微博登录](oauth/weibo.md)
   - [支付宝登录](oauth/alipay.md)
