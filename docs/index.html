@@ -16,13 +16,16 @@
 
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
 
 </head>
 <body>
-  <div id="app">Please wait...</div>
+  <div data-app id="app">Please wait...</div>
   <script>
     window.$docsify = {
-      name: '<img src="./_media/cover.png" width="200"><br>Login, so easy',
+      el: '#app',
+      name: 'JustAuth',
+      logo: './_media/cover.png',
       search: {
         maxAge: 86400000,
         noData: {
@@ -30,7 +33,7 @@
         },
         paths: 'auto',
         placeholder: {
-          '/': '搜索'
+          '/': '输入您的关键词进行搜索'
         }
       },
       repo: 'https://gitee.com/yadong.zhang/JustAuth',
@@ -39,7 +42,9 @@
       subMaxLevel: 2,
       auto2top: true,
       coverpage: true,
+      autoHeader: true,
       formatUpdated: '{YYYY}/{MM}/{DD} {HH}:{mm}:{ss}',
+      notFoundPage: '_404.md',
       plugins: [
         function (hook, vm) {
           var footer = [
@@ -66,9 +71,25 @@
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+  <script src="//unpkg.com/docsify-copy-code"></script>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@7.1.0/dist/mermaid.min.js"></script>
   <script>mermaid.initialize({startOnLoad:true});</script>
 
+  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+  <script>
+      const gitalk = new Gitalk({
+          clientID: 'e58f172df200e88e266b',
+          clientSecret: 'ee22ce68934616f7de043a950cbdb7d613a03202',
+          repo: 'justauth-talk',
+          owner: 'zhangyd-c',
+          admin: ['zhangyd-c'],
+          // facebook-like distraction free mode
+          distractionFreeMode: false
+      })
+  </script>
 
   <!-- 百度统计 -->
   <script>

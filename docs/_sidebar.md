@@ -11,7 +11,7 @@
   - [√ qq登录](oauth/qq.md)
   - [√ 微信登录](oauth/wechat.md)
   - [微博登录](oauth/weibo.md)
-  - [支付宝登录](oauth/alipay.md)
+  - [√ 支付宝登录](oauth/alipay.md)
   - [百度登录](oauth/baidu.md)
   - [Coding登录](oauth/coding.md)
   - [钉钉登录](oauth/dingtalk.md)
