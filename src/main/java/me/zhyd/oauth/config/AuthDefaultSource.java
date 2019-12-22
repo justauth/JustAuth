@@ -47,6 +47,11 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://api.weibo.com/2/users/show.json";
         }
+
+        @Override
+        public String revoke() {
+            return "https://api.weibo.com/oauth2/revokeoauth2";
+        }
     },
     /**
      * gitee
