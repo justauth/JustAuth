@@ -5,9 +5,12 @@
 - `checkState`方法从`AuthDefaultRequest`中提出到`AuthChecker`中
 - `AuthResponseStatus`枚举类中增加`ILLEGAL_STATUS`、`REQUIRED_REFRESH_TOKEN`两个枚举值
 - `AuthSource`接口中增加`getName`方法，用来对外提供实际`source`的字符串值
-- 增加微信、QQ、支付宝授权登录的帮助文档
+- `AuthWeiboRequest`微博授权登录中实现`revoke`方法，支持手动回收授权
+- 增加微信、QQ、支付宝、微博授权登录的帮助文档
 - [帮助文档](https://docs.justauth.whnb.wang)中增加自定义的404页面
 - [帮助文档](https://docs.justauth.whnb.wang)中增加Gittalk插件
+- [帮助文档](https://docs.justauth.whnb.wang)中增加Java代码高亮的插件
+- [帮助文档](https://docs.justauth.whnb.wang)中修复[腾讯云登录]链接错误的问题
 
 ## v1.13.1
 ### 2019/11/12

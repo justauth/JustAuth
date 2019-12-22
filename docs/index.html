@@ -17,11 +17,13 @@
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
   <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
 
 </head>
 <body>
   <div data-app id="app">Please wait...</div>
   <script>
+    var num = 0;
     window.$docsify = {
       el: '#app',
       name: 'JustAuth',
@@ -63,18 +65,31 @@
 
             return  html
               + '\n----\n'
-              + 'Last modified {docsify-updated} '
+              + '最后更新时间： {docsify-updated} '
               + editHtml
           })
         }
-      ]
+      ],
+      markdown: {
+          renderer: {
+              code: function(code, lang) {
+                  if (lang === "mermaid") {
+                      return (
+                          '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
+                      );
+                  }
+                  return this.origin.code.apply(this, arguments);
+              }
+          }
+      }
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
   <script src="//unpkg.com/docsify-copy-code"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@7.1.0/dist/mermaid.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
   <script>mermaid.initialize({startOnLoad:true});</script>
+  <script src="//unpkg.com/prismjs/components/prism-java.min.js"></script>
 
   <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
   <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
