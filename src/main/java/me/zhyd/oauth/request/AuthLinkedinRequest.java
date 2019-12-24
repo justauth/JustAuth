@@ -145,7 +145,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
     public AuthResponse refresh(AuthToken oldToken) {
         String refreshToken = oldToken.getRefreshToken();
         if (StringUtils.isEmpty(refreshToken)) {
-            throw new AuthException(AuthResponseStatus.UNSUPPORTED);
+            throw new AuthException(AuthResponseStatus.REQUIRED_REFRESH_TOKEN, source);
         }
         String refreshTokenUrl = refreshTokenUrl(refreshToken);
         return AuthResponse.builder()
@@ -161,7 +161,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
      */
     private void checkResponse(JSONObject object) {
         if (object.containsKey("error")) {
-            throw new AuthException(object.getString("error_description"));
+            throw new AuthException(object.getString("error_description"), source);
         }
     }
 

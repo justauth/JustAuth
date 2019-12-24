@@ -2,7 +2,7 @@ package me.zhyd.oauth.utils;
 
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
-import me.zhyd.oauth.request.AuthWeChatRequest;
+import me.zhyd.oauth.request.AuthWeChatOpenRequest;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class UrlBuilderTest {
             .clientSecret("secret-110110110")
             .redirectUri("https://xkcoding.com")
             .build();
-        String build = UrlBuilder.fromBaseUrl(AuthDefaultSource.WECHAT.authorize())
+        String build = UrlBuilder.fromBaseUrl(AuthDefaultSource.WECHAT_OPEN.authorize())
             .queryParam("appid", config.getClientId())
             .queryParam("redirect_uri", config.getRedirectUri())
             .queryParam("response_type", "code")
@@ -30,7 +30,7 @@ public class UrlBuilderTest {
             .queryParam("state", "")
             .build(false);
         System.out.println(build);
-        AuthWeChatRequest request = new AuthWeChatRequest(config);
+        AuthWeChatOpenRequest request = new AuthWeChatOpenRequest(config);
         String authorize = request.authorize("state");
         System.out.println(authorize);
     }

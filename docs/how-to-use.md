@@ -163,6 +163,6 @@ public Object revokeAuth(@PathVariable("source") String source, @PathVariable("t
 - [Nutzboot版](https://github.com/EggsBlue/nutzboot-justauth-demo): NutzBoot集成JustAuth的demo  by [蛋蛋](https://github.com/EggsBlue)
 - [Blade版](https://github.com/justauth/blade-justauth-demo): Blade集成JustAuth的demo
 
-## springboot starter插件
+## starter插件
 - [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot 集成 JustAuth 的最佳实践 by [xkcoding](https://github.com/xkcoding)
-- [justauth-spring-boot-starter-demo](https://github.com/justauth/justauth-spring-boot-starter-demo): Spring Boot 使用 justauth-spring-boot-starter 快速集成 JustAuth by [xkcoding](https://github.com/xkcoding)
+- [justauth-spring-security-starter](https://github.com/justauth/justauth-spring-security-starter): JustAuth整合Spring security的 starter依赖 by [luoqiz](https://github.com/luoqiz)

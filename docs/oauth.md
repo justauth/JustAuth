@@ -67,7 +67,7 @@
 - 网站B：可以理解成 Oschina
 - 第三方C：可以理解成 Github
 
-需求：你想通过Github第三方登录Oschina
+需求：你想通过Github第三方登录Oschina。（_注：下面的内容为流程图，如果您在阅读的时候显示为纯文字，请刷新页面_）
 
 <div class="mermaid">
     sequenceDiagram

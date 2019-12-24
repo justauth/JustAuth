@@ -47,6 +47,11 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://api.weibo.com/2/users/show.json";
         }
+
+        @Override
+        public String revoke() {
+            return "https://api.weibo.com/oauth2/revokeoauth2";
+        }
     },
     /**
      * gitee
@@ -235,12 +240,36 @@ public enum AuthDefaultSource implements AuthSource {
         }
     },
     /**
-     * 微信
+     * 微信开放平台
      */
-    WECHAT {
+    WECHAT_OPEN {
         @Override
         public String authorize() {
             return "https://open.weixin.qq.com/connect/qrconnect";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://api.weixin.qq.com/sns/oauth2/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.weixin.qq.com/sns/userinfo";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://api.weixin.qq.com/sns/oauth2/refresh_token";
+        }
+    },
+    /**
+     * 微信公众平台
+     */
+    WECHAT_MP {
+        @Override
+        public String authorize() {
+            return "https://open.weixin.qq.com/connect/oauth2/authorize";
         }
 
         @Override

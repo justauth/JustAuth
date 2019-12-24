@@ -39,7 +39,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
         this.source = source;
         this.authStateCache = authStateCache;
         if (!AuthChecker.isSupportedAuth(config, source)) {
-            throw new AuthException(AuthResponseStatus.PARAMETER_INCOMPLETE);
+            throw new AuthException(AuthResponseStatus.PARAMETER_INCOMPLETE, source);
         }
         // 校验配置合法性
         AuthChecker.checkConfig(config, source);
@@ -75,7 +75,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     public AuthResponse login(AuthCallback authCallback) {
         try {
             AuthChecker.checkCode(source, authCallback);
-            this.checkState(authCallback.getState());
+            AuthChecker.checkState(authCallback.getState(), source, authStateCache);
 
             AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
@@ -94,10 +94,15 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     private AuthResponse responseError(Exception e) {
         int errorCode = AuthResponseStatus.FAILURE.getCode();
+        String errorMsg = e.getMessage();
         if (e instanceof AuthException) {
-            errorCode = ((AuthException) e).getErrorCode();
+            AuthException authException = ((AuthException) e);
+            errorCode = authException.getErrorCode();
+            if (StringUtils.isNotEmpty(authException.getErrorMsg())) {
+                errorMsg = authException.getErrorMsg();
+            }
         }
-        return AuthResponse.builder().code(errorCode).msg(e.getMessage()).build();
+        return AuthResponse.builder().code(errorCode).msg(errorMsg).build();
     }
 
     /**
@@ -261,15 +266,4 @@ public abstract class AuthDefaultRequest implements AuthRequest {
         return HttpRequest.get(revokeUrl(authToken)).execute();
     }
 
-
-    /**
-     * 校验回调传回的state
-     *
-     * @param state {@code state}一定不为空
-     */
-    protected void checkState(String state) {
-        if (StringUtils.isEmpty(state) || !authStateCache.containsKey(state)) {
-            throw new AuthException(AuthResponseStatus.ILLEGAL_REQUEST);
-        }
-    }
 }

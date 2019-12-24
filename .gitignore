@@ -25,6 +25,11 @@ hs_err_pid*
 # exclude idea files
 .idea
 *.iml
-*.sh
+bin/codecov.sh
+bin/deploy.sh
+bin/docsify-cli.sh
+bin/push.sh
+bin/push-dev.sh
 
 target
+/pom.xml.versionsBackup

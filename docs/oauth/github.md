@@ -52,7 +52,7 @@ AuthRequest authRequest = new AuthGithubRequest(AuthConfig.builder()
 
 我们可以直接使用以下方式生成第三方平台的授权链接：
 ```java
-String authorizeUrl = authRequest.authorize();
+String authorizeUrl = authRequest.authorize(AuthStateUtils.createState());
 ```
 这个链接我们可以直接后台重定向跳转，也可以返回到前端后，前端控制跳转。前端控制的好处就是，可以将第三方的授权页嵌入到iframe中，适配网站设计。
 
@@ -63,6 +63,7 @@ String authorizeUrl = authRequest.authorize();
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.request.AuthGithubRequest;
 import me.zhyd.oauth.request.AuthRequest;
+import me.zhyd.oauth.utils.AuthStateUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,7 +79,7 @@ public class RestAuthController {
     @RequestMapping("/render")
     public void renderAuth(HttpServletResponse response) throws IOException {
         AuthRequest authRequest = getAuthRequest();
-        response.sendRedirect(authRequest.authorize());
+        response.sendRedirect(authRequest.authorize(AuthStateUtils.createState()));
     }
 
     @RequestMapping("/callback")
