@@ -1,4 +1,5 @@
 ## v1.13.2
+### 2019/12/24
 - 新增
     - 增加微信、QQ、支付宝、微博授权登录的帮助文档
     - 合并[PR#57](https://github.com/justauth/JustAuth/pull/57)，增加微信公众号登录 by [@xkcoding](https://github.com/xkcoding)
