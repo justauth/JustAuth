@@ -26,5 +26,6 @@ hs_err_pid*
 .idea
 *.iml
 *.sh
+bin/*
 
 target

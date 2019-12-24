@@ -12,6 +12,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -63,8 +64,6 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
         HttpResponse userDetailResponse = getUserDetail(authToken.getAccessToken(), userId);
         JSONObject userDetail = this.checkResponse(userDetailResponse);
 
-        String gender = getRealGender(userDetail);
-
         return AuthUser.builder()
             .username(userDetail.getString("name"))
             .nickname(userDetail.getString("alias"))
@@ -72,7 +71,7 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
             .location(userDetail.getString("address"))
             .email(userDetail.getString("email"))
             .uuid(userId)
-            .gender(AuthUserGender.getRealGender(gender))
+            .gender(AuthUserGender.getWechatRealGender(userDetail.getString("gender")))
             .token(authToken)
             .source(source.toString())
             .build();
@@ -92,20 +91,6 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
         }
 
         return object;
-    }
-
-    /**
-     * 获取用户的实际性别，0表示未定义，1表示男性，2表示女性
-     *
-     * @param userDetail 用户详情
-     * @return 用户性别
-     */
-    private String getRealGender(JSONObject userDetail) {
-        int gender = userDetail.getIntValue("gender");
-        if (AuthUserGender.MALE.getCode() == gender) {
-            return "1";
-        }
-        return 2 == gender ? "0" : null;
     }
 
     /**

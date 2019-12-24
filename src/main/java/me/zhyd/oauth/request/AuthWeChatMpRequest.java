@@ -63,7 +63,7 @@ public class AuthWeChatMpRequest extends AuthDefaultRequest {
             .avatar(object.getString("headimgurl"))
             .location(location)
             .uuid(openId)
-            .gender(AuthUserGender.getRealGender(object.getString("sex")))
+            .gender(AuthUserGender.getWechatRealGender(object.getString("sex")))
             .token(authToken)
             .source(source.toString())
             .build();

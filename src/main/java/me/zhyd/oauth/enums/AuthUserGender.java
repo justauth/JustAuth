@@ -2,6 +2,7 @@ package me.zhyd.oauth.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import me.zhyd.oauth.utils.StringUtils;
 
 import java.util.Arrays;
 
@@ -25,14 +26,34 @@ public enum AuthUserGender {
     private String code;
     private String desc;
 
-    public static AuthUserGender getRealGender(String code) {
-        if (null == code || UNKNOWN.getCode().equals(code)) {
+    /**
+     * 获取用户的实际性别，常规网站
+     *
+     * @param originalGender 用户第三方标注的原始性别
+     * @return 用户性别
+     */
+    public static AuthUserGender getRealGender(String originalGender) {
+        if (null == originalGender || UNKNOWN.getCode().equals(originalGender)) {
             return UNKNOWN;
         }
         String[] males = {"m", "男", "1", "male"};
-        if (Arrays.asList(males).contains(code.toLowerCase())) {
+        if (Arrays.asList(males).contains(originalGender.toLowerCase())) {
             return MALE;
         }
         return FEMALE;
+    }
+
+    /**
+     * 获取微信平台用户的实际性别，0表示未定义，1表示男性，2表示女性
+     *
+     * @param originalGender 用户第三方标注的原始性别
+     * @return 用户性别
+     * @since 1.13.2
+     */
+    public static AuthUserGender getWechatRealGender(String originalGender) {
+        if (StringUtils.isEmpty(originalGender) || "0".equals(originalGender)) {
+            return AuthUserGender.UNKNOWN;
+        }
+        return getRealGender(originalGender);
     }
 }
