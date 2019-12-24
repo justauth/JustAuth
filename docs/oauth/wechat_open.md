@@ -141,7 +141,7 @@ public class RestAuthController {
 		"email": null,
 		"remark": null,
 		"gender": "MALE",
-		"source": "WECHAT",
+		"source": "WECHAT_OPEN",
 		"token": {
 			"accessToken": "28_Bzvt4UxxxxFElOxxxxgTqIJmSE5LxB2Az7stFqYVnFoIhL7RbevA0Urc",
 			"expireIn": 7200,

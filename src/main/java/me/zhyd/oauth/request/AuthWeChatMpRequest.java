@@ -57,25 +57,13 @@ public class AuthWeChatMpRequest extends AuthDefaultRequest {
             authToken.setUnionId(object.getString("unionid"));
         }
 
-        AuthUserGender sex;
-        switch (object.getString("sex")) {
-            case "1":
-                sex = AuthUserGender.MALE;
-                break;
-            case "2":
-                sex = AuthUserGender.FEMALE;
-                break;
-            default:
-                sex = AuthUserGender.UNKNOWN;
-        }
-
         return AuthUser.builder()
             .username(object.getString("nickname"))
             .nickname(object.getString("nickname"))
             .avatar(object.getString("headimgurl"))
             .location(location)
             .uuid(openId)
-            .gender(sex)
+            .gender(AuthUserGender.getRealGender(object.getString("sex")))
             .token(authToken)
             .source(source.toString())
             .build();
