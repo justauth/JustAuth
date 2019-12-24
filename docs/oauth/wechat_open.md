@@ -79,7 +79,7 @@ String authorizeUrl = authRequest.authorize(AuthStateUtils.createState());
 
 ```java
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.request.AuthWeChatRequest;
+import me.zhyd.oauth.request.AuthWeChatOpenRequest;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.utils.AuthStateUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -107,7 +107,7 @@ public class RestAuthController {
     }
 
     private AuthRequest getAuthRequest() {
-        return new AuthWeChatRequest(AuthConfig.builder()
+        return new AuthWeChatOpenRequest(AuthConfig.builder()
                 .clientId("Client ID")
                 .clientSecret("Client Secret")
                 .redirectUri("https://www.zhyd.me/oauth/callback/wechat")
