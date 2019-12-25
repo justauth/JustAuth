@@ -1,9 +1,8 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -12,7 +11,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.GlobalAuthUtil;
+import me.zhyd.oauth.utils.GlobalAuthUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -41,8 +40,8 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
         String code = authToken.getAccessCode();
         JSONObject param = new JSONObject();
         param.put("tmp_auth_code", code);
-        HttpResponse response = HttpRequest.post(userInfoUrl(authToken)).body(param.toJSONString()).execute();
-        JSONObject object = JSON.parseObject(response.body());
+        String response = HttpUtil.post(userInfoUrl(authToken), param.toJSONString());
+        JSONObject object = JSON.parseObject(response);
         if (object.getIntValue("errcode") != 0) {
             throw new AuthException(object.getString("errmsg"));
         }
@@ -89,7 +88,7 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
     protected String userInfoUrl(AuthToken authToken) {
         // 根据timestamp, appSecret计算签名值
         String timestamp = System.currentTimeMillis() + "";
-        String urlEncodeSignature = GlobalAuthUtil.generateDingTalkSignature(config.getClientSecret(), timestamp);
+        String urlEncodeSignature = GlobalAuthUtils.generateDingTalkSignature(config.getClientSecret(), timestamp);
 
         return UrlBuilder.fromBaseUrl(source.userInfo())
             .queryParam("signature", urlEncodeSignature)

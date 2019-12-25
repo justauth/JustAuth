@@ -1,8 +1,7 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -34,14 +33,13 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
+        String response = doPostAuthorizationCode(authCallback.getCode());
         return getAuthToken(response);
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse response = doGetUserInfo(authToken);
-        String userInfo = response.body();
+        String userInfo = doGetUserInfo(authToken);
         JSONObject object = JSONObject.parseObject(userInfo);
         this.checkResponse(object);
         return AuthUser.builder()
@@ -63,8 +61,8 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
 
     @Override
     public AuthResponse revoke(AuthToken authToken) {
-        HttpResponse response = doGetRevoke(authToken);
-        JSONObject object = JSONObject.parseObject(response.body());
+        String response = doGetRevoke(authToken);
+        JSONObject object = JSONObject.parseObject(response);
         this.checkResponse(object);
         // 返回1表示取消授权成功，否则失败
         AuthResponseStatus status = object.getIntValue("result") == 1 ? AuthResponseStatus.SUCCESS : AuthResponseStatus.FAILURE;
@@ -79,7 +77,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
             .queryParam("client_id", this.config.getClientId())
             .queryParam("client_secret", this.config.getClientSecret())
             .build();
-        HttpResponse response = HttpRequest.get(refreshUrl).execute();
+        String response = HttpUtil.get(refreshUrl);
         return AuthResponse.builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(this.getAuthToken(response))
@@ -116,8 +114,8 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
         }
     }
 
-    private AuthToken getAuthToken(HttpResponse response) {
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+    private AuthToken getAuthToken(String response) {
+        JSONObject accessTokenObject = JSONObject.parseObject(response);
         this.checkResponse(accessTokenObject);
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))

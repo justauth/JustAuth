@@ -1,8 +1,7 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -66,11 +65,11 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
 
     @Override
     public AuthToken getAccessToken(AuthCallback authCallback) {
-        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
+        String response = doPostAuthorizationCode(authCallback.getCode());
         return getAuthToken(response);
     }
 
-    private AuthToken getAuthToken(HttpResponse response) {
+    private AuthToken getAuthToken(String response) {
         JSONObject accessTokenObject = checkResponse(response);
         JSONObject resultObject = accessTokenObject.getJSONObject("d");
         return AuthToken.builder()
@@ -80,9 +79,8 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
             .build();
     }
 
-    private JSONObject checkResponse(HttpResponse response) {
-        String accessTokenStr = response.body();
-        JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
+    private JSONObject checkResponse(String response) {
+        JSONObject accessTokenObject = JSONObject.parseObject(response);
         if (!"0".equals(accessTokenObject.getString("c"))) {
             throw new AuthException(accessTokenObject.getString("m"));
         }
@@ -92,11 +90,11 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
     @Override
     public AuthUser getUserInfo(AuthToken authToken) {
         String openId = this.getOpenId(authToken);
-        HttpResponse response = HttpRequest.get(UrlBuilder.fromBaseUrl(source.userInfo())
+        String response = HttpUtil.get(UrlBuilder.fromBaseUrl(source.userInfo())
             .queryParam("access_token", authToken.getAccessToken())
             .queryParam("open_id", openId)
-            .build()).execute();
-        JSONObject object = JSONObject.parseObject(response.body());
+            .build());
+        JSONObject object = JSONObject.parseObject(response);
         if (!"0".equals(object.getString("c"))) {
             throw new AuthException(object.getString("m"));
         }
@@ -119,16 +117,16 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
      * @return openId
      */
     private String getOpenId(AuthToken authToken) {
-        HttpResponse response = HttpRequest.get(UrlBuilder.fromBaseUrl("https://oauth.kujiale.com/oauth2/auth/user")
+        String response = HttpUtil.get(UrlBuilder.fromBaseUrl("https://oauth.kujiale.com/oauth2/auth/user")
             .queryParam("access_token", authToken.getAccessToken())
-            .build()).execute();
+            .build());
         JSONObject accessTokenObject = checkResponse(response);
         return accessTokenObject.getString("d");
     }
 
     @Override
     public AuthResponse refresh(AuthToken authToken) {
-        HttpResponse response = HttpRequest.post(refreshTokenUrl(authToken.getRefreshToken())).execute();
+        String response = HttpUtil.post(refreshTokenUrl(authToken.getRefreshToken()));
         return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(getAuthToken(response)).build();
     }
 }

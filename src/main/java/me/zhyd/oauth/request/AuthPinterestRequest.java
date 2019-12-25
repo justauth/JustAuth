@@ -1,8 +1,7 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -36,8 +35,8 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+        String response = doPostAuthorizationCode(authCallback.getCode());
+        JSONObject accessTokenObject = JSONObject.parseObject(response);
         this.checkResponse(accessTokenObject);
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))
@@ -48,8 +47,9 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String userinfoUrl = userInfoUrl(authToken);
-        HttpResponse response = HttpRequest.get(userinfoUrl).setFollowRedirects(true).execute();
-        JSONObject object = JSONObject.parseObject(response.body());
+        // TODO: 是否需要 .setFollowRedirects(true)
+        String response = HttpUtil.get(userinfoUrl);
+        JSONObject object = JSONObject.parseObject(response);
         this.checkResponse(object);
         JSONObject userObj = object.getJSONObject("data");
         return AuthUser.builder()

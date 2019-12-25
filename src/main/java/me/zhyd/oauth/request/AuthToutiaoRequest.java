@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
@@ -31,8 +30,8 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        HttpResponse response = doGetAuthorizationCode(authCallback.getCode());
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+        String response = doGetAuthorizationCode(authCallback.getCode());
+        JSONObject accessTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(accessTokenObject);
 
@@ -45,9 +44,9 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse userResponse = doGetUserInfo(authToken);
+        String userResponse = doGetUserInfo(authToken);
 
-        JSONObject userProfile = JSONObject.parseObject(userResponse.body());
+        JSONObject userProfile = JSONObject.parseObject(userResponse);
 
         this.checkResponse(userProfile);
 

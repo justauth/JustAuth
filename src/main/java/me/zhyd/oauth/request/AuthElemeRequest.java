@@ -1,9 +1,9 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.core.codec.Base64;
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
+import com.xkcoding.http.constants.Constants;
+import com.xkcoding.http.support.HttpHeader;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -14,7 +14,8 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.GlobalAuthUtil;
+import me.zhyd.oauth.utils.Base64Utils;
+import me.zhyd.oauth.utils.GlobalAuthUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 import me.zhyd.oauth.utils.UuidUtils;
 
@@ -31,6 +32,9 @@ import java.util.Map;
  */
 public class AuthElemeRequest extends AuthDefaultRequest {
 
+    private static final String CONTENT_TYPE_FORM = "application/x-www-form-urlencoded;charset=UTF-8";
+    private static final String CONTENT_TYPE_JSON = "application/json; charset=utf-8";
+
     public AuthElemeRequest(AuthConfig config) {
         super(config, AuthDefaultSource.ELEME);
     }
@@ -41,18 +45,15 @@ public class AuthElemeRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
+        Map<String, String> form = new HashMap<>(4);
+        form.put("client_id", config.getClientId());
+        form.put("redirect_uri", config.getRedirectUri());
+        form.put("code", authCallback.getCode());
+        form.put("grant_type", "authorization_code");
 
-        HttpRequest request = HttpRequest.post(source.accessToken())
-            .form("client_id", config.getClientId())
-            .form("redirect_uri", config.getRedirectUri())
-            .form("code", authCallback.getCode())
-            .form("grant_type", "authorization_code");
-
-        // 设置header
-        this.setHeader(request);
-
-        HttpResponse response = request.execute();
-        JSONObject object = JSONObject.parseObject(response.body());
+        HttpHeader httpHeader = this.buildHeader(CONTENT_TYPE_FORM, this.getRequestId(), true);
+        String response = HttpUtil.post(source.accessToken(), form, httpHeader, false);
+        JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
 
@@ -75,10 +76,10 @@ public class AuthElemeRequest extends AuthDefaultRequest {
         Map<String, Object> metasHashMap = new HashMap<>();
         metasHashMap.put("app_key", config.getClientId());
         metasHashMap.put("timestamp", timestamp);
-        String signature = GlobalAuthUtil.generateElemeSignature(config.getClientId(), config.getClientSecret(), timestamp, action, authToken.getAccessToken(), parameters);
+        String signature = GlobalAuthUtils.generateElemeSignature(config.getClientId(), config.getClientSecret(), timestamp, action, authToken
+            .getAccessToken(), parameters);
 
         String requestId = this.getRequestId();
-
 
         Map<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("nop", "1.0.0");
@@ -89,15 +90,10 @@ public class AuthElemeRequest extends AuthDefaultRequest {
         paramsMap.put("params", parameters);
         paramsMap.put("signature", signature);
 
-        HttpRequest request = HttpRequest.post(source.userInfo())
-            .body(JSONObject.toJSONBytes(paramsMap));
+        HttpHeader httpHeader = this.buildHeader(CONTENT_TYPE_JSON, requestId, false);
+        String response = HttpUtil.post(source.userInfo(), JSONObject.toJSONString(paramsMap), httpHeader);
 
-        // 设置header
-        this.setHeader(request, "application/json; charset=utf-8", requestId);
-
-        HttpResponse response = request.execute();
-
-        JSONObject object = JSONObject.parseObject(response.body());
+        JSONObject object = JSONObject.parseObject(response);
 
         // 校验请求
         if (object.containsKey("name")) {
@@ -121,15 +117,14 @@ public class AuthElemeRequest extends AuthDefaultRequest {
 
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
-        HttpRequest request = HttpRequest.post(source.refresh())
-            .form("refresh_token", oldToken.getRefreshToken())
-            .form("grant_type", "refresh_token");
+        Map<String, String> form = new HashMap<>(2);
+        form.put("refresh_token", oldToken.getRefreshToken());
+        form.put("grant_type", "refresh_token");
 
-        // 设置header
-        this.setHeader(request);
+        HttpHeader httpHeader = this.buildHeader(CONTENT_TYPE_FORM, this.getRequestId(), true);
+        String response = HttpUtil.post(source.refresh(), form, httpHeader, false);
 
-        HttpResponse response = request.execute();
-        JSONObject object = JSONObject.parseObject(response.body());
+        JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
 
@@ -146,29 +141,27 @@ public class AuthElemeRequest extends AuthDefaultRequest {
 
     @Override
     public String authorize(String state) {
-        return UrlBuilder.fromBaseUrl(super.authorize(state))
-            .queryParam("scope", "all")
-            .build();
+        return UrlBuilder.fromBaseUrl(super.authorize(state)).queryParam("scope", "all").build();
     }
 
     private String getBasic(String appKey, String appSecret) {
         StringBuilder sb = new StringBuilder();
-        String encodeToString = Base64.encode((appKey + ":" + appSecret).getBytes());
+        String encodeToString = Base64Utils.encode((appKey + ":" + appSecret).getBytes());
         sb.append("Basic").append(" ").append(encodeToString);
         return sb.toString();
     }
 
-    private void setHeader(HttpRequest request) {
-        setHeader(request, "application/x-www-form-urlencoded;charset=UTF-8", getRequestId());
-        request.header("Authorization", this.getBasic(config.getClientId(), config.getClientSecret()));
-    }
-
-    private void setHeader(HttpRequest request, String contentType, String requestId) {
-        request.header("Accept", "text/xml,text/javascript,text/html")
-            .header("Content-Type", contentType)
-            .header("Accept-Encoding", "gzip")
-            .header("User-Agent", "eleme-openapi-java-sdk")
-            .header("x-eleme-requestid", requestId);
+    private HttpHeader buildHeader(String contentType, String requestId, boolean auth) {
+        HttpHeader httpHeader = new HttpHeader();
+        httpHeader.add("Accept", "text/xml,text/javascript,text/html");
+        httpHeader.add(Constants.CONTENT_TYPE, contentType);
+        httpHeader.add("Accept-Encoding", "gzip");
+        httpHeader.add("User-Agent", "eleme-openapi-java-sdk");
+        httpHeader.add("x-eleme-requestid", requestId);
+        if (auth) {
+            httpHeader.add("Authorization", this.getBasic(config.getClientId(), config.getClientSecret()));
+        }
+        return httpHeader;
     }
 
     private String getRequestId() {

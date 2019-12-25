@@ -1,8 +1,7 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -45,8 +44,8 @@ public class AuthWeChatOpenRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String openId = authToken.getOpenId();
 
-        HttpResponse response = doGetUserInfo(authToken);
-        JSONObject object = JSONObject.parseObject(response.body());
+        String response = doGetUserInfo(authToken);
+        JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
 
@@ -94,8 +93,8 @@ public class AuthWeChatOpenRequest extends AuthDefaultRequest {
      * @return token对象
      */
     private AuthToken getToken(String accessTokenUrl) {
-        HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+        String response = HttpUtil.get(accessTokenUrl);
+        JSONObject accessTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(accessTokenObject);
 

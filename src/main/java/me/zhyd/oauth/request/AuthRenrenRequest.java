@@ -1,9 +1,8 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -42,8 +41,8 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse response = doGetUserInfo(authToken);
-        JSONObject userObj = JSONObject.parseObject(response.body()).getJSONObject("response");
+        String response = doGetUserInfo(authToken);
+        JSONObject userObj = JSONObject.parseObject(response).getJSONObject("response");
 
         return AuthUser.builder()
             .uuid(userObj.getString("id"))
@@ -65,8 +64,8 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
     }
 
     private AuthToken getToken(String url) {
-        HttpResponse response = HttpRequest.post(url).execute();
-        JSONObject jsonObject = JSONObject.parseObject(response.body());
+        String response = HttpUtil.post(url);
+        JSONObject jsonObject = JSONObject.parseObject(response);
         if (jsonObject.containsKey("error")) {
             throw new AuthException("Failed to get token from Renren: " + jsonObject);
         }

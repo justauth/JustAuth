@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
@@ -30,8 +29,8 @@ public class AuthGitlabRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
-        JSONObject object = JSONObject.parseObject(response.body());
+        String response = doPostAuthorizationCode(authCallback.getCode());
+        JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
 
@@ -46,8 +45,8 @@ public class AuthGitlabRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse response = doGetUserInfo(authToken);
-        JSONObject object = JSONObject.parseObject(response.body());
+        String response = doGetUserInfo(authToken);
+        JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
 
