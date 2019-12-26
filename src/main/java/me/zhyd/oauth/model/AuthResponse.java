@@ -2,6 +2,7 @@ package me.zhyd.oauth.model;
 
 import lombok.*;
 import me.zhyd.oauth.enums.AuthResponseStatus;
+
 import java.io.Serializable;
 
 /**
@@ -13,8 +14,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class AuthResponse<T> implements Serializable {
     /**
      * 授权响应状态码
