@@ -1,8 +1,7 @@
 package me.zhyd.oauth.utils;
 
-import cn.hutool.core.lang.Assert;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.StrUtil;
+import com.xkcoding.http.util.MapUtil;
+import com.xkcoding.http.util.StringUtil;
 import lombok.Setter;
 
 import java.util.LinkedHashMap;
@@ -19,7 +18,7 @@ import java.util.Map;
 @Setter
 public class UrlBuilder {
 
-    private final Map<String, Object> params = new LinkedHashMap<>(7);
+    private final Map<String, String> params = new LinkedHashMap<>(7);
     private String baseUrl;
 
     private UrlBuilder() {
@@ -44,8 +43,9 @@ public class UrlBuilder {
      * @return this UrlBuilder
      */
     public UrlBuilder queryParam(String key, Object value) {
-        Assert.notBlank(key, "参数名不能为空");
-
+        if (StringUtil.isEmpty(key)) {
+            throw new RuntimeException("参数名不能为空");
+        }
         String valueAsString = (value != null ? value.toString() : null);
         this.params.put(key, valueAsString);
 
@@ -72,7 +72,7 @@ public class UrlBuilder {
             return this.baseUrl;
         }
         String baseUrl = StringUtils.appendIfNotContain(this.baseUrl, "?", "&");
-        String paramString = GlobalAuthUtil.parseMapToString(this.params, encode);
+        String paramString = MapUtil.parseMapToString(this.params, encode);
         return baseUrl + paramString;
     }
 }

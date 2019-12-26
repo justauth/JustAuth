@@ -1,9 +1,8 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
+import com.xkcoding.http.constants.Constants;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -42,8 +41,8 @@ public class AuthMiRequest extends AuthDefaultRequest {
     }
 
     private AuthToken getToken(String accessTokenUrl) {
-        HttpResponse response = HttpRequest.get(accessTokenUrl).execute();
-        String jsonStr = StrUtil.replace(response.body(), PREFIX, StrUtil.EMPTY);
+        String response = HttpUtil.get(accessTokenUrl);
+        String jsonStr = response.replace(PREFIX, Constants.EMPTY);
         JSONObject accessTokenObject = JSONObject.parseObject(jsonStr);
 
         if (accessTokenObject.containsKey("error")) {
@@ -65,9 +64,9 @@ public class AuthMiRequest extends AuthDefaultRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         // 获取用户信息
-        HttpResponse userResponse = doGetUserInfo(authToken);
+        String userResponse = doGetUserInfo(authToken);
 
-        JSONObject userProfile = JSONObject.parseObject(userResponse.body());
+        JSONObject userProfile = JSONObject.parseObject(userResponse);
         if ("error".equalsIgnoreCase(userProfile.getString("result"))) {
             throw new AuthException(userProfile.getString("description"));
         }
@@ -89,8 +88,8 @@ public class AuthMiRequest extends AuthDefaultRequest {
         String emailPhoneUrl = MessageFormat.format("{0}?clientId={1}&token={2}", "https://open.account.xiaomi.com/user/phoneAndEmail", config
             .getClientId(), authToken.getAccessToken());
 
-        HttpResponse emailResponse = HttpRequest.get(emailPhoneUrl).execute();
-        JSONObject userEmailPhone = JSONObject.parseObject(emailResponse.body());
+        String emailResponse = HttpUtil.get(emailPhoneUrl);
+        JSONObject userEmailPhone = JSONObject.parseObject(emailResponse);
         if (!"error".equalsIgnoreCase(userEmailPhone.getString("result"))) {
             JSONObject emailPhone = userEmailPhone.getJSONObject("data");
             authUser.setEmail(emailPhone.getString("email"));

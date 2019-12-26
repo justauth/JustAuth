@@ -1,8 +1,8 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
+import com.xkcoding.http.support.HttpHeader;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -13,6 +13,9 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Teambition授权登录
@@ -36,13 +39,14 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
      */
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        HttpResponse response = HttpRequest.post(source.accessToken())
-            .form("client_id", config.getClientId())
-            .form("client_secret", config.getClientSecret())
-            .form("code", authCallback.getCode())
-            .form("grant_type", "code")
-            .execute();
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+        Map<String, String> form = new HashMap<>(4);
+        form.put("client_id", config.getClientId());
+        form.put("client_secret", config.getClientSecret());
+        form.put("code", authCallback.getCode());
+        form.put("grant_type", "code");
+
+        String response = HttpUtil.post(source.accessToken(), form, false);
+        JSONObject accessTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(accessTokenObject);
 
@@ -56,10 +60,11 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
 
-        HttpResponse response = HttpRequest.get(source.userInfo())
-            .header("Authorization", "OAuth2 " + accessToken)
-            .execute();
-        JSONObject object = JSONObject.parseObject(response.body());
+        HttpHeader httpHeader = new HttpHeader();
+        httpHeader.add("Authorization", "OAuth2 " + accessToken);
+
+        String response = HttpUtil.get(source.userInfo(), null, httpHeader, false);
+        JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
 
@@ -83,11 +88,12 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
     public AuthResponse refresh(AuthToken oldToken) {
         String uid = oldToken.getUid();
         String refreshToken = oldToken.getRefreshToken();
-        HttpResponse response = HttpRequest.post(source.refresh())
-            .form("_userId", uid)
-            .form("refresh_token", refreshToken)
-            .execute();
-        JSONObject refreshTokenObject = JSONObject.parseObject(response.body());
+
+        Map<String, String> form = new HashMap<>(2);
+        form.put("_userId", uid);
+        form.put("refresh_token", refreshToken);
+        String response = HttpUtil.post(source.refresh(), form, false);
+        JSONObject refreshTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(refreshTokenObject);
 

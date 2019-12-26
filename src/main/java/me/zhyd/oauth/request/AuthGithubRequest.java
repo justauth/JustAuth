@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
@@ -10,7 +9,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.GlobalAuthUtil;
+import me.zhyd.oauth.utils.GlobalAuthUtils;
 
 import java.util.Map;
 
@@ -32,8 +31,8 @@ public class AuthGithubRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        HttpResponse response = doPostAuthorizationCode(authCallback.getCode());
-        Map<String, String> res = GlobalAuthUtil.parseStringToMap(response.body());
+        String response = doPostAuthorizationCode(authCallback.getCode());
+        Map<String, String> res = GlobalAuthUtils.parseStringToMap(response);
 
         this.checkResponse(res.containsKey("error"), res.get("error_description"));
 
@@ -46,8 +45,8 @@ public class AuthGithubRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse response = doGetUserInfo(authToken);
-        JSONObject object = JSONObject.parseObject(response.body());
+        String response = doGetUserInfo(authToken);
+        JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object.containsKey("error"), object.getString("error_description"));
 

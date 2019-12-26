@@ -1,6 +1,5 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
@@ -10,7 +9,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.GlobalAuthUtil;
+import me.zhyd.oauth.utils.GlobalAuthUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -36,8 +35,8 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse response = doPostAuthorizationCode(authToken.getAccessCode());
-        JSONObject accessTokenObject = JSONObject.parseObject(response.body());
+        String response = doPostAuthorizationCode(authToken.getAccessCode());
+        JSONObject accessTokenObject = JSONObject.parseObject(response);
         if (accessTokenObject.containsKey("error")) {
             throw new AuthException(accessTokenObject.getString("error_description"));
         }
@@ -47,7 +46,7 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
         authToken.setUid(accessTokenObject.getString("taobao_user_id"));
         authToken.setOpenId(accessTokenObject.getString("taobao_open_uid"));
 
-        String nick = GlobalAuthUtil.urlDecode(accessTokenObject.getString("taobao_user_nick"));
+        String nick = GlobalAuthUtils.urlDecode(accessTokenObject.getString("taobao_user_nick"));
         return AuthUser.builder()
             .uuid(accessTokenObject.getString("taobao_user_id"))
             .username(nick)

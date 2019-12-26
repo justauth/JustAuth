@@ -47,16 +47,16 @@ public class AuthChecker {
      */
     public static void checkConfig(AuthConfig config, AuthSource source) {
         String redirectUri = config.getRedirectUri();
-        if (!GlobalAuthUtil.isHttpProtocol(redirectUri) && !GlobalAuthUtil.isHttpsProtocol(redirectUri)) {
+        if (!GlobalAuthUtils.isHttpProtocol(redirectUri) && !GlobalAuthUtils.isHttpsProtocol(redirectUri)) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }
         // facebook的回调地址必须为https的链接
-        if (AuthDefaultSource.FACEBOOK == source && !GlobalAuthUtil.isHttpsProtocol(redirectUri)) {
+        if (AuthDefaultSource.FACEBOOK == source && !GlobalAuthUtils.isHttpsProtocol(redirectUri)) {
             // Facebook's redirect uri must use the HTTPS protocol
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }
         // 支付宝在创建回调地址时，不允许使用localhost或者127.0.0.1
-        if (AuthDefaultSource.ALIPAY == source && GlobalAuthUtil.isLocalHost(redirectUri)) {
+        if (AuthDefaultSource.ALIPAY == source && GlobalAuthUtils.isLocalHost(redirectUri)) {
             // The redirect uri of alipay is forbidden to use localhost or 127.0.0.1
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }

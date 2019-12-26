@@ -1,8 +1,7 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -12,7 +11,6 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -40,7 +38,7 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
      */
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        HttpResponse response = doGetAuthorizationCode(accessTokenUrl(authCallback.getCode()));
+        String response = doGetAuthorizationCode(accessTokenUrl(authCallback.getCode()));
 
         JSONObject object = this.checkResponse(response);
 
@@ -53,7 +51,7 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse response = doGetUserInfo(authToken);
+        String response = doGetUserInfo(authToken);
         JSONObject object = this.checkResponse(response);
 
         // 返回 OpenId 或其他，均代表非当前企业用户，不支持
@@ -61,7 +59,7 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
             throw new AuthException(AuthResponseStatus.UNIDENTIFIED_PLATFORM, source);
         }
         String userId = object.getString("UserId");
-        HttpResponse userDetailResponse = getUserDetail(authToken.getAccessToken(), userId);
+        String userDetailResponse = getUserDetail(authToken.getAccessToken(), userId);
         JSONObject userDetail = this.checkResponse(userDetailResponse);
 
         return AuthUser.builder()
@@ -83,8 +81,8 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
      * @param response 请求结果
      * @return 如果请求结果正常，则返回JSONObject
      */
-    private JSONObject checkResponse(HttpResponse response) {
-        JSONObject object = JSONObject.parseObject(response.body());
+    private JSONObject checkResponse(String response) {
+        JSONObject object = JSONObject.parseObject(response);
 
         if (object.containsKey("errcode") && object.getIntValue("errcode") != 0) {
             throw new AuthException(object.getString("errmsg"), source);
@@ -145,12 +143,12 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
      * @param userId      企业内用户id
      * @return 用户详情
      */
-    private HttpResponse getUserDetail(String accessToken, String userId) {
+    private String getUserDetail(String accessToken, String userId) {
         String userDetailUrl = UrlBuilder.fromBaseUrl("https://qyapi.weixin.qq.com/cgi-bin/user/get")
             .queryParam("access_token", accessToken)
             .queryParam("userid", userId)
             .build();
-        return HttpRequest.get(userDetailUrl).execute();
+        return HttpUtil.get(userDetailUrl);
     }
 
 }

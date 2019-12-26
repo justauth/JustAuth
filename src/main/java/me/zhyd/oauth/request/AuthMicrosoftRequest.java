@@ -1,8 +1,10 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
+import com.xkcoding.http.constants.Constants;
+import com.xkcoding.http.support.HttpHeader;
+import com.xkcoding.http.util.MapUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -15,7 +17,7 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.UrlBuilder;
 
-import static me.zhyd.oauth.utils.GlobalAuthUtil.parseQueryToMap;
+import java.util.Map;
 
 /**
  * 微软登录
@@ -44,13 +46,14 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
      * @return token对象
      */
     private AuthToken getToken(String accessTokenUrl) {
-        HttpResponse response = HttpRequest.post(accessTokenUrl)
-            .header("Host", "https://login.microsoftonline.com")
-            .contentType("application/x-www-form-urlencoded")
-            .form(parseQueryToMap(accessTokenUrl))
-            .execute();
-        String accessTokenStr = response.body();
-        JSONObject accessTokenObject = JSONObject.parseObject(accessTokenStr);
+        HttpHeader httpHeader = new HttpHeader();
+        httpHeader.add("Host", "https://login.microsoftonline.com");
+        httpHeader.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded");
+
+        Map<String, String> form = MapUtil.parseStringToMap(accessTokenUrl, false);
+
+        String response = HttpUtil.post(accessTokenUrl, form, httpHeader, false);
+        JSONObject accessTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(accessTokenObject);
 
@@ -79,8 +82,11 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
         String token = authToken.getAccessToken();
         String tokenType = authToken.getTokenType();
         String jwt = tokenType + " " + token;
-        HttpResponse response = HttpRequest.get(userInfoUrl(authToken)).header("Authorization", jwt).execute();
-        String userInfo = response.body();
+
+        HttpHeader httpHeader = new HttpHeader();
+        httpHeader.add("Authorization", jwt);
+
+        String userInfo = HttpUtil.get(userInfoUrl(authToken), null, httpHeader, false);
         JSONObject object = JSONObject.parseObject(userInfo);
         this.checkResponse(object);
         return AuthUser.builder()

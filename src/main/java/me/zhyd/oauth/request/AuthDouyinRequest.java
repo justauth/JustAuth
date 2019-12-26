@@ -1,8 +1,7 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -39,8 +38,8 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        HttpResponse response = doGetUserInfo(authToken);
-        JSONObject userInfoObject = JSONObject.parseObject(response.body());
+        String response = doGetUserInfo(authToken);
+        JSONObject userInfoObject = JSONObject.parseObject(response);
         this.checkResponse(userInfoObject);
         JSONObject dataObj = userInfoObject.getJSONObject("data");
         return AuthUser.builder()
@@ -85,9 +84,8 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
      * @return token对象
      */
     private AuthToken getToken(String accessTokenUrl) {
-        HttpResponse response = HttpRequest.post(accessTokenUrl).execute();
-        String accessTokenStr = response.body();
-        JSONObject object = JSONObject.parseObject(accessTokenStr);
+        String response = HttpUtil.post(accessTokenUrl);
+        JSONObject object = JSONObject.parseObject(response);
         this.checkResponse(object);
         JSONObject dataObj = object.getJSONObject("data");
         return AuthToken.builder()

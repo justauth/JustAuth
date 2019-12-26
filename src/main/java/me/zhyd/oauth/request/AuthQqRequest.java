@@ -1,9 +1,7 @@
 package me.zhyd.oauth.request;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
+import com.xkcoding.http.HttpUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -14,7 +12,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.GlobalAuthUtil;
+import me.zhyd.oauth.utils.GlobalAuthUtils;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -38,21 +36,21 @@ public class AuthQqRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        HttpResponse response = doGetAuthorizationCode(authCallback.getCode());
+        String response = doGetAuthorizationCode(authCallback.getCode());
         return getAuthToken(response);
     }
 
     @Override
     public AuthResponse refresh(AuthToken authToken) {
-        HttpResponse response = HttpRequest.get(refreshTokenUrl(authToken.getRefreshToken())).execute();
+        String response = HttpUtil.get(refreshTokenUrl(authToken.getRefreshToken()));
         return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(getAuthToken(response)).build();
     }
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String openId = this.getOpenId(authToken);
-        HttpResponse response = doGetUserInfo(authToken);
-        JSONObject object = JSONObject.parseObject(response.body());
+        String response = doGetUserInfo(authToken);
+        JSONObject object = JSONObject.parseObject(response);
         if (object.getIntValue("ret") != 0) {
             throw new AuthException(object.getString("msg"));
         }
@@ -82,27 +80,22 @@ public class AuthQqRequest extends AuthDefaultRequest {
      * @return openId
      */
     private String getOpenId(AuthToken authToken) {
-        HttpResponse response = HttpRequest.get(UrlBuilder.fromBaseUrl("https://graph.qq.com/oauth2.0/me")
+        String response = HttpUtil.get(UrlBuilder.fromBaseUrl("https://graph.qq.com/oauth2.0/me")
             .queryParam("access_token", authToken.getAccessToken())
             .queryParam("unionid", config.isUnionId() ? 1 : 0)
-            .build()).execute();
-        if (response.isOk()) {
-            String body = response.body();
-            String removePrefix = StrUtil.replace(body, "callback(", "");
-            String removeSuffix = StrUtil.replace(removePrefix, ");", "");
-            String openId = StrUtil.trim(removeSuffix);
-            JSONObject object = JSONObject.parseObject(openId);
-            if (object.containsKey("error")) {
-                throw new AuthException(object.get("error") + ":" + object.get("error_description"));
-            }
-            authToken.setOpenId(object.getString("openid"));
-            if (object.containsKey("unionid")) {
-                authToken.setUnionId(object.getString("unionid"));
-            }
-            return StringUtils.isEmpty(authToken.getUnionId()) ? authToken.getOpenId() : authToken.getUnionId();
+            .build());
+        String removePrefix = response.replace("callback(", "");
+        String removeSuffix = removePrefix.replace(");", "");
+        String openId = removeSuffix.trim();
+        JSONObject object = JSONObject.parseObject(openId);
+        if (object.containsKey("error")) {
+            throw new AuthException(object.get("error") + ":" + object.get("error_description"));
         }
-
-        throw new AuthException("request error");
+        authToken.setOpenId(object.getString("openid"));
+        if (object.containsKey("unionid")) {
+            authToken.setUnionId(object.getString("unionid"));
+        }
+        return StringUtils.isEmpty(authToken.getUnionId()) ? authToken.getOpenId() : authToken.getUnionId();
     }
 
     /**
@@ -120,8 +113,8 @@ public class AuthQqRequest extends AuthDefaultRequest {
             .build();
     }
 
-    private AuthToken getAuthToken(HttpResponse response) {
-        Map<String, String> accessTokenObject = GlobalAuthUtil.parseStringToMap(response.body());
+    private AuthToken getAuthToken(String response) {
+        Map<String, String> accessTokenObject = GlobalAuthUtils.parseStringToMap(response);
         if (!accessTokenObject.containsKey("access_token") || accessTokenObject.containsKey("code")) {
             throw new AuthException(accessTokenObject.get("msg"));
         }
