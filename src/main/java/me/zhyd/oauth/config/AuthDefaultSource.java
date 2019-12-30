@@ -723,6 +723,27 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://api.twitter.com/1.1/users/show.json";
         }
-    }
+    },
 
+    FEISHU{
+        @Override
+        public String authorize() {
+            return "https://open.feishu.cn/connect/qrconnect/page/sso/";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://open.feishu.cn/connect/qrconnect/oauth2/access_token/";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://open.feishu.cn/connect/qrconnect/oauth2/user_info/";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://open.feishu.cn/connect/qrconnect/oauth2/access_token/";
+        }
+    }
 }
