@@ -81,6 +81,7 @@ String authorizeUrl = authRequest.authorize(String state, String scopeStr);
 ```java
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.request.AuthKujialeRequest;
+import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.request.AuthRequest;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -101,10 +102,10 @@ public class RestAuthController {
     }
 
     @RequestMapping("/callback")
-    public Object login(String code, String state) {
+    public Object login(AuthCallback callback) {
         AuthRequest authRequest = getAuthRequest();
         //此处如果对安全性有要求，请校验state参数
-        return authRequest.login(code);
+        return authRequest.login(callback);
     }
 
     private AuthRequest getAuthRequest() {
