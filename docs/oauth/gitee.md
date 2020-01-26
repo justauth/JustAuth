@@ -108,7 +108,7 @@ public class RestAuthController {
 
 ## 3. 授权结果
 
-注：数据以脱敏
+注：数据已脱敏
 
 ```json
 {
