@@ -725,6 +725,12 @@ public enum AuthDefaultSource implements AuthSource {
         }
     },
 
+    /**
+     * 飞书
+     * 注意：该平台暂时存在问题，请不要使用。待修复完成后会重新发版
+     *
+     * @since 1.14.0
+     */
     FEISHU{
         @Override
         public String authorize() {

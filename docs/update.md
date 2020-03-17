@@ -1,3 +1,10 @@
+## v1.14.0
+### 2020/03/17
+- 修改
+    - 合并[PR-59](https://github.com/justauth/JustAuth/pull/59)，抽取HTTP，具体实现交给开发者，解耦 hutool-http，开发者可以视自己项目的依赖决定使用何种HTTP方式。详情请参考：https://github.com/xkcoding/simple-http
+    - 合并[PR-65](https://github.com/justauth/JustAuth/pull/65)，修改错误文案
+    - 修复其他一些问题
+
 ## v1.13.2
 ### 2019/12/24
 - 新增

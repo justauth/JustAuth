@@ -26,6 +26,10 @@
   -  添加测试用例：UrlBuilder 、GlobalAuthUtil 
 - <img src="https://avatars0.githubusercontent.com/u/283483?s=180&v=4" width="20"> · Chris Smowton :  <a href="https://github.com/smowton" target="_blank">[Github]</a>
   -  添加测试用例：StringUtils
+- <img src="https://avatars1.githubusercontent.com/u/31759178?s=88&v=4" width="20"> · githubeacon :  <a href="https://github.com/githubeacon" target="_blank">[Github]</a>
+  -  增加飞书授权登录
+- <img src="https://avatars3.githubusercontent.com/u/20242284?s=88&u=2aeb7576bd61392e9fd94227d2b3048a9aea6f73&v=4" width="20"> · runningzyp :  <a href="https://github.com/runningzyp" target="_blank">[Github]</a>
+  -  修改文案错误
 - 千年等一回，我只为等你...
 
 ps: 如有遗漏，请告知

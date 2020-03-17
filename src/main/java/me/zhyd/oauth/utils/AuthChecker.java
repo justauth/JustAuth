@@ -91,6 +91,7 @@ public class AuthChecker {
      * 2. {@code state}为前端伪造，本身就不存在
      *
      * @param state          {@code state}一定不为空
+     * @param source         {@code source}当前授权平台
      * @param authStateCache {@code authStateCache} state缓存实现
      */
     public static void checkState(String state, AuthSource source, AuthStateCache authStateCache) {
