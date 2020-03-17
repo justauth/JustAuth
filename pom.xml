@@ -160,8 +160,7 @@
     <profile>
       <id>release</id>
       <build>
-        <pluginManagement>
-          <plugins>
+        <plugins>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-source-plugin</artifactId>
@@ -221,7 +220,6 @@
               </executions>
             </plugin>
           </plugins>
-        </pluginManagement>
       </build>
       <distributionManagement>
         <snapshotRepository>
@@ -238,8 +236,7 @@
     <profile>
       <id>nexus</id>
       <build>
-        <pluginManagement>
-          <plugins>
+        <plugins>
             <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-gpg-plugin</artifactId>
@@ -254,7 +251,6 @@
               </executions>
             </plugin>
           </plugins>
-        </pluginManagement>
       </build>
       <distributionManagement>
         <repository>
