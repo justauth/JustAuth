@@ -1,5 +1,5 @@
 <p align="center">
-	<a href="https://docs.justauth.whnb.wang"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/logo.png" width="400"></a>
+	<a href="https://docs.justauth.whnb.wang"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
 </p>
 <p align="center">
 	<strong>Login, so easy.</strong>

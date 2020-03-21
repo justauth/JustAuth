@@ -42,6 +42,8 @@
   - [使用State](using-state.md)
   - [自定义state缓存](customize-the-state-cache.md)
   - [自定义第三方平台的OAuth](customize-the-oauth.md)
+- 扩展内容
+  - [与自有用户整合](extended/justauth_integrated_with_the_existing_account_system.md)
 - [配套项目](supporting.md)
 - [Who is using](users.md)
 - [致谢](thx.md)
