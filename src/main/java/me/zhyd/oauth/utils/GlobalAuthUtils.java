@@ -122,6 +122,9 @@ public class GlobalAuthUtils {
      * @return str
      */
     public static String parseMapToString(Map<String, String> params, boolean encode) {
+        if (null == params || params.isEmpty()) {
+            return "";
+        }
         List<String> paramList = new ArrayList<>();
         params.forEach((k, v) -> {
             if (null == v) {
@@ -208,10 +211,7 @@ public class GlobalAuthUtils {
      * @return BASE64 encoded signature string
      */
     public static String generateTwitterSignature(Map<String, String> params, String method, String baseUrl, String apiSecret, String tokenSecret) {
-        TreeMap<String, String> map = new TreeMap<>();
-        for (Map.Entry<String, String> e : params.entrySet()) {
-            map.put(urlEncode(e.getKey()), e.getValue());
-        }
+        TreeMap<String, String> map = new TreeMap<>(params);
         String str = parseMapToString(map, true);
         String baseStr = method.toUpperCase() + "&" + urlEncode(baseUrl) + "&" + urlEncode(str);
         String signKey = apiSecret + "&" + (StringUtils.isEmpty(tokenSecret) ? "" : tokenSecret);
@@ -234,10 +234,7 @@ public class GlobalAuthUtils {
      * @return Signature
      */
     public static String generateElemeSignature(String appKey, String secret, long timestamp, String action, String token, Map<String, Object> parameters) {
-        final Map<String, Object> sorted = new TreeMap<>();
-        for (Map.Entry<String, Object> entry : parameters.entrySet()) {
-            sorted.put(entry.getKey(), entry.getValue());
-        }
+        final Map<String, Object> sorted = new TreeMap<>(parameters);
         sorted.put("app_key", appKey);
         sorted.put("timestamp", timestamp);
         StringBuffer string = new StringBuffer();
@@ -250,14 +247,14 @@ public class GlobalAuthUtils {
     }
 
     /**
-     * MD5加密饿了么请求的Signature
+     * MD5加密
      * <p>
      * 代码copy并修改自：https://coding.net/u/napos_openapi/p/eleme-openapi-java-sdk/git/blob/master/src/main/java/eleme/openapi/sdk/utils/SignatureUtil.java
      *
-     * @param str 饿了么请求的Signature
+     * @param str 待加密的字符串
      * @return md5 str
      */
-    private static String md5(String str) {
+    public static String md5(String str) {
         MessageDigest md = null;
         StringBuilder buffer = null;
         try {
@@ -274,4 +271,32 @@ public class GlobalAuthUtils {
         return null == buffer ? "" : buffer.toString();
     }
 
+    /**
+     * 生成京东宙斯平台的签名字符串
+     * 宙斯签名规则过程如下:
+     * 将所有请求参数按照字母先后顺序排列，例如将access_token,app_key,method,timestamp,v 排序为access_token,app_key,method,timestamp,v
+     * 1.把所有参数名和参数值进行拼接，例如：access_tokenxxxapp_keyxxxmethodxxxxxxtimestampxxxxxxvx
+     * 2.把appSecret夹在字符串的两端，例如：appSecret+XXXX+appSecret
+     * 3.使用MD5进行加密，再转化成大写
+     * link: http://open.jd.com/home/home#/doc/common?listId=890
+     * link: https://github.com/pingjiang/jd-open-api-sdk-src/blob/master/src/main/java/com/jd/open/api/sdk/DefaultJdClient.java
+     *
+     * @param appSecret 京东应用密钥
+     * @param params    签名参数
+     * @return 签名后的字符串
+     * @since 1.15.0-alpha
+     */
+    public static String generateJdSignature(String appSecret, Map<String, Object> params) {
+        Map<String, Object> treeMap = new TreeMap<>(params);
+        StringBuilder signBuilder = new StringBuilder(appSecret);
+        for (Map.Entry<String, Object> entry : treeMap.entrySet()) {
+            String name = entry.getKey();
+            String value = String.valueOf(entry.getValue());
+            if (StringUtils.isNotEmpty(name) && StringUtils.isNotEmpty(value)) {
+                signBuilder.append(name).append(value);
+            }
+        }
+        signBuilder.append(appSecret);
+        return md5(signBuilder.toString()).toUpperCase();
+    }
 }

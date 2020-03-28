@@ -4,6 +4,7 @@ import com.xkcoding.http.util.MapUtil;
 import com.xkcoding.http.util.StringUtil;
 import lombok.Setter;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -33,6 +34,16 @@ public class UrlBuilder {
         UrlBuilder builder = new UrlBuilder();
         builder.setBaseUrl(baseUrl);
         return builder;
+    }
+
+    /**
+     * 只读的参数Map
+     *
+     * @return unmodifiable Map
+     * @since 1.15.0-alpha
+     */
+    public Map<String, Object> getReadOnlyParams() {
+        return Collections.unmodifiableMap(params);
     }
 
     /**

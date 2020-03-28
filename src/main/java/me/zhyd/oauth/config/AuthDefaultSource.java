@@ -731,7 +731,7 @@ public enum AuthDefaultSource implements AuthSource {
      *
      * @since 1.14.0
      */
-    FEISHU{
+    FEISHU {
         @Override
         public String authorize() {
             return "https://open.feishu.cn/connect/qrconnect/page/sso/";
@@ -750,6 +750,32 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String refresh() {
             return "https://open.feishu.cn/connect/qrconnect/oauth2/access_token/";
+        }
+    },
+    /**
+     * 京东
+     *
+     * @since 1.15.0-alpha
+     */
+    JD {
+        @Override
+        public String authorize() {
+            return "https://open-oauth.jd.com/oauth2/to_login";
+        }
+
+        @Override
+        public String accessToken() {
+                return "https://open-oauth.jd.com/oauth2/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.jd.com/routerjson";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://open-oauth.jd.com/oauth2/refresh_token";
         }
     }
 }
