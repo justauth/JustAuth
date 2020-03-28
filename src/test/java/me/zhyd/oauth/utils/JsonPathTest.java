@@ -3,6 +3,7 @@ package me.zhyd.oauth.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -29,9 +30,9 @@ public class JsonPathTest {
 
 
         Map<String, Object> master = new HashMap<>();
-//        master.put("elements", list);
+        master.put("elements", list);
         JSONObject emailObj = JSONObject.parseObject(JSON.toJSONString(master));
         Object object = JSONPath.eval(emailObj, "$['elements'][0]['handle~']['emailAddress']");
-        System.out.println(object);
+        Assert.assertEquals("xxxx", object);
     }
 }
