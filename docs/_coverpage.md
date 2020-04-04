@@ -2,6 +2,8 @@
 ![](_media/justauth@0,25x.png)
 # JustAuth <small>1.15.0-alpha</small>
 
+<h2><strong style="color:red">2020年4月10日（周五） 晚8点 直播间首秀《JustAuth 从开源到喜提「码云GVP」之路》</strong></h2>
+
 <strong>史上最全的整合第三方登录的开源库</strong>
 
 <strong>Login, so easy</strong>
