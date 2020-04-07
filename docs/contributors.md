@@ -18,6 +18,7 @@
   - 升级fastjson版本至1.2.58
 - <img src="https://gitee.com/uploads/22/4981222_harryleexyz.png?1556524275" width="20"> · harrylee :  <a href="https://gitee.com/harryleexyz" target="_blank">[Gitee]</a>
   - 升级fastjson依赖到1.2.60
+  - 集成京东登录
 - <img src="https://avatars3.githubusercontent.com/u/32814990?s=460&v=4" width="20"> · Veigar :  <a href="https://github.com/wuweiqi1993" target="_blank">[Github]</a>
   -  集成酷家乐登录
 - <img src="https://avatar.gitee.com/uploads/24/1280924_TopCoderMyDream.png!avatar200?1523763232" width="20"> · 蛋蛋 :  <a href="https://gitee.com/TopCoderMyDream" target="_blank">[Gitee]</a> | <a href="https://github.com/EggsBlue" target="_blank">[Github]</a>

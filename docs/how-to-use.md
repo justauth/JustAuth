@@ -1,5 +1,3 @@
-# 如何使用
-
 在前面有介绍到，JustAuth的特点之一就是**简**，极简主义，不给使用者造成不必要的障碍。
 
 既然牛皮吹下了， 那么如何才能用JustAuth实现第三方登录呢？
@@ -36,6 +34,40 @@ authRequest.authorize("state");
 // 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
 authRequest.login(callback);
 ```
+
+
+注意，JustAuth从[v1.14.0](https://gitee.com/yadong.zhang/JustAuth/releases/v1.14.0)开始默认集成了的[simple-http](https://github.com/xkcoding/simple-http)作为HTTP通用接口（更新说明见[JustAuth 1.14.0版本正式发布！完美解耦HTTP工具](https://mp.weixin.qq.com/s?__biz=MzA3NDk3OTIwMg==&mid=2450633197&idx=1&sn=11e625b307db62b2f1c4e82f7744b2a2&chksm=88929300bfe51a16562b45592a264482ae2c74c6dbfa4a3aa9611ad4fea4a9be5b1f0545527d&token=1093833287&lang=zh_CN#rd)），鉴于一般项目中都已经集成了HTTP工具，比如OkHttp3、apache HttpClient、hutool-http，因此为了减少不必要的依赖，从[v1.14.0](https://gitee.com/yadong.zhang/JustAuth/releases/v1.14.0)开始JustAuth将不会默认集成hutool-http，如果开发者的项目是全新的或者项目内没有集成HTTP实现工具，请自行添加对应的HTTP实现类，备选依赖如下：
+
+- hutool-http
+
+  ```xml
+  <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-http</artifactId>
+      <version>5.2.5</version>
+  </dependency>
+  ```
+
+- httpclient
+
+  ```xml
+  <dependency>
+  	<groupId>org.apache.httpcomponents</groupId>
+    	<artifactId>httpclient</artifactId>
+    	<version>4.5.12</version>
+  </dependency>
+  ```
+
+- okhttp
+
+  ```xml
+  <dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>4.4.1</version>
+  </dependency>
+  ```
+
 
 ## API分解
 
@@ -156,13 +188,12 @@ public Object revokeAuth(@PathVariable("source") String source, @PathVariable("t
 
 ## 配套项目
 
-**配套Demo**：
 - [JustAuth-demo](https://github.com/justauth/JustAuth-demo)：普通版springboot项目demo
 - [jFinal版](https://github.com/xkcoding/jfinal-justauth-demo): Jfinal集成JustAuth的demo by [xkcoding](https://github.com/xkcoding)
 - [ActFramework版](https://github.com/xkcoding/act-justauth-demo): ActFramework 集成 JustAuth 的 demo by [xkcoding](https://github.com/xkcoding)
 - [Nutzboot版](https://github.com/EggsBlue/nutzboot-justauth-demo): NutzBoot集成JustAuth的demo  by [蛋蛋](https://github.com/EggsBlue)
 - [Blade版](https://github.com/justauth/blade-justauth-demo): Blade集成JustAuth的demo
 
-## starter插件
+## SpringBoot插件
 - [justauth-spring-boot-starter](https://github.com/xkcoding/justauth-spring-boot-starter): Spring Boot 集成 JustAuth 的最佳实践 by [xkcoding](https://github.com/xkcoding)
 - [justauth-spring-security-starter](https://github.com/justauth/justauth-spring-security-starter): JustAuth整合Spring security的 starter依赖 by [luoqiz](https://github.com/luoqiz)

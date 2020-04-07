@@ -6,7 +6,7 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
-		<img src="https://img.shields.io/badge/Maven Central-1.15.0-alpha-blue.svg" ></img>
+		<img src="https://img.shields.io/badge/Maven%20Central--1.14.0-blue" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
@@ -15,7 +15,7 @@
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
 	</a>
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/" title="API文档">
-		<img src="https://img.shields.io/badge/Api Docs-1.15.0-alpha-orange.svg" ></img>
+		<img src="https://img.shields.io/badge/Api%20Docs--1.14.0-latest-orange" ></img>
 	</a>
 	<a target="_blank" href="https://docs.justauth.whnb.wang" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
@@ -73,9 +73,10 @@
     </table>
     <center><a href="https://docs.justauth.whnb.wang/#/?id=%E5%B7%B2%E9%9B%86%E6%88%90%E7%9A%84%E5%B9%B3%E5%8F%B0" target="_blank">查看更多</a></center>
 </center>
-
 -------------------------------------------------------------------------------
 
+
+<a href="https://mp.weixin.qq.com/s?__biz=MzA3NDk3OTIwMg==&mid=2450633207&idx=1&sn=50320bb20d468cb06e0c7f96d7181bb0&chksm=8892931abfe51a0c9d051b468ba4046beb5b50d8393b9e308798e25954184b5a0ef2a133203a&token=977722026&lang=zh_CN#rd" target="_blank"><h2><strong style="color:red">2020年4月10日（周五） 晚8点 直播间首秀《JustAuth 从开源到喜提「码云GVP」之路》</strong></h2></a>
 
 
 JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具类库**，它可以让我们脱离繁琐的第三方登录SDK，让登录变得**So easy!**
@@ -97,7 +98,7 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.15.0-alpha</version>
+    <version>1.14.0</version>
 </dependency>
 ```
 - 调用api
@@ -115,7 +116,42 @@ authRequest.authorize("state");
 authRequest.login(callback);
 ```
 
-**配套Demo**：
+注意，JustAuth从[v1.14.0](https://gitee.com/yadong.zhang/JustAuth/releases/v1.14.0)开始默认集成了的[simple-http](https://github.com/xkcoding/simple-http)作为HTTP通用接口（更新说明见[JustAuth 1.14.0版本正式发布！完美解耦HTTP工具](https://mp.weixin.qq.com/s?__biz=MzA3NDk3OTIwMg==&mid=2450633197&idx=1&sn=11e625b307db62b2f1c4e82f7744b2a2&chksm=88929300bfe51a16562b45592a264482ae2c74c6dbfa4a3aa9611ad4fea4a9be5b1f0545527d&token=1093833287&lang=zh_CN#rd)），鉴于一般项目中都已经集成了HTTP工具，比如OkHttp3、apache HttpClient、hutool-http，因此为了减少不必要的依赖，从[v1.14.0](https://gitee.com/yadong.zhang/JustAuth/releases/v1.14.0)开始JustAuth将不会默认集成hutool-http，如果开发者的项目是全新的或者项目内没有集成HTTP实现工具，请自行添加对应的HTTP实现类，备选依赖如下：
+
+- hutool-http
+
+  ```xml
+  <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-http</artifactId>
+      <version>5.2.5</version>
+  </dependency>
+  ```
+
+- httpclient
+
+  ```xml
+  <dependency>
+  	<groupId>org.apache.httpcomponents</groupId>
+    	<artifactId>httpclient</artifactId>
+    	<version>4.5.12</version>
+  </dependency>
+  ```
+
+- okhttp
+
+  ```xml
+  <dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>4.4.1</version>
+  </dependency>
+  ```
+
+
+
+配套Demo**：
+
 - [JustAuth-demo](https://github.com/justauth/JustAuth-demo)
 - [jFinal版](https://github.com/xkcoding/jfinal-justauth-demo): Jfinal集成JustAuth的demo by [xkcoding](https://github.com/xkcoding)
 - [ActFramework版](https://github.com/xkcoding/act-justauth-demo): ActFramework 集成 JustAuth 的 demo by [xkcoding](https://github.com/xkcoding)
