@@ -73,11 +73,11 @@
     </table>
     <center><a href="https://docs.justauth.whnb.wang/#/?id=%E5%B7%B2%E9%9B%86%E6%88%90%E7%9A%84%E5%B9%B3%E5%8F%B0" target="_blank">查看更多</a></center>
 </center>
+
 -------------------------------------------------------------------------------
 
 
-<a href="https://mp.weixin.qq.com/s?__biz=MzA3NDk3OTIwMg==&mid=2450633207&idx=1&sn=50320bb20d468cb06e0c7f96d7181bb0&chksm=8892931abfe51a0c9d051b468ba4046beb5b50d8393b9e308798e25954184b5a0ef2a133203a&token=977722026&lang=zh_CN#rd" target="_blank"><h2><strong style="color:red">2020年4月10日（周五） 晚8点 直播间首秀《JustAuth 从开源到喜提「码云GVP」之路》</strong></h2></a>
-
+#### [2020年4月10日（周五） 晚8点 直播间首秀《JustAuth 从开源到喜提「码云GVP」之路》](https://mp.weixin.qq.com/s?__biz=MzA3NDk3OTIwMg==&mid=2450633207&idx=1&sn=50320bb20d468cb06e0c7f96d7181bb0&chksm=8892931abfe51a0c9d051b468ba4046beb5b50d8393b9e308798e25954184b5a0ef2a133203a&token=977722026&lang=zh_CN#rd)
 
 JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具类库**，它可以让我们脱离繁琐的第三方登录SDK，让登录变得**So easy!**
 
