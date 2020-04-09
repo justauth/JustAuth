@@ -40,7 +40,7 @@ public class UrlBuilder {
      * 只读的参数Map
      *
      * @return unmodifiable Map
-     * @since 1.15.0-alpha
+     * @since 1.15.0
      */
     public Map<String, Object> getReadOnlyParams() {
         return Collections.unmodifiableMap(params);

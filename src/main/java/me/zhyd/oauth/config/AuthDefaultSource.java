@@ -755,7 +755,7 @@ public enum AuthDefaultSource implements AuthSource {
     /**
      * 京东
      *
-     * @since 1.15.0-alpha
+     * @since 1.15.0
      */
     JD {
         @Override

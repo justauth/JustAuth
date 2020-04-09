@@ -22,10 +22,9 @@ import java.util.Map;
 
 /**
  * 京东登录
- * link: http://open.jd.com/home/home#/doc/common?listId=717
  *
  * @author harry.lee (harryleexyz@qq.com)
- * @since
+ * @since 1.15.0
  */
 public class AuthJdRequest extends AuthDefaultRequest {
 
@@ -59,15 +58,6 @@ public class AuthJdRequest extends AuthDefaultRequest {
             .build();
     }
 
-    /**
-     * link: http://jos.jd.com/api/showTools.htm?id=3051&groupId=106
-     * postUrl: https://api.jd.com/routerjson?v=2.0&method=jingdong.user.getUserInfoByOpenId
-     * &app_key=x&access_token=x&360buy_param_json={"openId":"x"}
-     * &timestamp=2019-09-11 11:12:26&sign=DB5278CD12443BEA22C5E5EA05A30D2B
-     *
-     * @param authToken token信息
-     * @return AuthUser
-     */
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         UrlBuilder urlBuilder = UrlBuilder.fromBaseUrl(source.userInfo())
@@ -99,7 +89,6 @@ public class AuthJdRequest extends AuthDefaultRequest {
     /**
      * 个人用户无法申请应用
      * 暂时只能参考官网给出的返回结果解析
-     * link: https://open.jd.com/home/home#/doc/api?apiCateId=106&apiId=3051&apiName=jingdong.user.getUserInfoByOpenId
      *
      * @param object 请求返回结果
      * @return data JSONObject

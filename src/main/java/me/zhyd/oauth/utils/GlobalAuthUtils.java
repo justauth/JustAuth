@@ -284,7 +284,7 @@ public class GlobalAuthUtils {
      * @param appSecret 京东应用密钥
      * @param params    签名参数
      * @return 签名后的字符串
-     * @since 1.15.0-alpha
+     * @since 1.15.0
      */
     public static String generateJdSignature(String appSecret, Map<String, Object> params) {
         Map<String, Object> treeMap = new TreeMap<>(params);
