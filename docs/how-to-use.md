@@ -21,7 +21,7 @@
 </dependency>
 ```
 
-获取最新版本：[JustAuth](https://search.maven.org/artifact/me.zhyd.oauth/JustAuth)
+获取最新版本：[JustAuth](https://search.maven.org/search?q=g:me.zhyd.oauth%20AND%20a:JustAuth)
 
 - 调用api
 ```java
