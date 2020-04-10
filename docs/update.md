@@ -1,3 +1,13 @@
+## v1.15.0
+### 2020/04/10
+- 修改
+    - 更新开发文档
+    - 合并Gitee [PR-10](https://gitee.com/yadong.zhang/JustAuth/pulls/10)，集成京东登录
+    - 合并Gitee [PR-14](https://gitee.com/yadong.zhang/JustAuth/pulls/14)，修改帮助文档，加入JA的使用者信息
+    - 合并Github [PR-69](https://github.com/justauth/JustAuth/pull/69)，升级fastjson的最新版本
+    - 解决使用apache-httpclient时的403bug，升级simple-http，感谢QQ群的`不瘦十斤不改名字`反馈该问题
+    - 修复其他一些问题
+    
 ## v1.14.0
 ### 2020/03/17
 - 修改
