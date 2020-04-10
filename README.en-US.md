@@ -6,7 +6,7 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
-		<img src="https://img.shields.io/badge/Maven%20Central--1.15.0-blue" ></img>
+		<img src="https://img.shields.io/badge/Maven%20Central--1.15.1-blue" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
@@ -15,7 +15,7 @@
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
 	</a>
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/" title="API文档">
-		<img src="https://img.shields.io/badge/Api%20Docs--1.15.0-latest-orange" ></img>
+		<img src="https://img.shields.io/badge/Api%20Docs--1.15.1-latest-orange" ></img>
 	</a>
 	<a target="_blank" href="https://docs.justauth.whnb.wang" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
@@ -97,7 +97,7 @@ These artifacts are available from Maven Central:
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.15.0</version>
+    <version>1.15.1</version>
 </dependency>
 ```
 - Using JustAuth
