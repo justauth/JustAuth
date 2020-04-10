@@ -20,6 +20,9 @@
     <version>${latest.version}</version>
 </dependency>
 ```
+
+获取最新版本：[JustAuth](https://search.maven.org/artifact/me.zhyd.oauth/JustAuth)
+
 - 调用api
 ```java
 // 创建授权request
