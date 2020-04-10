@@ -60,7 +60,7 @@
     <maven-surefire-version>2.20</maven-surefire-version>
     <maven-gpg-version>1.6</maven-gpg-version>
     <maven.test.skip>false</maven.test.skip>
-    <simple-http.version>1.0.2</simple-http.version>
+    <simple-http.version>1.0.1</simple-http.version>
     <lombok-version>1.18.10</lombok-version>
     <junit-version>4.11</junit-version>
     <fastjson-version>1.2.68</fastjson-version>
