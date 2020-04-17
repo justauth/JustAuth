@@ -48,6 +48,7 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
             .uuid(object.getString("id"))
             .username(object.getString("name"))
             .nickname(object.getString("name"))
+            .blog(object.getString("link"))
             .avatar(getUserPicture(object))
             .location(object.getString("locale"))
             .email(object.getString("email"))
@@ -79,7 +80,7 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
     protected String userInfoUrl(AuthToken authToken) {
         return UrlBuilder.fromBaseUrl(source.userInfo())
             .queryParam("access_token", authToken.getAccessToken())
-            .queryParam("fields", "id,name,birthday,gender,hometown,email,devices,picture.width(400)")
+            .queryParam("fields", "id,name,birthday,gender,hometown,email,devices,picture.width(400),link")
             .build();
     }
 

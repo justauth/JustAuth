@@ -77,8 +77,6 @@
 -------------------------------------------------------------------------------
 
 
-#### [2020年4月10日（周五） 晚8点 直播间首秀《JustAuth 从开源到喜提「码云GVP」之路》](https://mp.weixin.qq.com/s?__biz=MzA3NDk3OTIwMg==&mid=2450633207&idx=1&sn=50320bb20d468cb06e0c7f96d7181bb0&chksm=8892931abfe51a0c9d051b468ba4046beb5b50d8393b9e308798e25954184b5a0ef2a133203a&token=977722026&lang=zh_CN#rd)
-
 JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具类库**，它可以让我们脱离繁琐的第三方登录SDK，让登录变得**So easy!**
 
 项目开源地址：[gitee](https://gitee.com/yadong.zhang/JustAuth) | [github](https://github.com/zhangyd-c/JustAuth)    
