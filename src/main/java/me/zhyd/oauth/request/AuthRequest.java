@@ -72,4 +72,11 @@ public interface AuthRequest {
     default AuthResponse refresh(AuthToken authToken) {
         throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
+
+    /**
+     * 获取缓存值
+     * @param key
+     * @return
+     */
+    default String getValue(String key){return null;}
 }

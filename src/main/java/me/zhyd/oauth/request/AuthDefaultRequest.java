@@ -263,4 +263,8 @@ public abstract class AuthDefaultRequest implements AuthRequest {
         return HttpUtil.get(revokeUrl(authToken));
     }
 
+    @Override
+    public String getValue(String key){
+        return authStateCache.get(key);
+    }
 }
