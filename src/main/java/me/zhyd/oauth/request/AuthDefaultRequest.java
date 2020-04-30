@@ -191,16 +191,14 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     /**
      * 获取state，如果为空， 则默认取当前日期的时间戳
      *
-     * @param state 原始的state
+     * @param value 缓存value值
      * @return 返回不为null的state
      */
-    protected String getRealState(String state) {
-        if (StringUtils.isEmpty(state)) {
-            state = UuidUtils.getUUID();
-        }
+    protected String getRealState(String value) {
         // 缓存state
-        authStateCache.cache(state, state);
-        return state;
+        String key = UuidUtils.getUUID();
+        authStateCache.cache(key, value);
+        return key;
     }
 
     /**
