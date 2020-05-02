@@ -13,6 +13,7 @@
   - [√ 微博登录](oauth/weibo.md)
   - [√ 支付宝登录](oauth/alipay.md)
   - [√ 酷家乐登录](oauth/kujiale.md)
+  - [CSDN登录](oauth/csdn.md)
   - [微信企业版登录](oauth/wechatEnterprise.md)
   - [微信公众平台登录](oauth/wechat_mp.md)
   - [百度登录](oauth/baidu.md)
@@ -36,7 +37,6 @@
   - [Gitlab登录](oauth/gitlab.md)
   - [美团登录](oauth/meituan.md)
   - [饿了么登录](oauth/eleme.md)
-  - [CSDN登录](oauth/csdn.md)
   - [飞书登录](oauth/feishu.md)
 - 高级特性
   - [使用State](using-state.md)
