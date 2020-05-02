@@ -58,6 +58,8 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 
 [![Stargazers over time](https://starchart.cc/justauth/JustAuth.svg)](https://starchart.cc/justauth/JustAuth)
 
+<a href="https://www.producthunt.com/posts/justauth?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-justauth" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=196886&theme=dark" alt="JustAuth - Login, so easy! | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+
 ## 参与&贡献
 
 JustAuth的发展离不开朋友们的支持，时至今日，JustAuth已渐趋完善，但仍有很大的改善空间。欢迎各位朋友为JustAuth贡献一份力量。
