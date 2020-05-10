@@ -1,3 +1,32 @@
+## 1.15.2-alpha
+### 2020/05/10
+- 修改
+    - 修复使用领英登录时无法获取token的问题
+    - 解决Gitee [Issue-I1GPIB](https://gitee.com/yadong.zhang/JustAuth/issues/I1GPIB)
+
+【声明】：当引用 OkHttp 时，无法调用领英的授权登录，可能会抛出 400 异常。如遇此问题，请先切换到 hutool 或者 httpclient 依赖。
+该问题尚在修复中，给各位带来的不便，深表歉意。
+
+- hutool-http
+
+  ```xml
+  <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-http</artifactId>
+      <version>5.2.5</version>
+  </dependency>
+  ```
+
+- httpclient
+
+  ```xml
+  <dependency>
+  	<groupId>org.apache.httpcomponents</groupId>
+    	<artifactId>httpclient</artifactId>
+    	<version>4.5.12</version>
+  </dependency>
+  ```
+
 ## v1.15.1(~~v1.15.0~~)
 ### 2020/04/10
 - 修改
