@@ -14,6 +14,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthResponse<T> implements Serializable {
     /**
      * 授权响应状态码
