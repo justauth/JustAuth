@@ -128,7 +128,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
         httpHeader.add("Connection", "Keep-Alive");
         httpHeader.add("Authorization", "Bearer " + accessToken);
 
-        String emailResponse = HttpUtil.get("https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))");
+        String emailResponse = HttpUtil.get("https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))", null, httpHeader, false);
         JSONObject emailObj = JSONObject.parseObject(emailResponse);
 
         this.checkResponse(emailObj);
