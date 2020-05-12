@@ -92,20 +92,20 @@ public class GlobalAuthUtilsTest {
             .clientSecret("0YX3RH2DnPiT77pgzLzFdfpMKX8ENLIWQKYQ7lG5TERuZNgXN5")
             .build();
         AuthCallback authCallback = AuthCallback.builder()
-            .oauthToken("W_KLmAAAAAAAxq5LAAABbXxJeD0")
-            .oauthVerifier("lYou4gxfA6S5KioUa8VF8HCShzA2nSxp")
+            .oauth_token("W_KLmAAAAAAAxq5LAAABbXxJeD0")
+            .oauth_verifier("lYou4gxfA6S5KioUa8VF8HCShzA2nSxp")
             .build();
         Map<String, String> params = new HashMap<>();
         params.put("oauth_consumer_key", config.getClientId());
         params.put("oauth_nonce", "sTj7Ivg73u052eXstpoS1AWQCynuDEPN");
         params.put("oauth_signature_method", "HMAC-SHA1");
         params.put("oauth_timestamp", "1569751082");
-        params.put("oauth_token", authCallback.getOauthToken());
-        params.put("oauth_verifier", authCallback.getOauthVerifier());
+        params.put("oauth_token", authCallback.getOauth_token());
+        params.put("oauth_verifier", authCallback.getOauth_verifier());
         params.put("oauth_version", "1.0");
 
         params.put("oauth_signature", GlobalAuthUtils.generateTwitterSignature(params, "POST", TWITTER.accessToken(), config.getClientSecret(), authCallback
-            .getOauthToken()));
+            .getOauth_token()));
 
         params.forEach((k, v) -> params.put(k, "\"" + GlobalAuthUtils.urlEncode(v) + "\""));
         String actual = "OAuth " + GlobalAuthUtils.parseMapToString(params, false).replaceAll("&", ", ");

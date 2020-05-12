@@ -72,6 +72,10 @@ public class AuthChecker {
      * @since 1.8.0
      */
     public static void checkCode(AuthSource source, AuthCallback callback) {
+        // 推特平台不支持回调 code 和 state
+        if (source == AuthDefaultSource.TWITTER) {
+            return;
+        }
         String code = callback.getCode();
         if (source == AuthDefaultSource.ALIPAY) {
             code = callback.getAuth_code();
@@ -95,6 +99,10 @@ public class AuthChecker {
      * @param authStateCache {@code authStateCache} state缓存实现
      */
     public static void checkState(String state, AuthSource source, AuthStateCache authStateCache) {
+        // 推特平台不支持回调 code 和 state
+        if (source == AuthDefaultSource.TWITTER) {
+            return;
+        }
         if (StringUtils.isEmpty(state) || !authStateCache.containsKey(state)) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_STATUS, source);
         }

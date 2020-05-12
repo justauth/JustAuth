@@ -48,12 +48,13 @@ public class AuthCallback implements Serializable {
      *
      * @since 1.13.0
      */
-    private String oauthToken;
+    private String oauth_token;
 
     /**
      * Twitter回调后返回的oauth_verifier
      *
      * @since 1.13.0
      */
-    private String oauthVerifier;
+    private String oauth_verifier;
+
 }
