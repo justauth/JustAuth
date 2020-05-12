@@ -1,3 +1,26 @@
+## 1.15.3-alpha
+### 2020/05/13
+- 修复
+    - 解决 Twitter 授权失败的BUG
+- 文档
+    - 完善 [https://docs.justauth.whnb.wang](https://docs.justauth.whnb.wang/) 的404引导页内容
+    - 增加名词解释： `uuid`
+    - 补充 [Q&A](Q&A.md)
+    - 新增 [参考文档](references.md)，包含 OAuth 授权和第三方平台的API文档等内容
+    - 新增 [推特登录](oauth/twitter.md) 的说明文档
+
+> 特别注意：所有国外平台都无法直接通过java进行访问API，目前[simple-http](https://github.com/xkcoding/simple-http) Release版本，暂不支持添加代理，所以目前需要手动开启代理。
+
+代理开启的方式：
+```java
+System.setProperty("proxyPort", "10080");
+System.setProperty("proxyHost", "127.0.0.1");
+```
+以上代码可以在声明 `AuthRequest` 时创建，也可以全局执行。
+
+本地如果支持科学上网，就用自己本地的代理端口即可，如果不支持科学上网，可以去网上找一些免费的代理IP进行测试（请自行操作）。
+
+
 ## 1.15.2-alpha
 ### 2020/05/10
 - 修改

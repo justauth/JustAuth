@@ -150,4 +150,15 @@ AuthRequest authRequest = new AuthQqRequest(AuthConfig.builder()
 
 ps: 我要去祭天了
 
+## 13. 为什么集成国外平台时，一直提示 `connect time out`？
 
+所有国外平台都无法直接通过java进行访问API，目前[simple-http](https://github.com/xkcoding/simple-http) Release版本，暂不支持添加代理，所以目前需要手动开启代理。
+
+代理开启的方式：
+```java
+System.setProperty("proxyPort", "10080");
+System.setProperty("proxyHost", "127.0.0.1");
+```
+以上代码可以在声明 `AuthRequest` 时创建，也可以全局执行。
+
+本地如果支持科学上网，就用自己本地的代理端口即可，如果不支持科学上网，可以去网上找一些免费的代理IP进行测试（请自行操作）。

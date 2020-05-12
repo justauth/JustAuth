@@ -13,6 +13,7 @@
   - [√ 微博登录](oauth/weibo.md)
   - [√ 支付宝登录](oauth/alipay.md)
   - [√ 酷家乐登录](oauth/kujiale.md)
+  - [√ 推特登录](oauth/twitter.md)
   - [CSDN登录](oauth/csdn.md)
   - [微信企业版登录](oauth/wechatEnterprise.md)
   - [微信公众平台登录](oauth/wechat_mp.md)
@@ -46,4 +47,5 @@
   - [JustAuth与现有用户系统整合](extended/justauth_integrated_with_the_existing_account_system.md)
 - [Who is using](users.md)
 - [致谢](thx.md)
+- [参考文档](references.md)
 - [更新记录](update.md)

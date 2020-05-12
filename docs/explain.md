@@ -19,6 +19,13 @@
 - `stackOverflowKey` Stack Overflow 登陆时需单独提供的key，由**第三方平台颁发**
 - `agentId`  企业微信登陆时需单独提供该值，由**第三方平台颁发**，为授权方的网页应用ID
 - `source` JustAuth支持的第三方平台，比如：GITHUB、GITEE等
+- `uuid` 一般为第三方平台的用户ID。以下几个平台需特别注意：
+    - 钉钉、抖音：`uuid` 为用户的 `unionid`
+    - 微信公众平台登录、京东、酷家乐、美团：`uuid` 为用户的 `openId`
+    - 微信开放平台登录、QQ：`uuid` 为用户的 `openId`，平台支持获取`unionid`， `unionid` 在 `AuthToken` 中（如果支持），在登录完成后，可以通过 `response.getData().getToken().getUnionId()` 获取
+    - Google：`uuid` 为用户的 `sub`，`sub`为Google的所有账户体系中用户唯一的身份标识符，详见：[OpenID Connect](https://developers.google.com/identity/protocols/oauth2/openid-connect)
+
+注：建议通过`uuid` + `source`的方式唯一确定一个用户，这样可以解决用户身份归属的问题。因为 单个用户ID 在某一平台中是唯一的，但不能保证在所有平台中都是唯一的。
 
 ## 参考资料
 
