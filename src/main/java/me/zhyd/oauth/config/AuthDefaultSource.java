@@ -765,7 +765,7 @@ public enum AuthDefaultSource implements AuthSource {
 
         @Override
         public String accessToken() {
-                return "https://open-oauth.jd.com/oauth2/access_token";
+            return "https://open-oauth.jd.com/oauth2/access_token";
         }
 
         @Override
@@ -777,5 +777,31 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://open-oauth.jd.com/oauth2/refresh_token";
         }
+    },
+
+    /**
+     * 阿里云
+     */
+    ALIYUN {
+        @Override
+        public String authorize() {
+            return "https://signin.aliyun.com/oauth2/v1/auth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://oauth.aliyun.com/v1/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://oauth.aliyun.com/v1/userinfo";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://oauth.aliyun.com/v1/token";
+        }
     }
+
 }
