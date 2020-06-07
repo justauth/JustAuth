@@ -13,6 +13,8 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.UrlBuilder;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Objects;
 
 import static me.zhyd.oauth.config.AuthDefaultSource.RENREN;
@@ -70,13 +72,17 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
             throw new AuthException("Failed to get token from Renren: " + jsonObject);
         }
 
-        return AuthToken.builder()
-            .tokenType(jsonObject.getString("token_type"))
-            .expireIn(jsonObject.getIntValue("expires_in"))
-            .accessToken(jsonObject.getString("access_token"))
-            .refreshToken(jsonObject.getString("refresh_token"))
-            .openId(jsonObject.getJSONObject("user").getString("id"))
-            .build();
+        try {
+            return AuthToken.builder()
+                .tokenType(jsonObject.getString("token_type"))
+                .expireIn(jsonObject.getIntValue("expires_in"))
+                .accessToken(URLEncoder.encode(jsonObject.getString("access_token"), "UTF-8"))
+                .refreshToken(URLEncoder.encode(jsonObject.getString("refresh_token"), "UTF-8"))
+                .openId(jsonObject.getJSONObject("user").getString("id"))
+                .build();
+        } catch (UnsupportedEncodingException e) {
+            throw new AuthException("Failed to encode token" + e.getMessage());
+        }
     }
 
     private String getAvatarUrl(JSONObject userObj) {
