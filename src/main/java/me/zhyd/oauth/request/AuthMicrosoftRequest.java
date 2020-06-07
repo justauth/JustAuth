@@ -88,6 +88,7 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
         JSONObject object = JSONObject.parseObject(userInfo);
         this.checkResponse(object);
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("id"))
             .username(object.getString("userPrincipalName"))
             .nickname(object.getString("displayName"))

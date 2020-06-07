@@ -138,6 +138,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
         JSONObject userInfo = JSONObject.parseObject(response);
 
         return AuthUser.builder()
+            .rawUserInfo(userInfo)
             .uuid(userInfo.getString("id_str"))
             .username(userInfo.getString("screen_name"))
             .nickname(userInfo.getString("name"))

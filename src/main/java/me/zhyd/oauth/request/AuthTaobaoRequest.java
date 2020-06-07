@@ -48,6 +48,7 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
 
         String nick = GlobalAuthUtils.urlDecode(accessTokenObject.getString("taobao_user_nick"));
         return AuthUser.builder()
+            .rawUserInfo(new JSONObject())
             .uuid(accessTokenObject.getString("taobao_user_id"))
             .username(nick)
             .nickname(nick)

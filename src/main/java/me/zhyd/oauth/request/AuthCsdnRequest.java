@@ -41,6 +41,7 @@ public class AuthCsdnRequest extends AuthDefaultRequest {
         JSONObject object = JSONObject.parseObject(response);
         this.checkResponse(object);
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("username"))
             .username(object.getString("username"))
             .remark(object.getString("description"))

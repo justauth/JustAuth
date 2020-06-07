@@ -4,14 +4,17 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
+import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * 阿里云登录
  *
- * @see <a href=https://help.aliyun.com/document_detail/93696.html?spm=a2c4g.11186623.6.656.146f53e8Tz7IGi>阿里云授权（OAuth）文档</a>
+ * @author snippet0809 (https://github.com/snippet0809)
+ * @since 1.15.5
  */
 public class AuthAliyunRequest extends AuthDefaultRequest {
 
@@ -36,23 +39,19 @@ public class AuthAliyunRequest extends AuthDefaultRequest {
                 .build();
     }
 
-    /*
-     * 用户信息示例（主账号登录时）
-     * {
-     *      "sub":"PPPpppP+NRsXg/aaAaAAaA==",
-     *      "uid":"1222222222222222",
-     *      "login_name":"阿里云1234",
-     *      "requestid":"6f6af0f2-0f98-4410-a4b0-83bd5e1c1506",
-     *      "name":"root",
-     *      "bid":"22222",
-     *      "aid":"1222222222222222"
-     * }
-     */
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         String userInfo = doGetUserInfo(authToken);
-        JSONObject jsonObject = JSONObject.parseObject(userInfo);
-        return AuthUser.builder().rawUserInfo(jsonObject).build();
+        JSONObject object = JSONObject.parseObject(userInfo);
+        return AuthUser.builder()
+            .rawUserInfo(object)
+            .uuid(object.getString("sub"))
+            .username(object.getString("login_name"))
+            .nickname(object.getString("name"))
+            .gender(AuthUserGender.UNKNOWN)
+            .token(authToken)
+            .source(source.toString())
+            .build();
     }
 
 }

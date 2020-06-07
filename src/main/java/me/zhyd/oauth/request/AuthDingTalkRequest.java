@@ -51,6 +51,7 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
             .unionId(object.getString("unionid"))
             .build();
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("unionid"))
             .nickname(object.getString("nick"))
             .username(object.getString("nick"))

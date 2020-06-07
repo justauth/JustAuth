@@ -58,7 +58,7 @@ String authorizeUrl = authRequest.authorize(AuthStateUtils.createState());
 
 ```java
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.request.AuthWeiboRequest;
+import me.zhyd.oauth.request.AuthCodingRequest;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.request.AuthRequest;
@@ -94,7 +94,7 @@ public class RestAuthController {
     }
 
     private AuthRequest getAuthRequest() {
-        return new AuthTencentCloudRequest(AuthConfig.builder()
+        return new AuthCodingRequest(AuthConfig.builder()
                .clientId("App Key")
                .clientSecret("App Secret")
                .redirectUri("授权回调页")

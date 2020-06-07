@@ -76,6 +76,7 @@ public class AuthJdRequest extends AuthDefaultRequest {
         JSONObject data = this.getUserDataJsonObject(object);
 
         return AuthUser.builder()
+            .rawUserInfo(data)
             .uuid(authToken.getOpenId())
             .username(data.getString("nickName"))
             .nickname(data.getString("nickName"))

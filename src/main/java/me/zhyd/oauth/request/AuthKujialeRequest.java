@@ -101,6 +101,7 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
         JSONObject resultObject = object.getJSONObject("d");
 
         return AuthUser.builder()
+            .rawUserInfo(resultObject)
             .username(resultObject.getString("userName"))
             .nickname(resultObject.getString("userName"))
             .avatar(resultObject.getString("avatar"))

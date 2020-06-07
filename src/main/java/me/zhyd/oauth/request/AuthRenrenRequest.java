@@ -46,6 +46,7 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
         JSONObject userObj = JSONObject.parseObject(response).getJSONObject("response");
 
         return AuthUser.builder()
+            .rawUserInfo(userObj)
             .uuid(userObj.getString("id"))
             .avatar(getAvatarUrl(userObj))
             .nickname(userObj.getString("name"))

@@ -47,6 +47,7 @@ public class AuthCodingRequest extends AuthDefaultRequest {
 
         object = object.getJSONObject("data");
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("id"))
             .username(object.getString("name"))
             .avatar("https://coding.net" + object.getString("avatar"))

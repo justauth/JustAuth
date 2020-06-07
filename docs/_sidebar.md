@@ -15,6 +15,7 @@
   - [√ 酷家乐登录](oauth/kujiale.md)
   - [√ 推特登录](oauth/twitter.md)
   - [√ Coding登录](oauth/coding.md)
+  - [√ 阿里云登录](oauth/aliyun.md)
   - [CSDN登录](oauth/csdn.md)
   - [微信企业版登录](oauth/wechatEnterprise.md)
   - [微信公众平台登录](oauth/wechat_mp.md)

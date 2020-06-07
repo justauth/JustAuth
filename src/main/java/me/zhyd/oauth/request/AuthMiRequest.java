@@ -71,14 +71,15 @@ public class AuthMiRequest extends AuthDefaultRequest {
             throw new AuthException(userProfile.getString("description"));
         }
 
-        JSONObject user = userProfile.getJSONObject("data");
+        JSONObject object = userProfile.getJSONObject("data");
 
         AuthUser authUser = AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(authToken.getOpenId())
-            .username(user.getString("miliaoNick"))
-            .nickname(user.getString("miliaoNick"))
-            .avatar(user.getString("miliaoIcon"))
-            .email(user.getString("mail"))
+            .username(object.getString("miliaoNick"))
+            .nickname(object.getString("miliaoNick"))
+            .avatar(object.getString("miliaoIcon"))
+            .email(object.getString("mail"))
             .gender(AuthUserGender.UNKNOWN)
             .token(authToken)
             .source(source.toString())

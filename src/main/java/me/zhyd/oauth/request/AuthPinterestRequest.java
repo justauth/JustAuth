@@ -53,6 +53,7 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
         this.checkResponse(object);
         JSONObject userObj = object.getJSONObject("data");
         return AuthUser.builder()
+            .rawUserInfo(userObj)
             .uuid(userObj.getString("id"))
             .avatar(getAvatarUrl(userObj))
             .username(userObj.getString("username"))

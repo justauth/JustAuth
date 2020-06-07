@@ -64,6 +64,7 @@ public class AuthWeiboRequest extends AuthDefaultRequest {
             throw new AuthException(object.getString("error"));
         }
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("id"))
             .username(object.getString("name"))
             .avatar(object.getString("profile_image_url"))

@@ -64,6 +64,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
         JSONObject userObj = object.getJSONArray("items").getJSONObject(0);
 
         return AuthUser.builder()
+            .rawUserInfo(userObj)
             .uuid(userObj.getString("user_id"))
             .avatar(userObj.getString("profile_image"))
             .location(userObj.getString("location"))

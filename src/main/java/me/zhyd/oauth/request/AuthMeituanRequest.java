@@ -66,6 +66,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
         this.checkResponse(object);
 
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("openid"))
             .username(object.getString("nickname"))
             .nickname(object.getString("nickname"))

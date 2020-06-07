@@ -63,6 +63,7 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
         JSONObject userDetail = this.checkResponse(userDetailResponse);
 
         return AuthUser.builder()
+            .rawUserInfo(userDetail)
             .username(userDetail.getString("name"))
             .nickname(userDetail.getString("alias"))
             .avatar(userDetail.getString("avatar"))

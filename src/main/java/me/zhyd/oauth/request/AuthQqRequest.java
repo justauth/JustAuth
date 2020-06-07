@@ -61,6 +61,7 @@ public class AuthQqRequest extends AuthDefaultRequest {
 
         String location = String.format("%s-%s", object.getString("province"), object.getString("city"));
         return AuthUser.builder()
+            .rawUserInfo(object)
             .username(object.getString("nickname"))
             .nickname(object.getString("nickname"))
             .avatar(avatar)

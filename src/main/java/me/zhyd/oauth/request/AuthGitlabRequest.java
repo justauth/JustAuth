@@ -51,6 +51,7 @@ public class AuthGitlabRequest extends AuthDefaultRequest {
         this.checkResponse(object);
 
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("id"))
             .username(object.getString("username"))
             .nickname(object.getString("name"))

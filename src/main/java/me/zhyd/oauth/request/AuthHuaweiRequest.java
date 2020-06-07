@@ -79,6 +79,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
         AuthUserGender gender = getRealGender(object);
 
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("userID"))
             .username(object.getString("userName"))
             .nickname(object.getString("userName"))

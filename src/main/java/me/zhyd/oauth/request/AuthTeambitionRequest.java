@@ -71,6 +71,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
         authToken.setUid(object.getString("_id"));
 
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("_id"))
             .username(object.getString("name"))
             .nickname(object.getString("name"))

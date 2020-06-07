@@ -56,6 +56,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
         String anonymousUserName = "匿名用户";
 
         return AuthUser.builder()
+            .rawUserInfo(user)
             .uuid(user.getString("uid"))
             .username(isAnonymousUser ? anonymousUserName : user.getString("screen_name"))
             .nickname(isAnonymousUser ? anonymousUserName : user.getString("screen_name"))

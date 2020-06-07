@@ -46,6 +46,7 @@ public class AuthOschinaRequest extends AuthDefaultRequest {
         JSONObject object = JSONObject.parseObject(response);
         this.checkResponse(object);
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("id"))
             .username(object.getString("name"))
             .nickname(object.getString("name"))

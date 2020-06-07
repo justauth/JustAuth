@@ -106,6 +106,7 @@ public class AuthElemeRequest extends AuthDefaultRequest {
         JSONObject result = object.getJSONObject("result");
 
         return AuthUser.builder()
+            .rawUserInfo(result)
             .uuid(result.getString("userId"))
             .username(result.getString("userName"))
             .nickname(result.getString("userName"))

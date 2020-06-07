@@ -50,6 +50,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
         JSONObject object = JSONObject.parseObject(userInfo);
         this.checkResponse(object);
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.containsKey("userid") ? object.getString("userid") : object.getString("openid"))
             .username(object.getString("username"))
             .nickname(object.getString("username"))

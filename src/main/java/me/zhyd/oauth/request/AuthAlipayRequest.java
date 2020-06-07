@@ -1,5 +1,6 @@
 package me.zhyd.oauth.request;
 
+import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
@@ -80,6 +81,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
         String location = String.format("%s %s", StringUtils.isEmpty(province) ? "" : province, StringUtils.isEmpty(city) ? "" : city);
 
         return AuthUser.builder()
+            .rawUserInfo(JSONObject.parseObject(JSONObject.toJSONString(response)))
             .uuid(response.getUserId())
             .username(StringUtils.isEmpty(response.getUserName()) ? response.getNickName() : response.getUserName())
             .nickname(response.getNickName())

@@ -56,11 +56,12 @@ public class AuthFeishuRequest extends AuthDefaultRequest {
         String response = new HttpUtils(config.getHttpConfig()).get(source.userInfo(), null, new HttpHeader()
             .add("Content-Type", "application/json")
             .add("Authorization", "Bearer " + accessToken), false);
-        JSONObject jsonObject = JSON.parseObject(response);
+        JSONObject object = JSON.parseObject(response);
         return AuthUser.builder()
-            .avatar(jsonObject.getString("AvatarUrl"))
-            .username(jsonObject.getString("Mobile"))
-            .email(jsonObject.getString("Email"))
+            .rawUserInfo(object)
+            .avatar(object.getString("AvatarUrl"))
+            .username(object.getString("Mobile"))
+            .email(object.getString("Email"))
             .nickname("Name")
             .build();
     }

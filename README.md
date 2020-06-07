@@ -165,6 +165,10 @@ authRequest.login(callback);
 
 [contributors](https://docs.justauth.whnb.wang/#/contributors)
 
+## 更新记录
+
+[CHANGELOGS](https://docs.justauth.whnb.wang/#/update)
+
 ## 致谢
 
 在项目立项初期，也对当前开源圈的一些相同类型的项目作过调研，同时本项目也参考过这些项目，再次感谢开源圈内的朋友。

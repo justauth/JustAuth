@@ -51,6 +51,7 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
         JSONObject object = JSONObject.parseObject(userInfo);
         this.checkResponse(object);
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("sub"))
             .username(object.getString("email"))
             .avatar(object.getString("picture"))

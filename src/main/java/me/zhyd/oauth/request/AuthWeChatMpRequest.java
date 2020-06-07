@@ -57,6 +57,7 @@ public class AuthWeChatMpRequest extends AuthDefaultRequest {
         }
 
         return AuthUser.builder()
+            .rawUserInfo(object)
             .username(object.getString("nickname"))
             .nickname(object.getString("nickname"))
             .avatar(object.getString("headimgurl"))

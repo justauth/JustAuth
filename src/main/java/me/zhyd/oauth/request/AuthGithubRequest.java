@@ -51,6 +51,7 @@ public class AuthGithubRequest extends AuthDefaultRequest {
         this.checkResponse(object.containsKey("error"), object.getString("error_description"));
 
         return AuthUser.builder()
+            .rawUserInfo(object)
             .uuid(object.getString("id"))
             .username(object.getString("login"))
             .avatar(object.getString("avatar_url"))
