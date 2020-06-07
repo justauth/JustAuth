@@ -2,7 +2,7 @@ package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import me.zhyd.oauth.utils.HttpUtils;
+import com.xkcoding.http.util.UrlUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -11,10 +11,9 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.Objects;
 
 import static me.zhyd.oauth.config.AuthDefaultSource.RENREN;
@@ -72,17 +71,13 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
             throw new AuthException("Failed to get token from Renren: " + jsonObject);
         }
 
-        try {
-            return AuthToken.builder()
-                .tokenType(jsonObject.getString("token_type"))
-                .expireIn(jsonObject.getIntValue("expires_in"))
-                .accessToken(URLEncoder.encode(jsonObject.getString("access_token"), "UTF-8"))
-                .refreshToken(URLEncoder.encode(jsonObject.getString("refresh_token"), "UTF-8"))
-                .openId(jsonObject.getJSONObject("user").getString("id"))
-                .build();
-        } catch (UnsupportedEncodingException e) {
-            throw new AuthException("Failed to encode token" + e.getMessage());
-        }
+        return AuthToken.builder()
+            .tokenType(jsonObject.getString("token_type"))
+            .expireIn(jsonObject.getIntValue("expires_in"))
+            .accessToken(UrlUtil.urlEncode(jsonObject.getString("access_token")))
+            .refreshToken(UrlUtil.urlEncode(jsonObject.getString("refresh_token")))
+            .openId(jsonObject.getJSONObject("user").getString("id"))
+            .build();
     }
 
     private String getAvatarUrl(JSONObject userObj) {
