@@ -1,7 +1,7 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -52,7 +52,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
         form.put("client_secret", config.getClientSecret());
         form.put("redirect_uri", config.getRedirectUri());
 
-        String response = HttpUtil.post(source.accessToken(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), form, false);
         return getAuthToken(response);
     }
 
@@ -71,7 +71,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
         form.put("nsp_fmt", "JS");
         form.put("nsp_svc", "OpenUP.User.getInfo");
 
-        String response = HttpUtil.post(source.userInfo(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.userInfo(), form, false);
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
@@ -103,7 +103,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
         form.put("refresh_token", authToken.getRefreshToken());
         form.put("grant_type", "refresh_token");
 
-        String response = HttpUtil.post(source.refresh(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), form, false);
         return AuthResponse.builder().code(SUCCESS.getCode()).data(getAuthToken(response)).build();
     }
 

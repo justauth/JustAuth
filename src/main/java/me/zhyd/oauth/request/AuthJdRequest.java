@@ -1,7 +1,7 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -44,7 +44,7 @@ public class AuthJdRequest extends AuthDefaultRequest {
         params.put("app_secret", config.getClientSecret());
         params.put("grant_type", "authorization_code");
         params.put("code", authCallback.getCode());
-        String response = HttpUtil.post(source.accessToken(), params, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), params, false);
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
@@ -68,7 +68,7 @@ public class AuthJdRequest extends AuthDefaultRequest {
             .queryParam("timestamp", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
             .queryParam("v", "2.0");
         urlBuilder.queryParam("sign", GlobalAuthUtils.generateJdSignature(config.getClientSecret(), urlBuilder.getReadOnlyParams()));
-        String response = HttpUtil.post(urlBuilder.build(true));
+        String response = new HttpUtils(config.getHttpConfig()).post(urlBuilder.build(true));
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
@@ -106,7 +106,7 @@ public class AuthJdRequest extends AuthDefaultRequest {
         params.put("app_secret", config.getClientSecret());
         params.put("grant_type", "refresh_token");
         params.put("refresh_token", oldToken.getRefreshToken());
-        String response = HttpUtil.post(source.refresh(), params, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), params, false);
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);

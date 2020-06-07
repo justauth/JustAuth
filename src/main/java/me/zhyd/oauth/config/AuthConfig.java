@@ -1,5 +1,6 @@
 package me.zhyd.oauth.config;
 
+import com.xkcoding.http.config.HttpConfig;
 import lombok.*;
 
 /**
@@ -59,4 +60,23 @@ public class AuthConfig {
      * @since 1.10.0
      */
     private String agentId;
+
+    /**
+     * 使用 Coding 登录时，需要传该值。
+     *
+     * 团队域名前缀，比如以“ https://justauth.coding.net/ ”为例，{@code codingGroupName} = justauth
+     *
+     * @since 1.15.5
+     */
+    private String codingGroupName;
+
+    /**
+     * 针对国外服务可以单独设置代理
+     * HttpConfig config = new HttpConfig();
+     * config.setProxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 10080)));
+     * config.setTimeout(15000);
+     *
+     * @since 1.15.5
+     */
+    private HttpConfig httpConfig;
 }

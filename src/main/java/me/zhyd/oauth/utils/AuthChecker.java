@@ -35,6 +35,9 @@ public class AuthChecker {
         if (isSupported && AuthDefaultSource.WECHAT_ENTERPRISE == source) {
             isSupported = StringUtils.isNotEmpty(config.getAgentId());
         }
+        if (isSupported && AuthDefaultSource.CODING == source) {
+            isSupported = StringUtils.isNotEmpty(config.getCodingGroupName());
+        }
         return isSupported;
     }
 

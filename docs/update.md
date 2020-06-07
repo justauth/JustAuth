@@ -1,3 +1,31 @@
+## 1.15.5-alpha
+### 2020/06/07
+- 修复
+    - 解决 `Microsoft` 授权失败的 BUG
+    - 解决 `Coding` 个人账号授权失败的 BUG（目前只能使用团队模式进行授权，需要传入团队名，参考`AuthConfig#codingGroupName`）
+- 新增
+    - 支持 Http 级的代理配置，使用方式：
+```java
+new AuthGoogleRequest(AuthConfig.builder()
+    .clientId("")
+    .clientSecret("")
+    .redirectUri("http://127.0.0.1:8443/oauth/callback/google")
+    // 针对国外平台配置代理
+    .httpConfig(HttpConfig.builder()
+            .timeout(15000)
+            .proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 10080)))
+            .build())
+    .build());
+```
+- 删除
+    - 删除**腾讯云登录**。coding 已并入 腾讯云，因此只保留 coding 登录
+- 文档
+    - 新增 [Coding登录](oauth/coding.md)文档
+    - 完善 [支付宝登录](oauth/alipay.md)文档
+- PR
+    - 合并 [Gitee!17](https://gitee.com/yadong.zhang/JustAuth/pulls/17)
+    - 合并 [Gitee!15](https://gitee.com/yadong.zhang/JustAuth/pulls/15)
+
 ## 1.15.4-alpha
 ### 2020/05/13
 - 修复

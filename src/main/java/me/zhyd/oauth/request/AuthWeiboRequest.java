@@ -1,7 +1,7 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import com.xkcoding.http.support.HttpHeader;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
@@ -58,7 +58,7 @@ public class AuthWeiboRequest extends AuthDefaultRequest {
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add("Authorization", "OAuth2 " + oauthParam);
         httpHeader.add("API-RemoteIP", IpUtils.getLocalIp());
-        String userInfo = HttpUtil.get(userInfoUrl(authToken), null, httpHeader, false);
+        String userInfo = new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken), null, httpHeader, false);
         JSONObject object = JSONObject.parseObject(userInfo);
         if (object.containsKey("error")) {
             throw new AuthException(object.getString("error"));

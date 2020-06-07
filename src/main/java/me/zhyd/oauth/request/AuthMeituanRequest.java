@@ -1,7 +1,7 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -41,7 +41,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
         form.put("code", authCallback.getCode());
         form.put("grant_type", "authorization_code");
 
-        String response = HttpUtil.post(source.accessToken(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), form, false);
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
@@ -60,7 +60,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
         form.put("secret", config.getClientSecret());
         form.put("access_token", authToken.getAccessToken());
 
-        String response = HttpUtil.post(source.userInfo(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.userInfo(), form, false);
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
@@ -84,7 +84,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
         form.put("refresh_token", oldToken.getRefreshToken());
         form.put("grant_type", "refresh_token");
 
-        String response = HttpUtil.post(source.refresh(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), form, false);
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);

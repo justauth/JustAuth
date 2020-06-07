@@ -2,7 +2,7 @@ package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -40,7 +40,7 @@ public class AuthDingTalkRequest extends AuthDefaultRequest {
         String code = authToken.getAccessCode();
         JSONObject param = new JSONObject();
         param.put("tmp_auth_code", code);
-        String response = HttpUtil.post(userInfoUrl(authToken), param.toJSONString());
+        String response = new HttpUtils(config.getHttpConfig()).post(userInfoUrl(authToken), param.toJSONString());
         JSONObject object = JSON.parseObject(response);
         if (object.getIntValue("errcode") != 0) {
             throw new AuthException(object.getString("errmsg"));

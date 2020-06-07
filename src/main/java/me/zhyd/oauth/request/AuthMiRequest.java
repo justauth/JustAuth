@@ -1,7 +1,7 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import com.xkcoding.http.constants.Constants;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
@@ -41,7 +41,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
     }
 
     private AuthToken getToken(String accessTokenUrl) {
-        String response = HttpUtil.get(accessTokenUrl);
+        String response = new HttpUtils(config.getHttpConfig()).get(accessTokenUrl);
         String jsonStr = response.replace(PREFIX, Constants.EMPTY);
         JSONObject accessTokenObject = JSONObject.parseObject(jsonStr);
 
@@ -88,7 +88,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
         String emailPhoneUrl = MessageFormat.format("{0}?clientId={1}&token={2}", "https://open.account.xiaomi.com/user/phoneAndEmail", config
             .getClientId(), authToken.getAccessToken());
 
-        String emailResponse = HttpUtil.get(emailPhoneUrl);
+        String emailResponse = new HttpUtils(config.getHttpConfig()).get(emailPhoneUrl);
         JSONObject userEmailPhone = JSONObject.parseObject(emailResponse);
         if (!"error".equalsIgnoreCase(userEmailPhone.getString("result"))) {
             JSONObject emailPhone = userEmailPhone.getJSONObject("data");

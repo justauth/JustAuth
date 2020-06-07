@@ -1,7 +1,7 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -148,7 +148,7 @@ public class AuthWeChatEnterpriseRequest extends AuthDefaultRequest {
             .queryParam("access_token", accessToken)
             .queryParam("userid", userId)
             .build();
-        return HttpUtil.get(userDetailUrl);
+        return new HttpUtils(config.getHttpConfig()).get(userDetailUrl);
     }
 
 }

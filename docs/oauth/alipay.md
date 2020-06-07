@@ -95,6 +95,14 @@ c. 回到应用详情页面，点击【接口加签方式】后面的【设置�
 </dependency>
 ```
 
+```
+<dependency>
+	<groupId>com.alipay.sdk</groupId>
+	<artifactId>alipay-sdk-java</artifactId>
+	<version>3.7.4.ALL</version>
+</dependency>
+```
+
 `${latest.version}`表示当前最新的版本，可以在[这儿](https://github.com/justauth/JustAuth/releases)获取最新的版本信息。
 
 ### 2.2 创建Request

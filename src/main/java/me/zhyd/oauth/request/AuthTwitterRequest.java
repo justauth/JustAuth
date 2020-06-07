@@ -1,7 +1,7 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import com.xkcoding.http.constants.Constants;
 import com.xkcoding.http.support.HttpHeader;
 import com.xkcoding.http.util.MapUtil;
@@ -72,7 +72,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
         httpHeader.add("User-Agent", "themattharris' HTTP Client");
         httpHeader.add("Host", "api.twitter.com");
         httpHeader.add("Accept", "*/*");
-        String requestToken = HttpUtil.post(baseUrl, null, httpHeader);
+        String requestToken = new HttpUtils(config.getHttpConfig()).post(baseUrl, null, httpHeader);
 
         Map<String, String> res = MapUtil.parseStringToMap(requestToken, false);
 
@@ -104,7 +104,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
 
         Map<String, String> form = new HashMap<>(1);
         form.put("oauth_verifier", authCallback.getOauth_verifier());
-        String response = HttpUtil.post(source.accessToken(), form, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), form, httpHeader, false);
 
         Map<String, String> requestToken = MapUtil.parseStringToMap(response, false);
 
@@ -134,7 +134,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
 
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add("Authorization", header);
-        String response = HttpUtil.get(userInfoUrl(authToken), null, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken), null, httpHeader, false);
         JSONObject userInfo = JSONObject.parseObject(response);
 
         return AuthUser.builder()

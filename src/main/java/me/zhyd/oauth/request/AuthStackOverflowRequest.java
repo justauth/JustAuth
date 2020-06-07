@@ -1,7 +1,7 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import com.xkcoding.http.constants.Constants;
 import com.xkcoding.http.support.HttpHeader;
 import com.xkcoding.http.util.MapUtil;
@@ -40,7 +40,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
         Map<String, String> form = MapUtil.parseStringToMap(accessTokenUrl, false);
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded");
-        String response = HttpUtil.post(accessTokenUrl, form, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl, form, httpHeader, false);
 
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         this.checkResponse(accessTokenObject);
@@ -58,7 +58,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .queryParam("site", "stackoverflow")
             .queryParam("key", this.config.getStackOverflowKey())
             .build();
-        String response = HttpUtil.get(userInfoUrl);
+        String response = new HttpUtils(config.getHttpConfig()).get(userInfoUrl);
         JSONObject object = JSONObject.parseObject(response);
         this.checkResponse(object);
         JSONObject userObj = object.getJSONArray("items").getJSONObject(0);

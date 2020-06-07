@@ -3,7 +3,7 @@ package me.zhyd.oauth.request;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import com.xkcoding.http.constants.Constants;
 import com.xkcoding.http.support.HttpHeader;
 import me.zhyd.oauth.cache.AuthStateCache;
@@ -49,7 +49,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
         httpHeader.add("Connection", "Keep-Alive");
         httpHeader.add("Authorization", "Bearer " + accessToken);
 
-        String response = HttpUtil.get(userInfoUrl(authToken), null, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken), null, httpHeader, false);
         JSONObject userInfoObject = JSONObject.parseObject(response);
 
         this.checkResponse(userInfoObject);
@@ -128,7 +128,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
         httpHeader.add("Connection", "Keep-Alive");
         httpHeader.add("Authorization", "Bearer " + accessToken);
 
-        String emailResponse = HttpUtil.get("https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))", null, httpHeader, false);
+        String emailResponse = new HttpUtils(config.getHttpConfig()).get("https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))", null, httpHeader, false);
         JSONObject emailObj = JSONObject.parseObject(emailResponse);
 
         this.checkResponse(emailObj);
@@ -181,7 +181,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
         httpHeader.add("Host", "www.linkedin.com");
         httpHeader.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded");
 
-        String response = HttpUtil.post(accessTokenUrl, null, httpHeader);
+        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl, null, httpHeader);
         JSONObject accessTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(accessTokenObject);

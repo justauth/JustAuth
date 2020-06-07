@@ -1,7 +1,7 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -90,7 +90,7 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
     @Override
     public AuthUser getUserInfo(AuthToken authToken) {
         String openId = this.getOpenId(authToken);
-        String response = HttpUtil.get(UrlBuilder.fromBaseUrl(source.userInfo())
+        String response = new HttpUtils(config.getHttpConfig()).get(UrlBuilder.fromBaseUrl(source.userInfo())
             .queryParam("access_token", authToken.getAccessToken())
             .queryParam("open_id", openId)
             .build());
@@ -117,7 +117,7 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
      * @return openId
      */
     private String getOpenId(AuthToken authToken) {
-        String response = HttpUtil.get(UrlBuilder.fromBaseUrl("https://oauth.kujiale.com/oauth2/auth/user")
+        String response = new HttpUtils(config.getHttpConfig()).get(UrlBuilder.fromBaseUrl("https://oauth.kujiale.com/oauth2/auth/user")
             .queryParam("access_token", authToken.getAccessToken())
             .build());
         JSONObject accessTokenObject = checkResponse(response);
@@ -126,7 +126,7 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
 
     @Override
     public AuthResponse refresh(AuthToken authToken) {
-        String response = HttpUtil.post(refreshTokenUrl(authToken.getRefreshToken()));
+        String response = new HttpUtils(config.getHttpConfig()).post(refreshTokenUrl(authToken.getRefreshToken()));
         return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(getAuthToken(response)).build();
     }
 }

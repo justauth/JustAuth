@@ -1,6 +1,6 @@
 package me.zhyd.oauth.request;
 
-import com.xkcoding.http.HttpUtil;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthDefaultStateCache;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
@@ -210,7 +210,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return Response
      */
     protected String doPostAuthorizationCode(String code) {
-        return HttpUtil.post(accessTokenUrl(code));
+        return new HttpUtils(config.getHttpConfig()).post(accessTokenUrl(code));
     }
 
     /**
@@ -220,7 +220,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return Response
      */
     protected String doGetAuthorizationCode(String code) {
-        return HttpUtil.get(accessTokenUrl(code));
+        return new HttpUtils(config.getHttpConfig()).get(accessTokenUrl(code));
     }
 
     /**
@@ -231,7 +231,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     @Deprecated
     protected String doPostUserInfo(AuthToken authToken) {
-        return HttpUtil.post(userInfoUrl(authToken));
+        return new HttpUtils(config.getHttpConfig()).post(userInfoUrl(authToken));
     }
 
     /**
@@ -241,7 +241,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return Response
      */
     protected String doGetUserInfo(AuthToken authToken) {
-        return HttpUtil.get(userInfoUrl(authToken));
+        return new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken));
     }
 
     /**
@@ -252,7 +252,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     @Deprecated
     protected String doPostRevoke(AuthToken authToken) {
-        return HttpUtil.post(revokeUrl(authToken));
+        return new HttpUtils(config.getHttpConfig()).post(revokeUrl(authToken));
     }
 
     /**
@@ -262,7 +262,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return Response
      */
     protected String doGetRevoke(AuthToken authToken) {
-        return HttpUtil.get(revokeUrl(authToken));
+        return new HttpUtils(config.getHttpConfig()).get(revokeUrl(authToken));
     }
 
 }
