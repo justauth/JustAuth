@@ -50,7 +50,7 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
             .avatar(object.getString("avatar"))
             .remark(object.getString("description"))
             .gender(AuthUserGender.getRealGender(object.getString("gender")))
-            .location(String.format("%s %s %s", object.getString("country"), object.getString("object"), object.getString("city")))
+            .location(String.format("%s %s %s", object.getString("country"), object.getString("province"), object.getString("city")))
             .token(authToken)
             .source(source.toString())
             .build();

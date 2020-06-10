@@ -4,6 +4,7 @@
     - 解决 `Microsoft` 授权失败的 BUG
     - 解决 `Coding` 个人账号授权失败的 BUG（目前只能使用团队模式进行授权，需要传入团队名，参考`AuthConfig#codingGroupName`）
     - 解决 `AuthLinkedinRequest#getAvatar` NPE 的问题。（领英用户没有头像时，原代码会报 NPE）
+    - 解决抖音登录获取用户地址异常的问题。
 - 新增
     - AuthUser 中新增 `rawUserInfo`，用来存放第三方平台返回的原始用户数据。注：淘宝平台的`rawUserInfo`为一个空 JSON
     - 支持 Http 级的代理配置，使用方式：
