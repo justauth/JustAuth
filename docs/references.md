@@ -44,3 +44,4 @@
 - <a href="https://help.aliyun.com/document_detail/93696.html?spm=a2c4g.11186623.6.656.1a764138vhg4gr" target="_blank">阿里云</a>
     - [Web应用登录阿里云](https://help.aliyun.com/document_detail/93696.html?spm=a2c4g.11186623.6.656.1a764138vhg4gr)
     - [通过OIDC获取用户信息](https://help.aliyun.com/document_detail/93698.html?spm=a2c4g.11186623.6.658.537dd19eE1eEJh)
+- <a href="https://open.jd.com/home/home#/doc/common?listId=880" target="_blank">京东·宙斯</a>
