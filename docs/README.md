@@ -9,7 +9,7 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
-		<img src="https://img.shields.io/badge/Maven%20Central--1.15.5-alpha-blue" ></img>
+		<img src="https://img.shields.io/badge/Maven%20Central--1.15.5-blue" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
@@ -18,7 +18,7 @@
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
 	</a>
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/" title="API文档">
-		<img src="https://img.shields.io/badge/Api%20Docs-1.15.5-alpha-orange" ></img>
+		<img src="https://img.shields.io/badge/Api%20Docs-1.15.5-orange" ></img>
 	</a>
 	<a target="_blank" href="https://docs.justauth.whnb.wang" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
