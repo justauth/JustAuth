@@ -1,23 +1,28 @@
 ## 1. 申请应用
 
-### 1.1 登录百度开发者中心
+### 1.1 登录钉钉开发者中心
 
-1. 注册百度开发者账号：[百度Passport](https://passport.baidu.com/v2/?reg&u=http%3A%2F%2Fdeveloper.baidu.com%2F&tpl=dev)。如果已有则忽略该步骤，直接进入第二步。
-2. 登录百度开发者中心：[百度开发者中心](http://developer.baidu.com/)
+1. 登录钉钉开发者中心：[钉钉开发者中心](https://open-dev.dingtalk.com/)
+2. 使用有管理员权限的钉钉账号扫码登录
+    1. 如果仅做测试的话，可以点击右上角，选择“企业注册”，按照提示创建企业
+    2. 创建完成后打开钉钉APP
+    3. 选择工作台
+    4. 点击左上角下拉框，选择刚刚创建的企业
+    5. 点击右上角加号选择扫一扫，重新扫码登录
+    6. 注：初次进入会被邀请填写一个问卷，如果是测试，则随便填就可
 
 
 ### 1.2 创建第三方授权应用
 
-1. 进入百度开发者控制台应用管理页面：[应用管理](http://developer.baidu.com/console#app/project)
-2. 单击“创建工程”，开始创建应用。
-![](doc/media/oauth/b43448b8.png)
-![](doc/media/oauth/9d2676f1.png)
+1. 在开发者管理控制台，选择“应用开发”
+2. 点击左侧菜单的【移动接入应用-登录】
+3. 然后点击右上角的【创建扫码登录应用授权】
+4. 填写基本信息
+![](doc/media/oauth/a6f3f46b.png)
+5. 创建后即可看到 appId 和 appSecret。
 
 
-记录以下三个信息：`API Key`、`Secret Key`和`应用回调地址`，后面我们会用到。
-
-注： `API Key`、`Secret Key` 在“基本信息”页面
-![](doc/media/oauth/37c56184.png)
+记录以下三个信息：`appId`、`appSecret`和`回调域名`，后面我们会用到。
 
 
 ## 2. 集成JustAuth
@@ -37,7 +42,7 @@
 ### 2.2 创建Request
 
 ```java
-AuthRequest authRequest = new AuthBaiduRequest(AuthConfig.builder()
+AuthRequest authRequest = new AuthDingTalkRequest(AuthConfig.builder()
                 .clientId("Client ID")
                 .clientSecret("Client Secret")
                 .redirectUri("应用回调地址")
@@ -57,7 +62,7 @@ String authorizeUrl = authRequest.authorize(AuthStateUtils.createState());
 
 ```java
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.request.AuthBaiduRequest;
+import me.zhyd.oauth.request.AuthDingTalkRequest;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.request.AuthRequest;
 import me.zhyd.oauth.utils.AuthStateUtils;
@@ -86,7 +91,7 @@ public class RestAuthController {
     }
 
     private AuthRequest getAuthRequest() {
-        return new AuthBaiduRequest(AuthConfig.builder()
+        return new AuthDingTalkRequest(AuthConfig.builder()
                 .clientId("API Key")
                 .clientSecret("Secret Key")
                 .redirectUri("应用回调地址")
@@ -95,7 +100,7 @@ public class RestAuthController {
 }
 ```
 授权链接访问成功后会看到以下页面内容：
-![](doc/media/oauth/7097ddf0.png)   
+![](doc/media/oauth/5baf57ea.png)  
 
 点击“授权”即可完成百度的 OAuth 登录。
 
@@ -107,30 +112,26 @@ public class RestAuthController {
 {
     "code":2000,
     "data":{
-        "avatar":"http://himg.bdimg.com/sys/portrait/item/1ea2e5878cxxxe4b8bf4882.jpg",
-        "gender":"MALE",
-        "nickname":"凌***丿",
+        "gender":"UNKNOWN",
+        "nickname":"码上行动",
         "rawUserInfo":{
-            "birthday":"2009-04-05",
-            "openid":"oD0ag_m52Xxxxxx6wWP2Dbm1X",
-            "sex":"1",
-            "is_realname":"1",
-            "portrait":"1ea2e5878cxxx4b8bf4882",
-            "is_bind_mobile":"1",
-            "blood":"2",
-            "username":"凌***丿"
+            "nick":"码上行动",
+            "unionid":"4FiSzxIAgiEiE",
+            "dingId":"$:LWCP_xYfqxZ3z99w==",
+            "openid":"hHkfeC0xxfLr85zQiEiE",
+            "main_org_auth_high_level":false
         },
-        "source":"BAIDU",
+        "source":"DINGTALK",
         "token":{
-            "accessToken":"121.7f063a00b80xxxP8H6YxcJqD.C3r33w",
-            "expireIn":2592000,
-            "refreshToken":"122.b8cff99fe00cbxxxxZt-xSF906TGkEmPvdEn.IUdj0g",
-            "scope":"basic"
+            "expireIn":0,
+            "openId":"hHkfeC0XNixr85zQiEiE",
+            "unionId":"4FiSzv7YnxIE5IAgiEiE"
         },
-        "username":"凌***丿",
-        "uuid":"oD0ag_m52xxxWP2Dbm1X"
+        "username":"码上行动",
+        "uuid":"4FiSzv7YnxIE5IAgiEiE"
     }
 }
+
 ```
 
 ## 3. 推荐
