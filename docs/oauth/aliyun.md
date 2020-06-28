@@ -52,10 +52,14 @@ scope 对应获取的用户信息关系表如下：
 
 注：密钥创建完成后记得要保存，因为密钥只能在创建完成后明文显示一次，如丢失或者忘记，请重新创建。
 
+
+**重要提示：“应用密钥”可保护你应用程序的安全，因此请确保其不会泄露！也不要与任何人共享你的“应用密钥”！！！**
+
+
 ## 3. 集成JustAuth
 
 
-### 2.1 引入依赖
+### 3.1 引入依赖
 
 ```xml
 <dependency>
@@ -67,7 +71,7 @@ scope 对应获取的用户信息关系表如下：
 
 `${latest.version}`表示当前最新的版本，可以在[这儿](https://github.com/justauth/JustAuth/releases)获取最新的版本信息。
 
-### 2.2 创建Request
+### 3.2 创建Request
 
 ```java
 AuthRequest authRequest = new AuthAliyunRequest(AuthConfig.builder()
@@ -78,7 +82,7 @@ AuthRequest authRequest = new AuthAliyunRequest(AuthConfig.builder()
                 .build());
 ```
 
-### 2.3 生成授权地址
+### 3.3 生成授权地址
 
 我们可以直接使用以下方式生成第三方平台的授权链接：
 ```java
@@ -87,7 +91,7 @@ String authorizeUrl = authRequest.authorize(AuthStateUtils.createState());
 这个链接我们可以直接后台重定向跳转，也可以返回到前端后，前端控制跳转。前端控制的好处就是，可以将第三方的授权页嵌入到iframe中，适配网站设计。
 
 
-### 2.4 以上完整代码如下
+### 3.4 以上完整代码如下
 
 ```java
 import me.zhyd.oauth.config.AuthConfig;
@@ -129,7 +133,7 @@ public class RestAuthController {
 }
 ```
 
-## 3. 授权结果
+## 4. 授权结果
 
 ```json
 {
@@ -179,3 +183,21 @@ public class RestAuthController {
     }
 }
 ```
+
+## 5. 推荐
+
+官方推荐使用 [JustAuth-demo](https://github.com/justauth/JustAuth-demo) 示例项目进行测试。
+
+使用步骤：
+1. clone： [https://github.com/justauth/JustAuth-demo.git](https://github.com/justauth/JustAuth-demo.git)
+2. 将上面申请的应用信息填入到`RestAuthController#getAuthRequest`方法的对应位置中：
+![](doc/media/oauth/e1a40945.png)
+3. 启动项目，访问 [http://localhost:8443](http://localhost:8443)
+4. 选择对应的平台进行授权登录
+![](doc/media/oauth/da2bc692.png)
+5. 登录完成后，可以访问[http://localhost:8443/users](http://localhost:8443/users)查看已授权的用户
+![](doc/media/oauth/dbe6bcae.png)
+
+注：
+1. 如果直接使用 JustAuth-demo 项目进行测试，那么在配置测试应用的“回调地址”时要严格按照以下格式配置：`http://localhost:8443/oauth/callback/{平台名}`
+2. 平台名参考 `JustAuthPlatformInfo` 枚举类 `names`

@@ -40,6 +40,8 @@
 - “授权回调域”填写对应域名即可。比如我想给我的博客 [https://www.zhyd.me](https://www.zhyd.me) 增加微信第三方登录，那么我在配回调地址时，就只需要填写 `www.zhyd.me`即可，实际我们自己开发程序时， 可以随便配置具体的回调地址，只要确保是在 `www.zhyd.me` 下的地址就行。本例中， 我在程序中配置的回调地址为：`https://www.zhyd.me/oauth/callback/wechat`
 - 重要的事情说三遍：**一定要确保应用详情页的“接口信息”中的“微信登录”接口的状态为“已获得”！** **一定要确保应用详情页的“接口信息”中的“微信登录”接口的状态为“已获得”！** **一定要确保应用详情页的“接口信息”中的“微信登录”接口的状态为“已获得”！**否则一定会遇到这个问题：[“Scope参数错误或者Scope没有权限”是怎么回事？](../Q&A.md?id=_7scope参数错误或者scope没有权限是怎么回事？) 
 
+**重要提示：“应用密钥”可保护你应用程序的安全，因此请确保其不会泄露！也不要与任何人共享你的“应用密钥”！！！**
+
 
 ## 2. 集成JustAuth
 
@@ -166,3 +168,22 @@ public class RestAuthController {
 	}
 }
 ```
+
+
+## 4. 推荐
+
+官方推荐使用 [JustAuth-demo](https://github.com/justauth/JustAuth-demo) 示例项目进行测试。
+
+使用步骤：
+1. clone： [https://github.com/justauth/JustAuth-demo.git](https://github.com/justauth/JustAuth-demo.git)
+2. 将上面申请的应用信息填入到`RestAuthController#getAuthRequest`方法的对应位置中：
+![](doc/media/oauth/e1a40945.png)
+3. 启动项目，访问 [http://localhost:8443](http://localhost:8443)
+4. 选择对应的平台进行授权登录
+![](doc/media/oauth/da2bc692.png)
+5. 登录完成后，可以访问[http://localhost:8443/users](http://localhost:8443/users)查看已授权的用户
+![](doc/media/oauth/dbe6bcae.png)
+
+注：
+1. 如果直接使用 JustAuth-demo 项目进行测试，那么在配置测试应用的“回调地址”时要严格按照以下格式配置：`http://localhost:8443/oauth/callback/{平台名}`
+2. 平台名参考 `JustAuthPlatformInfo` 枚举类 `names`

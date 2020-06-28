@@ -25,6 +25,8 @@ https://open.weibo.com/apps。如果已有则忽略该步骤，直接进入第�
 
 微博平台的OAuth支持revoke操作，所以会有一个【取消授权回调页】配置。
 
+**重要提示：“应用密钥”可保护你应用程序的安全，因此请确保其不会泄露！也不要与任何人共享你的“应用密钥”！！！**
+
 ## 2. 集成JustAuth
 
 
@@ -153,3 +155,21 @@ public class RestAuthController {
 	}
 }
 ```
+
+## 4. 推荐
+
+官方推荐使用 [JustAuth-demo](https://github.com/justauth/JustAuth-demo) 示例项目进行测试。
+
+使用步骤：
+1. clone： [https://github.com/justauth/JustAuth-demo.git](https://github.com/justauth/JustAuth-demo.git)
+2. 将上面申请的应用信息填入到`RestAuthController#getAuthRequest`方法的对应位置中：
+![](doc/media/oauth/e1a40945.png)
+3. 启动项目，访问 [http://localhost:8443](http://localhost:8443)
+4. 选择对应的平台进行授权登录
+![](doc/media/oauth/da2bc692.png)
+5. 登录完成后，可以访问[http://localhost:8443/users](http://localhost:8443/users)查看已授权的用户
+![](doc/media/oauth/dbe6bcae.png)
+
+注：
+1. 如果直接使用 JustAuth-demo 项目进行测试，那么在配置测试应用的“回调地址”时要严格按照以下格式配置：`http://localhost:8443/oauth/callback/{平台名}`
+2. 平台名参考 `JustAuthPlatformInfo` 枚举类 `names`
