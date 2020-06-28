@@ -25,7 +25,7 @@
   - [Google登录](oauth/google.md)
   - [Facebook登录](oauth/facebook.md)
   - [抖音登录](oauth/douyin.md)
-  - [领英登录](oauth/linkedin.md)
+  - [√ 领英登录](oauth/linkedin.md)
   - [微软登录](oauth/microsoft.md)
   - [小米登录](oauth/mi.md)
   - [头条登录](oauth/toutiao.md)

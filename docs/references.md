@@ -24,7 +24,8 @@
 - <a href="https://developers.google.com/identity/protocols/OpenIDConnect" target="_blank">Google</a> 
 - <a href="https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow" target="_blank">Facebook</a> 
 - <a href="https://www.douyin.com/platform/doc/m-2-1-1" target="_blank">抖音</a> 
-- <a href="https://docs.microsoft.com/zh-cn/linkedin/shared/authentication/authorization-code-flow?context=linkedin/context" target="_blank">领英</a> 
+- <a href="https://docs.microsoft.com/zh-cn/linkedin/shared/authentication/authorization-code-flow?context=linkedin/context" target="_blank">领英</a>
+    - <a href="https://docs.microsoft.com/zh-cn/linkedin/shared/authentication/authorization-code-flow?context=linkedin/context" target="_blank">Sign In with LinkedIn</a> 
 - <a href="https://docs.microsoft.com/zh-cn/graph/auth-v2-user" target="_blank">微软</a>
 - <a href="https://dev.mi.com/console/doc/detail?pId=711" target="_blank">小米</a>
 - <a href="https://open.mp.toutiao.com/#/resource?_k=y7mfgk" target="_blank">头条</a>
