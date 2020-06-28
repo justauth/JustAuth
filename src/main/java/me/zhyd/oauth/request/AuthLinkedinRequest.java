@@ -157,19 +157,6 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
         return firstName;
     }
 
-    @Override
-    public AuthResponse refresh(AuthToken oldToken) {
-        String refreshToken = oldToken.getRefreshToken();
-        if (StringUtils.isEmpty(refreshToken)) {
-            throw new AuthException(AuthResponseStatus.REQUIRED_REFRESH_TOKEN, source);
-        }
-        String refreshTokenUrl = refreshTokenUrl(refreshToken);
-        return AuthResponse.builder()
-            .code(AuthResponseStatus.SUCCESS.getCode())
-            .data(this.getToken(refreshTokenUrl))
-            .build();
-    }
-
     /**
      * 检查响应内容是否正确
      *
