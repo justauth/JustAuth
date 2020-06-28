@@ -20,7 +20,7 @@
   - [微信公众平台登录](oauth/wechat_mp.md)
   - [√ 百度登录](oauth/baidu.md)
   - [√ 钉钉登录](oauth/dingtalk.md)
-  - [开源中国登录](oauth/oschina.md)
+  - [√ 开源中国登录](oauth/oschina.md)
   - [淘宝登录](oauth/taobao.md)
   - [Google登录](oauth/google.md)
   - [Facebook登录](oauth/facebook.md)
