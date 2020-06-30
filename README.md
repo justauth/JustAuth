@@ -1,12 +1,12 @@
 <p align="center">
-	<a href="https://docs.justauth.whnb.wang"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
+	<a href="https://justauth.wiki"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
 </p>
 <p align="center">
 	<strong>Login, so easy.</strong>
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
-		<img src="https://img.shields.io/badge/Maven%20Central--1.15.5-blue" ></img>
+		<img src="https://img.shields.io/badge/Maven%20Central--1.15.6-blue" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
@@ -15,9 +15,9 @@
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
 	</a>
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/" title="API文档">
-		<img src="https://img.shields.io/badge/Api%20Docs-1.15.5-latest-orange" ></img>
+		<img src="https://img.shields.io/badge/Api%20Docs-1.15.6-latest-orange" ></img>
 	</a>
-	<a target="_blank" href="https://docs.justauth.whnb.wang" title="参考文档">
+	<a target="_blank" href="https://justauth.wiki" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
 	</a>
 	<a href="https://codecov.io/gh/zhangyd-c/JustAuth">
@@ -71,7 +71,7 @@
             <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/twitter.png" width="20"></td>
         </tr>
     </table>
-    <center><a href="https://docs.justauth.whnb.wang/#/?id=%E5%B7%B2%E9%9B%86%E6%88%90%E7%9A%84%E5%B9%B3%E5%8F%B0" target="_blank">查看更多</a></center>
+    <center><a href="https://justauth.wiki/#/?id=%E5%B7%B2%E9%9B%86%E6%88%90%E7%9A%84%E5%B9%B3%E5%8F%B0" target="_blank">查看更多</a></center>
 </center>
 
 -------------------------------------------------------------------------------
@@ -80,7 +80,7 @@
 JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具类库**，它可以让我们脱离繁琐的第三方登录SDK，让登录变得**So easy!**
 
 项目开源地址：[gitee](https://gitee.com/yadong.zhang/JustAuth) | [github](https://github.com/zhangyd-c/JustAuth)    
-项目文档：[参考文档](https://docs.justauth.whnb.wang)
+项目文档：[参考文档](https://justauth.wiki)
 
 ## 特点
 
@@ -96,7 +96,7 @@ JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.15.5</version>
+    <version>1.15.6</version>
 </dependency>
 ```
 - 调用api
@@ -163,11 +163,11 @@ authRequest.login(callback);
 
 ## 贡献者名单
 
-[contributors](https://docs.justauth.whnb.wang/#/contributors)
+[contributors](https://justauth.wiki/#/contributors)
 
 ## 更新记录
 
-[CHANGELOGS](https://docs.justauth.whnb.wang/#/update)
+[CHANGELOGS](https://justauth.wiki/#/update)
 
 ## 致谢
 
@@ -185,7 +185,7 @@ authRequest.login(callback);
 - `spring-boot-demo` 深度学习并实战 spring boot 的项目: [https://github.com/xkcoding/spring-boot-demo](https://github.com/xkcoding/spring-boot-demo)
 - `mica` SpringBoot 微服务高效开发工具集: [https://github.com/lets-mica/mica](https://github.com/lets-mica/mica)
 - `pig` 宇宙最强微服务认证授权脚手架(架构师必备): [https://gitee.com/log4j/pig](https://gitee.com/log4j/pig)
-- `SpringBlade` 完整的线上解决方案（企业开发必备）: https://gitee.com/smallc/SpringBlade
+- `SpringBlade` 完整的线上解决方案（企业开发必备）: [https://gitee.com/smallc/SpringBlade](https://gitee.com/smallc/SpringBlade)
 - `MaxKey` 马克思的钥匙，寓意是最大钥匙,是用户单点登录认证系统（Sigle Sign On System）,OAuth 2.0/OpenID Connect、SAML 2.0、JWT、CAS等标准化的开放协议，使用JustAuth集成OAuth第三方认证。: [https://shimingxy.github.io/MaxKey/](https://shimingxy.github.io/MaxKey/)
 
 ## 关注&交流
