@@ -9,7 +9,7 @@
 3. 内置的缓存调度器自动清除已过期的`state`（JustAuth执行）
 
 ## 创建state（开发者）
-`state`在OAuth授权流程中是一个**非必要但很重要**的参数，就如[名词解释](https://docs.justauth.whnb.wang/#/explain?id=justauth中的关键词)中描述的：`state`是用来保持授权会话流程完整性，防止CSRF攻击的安全的随机的参数，**由开发者生成**。
+`state`在OAuth授权流程中是一个**非必要但很重要**的参数，就如[名词解释](https://justauth.wiki/#/explain?id=justauth中的关键词)中描述的：`state`是用来保持授权会话流程完整性，防止CSRF攻击的安全的随机的参数，**由开发者生成**。
 
 在JustAuth中提供了一个默认的创建state的方法，使用方式：
 

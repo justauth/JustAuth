@@ -1,5 +1,5 @@
 <p align="center">
-	<a href="https://docs.justauth.whnb.wang"><img src="./_media/cover.png" width="400"></a>
+	<a href="https://justauth.wiki"><img src="./_media/cover.png" width="400"></a>
 </p>
 <p align="center">
 	<strong>Login, so easy!</strong>
@@ -20,7 +20,7 @@
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/" title="API文档">
 		<img src="https://img.shields.io/badge/Api%20Docs-1.15.6-orange" ></img>
 	</a>
-	<a target="_blank" href="https://docs.justauth.whnb.wang" title="参考文档">
+	<a target="_blank" href="https://justauth.wiki" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
 	</a>
 	<a href="https://codecov.io/gh/zhangyd-c/JustAuth">

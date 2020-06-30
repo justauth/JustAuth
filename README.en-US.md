@@ -1,5 +1,5 @@
 <p align="center">
-	<a href="https://docs.justauth.whnb.wang"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
+	<a href="https://justauth.wiki"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
 </p>
 <p align="center">
 	<strong>Login, so easy.</strong>
@@ -17,7 +17,7 @@
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/" title="API文档">
 		<img src="https://img.shields.io/badge/Api%20Docs--1.15.6-latest-orange" ></img>
 	</a>
-	<a target="_blank" href="https://docs.justauth.whnb.wang" title="参考文档">
+	<a target="_blank" href="https://justauth.wiki" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
 	</a>
 	<a href="https://codecov.io/gh/zhangyd-c/JustAuth">
@@ -71,7 +71,7 @@
             <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/twitter.png" width="20"></td>
         </tr>
     </table>
-    <center><a href="https://docs.justauth.whnb.wang/#/?id=%E5%B7%B2%E9%9B%86%E6%88%90%E7%9A%84%E5%B9%B3%E5%8F%B0" target="_blank">查看更多</a></center>
+    <center><a href="https://justauth.wiki/#/?id=%E5%B7%B2%E9%9B%86%E6%88%90%E7%9A%84%E5%B9%B3%E5%8F%B0" target="_blank">查看更多</a></center>
 </center>
 
 -------------------------------------------------------------------------------
@@ -81,7 +81,7 @@
 `JustAuth`, as you see, It is just a Java library of third-party authorized login, It's smaller and easier to use. JustAuth is the best third-party login tool written in JAVA.
 
 Source Code：[gitee](https://gitee.com/yadong.zhang/JustAuth) | [github](https://github.com/zhangyd-c/JustAuth)    
-Docs：[Reference Doc](https://docs.justauth.whnb.wang)
+Docs：[Reference Doc](https://justauth.wiki)
 
 ## Features
 
@@ -162,11 +162,11 @@ I look forward to your joining us.
 
 ## Contributors
 
-[contributors](https://docs.justauth.whnb.wang/#/contributors)
+[contributors](https://justauth.wiki/#/contributors)
 
 ## Change Logs
 
-[CHANGELOGS](https://docs.justauth.whnb.wang/#/update)
+[CHANGELOGS](https://justauth.wiki/#/update)
 
 ## Recommend
 

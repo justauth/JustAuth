@@ -85,7 +85,7 @@ AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
         .build());
 ```
 
-所有可用的`Request`列表请参考：[已集成的平台](https://docs.justauth.whnb.wang/#/README?id=已集成的平台)
+所有可用的`Request`列表请参考：[已集成的平台](https://justauth.wiki/#/README?id=已集成的平台)
 
 ### 获取授权链接
 

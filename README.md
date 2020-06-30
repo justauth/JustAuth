@@ -1,5 +1,5 @@
 <p align="center">
-	<a href="https://docs.justauth.whnb.wang"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
+	<a href="https://justauth.wiki"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
 </p>
 <p align="center">
 	<strong>Login, so easy.</strong>
@@ -17,7 +17,7 @@
 	<a target="_blank" href="https://apidoc.gitee.com/yadong.zhang/JustAuth/" title="API文档">
 		<img src="https://img.shields.io/badge/Api%20Docs-1.15.6-latest-orange" ></img>
 	</a>
-	<a target="_blank" href="https://docs.justauth.whnb.wang" title="参考文档">
+	<a target="_blank" href="https://justauth.wiki" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
 	</a>
 	<a href="https://codecov.io/gh/zhangyd-c/JustAuth">
@@ -71,7 +71,7 @@
             <td align="center" width="200"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/twitter.png" width="20"></td>
         </tr>
     </table>
-    <center><a href="https://docs.justauth.whnb.wang/#/?id=%E5%B7%B2%E9%9B%86%E6%88%90%E7%9A%84%E5%B9%B3%E5%8F%B0" target="_blank">查看更多</a></center>
+    <center><a href="https://justauth.wiki/#/?id=%E5%B7%B2%E9%9B%86%E6%88%90%E7%9A%84%E5%B9%B3%E5%8F%B0" target="_blank">查看更多</a></center>
 </center>
 
 -------------------------------------------------------------------------------
@@ -80,7 +80,7 @@
 JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具类库**，它可以让我们脱离繁琐的第三方登录SDK，让登录变得**So easy!**
 
 项目开源地址：[gitee](https://gitee.com/yadong.zhang/JustAuth) | [github](https://github.com/zhangyd-c/JustAuth)    
-项目文档：[参考文档](https://docs.justauth.whnb.wang)
+项目文档：[参考文档](https://justauth.wiki)
 
 ## 特点
 
@@ -163,11 +163,11 @@ authRequest.login(callback);
 
 ## 贡献者名单
 
-[contributors](https://docs.justauth.whnb.wang/#/contributors)
+[contributors](https://justauth.wiki/#/contributors)
 
 ## 更新记录
 
-[CHANGELOGS](https://docs.justauth.whnb.wang/#/update)
+[CHANGELOGS](https://justauth.wiki/#/update)
 
 ## 致谢
 
