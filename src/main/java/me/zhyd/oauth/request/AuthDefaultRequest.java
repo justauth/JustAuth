@@ -1,21 +1,21 @@
 package me.zhyd.oauth.request;
 
-import me.zhyd.oauth.utils.HttpUtils;
+import com.xkcoding.http.util.UrlUtil;
 import me.zhyd.oauth.cache.AuthDefaultStateCache;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
+import me.zhyd.oauth.enums.scope.AuthScope;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.log.Log;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.AuthChecker;
-import me.zhyd.oauth.utils.StringUtils;
-import me.zhyd.oauth.utils.UrlBuilder;
-import me.zhyd.oauth.utils.UuidUtils;
+import me.zhyd.oauth.utils.*;
+
+import java.util.List;
 
 /**
  * 默认的request处理类
@@ -265,6 +265,35 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     protected String doGetRevoke(AuthToken authToken) {
         return new HttpUtils(config.getHttpConfig()).get(revokeUrl(authToken));
+    }
+
+    /**
+     * 获取以 {@code separator}分割过后的 scope 信息
+     *
+     * @param separator     多个 {@code scope} 间的分隔符
+     * @param encode        是否 encode 编码
+     * @param defaultScopes 默认的 scope， 当客户端没有配置 {@code scopes} 时启用
+     * @return String
+     * @since 1.16.7
+     */
+    protected String getScopes(String separator, boolean encode, List<AuthScope> defaultScopes) {
+        if (null == separator) {
+            // 默认为空格
+            separator = " ";
+        }
+        List<AuthScope> scopes = config.getScopes();
+        if (null == scopes || scopes.isEmpty()) {
+            if (null == defaultScopes || defaultScopes.isEmpty()) {
+                return null;
+            }
+            scopes = defaultScopes;
+        }
+        StringBuilder res = new StringBuilder();
+        for (AuthScope scope : scopes) {
+            res.append(scope.getScope()).append(separator);
+        }
+        String scopeStr = res.deleteCharAt(res.length() - separator.length()).toString();
+        return encode ? UrlUtil.urlEncode(scopeStr) : scopeStr;
     }
 
 }

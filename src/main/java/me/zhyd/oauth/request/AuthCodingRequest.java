@@ -5,6 +5,7 @@ import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
+import me.zhyd.oauth.enums.scope.AuthCodingScope;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
@@ -87,10 +88,11 @@ public class AuthCodingRequest extends AuthDefaultRequest {
             .queryParam("response_type", "code")
             .queryParam("client_id", config.getClientId())
             .queryParam("redirect_uri", config.getRedirectUri())
-            .queryParam("scope", "user")
+            .queryParam("scope", this.getScopes(" ", true, AuthCodingScope.getDefaultScopes()))
             .queryParam("state", getRealState(state))
             .build();
     }
+
     /**
      * 返回获取accessToken的url
      *
@@ -98,7 +100,7 @@ public class AuthCodingRequest extends AuthDefaultRequest {
      * @return 返回获取accessToken的url
      */
     @Override
-    public  String accessTokenUrl(String code) {
+    public String accessTokenUrl(String code) {
         return UrlBuilder.fromBaseUrl(String.format(source.accessToken(), config.getCodingGroupName()))
             .queryParam("code", code)
             .queryParam("client_id", config.getClientId())
@@ -115,7 +117,7 @@ public class AuthCodingRequest extends AuthDefaultRequest {
      * @return 返回获取userInfo的url
      */
     @Override
-    public  String userInfoUrl(AuthToken authToken) {
+    public String userInfoUrl(AuthToken authToken) {
         return UrlBuilder.fromBaseUrl(String.format(source.userInfo(), config.getCodingGroupName()))
             .queryParam("access_token", authToken.getAccessToken())
             .build();

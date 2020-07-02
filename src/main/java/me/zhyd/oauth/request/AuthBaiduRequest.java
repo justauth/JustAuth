@@ -1,17 +1,18 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
+import me.zhyd.oauth.enums.scope.AuthBaiduScope;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -41,6 +42,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
      * https://openapi.baidu.com/rest/2.0/passport/users/getInfo?access_token=121.c86e87cc0828cc1dabb8faee540531d4.YsUIAWvYbgqVni1VhkgKgyLh8nEyELbDOEZs_OA.OgDgmA
      * https://openapi.baidu.com/rest/2.0/passport/users/getInfo?access_token=121.2907d9facf9fb97adf7287fa75496eda.Y3NSjR3-3HKt1RgT0HEl7GgxRXT5gOOVdngXezY.OcC_7g
      * 新旧应用返回的用户信息不一致
+     *
      * @param authToken token信息
      * @return AuthUser
      */
@@ -106,6 +108,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
             .queryParam("client_id", config.getClientId())
             .queryParam("redirect_uri", config.getRedirectUri())
             .queryParam("display", "popup")
+            .queryParam("scope", this.getScopes(" ", false, AuthBaiduScope.getDefaultScopes()))
             .queryParam("state", getRealState(state))
             .build();
     }
