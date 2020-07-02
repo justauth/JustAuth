@@ -108,7 +108,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
             .queryParam("client_id", config.getClientId())
             .queryParam("redirect_uri", config.getRedirectUri())
             .queryParam("display", "popup")
-            .queryParam("scope", this.getScopes(" ", false, AuthBaiduScope.getDefaultScopes()))
+            .queryParam("scope", this.getScopes(" ", true, AuthBaiduScope.getDefaultScopes()))
             .queryParam("state", getRealState(state))
             .build();
     }

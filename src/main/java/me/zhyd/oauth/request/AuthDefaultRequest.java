@@ -15,6 +15,7 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -281,18 +282,17 @@ public abstract class AuthDefaultRequest implements AuthRequest {
             // 默认为空格
             separator = " ";
         }
-        List<AuthScope> scopes = config.getScopes();
+        List<String> scopes = config.getScopes();
         if (null == scopes || scopes.isEmpty()) {
             if (null == defaultScopes || defaultScopes.isEmpty()) {
-                return null;
+                return "";
             }
-            scopes = defaultScopes;
+            scopes = new ArrayList<>();
+            for (AuthScope defaultScope : defaultScopes) {
+                scopes.add(defaultScope.getScope());
+            }
         }
-        StringBuilder res = new StringBuilder();
-        for (AuthScope scope : scopes) {
-            res.append(scope.getScope()).append(separator);
-        }
-        String scopeStr = res.deleteCharAt(res.length() - separator.length()).toString();
+        String scopeStr = String.join(separator, scopes);
         return encode ? UrlUtil.urlEncode(scopeStr) : scopeStr;
     }
 

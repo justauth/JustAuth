@@ -6,6 +6,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Coding平台 OAuth 授权范围
@@ -43,7 +44,7 @@ public enum AuthCodingScope implements AuthScope {
         return defaultScopes;
     }
 
-    public static List<AuthScope> listAll() {
-        return Arrays.asList(AuthCodingScope.values());
+    public static List<String> listScope() {
+        return Arrays.stream(AuthCodingScope.values()).map(AuthCodingScope::getScope).collect(Collectors.toList());
     }
 }
