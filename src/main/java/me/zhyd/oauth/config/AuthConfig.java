@@ -109,5 +109,5 @@ public class AuthConfig {
      *
      * @since 1.15.7
      */
-    private List<AuthScope> scopes;
+    private List<String> scopes;
 }
