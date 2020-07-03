@@ -1,18 +1,19 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
+import me.zhyd.oauth.enums.scope.AuthJdScope;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.GlobalAuthUtils;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.time.LocalDateTime;
@@ -136,7 +137,7 @@ public class AuthJdRequest extends AuthDefaultRequest {
             .queryParam("app_key", config.getClientId())
             .queryParam("response_type", "code")
             .queryParam("redirect_uri", config.getRedirectUri())
-            .queryParam("scope", "snsapi_base")
+            .queryParam("scope", this.getScopes(" ", true, AuthJdScope.getDefaultScopes()))
             .queryParam("state", getRealState(state))
             .build();
     }
