@@ -5,7 +5,6 @@ import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
-import me.zhyd.oauth.enums.scope.AuthFacebookScope;
 import me.zhyd.oauth.enums.scope.AuthGiteeScope;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
