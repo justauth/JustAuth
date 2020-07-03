@@ -278,10 +278,6 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @since 1.16.7
      */
     protected String getScopes(String separator, boolean encode, List<AuthScope> defaultScopes) {
-        if (null == separator) {
-            // 默认为空格
-            separator = " ";
-        }
         List<String> scopes = config.getScopes();
         if (null == scopes || scopes.isEmpty()) {
             if (null == defaultScopes || defaultScopes.isEmpty()) {
@@ -291,6 +287,10 @@ public abstract class AuthDefaultRequest implements AuthRequest {
             for (AuthScope defaultScope : defaultScopes) {
                 scopes.add(defaultScope.getScope());
             }
+        }
+        if (null == separator) {
+            // 默认为空格
+            separator = " ";
         }
         String scopeStr = String.join(separator, scopes);
         return encode ? UrlUtil.urlEncode(scopeStr) : scopeStr;
