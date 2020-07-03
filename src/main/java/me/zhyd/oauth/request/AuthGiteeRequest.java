@@ -5,10 +5,13 @@ import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthUserGender;
+import me.zhyd.oauth.enums.scope.AuthFacebookScope;
+import me.zhyd.oauth.enums.scope.AuthGiteeScope;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * Gitee登录
@@ -71,5 +74,19 @@ public class AuthGiteeRequest extends AuthDefaultRequest {
         if (object.containsKey("error")) {
             throw new AuthException(object.getString("error_description"));
         }
+    }
+
+    /**
+     * 返回带{@code state}参数的授权url，授权回调时会带上这个{@code state}
+     *
+     * @param state state 验证授权流程的参数，可以防止csrf
+     * @return 返回授权地址
+     */
+    @Override
+    public String authorize(String state) {
+        String authorizeUrl = super.authorize(state);
+        return UrlBuilder.fromBaseUrl(authorizeUrl)
+            .queryParam("scope", this.getScopes(" ", true, AuthGiteeScope.getDefaultScopes()))
+            .build();
     }
 }
