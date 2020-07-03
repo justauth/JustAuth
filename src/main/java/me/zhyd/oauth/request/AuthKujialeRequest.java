@@ -1,17 +1,17 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
+import me.zhyd.oauth.enums.scope.AuthKujialeScope;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.StringUtils;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -40,27 +40,10 @@ public class AuthKujialeRequest extends AuthDefaultRequest {
      */
     @Override
     public String authorize(String state) {
-        return authorize(state, "get_user_info");
-    }
-
-    /**
-     * 请求授权url
-     *
-     * @param state    state 验证授权流程的参数，可以防止csrf
-     * @param scopeStr 请求用户授权时向用户显示的可进行授权的列表。如果要填写多个接口名称，请用逗号隔开
-     *                 参考https://open.kujiale.com/open/apps/2/docs?doc_id=95#Step1%EF%BC%9A%E8%8E%B7%E5%8F%96Authorization%20Code参数表内的scope字段
-     * @return authorize url
-     */
-    public String authorize(String state, String scopeStr) {
-        UrlBuilder urlBuilder = UrlBuilder.fromBaseUrl(source.authorize())
-            .queryParam("response_type", "code")
-            .queryParam("client_id", config.getClientId())
-            .queryParam("redirect_uri", config.getRedirectUri())
-            .queryParam("state", getRealState(state));
-        if (StringUtils.isNotEmpty(scopeStr)) {
-            urlBuilder.queryParam("scope", scopeStr);
-        }
-        return urlBuilder.build();
+        String authorizeUrl = super.authorize(state);
+        return UrlBuilder.fromBaseUrl(authorizeUrl)
+            .queryParam("scope", this.getScopes(",", false, AuthKujialeScope.getDefaultScopes()))
+            .build();
     }
 
     @Override
