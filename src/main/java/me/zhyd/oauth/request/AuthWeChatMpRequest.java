@@ -1,18 +1,19 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
+import me.zhyd.oauth.enums.scope.AuthWechatMpScope;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.GlobalAuthUtils;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -122,8 +123,8 @@ public class AuthWeChatMpRequest extends AuthDefaultRequest {
             .queryParam("appid", config.getClientId())
             .queryParam("redirect_uri", GlobalAuthUtils.urlEncode(config.getRedirectUri()))
             .queryParam("response_type", "code")
-            .queryParam("scope", "snsapi_userinfo")
             .queryParam("state", getRealState(state).concat("#wechat_redirect"))
+            .queryParam("scope", this.getScopes(",", false, AuthWechatMpScope.getDefaultScopes()))
             .build();
     }
 
