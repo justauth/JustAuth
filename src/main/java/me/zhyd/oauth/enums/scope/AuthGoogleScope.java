@@ -3,7 +3,6 @@ package me.zhyd.oauth.enums.scope;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -286,20 +285,6 @@ public enum AuthGoogleScope implements AuthScope {
     private String description;
     private boolean isDefault;
 
-    public static List<AuthScope> getDefaultScopes() {
-        AuthGoogleScope[] scopes = AuthGoogleScope.values();
-        List<AuthScope> defaultScopes = new ArrayList<>();
-        for (AuthGoogleScope scope : scopes) {
-            if (scope.isDefault()) {
-                defaultScopes.add(scope);
-            }
-        }
-        return defaultScopes;
-    }
-
-    public static List<String> listScope() {
-        return Arrays.stream(AuthGoogleScope.values()).map(AuthGoogleScope::getScope).collect(Collectors.toList());
-    }
 
     public static List<String> getAdminDirectoryScopes() {
         return Arrays.stream(new AuthGoogleScope[]{

@@ -3,11 +3,6 @@ package me.zhyd.oauth.enums.scope;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * Stackoverflow 平台 OAuth 授权范围
  *
@@ -31,18 +26,4 @@ public enum AuthStackoverflowScope implements AuthScope {
     private String description;
     private boolean isDefault;
 
-    public static List<AuthScope> getDefaultScopes() {
-        AuthStackoverflowScope[] scopes = AuthStackoverflowScope.values();
-        List<AuthScope> defaultScopes = new ArrayList<>();
-        for (AuthStackoverflowScope scope : scopes) {
-            if (scope.isDefault()) {
-                defaultScopes.add(scope);
-            }
-        }
-        return defaultScopes;
-    }
-
-    public static List<String> listScope() {
-        return Arrays.stream(AuthStackoverflowScope.values()).map(AuthStackoverflowScope::getScope).collect(Collectors.toList());
-    }
 }

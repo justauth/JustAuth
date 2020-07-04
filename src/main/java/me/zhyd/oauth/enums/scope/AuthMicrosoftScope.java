@@ -3,11 +3,6 @@ package me.zhyd.oauth.enums.scope;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * 微软平台 OAuth 授权范围
  *
@@ -69,18 +64,4 @@ public enum AuthMicrosoftScope implements AuthScope {
     private String description;
     private boolean isDefault;
 
-    public static List<AuthScope> getDefaultScopes() {
-        AuthMicrosoftScope[] scopes = AuthMicrosoftScope.values();
-        List<AuthScope> defaultScopes = new ArrayList<>();
-        for (AuthMicrosoftScope scope : scopes) {
-            if (scope.isDefault()) {
-                defaultScopes.add(scope);
-            }
-        }
-        return defaultScopes;
-    }
-
-    public static List<String> listScope() {
-        return Arrays.stream(AuthMicrosoftScope.values()).map(AuthMicrosoftScope::getScope).collect(Collectors.toList());
-    }
 }

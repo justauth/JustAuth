@@ -10,6 +10,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.utils.AuthScopeUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -88,7 +89,7 @@ public class AuthCodingRequest extends AuthDefaultRequest {
             .queryParam("response_type", "code")
             .queryParam("client_id", config.getClientId())
             .queryParam("redirect_uri", config.getRedirectUri())
-            .queryParam("scope", this.getScopes(" ", true, AuthCodingScope.getDefaultScopes()))
+            .queryParam("scope", this.getScopes(" ", true, AuthScopeUtils.getDefaultScopes(AuthCodingScope.values())))
             .queryParam("state", getRealState(state))
             .build();
     }

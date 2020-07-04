@@ -6,7 +6,6 @@ import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
-import me.zhyd.oauth.enums.scope.AuthScope;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.log.Log;
 import me.zhyd.oauth.model.AuthCallback;
@@ -15,7 +14,6 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -277,16 +275,13 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return String
      * @since 1.16.7
      */
-    protected String getScopes(String separator, boolean encode, List<AuthScope> defaultScopes) {
+    protected String getScopes(String separator, boolean encode, List<String> defaultScopes) {
         List<String> scopes = config.getScopes();
         if (null == scopes || scopes.isEmpty()) {
             if (null == defaultScopes || defaultScopes.isEmpty()) {
                 return "";
             }
-            scopes = new ArrayList<>();
-            for (AuthScope defaultScope : defaultScopes) {
-                scopes.add(defaultScope.getScope());
-            }
+            scopes = defaultScopes;
         }
         if (null == separator) {
             // 默认为空格

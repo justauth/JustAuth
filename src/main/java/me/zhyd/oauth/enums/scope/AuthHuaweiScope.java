@@ -3,11 +3,6 @@ package me.zhyd.oauth.enums.scope;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * 华为平台 OAuth 授权范围
  *
@@ -48,18 +43,4 @@ public enum AuthHuaweiScope implements AuthScope {
     private String description;
     private boolean isDefault;
 
-    public static List<AuthScope> getDefaultScopes() {
-        AuthHuaweiScope[] scopes = AuthHuaweiScope.values();
-        List<AuthScope> defaultScopes = new ArrayList<>();
-        for (AuthHuaweiScope scope : scopes) {
-            if (scope.isDefault()) {
-                defaultScopes.add(scope);
-            }
-        }
-        return defaultScopes;
-    }
-
-    public static List<String> listScope() {
-        return Arrays.stream(AuthHuaweiScope.values()).map(AuthHuaweiScope::getScope).collect(Collectors.toList());
-    }
 }
