@@ -74,12 +74,9 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
      */
     @Override
     public String authorize(String state) {
-        return UrlBuilder.fromBaseUrl(source.authorize())
-            .queryParam("response_type", "code")
-            .queryParam("client_id", config.getClientId())
+        return UrlBuilder.fromBaseUrl(super.authorize(state))
+            .queryParam("access_type", "offline")
             .queryParam("scope", this.getScopes(" ", false, AuthGoogleScope.getDefaultScopes()))
-            .queryParam("redirect_uri", config.getRedirectUri())
-            .queryParam("state", getRealState(state))
             .build();
     }
 

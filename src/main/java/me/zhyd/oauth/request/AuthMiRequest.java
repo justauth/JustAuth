@@ -125,13 +125,9 @@ public class AuthMiRequest extends AuthDefaultRequest {
      */
     @Override
     public String authorize(String state) {
-        return UrlBuilder.fromBaseUrl(source.authorize())
-            .queryParam("response_type", "code")
-            .queryParam("client_id", config.getClientId())
-            .queryParam("redirect_uri", config.getRedirectUri())
-            .queryParam("scope", this.getScopes(" ", true, AuthMiScope.getDefaultScopes()))
+        return UrlBuilder.fromBaseUrl(super.authorize(state))
             .queryParam("skip_confirm", "false")
-            .queryParam("state", getRealState(state))
+            .queryParam("scope", this.getScopes(" ", true, AuthMiScope.getDefaultScopes()))
             .build();
     }
 

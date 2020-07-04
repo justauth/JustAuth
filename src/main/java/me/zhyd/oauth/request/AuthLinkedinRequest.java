@@ -198,12 +198,8 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
      */
     @Override
     public String authorize(String state) {
-        return UrlBuilder.fromBaseUrl(source.authorize())
-            .queryParam("response_type", "code")
-            .queryParam("client_id", config.getClientId())
-            .queryParam("redirect_uri", config.getRedirectUri())
+        return UrlBuilder.fromBaseUrl(super.authorize(state))
             .queryParam("scope", this.getScopes(" ", false, AuthLinkedinScope.getDefaultScopes()))
-            .queryParam("state", getRealState(state))
             .build();
     }
 

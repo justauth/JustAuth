@@ -123,13 +123,9 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
      */
     @Override
     public String authorize(String state) {
-        return UrlBuilder.fromBaseUrl(source.authorize())
-            .queryParam("response_type", "code")
-            .queryParam("client_id", config.getClientId())
-            .queryParam("redirect_uri", config.getRedirectUri())
+        return UrlBuilder.fromBaseUrl(super.authorize(state))
             .queryParam("response_mode", "query")
             .queryParam("scope", this.getScopes(" ", true, AuthMicrosoftScope.getDefaultScopes()))
-            .queryParam("state", getRealState(state))
             .build();
     }
 

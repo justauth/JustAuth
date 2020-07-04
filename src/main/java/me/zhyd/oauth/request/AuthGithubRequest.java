@@ -83,8 +83,7 @@ public class AuthGithubRequest extends AuthDefaultRequest {
      */
     @Override
     public String authorize(String state) {
-        String authorizeUrl = super.authorize(state);
-        return UrlBuilder.fromBaseUrl(authorizeUrl)
+        return UrlBuilder.fromBaseUrl(super.authorize(state))
             .queryParam("scope", this.getScopes(" ", true, AuthGithubScope.getDefaultScopes()))
             .build();
     }

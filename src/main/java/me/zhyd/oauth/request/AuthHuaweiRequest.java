@@ -130,30 +130,9 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
      */
     @Override
     public String authorize(String state) {
-        return UrlBuilder.fromBaseUrl(source.authorize())
-            .queryParam("response_type", "code")
-            .queryParam("client_id", config.getClientId())
-            .queryParam("redirect_uri", config.getRedirectUri())
+        return UrlBuilder.fromBaseUrl(super.authorize(state))
             .queryParam("access_type", "offline")
             .queryParam("scope", this.getScopes(" ", true, AuthHuaweiScope.getDefaultScopes()))
-            .queryParam("state", getRealState(state))
-            .build();
-    }
-
-    /**
-     * 返回获取accessToken的url
-     *
-     * @param code 授权码
-     * @return 返回获取accessToken的url
-     */
-    @Override
-    protected String accessTokenUrl(String code) {
-        return UrlBuilder.fromBaseUrl(source.accessToken())
-            .queryParam("grant_type", "authorization_code")
-            .queryParam("code", code)
-            .queryParam("client_id", config.getClientId())
-            .queryParam("client_secret", config.getClientSecret())
-            .queryParam("redirect_uri", config.getRedirectUri())
             .build();
     }
 
