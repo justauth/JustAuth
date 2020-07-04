@@ -6,6 +6,7 @@ import com.xkcoding.http.util.UrlUtil;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.enums.AuthUserGender;
+import me.zhyd.oauth.enums.scope.AuthRenrenScope;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
@@ -116,6 +117,13 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
         return UrlBuilder.fromBaseUrl(source.userInfo())
             .queryParam("access_token", authToken.getAccessToken())
             .queryParam("userId", authToken.getOpenId())
+            .build();
+    }
+
+    @Override
+    public String authorize(String state) {
+        return UrlBuilder.fromBaseUrl(super.authorize(state))
+            .queryParam("scope", this.getScopes(",", false, AuthRenrenScope.getDefaultScopes()))
             .build();
     }
 }
