@@ -1,6 +1,7 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
+import me.zhyd.oauth.utils.HttpUtils;
 import com.xkcoding.http.support.HttpHeader;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
@@ -78,6 +79,7 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
         return UrlBuilder.fromBaseUrl(super.authorize(state))
             .queryParam("access_type", "offline")
             .queryParam("scope", this.getScopes(" ", false, AuthScopeUtils.getDefaultScopes(AuthGoogleScope.values())))
+            .queryParam("prompt","select_account")
             .build();
     }
 
