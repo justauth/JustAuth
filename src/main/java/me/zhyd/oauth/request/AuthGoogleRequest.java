@@ -79,6 +79,7 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
             .queryParam("scope", "openid%20email%20profile")
             .queryParam("redirect_uri", config.getRedirectUri())
             .queryParam("state", getRealState(state))
+            .queryParam("prompt","select_account")
             .build();
     }
 
