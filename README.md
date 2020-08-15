@@ -6,7 +6,7 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
-		<img src="https://img.shields.io/badge/Maven%20Central-1.15.7%20beta.1-blue" ></img>
+		<img src="https://img.shields.io/badge/Maven%20Central-1.15.7%20beta.2-blue" ></img>
 	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
@@ -107,7 +107,7 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.15.7-beta.1</version>
+    <version>1.15.7-beta.2</version>
 </dependency>
 ```
 - 调用api
