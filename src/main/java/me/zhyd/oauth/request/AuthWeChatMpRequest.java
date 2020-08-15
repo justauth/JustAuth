@@ -124,8 +124,8 @@ public class AuthWeChatMpRequest extends AuthDefaultRequest {
             .queryParam("appid", config.getClientId())
             .queryParam("redirect_uri", GlobalAuthUtils.urlEncode(config.getRedirectUri()))
             .queryParam("response_type", "code")
-            .queryParam("state", getRealState(state).concat("#wechat_redirect"))
             .queryParam("scope", this.getScopes(",", false, AuthScopeUtils.getDefaultScopes(AuthWechatMpScope.values())))
+            .queryParam("state", getRealState(state).concat("#wechat_redirect"))
             .build();
     }
 
