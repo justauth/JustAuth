@@ -143,7 +143,7 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
             .queryParam("client_id", config.getClientId())
             .queryParam("client_secret", config.getClientSecret())
             .queryParam("grant_type", "authorization_code")
-            .queryParam("scope", "offline_access user.read mail.read")
+            .queryParam("scope", this.getScopes(" ", true, AuthScopeUtils.getDefaultScopes(AuthMicrosoftScope.values())))
             .queryParam("redirect_uri", config.getRedirectUri())
             .build();
     }
@@ -172,7 +172,7 @@ public class AuthMicrosoftRequest extends AuthDefaultRequest {
             .queryParam("client_secret", config.getClientSecret())
             .queryParam("refresh_token", refreshToken)
             .queryParam("grant_type", "refresh_token")
-            .queryParam("scope", "user.read%20mail.read")
+            .queryParam("scope", this.getScopes(" ", true, AuthScopeUtils.getDefaultScopes(AuthMicrosoftScope.values())))
             .queryParam("redirect_uri", config.getRedirectUri())
             .build();
     }
