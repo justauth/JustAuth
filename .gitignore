@@ -34,3 +34,4 @@ bin/push-dev.sh
 target
 /pom.xml.versionsBackup
 /gpg
+/PLAN.md
