@@ -1,3 +1,10 @@
+## 1.15.8
+
+### 2020/10/25
+
+- Release version 1.15.8
+- Merge the pr. [#95](https://github.com/justauth/JustAuth/pull/95) [#96](https://github.com/justauth/JustAuth/pull/96)
+
 ## 1.15.7
 
 ### 2020/09/11
