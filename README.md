@@ -157,6 +157,12 @@ authRequest.login(callback);
   </dependency>
   ```
 
+## 赞助和支持
+
+感谢以下赞助商的支持：
+
+<a href="https://www.duohui.cn?utm_source=justauth" target="_blank"><img src="https://docs.duohui.cn/brand_source/img/std.svg" alt="多会 - 专业活动管理系统" style="height: 54px;" height="54px" /></a>
+
 ## JustAuth 的用户
 有很多公司、组织和个人把 JustAuth 用于学习、研究、生产环境和商业产品中，包括（但不限于）：
 ![](docs/users/4ca0177c.png)
