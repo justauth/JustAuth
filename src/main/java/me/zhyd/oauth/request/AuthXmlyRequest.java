@@ -95,7 +95,6 @@ public class AuthXmlyRequest extends AuthDefaultRequest {
         map.put("access_token", authToken.getAccessToken());
         map.put("sig", GlobalAuthUtils.generateXmlySignature(map, config.getClientSecret()));
         String rawUserInfo = HttpUtil.get(source.userInfo(), map, false);
-        System.out.println(rawUserInfo);
         JSONObject object = JSONObject.parseObject(rawUserInfo);
         checkResponse(object);
         return AuthUser.builder()
