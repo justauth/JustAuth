@@ -110,4 +110,18 @@ public class AuthConfig {
      * @since 1.15.7
      */
     private List<String> scopes;
+
+    /**
+     * 设备ID, 设备唯一标识ID
+     *
+     * @since 1.15.8
+     */
+    private String deviceId;
+
+    /**
+     * 喜马拉雅：客户端包名，如果client_os_type为1或2时必填。对Android客户端是包名，对IOS客户端是Bundle ID
+     *
+     * @since 1.15.8
+     */
+    private String packId;
 }
