@@ -221,6 +221,33 @@ public class GlobalAuthUtils {
     }
 
     /**
+     * 喜马拉雅签名算法
+     * https://open.ximalaya.com/doc/detailApi?categoryId=6&articleId=69
+     *
+     * @param params       加密参数
+     * @param clientSecret 平台应用的授权key
+     * @return Signature
+     */
+    public static String generateXmlySignature(Map<String, String> params, String clientSecret) {
+        TreeMap<String, String> map = new TreeMap<>(params);
+        String baseStr = Base64Utils.encode(parseMapToString(map, false));
+        byte[] sign = sign(clientSecret.getBytes(DEFAULT_ENCODING), baseStr.getBytes(DEFAULT_ENCODING), HMAC_SHA1);
+        MessageDigest md5 = null;
+        StringBuilder builder = null;
+        try {
+            builder = new StringBuilder();
+            md5 = MessageDigest.getInstance("MD5");
+            md5.update(sign);
+            byte[] byteData = md5.digest();
+            for (byte byteDatum : byteData) {
+                builder.append(Integer.toString((byteDatum & 0xff) + 0x100, 16).substring(1));
+            }
+        } catch (Exception ignored) {
+        }
+        return null == builder ? "" : builder.toString();
+    }
+
+    /**
      * 生成饿了么请求的Signature
      * <p>
      * 代码copy并修改自：https://coding.net/u/napos_openapi/p/eleme-openapi-java-sdk/git/blob/master/src/main/java/eleme/openapi/sdk/utils/SignatureUtil.java
