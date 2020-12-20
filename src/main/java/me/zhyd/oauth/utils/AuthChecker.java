@@ -38,6 +38,12 @@ public class AuthChecker {
         if (isSupported && AuthDefaultSource.CODING == source) {
             isSupported = StringUtils.isNotEmpty(config.getCodingGroupName());
         }
+        if (isSupported && AuthDefaultSource.XMLY == source) {
+            isSupported = StringUtils.isNotEmpty(config.getDeviceId()) && null != config.getClientOsType();
+            if (isSupported) {
+                isSupported = config.getClientOsType() == 3 || StringUtils.isNotEmpty(config.getPackId());
+            }
+        }
         return isSupported;
     }
 

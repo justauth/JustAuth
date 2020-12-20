@@ -12,14 +12,17 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.GlobalAuthUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
+
 /**
  * 喜马拉雅登录
  *
  * @author zwzch (zwzch4j@gmail.com)
- * @since 1.15.8
+ * @since 1.15.9
  */
 public class AuthXmlyRequest extends AuthDefaultRequest {
 
@@ -89,7 +92,7 @@ public class AuthXmlyRequest extends AuthDefaultRequest {
     public AuthUser getUserInfo(AuthToken authToken) {
         Map<String, String> map = new TreeMap<>();
         map.put("app_key", config.getClientId());
-        map.put("client_os_type", "2");
+        map.put("client_os_type", Optional.ofNullable(config.getClientOsType()).orElse(3).toString());
         map.put("device_id", config.getDeviceId());
         map.put("pack_id", config.getPackId());
         map.put("access_token", authToken.getAccessToken());
@@ -113,7 +116,7 @@ public class AuthXmlyRequest extends AuthDefaultRequest {
      *
      * @param object 接口返回的结果
      */
-    private void checkResponse(JSONObject object){
+    private void checkResponse(JSONObject object) {
         if (object.containsKey("errcode")) {
             throw new AuthException(object.getIntValue("error_no"), object.getString("error_desc"));
         }

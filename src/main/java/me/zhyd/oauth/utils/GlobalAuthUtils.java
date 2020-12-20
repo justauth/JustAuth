@@ -227,6 +227,7 @@ public class GlobalAuthUtils {
      * @param params       加密参数
      * @param clientSecret 平台应用的授权key
      * @return Signature
+     * @since 1.15.9
      */
     public static String generateXmlySignature(Map<String, String> params, String clientSecret) {
         TreeMap<String, String> map = new TreeMap<>(params);

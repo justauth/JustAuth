@@ -1,3 +1,14 @@
+## 1.15.9
+
+### 2020/12/20
+
+- 发布 v1.15.9
+- PR
+    - 合并 [Github#101](https://gitee.com/yadong.zhang/JustAuth/pulls/101)
+- 修改
+    - 修改喜马拉雅配置参数，将`ClientOsType`参数提到 AuthConfig 中
+    - AuthChecker 中增加对喜马拉雅平台的校验
+
 ## 1.15.8
 
 ### 2020/10/25

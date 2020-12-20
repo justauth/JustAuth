@@ -6,7 +6,7 @@
 
   <groupId>me.zhyd.oauth</groupId>
   <artifactId>JustAuth</artifactId>
-  <version>1.15.8</version>
+  <version>1.15.9</version>
 
   <name>JustAuth</name>
   <url>https://gitee.com/yadong.zhang/JustAuth</url>
@@ -52,7 +52,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven-source.version>2.2.1</maven-source.version>
     <maven-compiler.version>3.8.1</maven-compiler.version>
-    <maven-javadoc.version>3.1.0</maven-javadoc.version>
+    <maven-javadoc.version>2.9.1</maven-javadoc.version>
     <cobertura-version>2.7</cobertura-version>
     <maven-surefire-version>2.20</maven-surefire-version>
     <maven-gpg-version>1.6</maven-gpg-version>
@@ -133,6 +133,10 @@
             <goals>
               <goal>jar</goal>
             </goals>
+            <configuration>
+              <!-- add this to disable checking -->
+              <additionalparam>-Xdoclint:none</additionalparam>
+            </configuration>
           </execution>
         </executions>
       </plugin>
