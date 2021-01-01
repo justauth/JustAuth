@@ -315,17 +315,17 @@ public enum AuthDefaultSource implements AuthSource {
     FACEBOOK {
         @Override
         public String authorize() {
-            return "https://www.facebook.com/v3.3/dialog/oauth";
+            return "https://www.facebook.com/v9.0/dialog/oauth";
         }
 
         @Override
         public String accessToken() {
-            return "https://graph.facebook.com/v3.3/oauth/access_token";
+            return "https://graph.facebook.com/v9.0/oauth/access_token";
         }
 
         @Override
         public String userInfo() {
-            return "https://graph.facebook.com/v3.3/me";
+            return "https://graph.facebook.com/v9.0/me";
         }
     },
     /**
