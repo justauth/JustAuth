@@ -3,6 +3,9 @@
 ### 2021/1/1
 
 - 发布 v1.15.9
+- 新增
+    - 修复并正式启用 飞书 平台的第三方登录
+    - AuthToken 类中新增 `refreshTokenExpireIn` 记录 refresh token 的有效期
 - PR
     - 合并 [Github #101](https://gitee.com/yadong.zhang/JustAuth/pulls/101)：支持喜马拉雅登录
     - 合并 [Github #105](https://gitee.com/yadong.zhang/JustAuth/pulls/105)：支持企业微信网页授权登录

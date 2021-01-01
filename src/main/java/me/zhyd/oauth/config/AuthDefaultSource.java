@@ -141,7 +141,7 @@ public enum AuthDefaultSource implements AuthSource {
     },
     /**
      * Coding，
-     *
+     * <p>
      * 参考 https://help.coding.net/docs/project/open/oauth.html#%E7%94%A8%E6%88%B7%E6%8E%88%E6%9D%83 中的说明，
      * 新版的 coding API 地址需要传入用户团队名，这儿使用动态参数，方便在 request 中使用
      */
@@ -730,30 +730,31 @@ public enum AuthDefaultSource implements AuthSource {
     },
 
     /**
-     * 飞书
-     * 注意：该平台暂时存在问题，请不要使用。待修复完成后会重新发版
+     * 飞书平台，企业自建应用授权登录，原逻辑由 beacon 集成于 1.14.0 版，但最新的飞书 api 已修改，并且飞书平台一直为 {@code Deprecated} 状态
+     * <p>
+     * 所以，最终修改该平台的实际发布版本为 1.15.9
      *
-     * @since 1.14.0
+     * @since 1.15.9
      */
     FEISHU {
         @Override
         public String authorize() {
-            return "https://open.feishu.cn/connect/qrconnect/page/sso/";
+            return "https://open.feishu.cn/open-apis/authen/v1/index";
         }
 
         @Override
         public String accessToken() {
-            return "https://open.feishu.cn/connect/qrconnect/oauth2/access_token/";
+            return "https://open.feishu.cn/open-apis/authen/v1/access_token";
         }
 
         @Override
         public String userInfo() {
-            return "https://open.feishu.cn/connect/qrconnect/oauth2/user_info/";
+            return "https://open.feishu.cn/open-apis/authen/v1/user_info";
         }
 
         @Override
         public String refresh() {
-            return "https://open.feishu.cn/connect/qrconnect/oauth2/access_token/";
+            return "https://open.feishu.cn/open-apis/authen/v1/refresh_access_token";
         }
     },
     /**
