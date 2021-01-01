@@ -561,7 +561,7 @@ public enum AuthDefaultSource implements AuthSource {
     },
 
     /**
-     * 企业微信扫描登录
+     * 企业微信二维码登录
      *
      * @since 1.10.0
      */

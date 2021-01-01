@@ -11,14 +11,15 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * </p>
  *
  * @author yangkai.shen (https://xkcoding.com)
+ * @author liguanhua(347826496(a)qq.com) 重构该类，将通用方法提取
  * @since 1.10.0
  */
-public class AuthWeChatEnterpriseRequest extends AbstractAuthWeChatEnterpriseRequest {
-    public AuthWeChatEnterpriseRequest(AuthConfig config) {
+public class AuthWeChatEnterpriseQrcodeRequest extends AbstractAuthWeChatEnterpriseRequest {
+    public AuthWeChatEnterpriseQrcodeRequest(AuthConfig config) {
         super(config, AuthDefaultSource.WECHAT_ENTERPRISE);
     }
 
-    public AuthWeChatEnterpriseRequest(AuthConfig config, AuthStateCache authStateCache) {
+    public AuthWeChatEnterpriseQrcodeRequest(AuthConfig config, AuthStateCache authStateCache) {
         super(config, AuthDefaultSource.WECHAT_ENTERPRISE, authStateCache);
     }
 
