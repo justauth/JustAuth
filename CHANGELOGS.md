@@ -1,10 +1,12 @@
 ## 1.15.9
 
-### 2020/12/20
+### 2021/1/1
 
 - 发布 v1.15.9
 - PR
-    - 合并 [Github#101](https://gitee.com/yadong.zhang/JustAuth/pulls/101)
+    - 合并 [Github #101](https://gitee.com/yadong.zhang/JustAuth/pulls/101)：支持喜马拉雅登录
+    - 合并 [Github #105](https://gitee.com/yadong.zhang/JustAuth/pulls/105)：支持企业微信网页授权登录
+    - 合并 [Github #107](https://gitee.com/yadong.zhang/JustAuth/pulls/107)：添加AuthAlipayRequest网络代理构造器
 - 修改
     - 修改喜马拉雅配置参数，将`ClientOsType`参数提到 AuthConfig 中
     - AuthChecker 中增加对喜马拉雅平台的校验
