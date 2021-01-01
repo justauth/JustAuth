@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * 企业自建应用授权范围
  *
- * @author liguanhua(347826496@qq.com)
+ * @author liguanhua (347826496(a)qq.com)
  * @since 1.15.9
  */
 @Getter

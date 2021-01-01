@@ -19,7 +19,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * 企业微信登录父类
  * </p>
  *
- * @author liguanhua(347826496@qq.com)
+ * @author liguanhua (347826496(a)qq.com)
  * @since 1.15.9
  */
 public abstract class AbstractAuthWeChatEnterpriseRequest extends AuthDefaultRequest {

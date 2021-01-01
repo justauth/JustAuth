@@ -11,7 +11,8 @@ import me.zhyd.oauth.utils.UrlBuilder;
  * </p>
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @author liguanhua(347826496(a)qq.com) 重构该类，将通用方法提取
+ * @author liguanhua (347826496(a)qq.com) 重构该类，将通用方法提取
+ * @author lyadong.zhang (yadong.zhang0415(a)gmail.com) 修改类名
  * @since 1.10.0
  */
 public class AuthWeChatEnterpriseQrcodeRequest extends AbstractAuthWeChatEnterpriseRequest {
