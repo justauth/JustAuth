@@ -561,7 +561,7 @@ public enum AuthDefaultSource implements AuthSource {
     },
 
     /**
-     * 企业微信
+     * 企业微信扫描登录
      *
      * @since 1.10.0
      */
@@ -569,6 +569,26 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String authorize() {
             return "https://open.work.weixin.qq.com/wwopen/sso/qrConnect";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://qyapi.weixin.qq.com/cgi-bin/gettoken";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo";
+        }
+    },
+
+    /**
+     * 企业微信网页登录
+     */
+    WECHAT_ENTERPRISE_WEB {
+        @Override
+        public String authorize() {
+            return "https://open.weixin.qq.com/connect/oauth2/authorize";
         }
 
         @Override
