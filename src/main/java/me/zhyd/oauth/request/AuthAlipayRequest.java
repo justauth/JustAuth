@@ -43,6 +43,12 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
             .getAlipayPublicKey(), "RSA2");
     }
 
+    public AuthAlipayRequest(AuthConfig config, AuthStateCache authStateCache, String proxyHost, Integer proxyPort) {
+        super(config, AuthDefaultSource.ALIPAY, authStateCache);
+        this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
+            "json", "UTF-8", config.getAlipayPublicKey(), "RSA2", proxyHost, proxyPort);
+    }
+
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest();
