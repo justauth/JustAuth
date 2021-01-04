@@ -14,7 +14,7 @@
     - 修改喜马拉雅配置参数，将`ClientOsType`参数提到 AuthConfig 中
     - AuthChecker 中增加对喜马拉雅平台的校验
     - 升级 facebook api 版本到 v9.0，解决 Gitee Issue [#I2AR5S](https://gitee.com/yadong.zhang/JustAuth/issues/I2AR5S)
-    - **！！！注意！！！**修改原来的企业微信 Request 类名为 `AuthWeChatEnterpriseQrcodeRequest`，升级后注意该点
+    - ！！！**注意**！！！修改原来的企业微信 Request 类名为 `AuthWeChatEnterpriseQrcodeRequest`，升级后注意该点
 
 注意：可能有些开发者对于 JA 集成的四个微信平台不太理解，这儿统一说明：
 - 按照类名
