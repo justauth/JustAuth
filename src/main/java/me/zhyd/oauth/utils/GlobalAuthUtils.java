@@ -222,7 +222,7 @@ public class GlobalAuthUtils {
 
     /**
      * 喜马拉雅签名算法
-     * https://open.ximalaya.com/doc/detailApi?categoryId=6&articleId=69
+     * {@code https://open.ximalaya.com/doc/detailApi?categoryId=6&articleId=69}
      *
      * @param params       加密参数
      * @param clientSecret 平台应用的授权key

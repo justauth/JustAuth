@@ -136,15 +136,15 @@ public class Log {
      * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
      * @since 1.10.0
      */
-    static class Config {
+    public static class Config {
 
         /**
          * 需要打印的日志级别
          */
-        static Level level = Level.DEBUG;
+        public static Level level = Level.DEBUG;
         /**
          * 是否启用日志打印功能，默认启用
          */
-        static boolean enable = true;
+        public static boolean enable = true;
     }
 }
