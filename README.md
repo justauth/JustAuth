@@ -20,8 +20,8 @@
 	<a target="_blank" href="https://justauth.wiki" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
 	</a>
-	<a href="https://codecov.io/gh/zhangyd-c/JustAuth">
-		<img src="https://codecov.io/gh/zhangyd-c/JustAuth/branch/master/graph/badge.svg" />
+	<a href="https://codecov.io/gh/justauth/JustAuth">
+		<img src="https://codecov.io/gh/justauth/JustAuth/branch/master/graph/badge.svg?token=zYiAqd9aFz" />
 	</a>
 	<a href='https://gitee.com/yadong.zhang/JustAuth/stargazers'>
 	  <img src='https://gitee.com/yadong.zhang/JustAuth/badge/star.svg?theme=white' alt='star'></img>
