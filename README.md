@@ -76,6 +76,8 @@
 
 -------------------------------------------------------------------------------
 
+[![Stargazers over time](https://whnb.wang/img/yadong.zhang/JustAuth?e=604800)](https://whnb.wang/yadong.zhang/JustAuth?e=604800)
+
 QQ 群：230017570    
 微信群：justauth （备注`justauth`或者`ja`）    
 帮助文档：[justauth.wiki](https://justauth.wiki)    
