@@ -76,8 +76,6 @@
 
 -------------------------------------------------------------------------------
 
-[![Stargazers over time](https://whnb.wang/img/yadong.zhang/JustAuth?e=604800)](https://whnb.wang/yadong.zhang/JustAuth?e=604800)
-
 QQ 群：230017570    
 微信群：justauth （备注`justauth`或者`ja`）    
 帮助文档：[justauth.wiki](https://justauth.wiki)    
@@ -190,3 +188,14 @@ authRequest.login(callback);
 - [CONTRIBUTORS](https://justauth.wiki/#/contributors)
 - [CHANGELOGS](https://justauth.wiki/#/update)
 - [PLAN](https://gitee.com/yadong.zhang/JustAuth/issues/IUGRK)
+
+## Stars 趋势
+
+### Gitee
+
+[![Stargazers over time](https://whnb.wang/img/yadong.zhang/JustAuth?e=604800)](https://whnb.wang/yadong.zhang/JustAuth?e=604800)
+
+### Github
+
+[![Stargazers over time](https://starchart.cc/justauth/JustAuth.svg)](https://starchart.cc/justauth/JustAuth)
+
