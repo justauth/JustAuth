@@ -10,7 +10,7 @@ assignees: ''
 
 - [ ] I have searched the relevant information in the existing list of Issues.
 - [ ] I have searched the developer documentation for that information: https://justauth.wiki
-- [ ] I have read the relevant Q&A: https://justauth.wiki/#/Q&A
+- [ ] I have read the relevant Q&A: https://justauth.wiki
 
 ## Issue description
 
