@@ -135,6 +135,9 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+            <additionalparam>${javadoc.opts}</additionalparam>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
