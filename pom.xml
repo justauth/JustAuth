@@ -135,6 +135,9 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+            <additionalparam>${javadoc.opts}</additionalparam>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -259,6 +262,16 @@
           <url>https://nexus.xkcoding.com/repository/maven-snapshots/</url>
         </snapshotRepository>
       </distributionManagement>
+    </profile>
+    <!-- 禁用 Javadoc 注释检查 -->
+    <profile>
+        <id>disable-javadoc-doclint</id>
+        <activation>
+            <jdk>[1.8,)</jdk>
+        </activation>
+        <properties>
+            <javadoc.opts>-Xdoclint:none</javadoc.opts>
+        </properties>
     </profile>
   </profiles>
 </project>
