@@ -8,7 +8,6 @@ import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
  * 阿里云登录
@@ -31,12 +30,12 @@ public class AuthAliyunRequest extends AuthDefaultRequest {
         String response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         return AuthToken.builder()
-                .accessToken(accessTokenObject.getString("access_token"))
-                .expireIn(accessTokenObject.getIntValue("expires_in"))
-                .tokenType(accessTokenObject.getString("token_type"))
-                .idToken(accessTokenObject.getString("id_token"))
-                .refreshToken(accessTokenObject.getString("refresh_token"))
-                .build();
+            .accessToken(accessTokenObject.getString("access_token"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .tokenType(accessTokenObject.getString("token_type"))
+            .idToken(accessTokenObject.getString("id_token"))
+            .refreshToken(accessTokenObject.getString("refresh_token"))
+            .build();
     }
 
     @Override
