@@ -832,5 +832,32 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://oauth.aliyun.com/v1/token";
         }
+    },
+
+    /**
+     * Amazon
+     *
+     * @since 1.16.0
+     */
+    AMAZON {
+        @Override
+        public String authorize() {
+            return "https://www.amazon.com/ap/oa";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://api.amazon.com/auth/o2/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.amazon.com/user/profile";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://api.amazon.com/auth/o2/token";
+        }
     }
 }

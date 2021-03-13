@@ -131,4 +131,11 @@ public class AuthConfig {
      * @since 1.15.9
      */
     private String packId;
+
+    /**
+     * 是否开启 PKCE 模式，该配置仅用于支持 PKCE 模式的平台，针对无服务应用，不推荐使用隐式授权，推荐使用 PKCE 模式
+     *
+     * @since 1.16.0
+     */
+    private boolean pkce;
 }
