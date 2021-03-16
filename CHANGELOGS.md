@@ -1,11 +1,13 @@
-## 1.15.9
+## 1.16.0
 
-### 2021/3/13
+### 2021/3/xx
 
 - 集成 Amazon 平台（[www.amazon.com](https://www.amazon.com)）的登录
 - 修改 `AuthFacebookScope` 中的默认 scope，解决 justauth-demo 项目中使用 facebook 报错的问题
 - 升级 facebook 的 api 到 v10.0 版本
 - 优化部分代码
+
+## 1.15.9
 
 ### 2021/1/1
 
