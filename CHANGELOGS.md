@@ -15,7 +15,8 @@
   - 优化 Map 声明时的初始容量，避免频繁扩容
   - 更新 README 文档
 - PR
-  - 合并 [Github #110](https://github.com/justauth/JustAuth/pull/110) ：增加全局日志配置类
+  - 合并 [Github #110](https://github.com/justauth/JustAuth/pull/110) 
+  - 合并 [Gitee #22](https://gitee.com/yadong.zhang/JustAuth/pulls/22) 
 
 ## 1.15.9
 
