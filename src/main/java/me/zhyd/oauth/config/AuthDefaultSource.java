@@ -878,5 +878,69 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://api.amazon.com/auth/o2/token";
         }
+    },
+    /**
+     * Slack
+     *
+     * @since 1.16.0
+     */
+    SLACK {
+        @Override
+        public String authorize() {
+            return "https://slack.com/oauth/v2/authorize";
+        }
+
+        /**
+         * 该 API 获取到的是 access token
+         *
+         * https://slack.com/api/oauth.token 获取到的是 workspace token
+         *
+         * @return String
+         */
+        @Override
+        public String accessToken() {
+            return "https://slack.com/api/oauth.v2.access";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://slack.com/api/users.info";
+        }
+
+        @Override
+        public String revoke() {
+            return "https://slack.com/api/auth.revoke";
+        }
+    },
+    /**
+     * line
+     *
+     * @since 1.16.0
+     */
+    LINE {
+        @Override
+        public String authorize() {
+            return "https://access.line.me/oauth2/v2.1/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://api.line.me/oauth2/v2.1/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.line.me/v2/profile";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://api.line.me/oauth2/v2.1/token";
+        }
+
+        @Override
+        public String revoke() {
+            return "https://api.line.me/oauth2/v2.1/revoke";
+        }
     }
 }
