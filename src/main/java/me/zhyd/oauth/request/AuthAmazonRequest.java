@@ -78,7 +78,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
      */
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        Map<String, String> form = new HashMap<>(8);
+        Map<String, String> form = new HashMap<>(9);
         form.put("grant_type", "authorization_code");
         form.put("code", authCallback.getCode());
         form.put("redirect_uri", config.getRedirectUri());
@@ -95,7 +95,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
 
     @Override
     public AuthResponse refresh(AuthToken authToken) {
-        Map<String, String> form = new HashMap<>(6);
+        Map<String, String> form = new HashMap<>(7);
         form.put("grant_type", "refresh_token");
         form.put("refresh_token", authToken.getRefreshToken());
         form.put("client_id", config.getClientId());

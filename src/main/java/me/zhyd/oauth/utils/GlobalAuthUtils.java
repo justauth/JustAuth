@@ -101,15 +101,18 @@ public class GlobalAuthUtils {
      * @return map
      */
     public static Map<String, String> parseStringToMap(String accessTokenStr) {
-        Map<String, String> res = new HashMap<>(6);
+        Map<String, String> res = null;
         if (accessTokenStr.contains("&")) {
             String[] fields = accessTokenStr.split("&");
+            res = new HashMap<>((int) (fields.length / 0.75 + 1));
             for (String field : fields) {
                 if (field.contains("=")) {
                     String[] keyValue = field.split("=");
                     res.put(GlobalAuthUtils.urlDecode(keyValue[0]), keyValue.length == 2 ? GlobalAuthUtils.urlDecode(keyValue[1]) : null);
                 }
             }
+        } else {
+            res = new HashMap<>(0);
         }
         return res;
     }

@@ -102,7 +102,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
         httpHeader.add("Authorization", header);
         httpHeader.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded");
 
-        Map<String, String> form = new HashMap<>(1);
+        Map<String, String> form = new HashMap<>(3);
         form.put("oauth_verifier", authCallback.getOauth_verifier());
         String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), form, httpHeader, false);
 
@@ -118,7 +118,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        Map<String, String> queryParams = new HashMap<>();
+        Map<String, String> queryParams = new HashMap<>(5);
         queryParams.put("user_id", authToken.getUserId());
         queryParams.put("screen_name", authToken.getScreenName());
         queryParams.put("include_entities", Boolean.toString(true));
@@ -162,7 +162,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
     }
 
     private Map<String, String> buildOauthParams() {
-        Map<String, String> params = new HashMap<>(5);
+        Map<String, String> params = new HashMap<>(12);
         params.put("oauth_consumer_key", config.getClientId());
         params.put("oauth_nonce", GlobalAuthUtils.generateNonce(32));
         params.put("oauth_signature_method", "HMAC-SHA1");

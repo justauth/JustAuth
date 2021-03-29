@@ -47,7 +47,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
      */
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        Map<String, String> form = new HashMap<>(5);
+        Map<String, String> form = new HashMap<>(8);
         form.put("grant_type", "authorization_code");
         form.put("code", authCallback.getAuthorization_code());
         form.put("client_id", config.getClientId());
@@ -67,7 +67,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
      */
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
-        Map<String, String> form = new HashMap<>(4);
+        Map<String, String> form = new HashMap<>(7);
         form.put("nsp_ts", System.currentTimeMillis() + "");
         form.put("access_token", authToken.getAccessToken());
         form.put("nsp_fmt", "JS");
@@ -100,7 +100,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
      */
     @Override
     public AuthResponse refresh(AuthToken authToken) {
-        Map<String, String> form = new HashMap<>(4);
+        Map<String, String> form = new HashMap<>(7);
         form.put("client_id", config.getClientId());
         form.put("client_secret", config.getClientSecret());
         form.put("refresh_token", authToken.getRefreshToken());

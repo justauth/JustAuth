@@ -41,7 +41,7 @@ public class AuthJdRequest extends AuthDefaultRequest {
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
 
-        Map<String, String> params = new HashMap<>(5);
+        Map<String, String> params = new HashMap<>(7);
         params.put("app_key", config.getClientId());
         params.put("app_secret", config.getClientSecret());
         params.put("grant_type", "authorization_code");
@@ -104,7 +104,7 @@ public class AuthJdRequest extends AuthDefaultRequest {
 
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
-        Map<String, String> params = new HashMap<>(5);
+        Map<String, String> params = new HashMap<>(7);
         params.put("app_key", config.getClientId());
         params.put("app_secret", config.getClientSecret());
         params.put("grant_type", "refresh_token");
