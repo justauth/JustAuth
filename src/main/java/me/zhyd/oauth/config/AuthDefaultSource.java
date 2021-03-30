@@ -942,5 +942,38 @@ public enum AuthDefaultSource implements AuthSource {
         public String revoke() {
             return "https://api.line.me/oauth2/v2.1/revoke";
         }
-    }
+    },
+    /**
+     * Okta，
+     * <p>
+     * 团队/组织的域名不同，此处通过配置动态组装
+     *
+     * @since 1.16.0
+     */
+    OKTA {
+        @Override
+        public String authorize() {
+            return "https://%s.okta.com/oauth2/%s/v1/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://%s.okta.com/oauth2/%s/v1/token";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://%s.okta.com/oauth2/%s/v1/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://%s.okta.com/oauth2/%s/v1/userinfo";
+        }
+
+        @Override
+        public String revoke() {
+            return "https://%s.okta.com/oauth2/%s/v1/revoke";
+        }
+    },
 }

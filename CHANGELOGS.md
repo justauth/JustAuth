@@ -7,8 +7,10 @@
   - 集成 Amazon 平台登录
   - 集成 Slack 平台登录
   - 集成 LINE 平台登录
+  - 集成 Okta 平台登录
   - 集成钉钉账号登录
 - 修改 
+  - 【**重要**】 `AuthConfig`中的`codingGroupName`参数更名为`domainPrefix`，针对此类平台提供通用的配置。
   - 修改 `AuthFacebookScope` 中的默认 scope，解决 justauth-demo 项目中使用 facebook 报错的问题
   - 升级 facebook 的 api 到 v10.0 版本
   - 优化部分代码
