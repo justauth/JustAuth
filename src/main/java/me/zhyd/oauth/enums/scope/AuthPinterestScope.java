@@ -23,8 +23,8 @@ public enum AuthPinterestScope implements AuthScope {
     WRITE_RELATIONSHIPS("write_relationships", "Use PATCH, POST and DELETE methods on a user’s follows and followers (on boards, users and interests).", false),
     ;
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

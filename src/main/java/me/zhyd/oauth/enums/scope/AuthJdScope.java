@@ -19,8 +19,8 @@ public enum AuthJdScope implements AuthScope {
      */
     SNSAPI_BASE("snsapi_base", "基础授权", true);
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

@@ -36,8 +36,8 @@ public enum AuthLinkedinScope implements AuthScope {
     W_ORGANIZATION_SOCIAL("w_organization_social", "Post, comment and like posts on your organization's behalf", false),
     W_SHARE("w_share", "Post updates to LinkedIn as you", false);
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

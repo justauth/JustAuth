@@ -30,8 +30,8 @@ public enum AuthGitlabScope implements AuthScope {
     API("api", "Grants complete read/write access to the API, including all groups and projects, the container registry, and the package registry.", false),
     ;
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

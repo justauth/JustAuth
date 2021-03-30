@@ -24,8 +24,8 @@ public enum AuthCodingScope implements AuthScope {
     PROJECT_DEPOT("project:depot", "完整的仓库控制权限", false),
     PROJECT_WIKI("project:wiki", "授权读取与操作 wiki", false),
     ;
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

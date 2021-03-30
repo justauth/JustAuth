@@ -28,8 +28,8 @@ public enum AuthQqScope implements AuthScope {
     ADD_ALBUM("add_album", "在用户的空间相册里，创建一个新的个人相册", false),
     LIST_PHOTO("list_photo", "获取用户QQ空间相册中的照片列表", false);
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

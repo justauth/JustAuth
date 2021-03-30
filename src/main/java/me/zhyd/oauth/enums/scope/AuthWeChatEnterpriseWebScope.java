@@ -17,8 +17,8 @@ public enum AuthWeChatEnterpriseWebScope implements AuthScope {
      */
     SNSAPI_BASE("snsapi_base", "应用授权作用域。企业自建应用固定填写：snsapi_base", true);
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

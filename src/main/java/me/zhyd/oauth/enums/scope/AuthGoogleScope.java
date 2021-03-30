@@ -281,9 +281,9 @@ public enum AuthGoogleScope implements AuthScope {
     ADEXCHANGE_BUYER("https://www.googleapis.com/auth/adexchange.buyer", "Manage your Ad Exchange buyer account configuration", false),
     ;
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 
     public static List<String> getAdminDirectoryScopes() {

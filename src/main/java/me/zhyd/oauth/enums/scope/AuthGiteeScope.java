@@ -29,8 +29,8 @@ public enum AuthGiteeScope implements AuthScope {
     ENTERPRISES("enterprises", "查看、管理用户的企业以及成员", false),
     EMAILS("emails", "查看用户的个人邮箱信息", false);
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

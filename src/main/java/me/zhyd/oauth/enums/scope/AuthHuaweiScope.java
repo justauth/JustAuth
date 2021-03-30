@@ -39,8 +39,8 @@ public enum AuthHuaweiScope implements AuthScope {
 
     ;
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

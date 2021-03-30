@@ -22,8 +22,8 @@ public enum AuthStackoverflowScope implements AuthScope {
     WRITE_ACCESS("write_access", "perform write operations as a user", false),
     PRIVATE_INFO("private_info", "access full history of a user's private actions on the site", false);
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

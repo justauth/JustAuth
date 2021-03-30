@@ -27,8 +27,8 @@ public enum AuthWeiboScope implements AuthScope {
     STATUSES_TO_ME_READ("statuses_to_me_read", "定向微博读取接口组，<a rel=\"nofollow\" href=\"http://open.weibo.com/wiki/API%E6%96%87%E6%A1%A3_V2#.E5.BE.AE.E5.8D.9A\">接口文档</a>", false),
     FOLLOW_APP_OFFICIAL_MICROBLOG("follow_app_official_microblog", "关注应用官方微博，该参数不对应具体接口，只需在应用控制台填写官方帐号即可。填写的路径：我的应用-选择自己的应用-应用信息-基本信息-官方运营账号（默认值是应用开发者帐号）", false);
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

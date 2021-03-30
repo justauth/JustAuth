@@ -47,8 +47,8 @@ public enum AuthGithubScope implements AuthScope {
     READ_GPG_KEY("read:gpg_key", "List and view details for GPG keys.", false),
     WORKFLOW("workflow", "Grants the ability to add and update GitHub Actions workflow files. Workflow files can be committed without this scope if the same file (with both the same path and contents) exists on another branch in the same repository.", false),
     ;
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

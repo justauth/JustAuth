@@ -23,8 +23,8 @@ public enum AuthBaiduScope implements AuthScope {
     PUBLIC("public", "可以访问公共的开放API。", false),
     HAO123("hao123", "可以访问Hao123 提供的开放API接口。该权限需要申请开通，请将具体的理由和用途发邮件给tuangou@baidu.com。", false);
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

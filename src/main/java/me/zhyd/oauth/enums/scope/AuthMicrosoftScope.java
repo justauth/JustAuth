@@ -60,8 +60,8 @@ public enum AuthMicrosoftScope implements AuthScope {
     NOTES_READWRITE_ALL("Notes.ReadWrite.All", "允许应用读取、共享和修改已登录用户在组织中有权访问的 OneNote 笔记本", false),
     ;
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

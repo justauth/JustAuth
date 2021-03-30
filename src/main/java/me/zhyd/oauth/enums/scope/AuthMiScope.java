@@ -21,8 +21,8 @@ public enum AuthMiScope implements AuthScope {
     OPENID("user/openIdV2", "获取用户的OpenID", true),
     PHONE_EMAIL("user/phoneAndEmail", "获取用户的手机号和邮箱", true);
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

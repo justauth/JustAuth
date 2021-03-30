@@ -48,8 +48,8 @@ public enum AuthRenrenScope implements AuthScope {
     ADMIN_PAGE("admin_page", "以用户的身份，管理其可以管理的公共主页的权限。", false),
     ;
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }

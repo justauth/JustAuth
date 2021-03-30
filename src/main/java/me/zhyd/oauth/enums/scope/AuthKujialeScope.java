@@ -21,8 +21,8 @@ public enum AuthKujialeScope implements AuthScope {
     GET_DESIGN("get_design", "获取指定方案详情", false),
     GET_BUDGET_LIST("get_budget_list", "获取清单预算概览数据", false);
 
-    private String scope;
-    private String description;
-    private boolean isDefault;
+    private final String scope;
+    private final String description;
+    private final boolean isDefault;
 
 }
