@@ -35,8 +35,8 @@ public class AuthChecker {
         if (isSupported && AuthDefaultSource.WECHAT_ENTERPRISE == source) {
             isSupported = StringUtils.isNotEmpty(config.getAgentId());
         }
-        if (isSupported && AuthDefaultSource.CODING == source) {
-            isSupported = StringUtils.isNotEmpty(config.getCodingGroupName());
+        if (isSupported && (AuthDefaultSource.CODING == source || AuthDefaultSource.OKTA == source)) {
+            isSupported = StringUtils.isNotEmpty(config.getDomainPrefix());
         }
         if (isSupported && AuthDefaultSource.XMLY == source) {
             isSupported = StringUtils.isNotEmpty(config.getDeviceId()) && null != config.getClientOsType();
