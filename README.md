@@ -151,7 +151,7 @@ authRequest.login(callback);
 - [CHANGELOGS](https://justauth.wiki/update.html)
 - [PLAN](https://gitee.com/yadong.zhang/JustAuth/issues/IUGRK)
 
-## 👪 贡献者列表
+## 贡献者列表
 
 [![contributors](https://whnb.wang/contributors/yadong.zhang/JustAuth)](https://whnb.wang)
 
