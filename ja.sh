@@ -21,6 +21,9 @@ case "$1" in
   'p')
     bin/push.sh
 	;;
+  'd')
+    bin/deploy.sh
+	;;
   *)
     help
 esac
