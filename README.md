@@ -130,9 +130,10 @@ authRequest.login(callback);
 ![](docs/users/4ca0177c.png)
 
 
-怎么没有我？[加入]()
+怎么没有我？[登记](https://gitee.com/yadong.zhang/JustAuth/issues/IZ2T7)
 
 ## 开源推荐
+- `JAP` 开源的登录认证中间件: [https://gitee.com/fujieid/jap](https://gitee.com/fujieid/jap)
 - `spring-boot-demo` 深度学习并实战 spring boot 的项目: [https://github.com/xkcoding/spring-boot-demo](https://github.com/xkcoding/spring-boot-demo)
 - `mica` SpringBoot 微服务高效开发工具集: [https://github.com/lets-mica/mica](https://github.com/lets-mica/mica)
 - `pig` 微服务认证授权脚手架(架构师必备): [https://gitee.com/log4j/pig](https://gitee.com/log4j/pig)
