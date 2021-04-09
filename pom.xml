@@ -60,7 +60,7 @@
     <simple-http.version>1.0.3</simple-http.version>
     <lombok-version>1.18.10</lombok-version>
     <junit-version>4.13.1</junit-version>
-    <fastjson-version>1.2.73</fastjson-version>
+    <fastjson-version>1.2.76</fastjson-version>
     <alipay-sdk-version>4.8.10.ALL</alipay-sdk-version>
     <jacoco-version>0.8.2</jacoco-version>
   </properties>
