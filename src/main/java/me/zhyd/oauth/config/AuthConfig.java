@@ -155,6 +155,13 @@ public class AuthConfig {
      * @since 1.16.0
      */
     private String authServerId;
+    /**
+     * 忽略校验 {@code redirectUri} 参数，默认不开启。当 {@code ignoreCheckRedirectUri} 为 {@code true} 时，
+     * {@link me.zhyd.oauth.utils.AuthChecker#checkConfig(AuthConfig, AuthSource)} 将不会校验 {@code redirectUri} 的合法性。
+     *
+     * @since 1.16.1
+     */
+    private boolean ignoreCheckRedirectUri;
 
     /**
      * 适配 builder 模式 set 值的情况
