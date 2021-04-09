@@ -149,7 +149,7 @@ public class GlobalAuthUtils {
         if (StringUtils.isEmpty(url)) {
             return false;
         }
-        return url.startsWith("http://");
+        return url.startsWith("http://") || url.startsWith("http%3A%2F%2F");
     }
 
     /**
@@ -162,7 +162,7 @@ public class GlobalAuthUtils {
         if (StringUtils.isEmpty(url)) {
             return false;
         }
-        return url.startsWith("https://");
+        return url.startsWith("https://") || url.startsWith("https%3A%2F%2F");
     }
 
     /**
