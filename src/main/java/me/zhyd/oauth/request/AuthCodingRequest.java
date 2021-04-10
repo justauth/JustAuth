@@ -14,7 +14,7 @@ import me.zhyd.oauth.utils.AuthScopeUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
- * Cooding登录
+ * Coding登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @since 1.0.0
