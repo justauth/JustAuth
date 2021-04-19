@@ -1,6 +1,6 @@
 ## 1.16.1
 
-### 2021/4/*
+### 2021/4/19
 
 - 发布 v1.16.1
 - Fix Github issue [#114](https://github.com/justauth/JustAuth/issues/114): 解决企业微信授权后,回调地址中原有的参数丢失的问题
