@@ -6,6 +6,7 @@
 - Fix Github issue [#114](https://github.com/justauth/JustAuth/issues/114): 解决企业微信授权后,回调地址中原有的参数丢失的问题
 - Fix Github issue [#82](https://github.com/justauth/JustAuth/issues/82): 抖音平台支持自定义 scope
 - Fix Github issue [#92](https://github.com/justauth/JustAuth/issues/92): 增加忽略校验 redirectUri 的配置
+- Merge Github PR [#115](https://github.com/justauth/JustAuth/pull/115)
 - 升级 `fastjson` 到 `v1.2.76`
   
 ## 1.16.0
