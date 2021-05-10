@@ -138,7 +138,7 @@ authRequest.login(callback);
 - `mica` SpringBoot 微服务高效开发工具集: [https://github.com/lets-mica/mica](https://github.com/lets-mica/mica)
 - `pig` 微服务认证授权脚手架(架构师必备): [https://gitee.com/log4j/pig](https://gitee.com/log4j/pig)
 - `SpringBlade` 完整的线上解决方案（企业开发必备）: [https://gitee.com/smallc/SpringBlade](https://gitee.com/smallc/SpringBlade)
-- `MaxKey` MaxKey单点登录认证系统是业界领先的企业级IAM身份管理和认证产品,使用JustAuth集成OAuth第三方认证。: [maxkey.top](https://www.maxkey.top/)
+- `MaxKey` MaxKey单点登录认证系统是业界领先的企业级IAM身份管理和认证产品: [maxkey.top](https://www.maxkey.top/)
 - `YurunOAuthLogin` PHP 第三方登录授权 SDK：[YurunOAuthLogin](https://gitee.com/yurunsoft/YurunOAuthLogin)
 - `sureness` 面向restful api的高性能认证鉴权框架：[sureness](https://github.com/usthe/sureness)
 
