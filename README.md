@@ -139,7 +139,7 @@ authRequest.login(callback);
 - `mica` SpringBoot 微服务高效开发工具集: [https://github.com/lets-mica/mica](https://github.com/lets-mica/mica)
 - `sureness` 面向restful api的高性能认证鉴权框架：[sureness](https://github.com/usthe/sureness)
   
-更多推荐，请参考：[https://justauth.wiki](https://justauth.wiki)
+更多推荐，请参考：[JustAuth - 开源推荐](https://justauth.wiki)
 
 ## 鸣谢
 
