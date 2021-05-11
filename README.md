@@ -123,7 +123,7 @@ authRequest.login(callback);
 
 感谢以下赞助商的支持：
 
-<a href="https://www.duohui.cn?utm_source=justauth" target="_blank"><img src="https://docs.duohui.cn/brand_source/img/std.svg" alt="多会 - 专业活动管理系统" style="height: 54px;" height="54px" /></a>
+[我要赞助](https://justauth.wiki/sponsor.html)
 
 ## JustAuth 的用户
 有很多公司、组织和个人把 JustAuth 用于学习、研究、生产环境和商业产品中，包括（但不限于）：
@@ -133,20 +133,24 @@ authRequest.login(callback);
 怎么没有我？[登记](https://gitee.com/yadong.zhang/JustAuth/issues/IZ2T7)
 
 ## 开源推荐
+
 - `JAP` 开源的登录认证中间件: [https://gitee.com/fujieid/jap](https://gitee.com/fujieid/jap)
 - `spring-boot-demo` 深度学习并实战 spring boot 的项目: [https://github.com/xkcoding/spring-boot-demo](https://github.com/xkcoding/spring-boot-demo)
 - `mica` SpringBoot 微服务高效开发工具集: [https://github.com/lets-mica/mica](https://github.com/lets-mica/mica)
-- `pig` 微服务认证授权脚手架(架构师必备): [https://gitee.com/log4j/pig](https://gitee.com/log4j/pig)
-- `SpringBlade` 完整的线上解决方案（企业开发必备）: [https://gitee.com/smallc/SpringBlade](https://gitee.com/smallc/SpringBlade)
-- `MaxKey` MaxKey单点登录认证系统是业界领先的企业级IAM身份管理和认证产品: [maxkey.top](https://www.maxkey.top/)
-- `YurunOAuthLogin` PHP 第三方登录授权 SDK：[YurunOAuthLogin](https://gitee.com/yurunsoft/YurunOAuthLogin)
 - `sureness` 面向restful api的高性能认证鉴权框架：[sureness](https://github.com/usthe/sureness)
+  
+更多推荐，请参考：[https://justauth.wiki](https://justauth.wiki)
 
 ## 鸣谢
+
 - 感谢 JetBrains 提供的免费开源 License：
+
+<p>
 <img src="https://images.gitee.com/uploads/images/2020/0406/220236_f5275c90_5531506.png" alt="图片引用自lets-mica" style="float:left;">
+</p>
 
 ## 其他
+
 - [CONTRIBUTORS](https://justauth.wiki/contributors.html)
 - [CHANGELOGS](https://justauth.wiki/update.html)
 - [PLAN](https://gitee.com/yadong.zhang/JustAuth/issues/IUGRK)
