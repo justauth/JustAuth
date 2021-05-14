@@ -35,7 +35,7 @@ public abstract class AbstractAuthWeChatEnterpriseRequest extends AuthDefaultReq
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        String response = doGetAuthorizationCode(accessTokenUrl(authCallback.getCode()));
+        String response = doGetAuthorizationCode(accessTokenUrl(null));
 
         JSONObject object = this.checkResponse(response);
 
