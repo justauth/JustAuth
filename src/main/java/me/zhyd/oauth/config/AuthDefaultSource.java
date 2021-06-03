@@ -976,4 +976,25 @@ public enum AuthDefaultSource implements AuthSource {
             return "https://%s.okta.com/oauth2/%s/v1/revoke";
         }
     },
+    /**
+     * 程序员客栈
+     *
+     * @since 1.16.2
+     */
+    PROGINN {
+        @Override
+        public String authorize() {
+            return "https://www.proginn.com/oauth2/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://www.proginn.com/oauth2/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://www.proginn.com/openapi/user/basic_info";
+        }
+    },
 }
