@@ -744,7 +744,7 @@ public enum AuthDefaultSource implements AuthSource {
 
         @Override
         public String userInfo() {
-            return "https://api.twitter.com/1.1/users/show.json";
+            return "https://api.twitter.com/1.1/account/verify_credentials.json";
         }
     },
 

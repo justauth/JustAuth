@@ -1,7 +1,6 @@
 package me.zhyd.oauth.request;
 
 import com.alibaba.fastjson.JSONObject;
-import me.zhyd.oauth.utils.HttpUtils;
 import com.xkcoding.http.constants.Constants;
 import com.xkcoding.http.support.HttpHeader;
 import com.xkcoding.http.util.MapUtil;
@@ -11,6 +10,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.GlobalAuthUtils;
+import me.zhyd.oauth.utils.HttpUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.HashMap;
@@ -47,7 +47,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
      */
     @Override
     public String authorize(String state) {
-        AuthToken token  = this.getRequestToken();
+        AuthToken token = this.getRequestToken();
         return UrlBuilder.fromBaseUrl(source.authorize())
             .queryParam("oauth_token", token.getOauthToken())
             .build();
@@ -119,17 +119,15 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
     @Override
     protected AuthUser getUserInfo(AuthToken authToken) {
         Map<String, String> queryParams = new HashMap<>(5);
-        queryParams.put("user_id", authToken.getUserId());
-        queryParams.put("screen_name", authToken.getScreenName());
         queryParams.put("include_entities", Boolean.toString(true));
+        queryParams.put("include_email", Boolean.toString(true));
 
         Map<String, String> oauthParams = buildOauthParams();
         oauthParams.put("oauth_token", authToken.getOauthToken());
 
         Map<String, String> params = new HashMap<>(oauthParams);
         params.putAll(queryParams);
-        oauthParams.put("oauth_signature", generateTwitterSignature(params, "GET", source.userInfo(), config.getClientSecret(), authToken
-            .getOauthTokenSecret()));
+        oauthParams.put("oauth_signature", generateTwitterSignature(params, "GET", source.userInfo(), config.getClientSecret(), authToken.getOauthTokenSecret()));
         String header = buildHeader(oauthParams);
 
         HttpHeader httpHeader = new HttpHeader();
@@ -147,6 +145,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
             .blog(userInfo.getString("url"))
             .location(userInfo.getString("location"))
             .avatar(userInfo.getString("profile_image_url"))
+            .email(userInfo.getString("email"))
             .source(source.toString())
             .token(authToken)
             .build();
@@ -155,9 +154,8 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
     @Override
     protected String userInfoUrl(AuthToken authToken) {
         return UrlBuilder.fromBaseUrl(source.userInfo())
-            .queryParam("user_id", authToken.getUserId())
-            .queryParam("screen_name", authToken.getScreenName())
             .queryParam("include_entities", true)
+            .queryParam("include_email", true)
             .build();
     }
 
