@@ -145,7 +145,7 @@ public class GlobalAuthUtilsTest {
         oauthParams.forEach((k, v) -> oauthParams.put(k, "\"" + GlobalAuthUtils.urlEncode(v) + "\""));
 
         String actual = "OAuth " + GlobalAuthUtils.parseMapToString(oauthParams, false).replaceAll("&", ", ");
-        assertEquals("OAuth oauth_nonce=\"sTj7Ivg73u052eXstpoS1AWQCynuDEPN\", oauth_signature=\"yHHq2J1W5QLAO8gGipnY1V%2Bzxqk%3D\", oauth_token=\"1961977975-PcFQaCnpN9h9xqtqHwHlpGBXFrHJ9bOLy7OtGAL\", oauth_consumer_key=\"HD0XLqzi5Wz0G08rh45Cg8mgh\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"1569751082\", oauth_version=\"1.0\"", actual);
+        assertEquals("OAuth oauth_nonce=\"sTj7Ivg73u052eXstpoS1AWQCynuDEPN\", oauth_signature=\"OsqHjRmBf7syxlz8lB7MRdzqEjY%3D\", oauth_token=\"1961977975-PcFQaCnpN9h9xqtqHwHlpGBXFrHJ9bOLy7OtGAL\", oauth_consumer_key=\"HD0XLqzi5Wz0G08rh45Cg8mgh\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"1569751082\", oauth_version=\"1.0\"", actual);
     }
 
     @Test
@@ -200,7 +200,7 @@ public class GlobalAuthUtilsTest {
         queryParams.put("name", "你好");
         queryParams.put("gender", "male");
 
-        assertEquals("J6MAQH1kcgUdj2jmygN3rdfI4lo=", GlobalAuthUtils.generateTwitterSignature(queryParams, "GET", TWITTER.userInfo(), "xxxxx", "xxxxx"));
+        assertEquals("20FYnV2aZnxNQtp+I0tpMRTvcx0=", GlobalAuthUtils.generateTwitterSignature(queryParams, "GET", TWITTER.userInfo(), "xxxxx", "xxxxx"));
     }
 
     @Test
