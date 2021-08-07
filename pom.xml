@@ -158,6 +158,15 @@
   </build>
   <profiles>
     <profile>
+      <id>snapshot</id>
+      <distributionManagement>
+        <snapshotRepository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+      </distributionManagement>
+    </profile>
+    <profile>
       <id>release</id>
       <build>
         <plugins>
@@ -222,10 +231,6 @@
           </plugins>
       </build>
       <distributionManagement>
-        <snapshotRepository>
-          <id>sonatype-nexus-snapshots</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
         <repository>
           <id>sonatype-nexus-staging</id>
           <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
