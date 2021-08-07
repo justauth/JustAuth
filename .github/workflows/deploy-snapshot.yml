@@ -1,0 +1,44 @@
+name: Deploy SNAPSHOT
+
+on: 
+  push:
+    branches: [ dev ]
+    paths:
+      - src/**
+      - pom.xml
+  pull_request:
+    branches: [ dev ]
+    paths:
+      - src/**
+      - pom.xml
+
+jobs:
+  get-latest-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.2.0
+      - name: Set up Java and Maven
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+          server-id: ossrh
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+      - name: Cache m2 package
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: get current project version to set env.VERSION
+        run: echo "VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`" >> $GITHUB_ENV
+      - name: set snapshot version
+        if: ${{ !endsWith( env.VERSION , '-SNAPSHOT') }} 
+        run: mvn versions:set -DnewVersion=${{ env.VERSION }}-SNAPSHOT
+      - name: deploy snapshot to ossrh repository
+        run: mvn -B deploy -P snapshot
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
