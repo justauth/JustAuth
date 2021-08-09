@@ -1,5 +1,12 @@
 package me.zhyd.oauth.config;
 
+import me.zhyd.oauth.cache.AuthStateCache;
+import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.request.AuthExtendRequest;
+import me.zhyd.oauth.request.AuthRequest;
+
+import java.lang.reflect.Constructor;
+
 /**
  * 测试自定义实现{@link AuthSource}接口后的枚举类
  *
@@ -38,6 +45,32 @@ public enum AuthExtendSource implements AuthSource {
         @Override
         public String userInfo() {
             return null;
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            try {
+                AuthRequest request;
+                Class<?> clazz = Class.forName(AuthExtendRequest.class.getName());
+                Constructor constructor;
+                if(authStateCache==null){
+                    constructor = clazz.getDeclaredConstructor(AuthConfig.class);
+                    constructor.setAccessible(true);
+                    request = (AuthRequest) constructor.newInstance(authConfig);
+                }else{
+                    constructor = clazz.getDeclaredConstructor(AuthConfig.class, AuthStateCache.class);
+                    constructor.setAccessible(true);
+                    request = (AuthRequest) constructor.newInstance(authConfig, authStateCache);
+                }
+                return request;
+            } catch (Exception e) {
+                throw new AuthException("未获取到有效的Auth配置");
+            }
         }
 
         /**

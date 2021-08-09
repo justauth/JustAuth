@@ -1,7 +1,11 @@
 package me.zhyd.oauth.config;
 
+import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.request.*;
+
+import java.util.Arrays;
 
 /**
  * JustAuth内置的各api需要的url， 用枚举类分平台类型管理
@@ -28,6 +32,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://api.github.com/user";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthGithubRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 新浪微博
@@ -46,6 +60,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return "https://api.weibo.com/2/users/show.json";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthWeiboRequest.class,authConfig,authStateCache);
         }
 
         @Override
@@ -71,6 +95,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://gitee.com/api/v5/user";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthGiteeRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 钉钉扫码登录
@@ -90,6 +124,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://oapi.dingtalk.com/sns/getuserinfo_bycode";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthDingTalkRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 钉钉账号登录
@@ -108,6 +152,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return DINGTALK.userInfo();
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthDingTalkAccountRequest.class,authConfig,authStateCache);
         }
     },
     /**
@@ -138,6 +192,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://openapi.baidu.com/oauth/2.0/token";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthBaiduRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * csdn
@@ -156,6 +220,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return "https://api.csdn.net/user/getinfo";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthCsdnRequest.class,authConfig,authStateCache);
         }
     },
     /**
@@ -179,6 +253,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://%s.coding.net/api/account/current_user";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthCodingRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * oschina 开源中国
@@ -198,6 +282,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://www.oschina.net/action/openapi/user";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthOschinaRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 支付宝
@@ -216,6 +310,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return "https://openapi.alipay.com/gateway.do";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthAlipayRequest.class,authConfig,authStateCache);
         }
     },
     /**
@@ -241,6 +345,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://graph.qq.com/oauth2.0/token";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthQqRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 微信开放平台
@@ -264,6 +378,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String refresh() {
             return "https://api.weixin.qq.com/sns/oauth2/refresh_token";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthWeChatOpenRequest.class,authConfig,authStateCache);
         }
     },
     /**
@@ -289,6 +413,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://api.weixin.qq.com/sns/oauth2/refresh_token";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthWeChatMpRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 淘宝
@@ -307,6 +441,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             throw new AuthException(AuthResponseStatus.UNSUPPORTED);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthTaobaoRequest.class,authConfig,authStateCache);
         }
     },
     /**
@@ -327,6 +471,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://www.googleapis.com/oauth2/v3/userinfo";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthGoogleRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * Facebook
@@ -345,6 +499,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return "https://graph.facebook.com/v10.0/me";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthFacebookRequest.class,authConfig,authStateCache);
         }
     },
     /**
@@ -370,6 +534,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://open.douyin.com/oauth/refresh_token/";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthDouyinRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 领英
@@ -393,6 +567,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String refresh() {
             return "https://www.linkedin.com/oauth/v2/accessToken";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthLinkedinRequest.class,authConfig,authStateCache);
         }
     },
     /**
@@ -418,6 +602,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://login.microsoftonline.com/common/oauth2/v2.0/token";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthMicrosoftRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 小米
@@ -442,6 +636,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://account.xiaomi.com/oauth2/token";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthMiRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 今日头条
@@ -460,6 +664,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return "https://open.snssdk.com/data/user_profile";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthToutiaoRequest.class,authConfig,authStateCache);
         }
     },
     /**
@@ -484,6 +698,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return "https://api.teambition.com/users/me";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthTeambitionRequest.class,authConfig,authStateCache);
         }
     },
 
@@ -510,6 +734,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://api.renren.com/v2/user/get";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthRenrenRequest.class,authConfig,authStateCache);
+        }
     },
 
     /**
@@ -530,6 +764,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://api.pinterest.com/v1/me";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthPinterestRequest.class,authConfig,authStateCache);
+        }
     },
 
     /**
@@ -549,6 +793,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return "https://api.stackexchange.com/2.2/me";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthStackOverflowRequest.class,authConfig,authStateCache);
         }
     },
 
@@ -577,6 +831,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://oauth-login.cloud.huawei.com/oauth2/v2/token";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthHuaweiRequest.class,authConfig,authStateCache);
+        }
     },
 
     /**
@@ -599,6 +863,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AbstractAuthWeChatEnterpriseRequest.class,authConfig,authStateCache);
+        }
     },
 
     /**
@@ -618,6 +892,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthWeChatEnterpriseWebRequest.class,authConfig,authStateCache);
         }
     },
 
@@ -646,6 +930,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://oauth.kujiale.com/oauth2/auth/token/refresh";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthKujialeRequest.class,authConfig,authStateCache);
+        }
     },
 
     /**
@@ -667,6 +961,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return "https://gitlab.com/api/v4/user";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthGitlabRequest.class,authConfig,authStateCache);
         }
     },
 
@@ -694,6 +998,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String refresh() {
             return "https://openapi.waimai.meituan.com/oauth/refresh_token";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthMeituanRequest.class,authConfig,authStateCache);
         }
     },
 
@@ -724,6 +1038,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://open-api.shop.ele.me/token";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthElemeRequest.class,authConfig,authStateCache);
+        }
     },
 
     /**
@@ -745,6 +1069,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String userInfo() {
             return "https://api.twitter.com/1.1/account/verify_credentials.json";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthTwitterRequest.class,authConfig,authStateCache);
         }
     },
 
@@ -775,6 +1109,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://open.feishu.cn/open-apis/authen/v1/refresh_access_token";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthFeishuRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 京东
@@ -801,6 +1145,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://open-oauth.jd.com/oauth2/refresh_token";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthJdRequest.class,authConfig,authStateCache);
+        }
     },
 
     /**
@@ -826,6 +1180,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String refresh() {
             return "https://oauth.aliyun.com/v1/token";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthAliyunRequest.class,authConfig,authStateCache);
+        }
     },
 
     /**
@@ -850,6 +1214,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String refresh() {
             return "https://oauth.aliyun.com/v1/token";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthXmlyRequest.class,authConfig,authStateCache);
         }
     },
 
@@ -877,6 +1251,16 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public String refresh() {
             return "https://api.amazon.com/auth/o2/token";
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthAmazonRequest.class,authConfig,authStateCache);
         }
     },
     /**
@@ -911,6 +1295,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String revoke() {
             return "https://slack.com/api/auth.revoke";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthSlackRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * line
@@ -934,6 +1328,16 @@ public enum AuthDefaultSource implements AuthSource {
         }
 
         @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthLineRequest.class,authConfig,authStateCache);
+        }
+
+        @Override
         public String refresh() {
             return "https://api.line.me/oauth2/v2.1/token";
         }
@@ -942,6 +1346,7 @@ public enum AuthDefaultSource implements AuthSource {
         public String revoke() {
             return "https://api.line.me/oauth2/v2.1/revoke";
         }
+
     },
     /**
      * Okta，
@@ -975,6 +1380,16 @@ public enum AuthDefaultSource implements AuthSource {
         public String revoke() {
             return "https://%s.okta.com/oauth2/%s/v1/revoke";
         }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthOktaRequest.class,authConfig,authStateCache);
+        }
     },
     /**
      * 程序员客栈
@@ -996,5 +1411,44 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://www.proginn.com/openapi/user/basic_info";
         }
-    },
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+            return getAuthRequestInstance(authConfig,null);
+        }
+
+        @Override
+        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+            return getInstance(AuthProginnRequest.class,authConfig,authStateCache);
+        }
+    };
+
+    /**
+     * 利用反射 生成 AuthRequest 实例
+     * @param cl 目标 class
+     * @param authConfig 配置
+     * @param authStateCache 缓存配置
+     * @return AuthRequest
+     */
+    AuthRequest getInstance(Class<? extends AuthDefaultRequest> cl, AuthConfig authConfig, AuthStateCache authStateCache) {
+        try {
+            Class<?> clazz = Class.forName(cl.getName());
+            if(authStateCache==null){
+                return (AuthRequest) clazz.getDeclaredConstructor(AuthConfig.class).newInstance(authConfig);
+            }else{
+                return (AuthRequest) clazz.getDeclaredConstructor(AuthConfig.class, AuthStateCache.class).newInstance(authConfig, authStateCache);
+            }
+        } catch (Exception e) {
+            throw new AuthException("未获取到有效的Auth配置");
+        }
+    }
+
+    /**
+     * 根据source获取对应的AuthSource枚举实例
+     * @param source 枚举名
+     * @return AuthDefaultSource
+     */
+    public static AuthDefaultSource getAuthSource(String source){
+        return Arrays.stream(AuthDefaultSource.values()).filter(authSource -> source.equalsIgnoreCase(authSource.name())).findAny().orElseThrow(()->new AuthException("未获取到有效的AuthSource配置"));
+    }
 }
