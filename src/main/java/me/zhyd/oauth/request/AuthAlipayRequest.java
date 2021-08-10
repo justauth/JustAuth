@@ -39,10 +39,10 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
 
     public AuthAlipayRequest(AuthConfig config, AuthStateCache authStateCache) {
         super(config, AuthDefaultSource.ALIPAY, authStateCache);
-        if(StringUtils.isNotEmpty(config.getProxyHost()) && config.getProxyPort()!=null){
+        if (StringUtils.isNotEmpty(config.getProxyHost()) && config.getProxyPort() != null) {
             this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
                 "json", "UTF-8", config.getAlipayPublicKey(), "RSA2", config.getProxyHost(), config.getProxyPort());
-        }else{
+        } else {
             this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
                 .getAlipayPublicKey(), "RSA2");
         }
@@ -59,7 +59,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
         AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest();
         request.setGrantType("authorization_code");
         request.setCode(authCallback.getAuth_code());
-        AlipaySystemOauthTokenResponse response = null;
+        AlipaySystemOauthTokenResponse response;
         try {
             response = this.alipayClient.execute(request);
         } catch (Exception e) {
