@@ -2,10 +2,9 @@ package me.zhyd.oauth.config;
 
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.exception.AuthException;
+import me.zhyd.oauth.request.AuthDefaultRequest;
 import me.zhyd.oauth.request.AuthExtendRequest;
 import me.zhyd.oauth.request.AuthRequest;
-
-import java.lang.reflect.Constructor;
 
 /**
  * 测试自定义实现{@link AuthSource}接口后的枚举类
@@ -16,7 +15,7 @@ import java.lang.reflect.Constructor;
  */
 public enum AuthExtendSource implements AuthSource {
 
-    OTHER {
+    OTHER (AuthExtendRequest.class){
         /**
          * 授权的api
          *
@@ -47,32 +46,6 @@ public enum AuthExtendSource implements AuthSource {
             return null;
         }
 
-        @Override
-        public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
-            return getAuthRequestInstance(authConfig,null);
-        }
-
-        @Override
-        public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
-            try {
-                AuthRequest request;
-                Class<?> clazz = Class.forName(AuthExtendRequest.class.getName());
-                Constructor constructor;
-                if(authStateCache==null){
-                    constructor = clazz.getDeclaredConstructor(AuthConfig.class);
-                    constructor.setAccessible(true);
-                    request = (AuthRequest) constructor.newInstance(authConfig);
-                }else{
-                    constructor = clazz.getDeclaredConstructor(AuthConfig.class, AuthStateCache.class);
-                    constructor.setAccessible(true);
-                    request = (AuthRequest) constructor.newInstance(authConfig, authStateCache);
-                }
-                return request;
-            } catch (Exception e) {
-                throw new AuthException("未获取到有效的Auth配置");
-            }
-        }
-
         /**
          * 取消授权的api
          *
@@ -92,5 +65,28 @@ public enum AuthExtendSource implements AuthSource {
         public String refresh() {
             return null;
         }
+    };
+
+    private Class<? extends AuthDefaultRequest> targetClass;
+
+    AuthExtendSource(Class<? extends AuthDefaultRequest> targetClass) {
+        this.targetClass = targetClass;
     }
+
+    public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
+        return this.getAuthRequestInstance(authConfig,null);
+    }
+
+    public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
+        try {
+            if(authStateCache==null){
+                return this.targetClass.getDeclaredConstructor(AuthConfig.class).newInstance(authConfig);
+            }else{
+                return this.targetClass.getDeclaredConstructor(AuthConfig.class, AuthStateCache.class).newInstance(authConfig, authStateCache);
+            }
+        } catch (Exception e) {
+            throw new AuthException("未获取到有效的Auth配置");
+        }
+    }
+
 }

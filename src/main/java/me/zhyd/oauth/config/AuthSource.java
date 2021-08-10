@@ -1,10 +1,8 @@
 package me.zhyd.oauth.config;
 
-import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
-import me.zhyd.oauth.request.AuthRequest;
 
 /**
  * OAuth平台的API地址的统一接口，提供以下方法：
@@ -45,21 +43,6 @@ public interface AuthSource {
      * @return url
      */
     String userInfo();
-
-    /**
-     * 根据配置获取对应的实例
-     * @param authConfig 配置
-     * @return AuthRequest
-     */
-    AuthRequest getAuthRequestInstance(AuthConfig authConfig);
-
-    /**
-     * 根据配置和缓存获取对应的实例
-     * @param authConfig 配置
-     * @param authStateCache 缓存
-     * @return AuthRequest
-     */
-    AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache);
 
     /**
      * 取消授权的api
