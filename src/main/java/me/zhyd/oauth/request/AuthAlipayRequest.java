@@ -43,8 +43,8 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
             this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
                 "json", "UTF-8", config.getAlipayPublicKey(), "RSA2", config.getProxyHost(), config.getProxyPort());
         } else {
-            this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
-                .getAlipayPublicKey(), "RSA2");
+            this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
+                "json", "UTF-8", config.getAlipayPublicKey(), "RSA2");
         }
     }
 
