@@ -21,6 +21,8 @@ import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
+import java.net.InetSocketAddress;
+
 /**
  * 支付宝登录
  *
@@ -39,9 +41,11 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
 
     public AuthAlipayRequest(AuthConfig config, AuthStateCache authStateCache) {
         super(config, AuthDefaultSource.ALIPAY, authStateCache);
-        if (StringUtils.isNotEmpty(config.getProxyHost()) && config.getProxyPort() != null) {
+        if (config.getHttpConfig() != null && config.getHttpConfig().getProxy() != null
+            && config.getHttpConfig().getProxy().address() instanceof InetSocketAddress) {
+            InetSocketAddress address = (InetSocketAddress) config.getHttpConfig().getProxy().address();
             this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
-                "json", "UTF-8", config.getAlipayPublicKey(), "RSA2", config.getProxyHost(), config.getProxyPort());
+                "json", "UTF-8", config.getAlipayPublicKey(), "RSA2", address.getHostName(), address.getPort());
         } else {
             this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
                 "json", "UTF-8", config.getAlipayPublicKey(), "RSA2");
