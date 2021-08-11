@@ -1,10 +1,7 @@
 package me.zhyd.oauth.config;
 
-import me.zhyd.oauth.cache.AuthStateCache;
-import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.request.AuthDefaultRequest;
 import me.zhyd.oauth.request.AuthExtendRequest;
-import me.zhyd.oauth.request.AuthRequest;
 
 /**
  * 测试自定义实现{@link AuthSource}接口后的枚举类
@@ -15,7 +12,7 @@ import me.zhyd.oauth.request.AuthRequest;
  */
 public enum AuthExtendSource implements AuthSource {
 
-    OTHER (AuthExtendRequest.class){
+    OTHER {
         /**
          * 授权的api
          *
@@ -65,27 +62,10 @@ public enum AuthExtendSource implements AuthSource {
         public String refresh() {
             return null;
         }
-    };
 
-    private Class<? extends AuthDefaultRequest> targetClass;
-
-    AuthExtendSource(Class<? extends AuthDefaultRequest> targetClass) {
-        this.targetClass = targetClass;
-    }
-
-    public AuthRequest getAuthRequestInstance(AuthConfig authConfig) {
-        return this.getAuthRequestInstance(authConfig,null);
-    }
-
-    public AuthRequest getAuthRequestInstance(AuthConfig authConfig, AuthStateCache authStateCache) {
-        try {
-            if(authStateCache==null){
-                return this.targetClass.getDeclaredConstructor(AuthConfig.class).newInstance(authConfig);
-            }else{
-                return this.targetClass.getDeclaredConstructor(AuthConfig.class, AuthStateCache.class).newInstance(authConfig, authStateCache);
-            }
-        } catch (Exception e) {
-            throw new AuthException("未获取到有效的Auth配置");
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthExtendRequest.class;
         }
     }
 

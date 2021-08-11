@@ -1,3 +1,14 @@
+## 1.16.3
+
+### 2021/8/**
+
+- 发布 v1.16.3
+- PR
+  - 合并 Gitee PR ([#27](https://gitee.com/yadong.zhang/JustAuth/pulls/27))
+- 修改
+  在 Gitee PR ([#27](https://gitee.com/yadong.zhang/JustAuth/pulls/27)) 的基础上重构代码，增加 Builder 方式创建 AuthRequest
+  
+
 ## 1.16.2
 
 ### 2021/7/28

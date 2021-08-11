@@ -3,6 +3,7 @@ package me.zhyd.oauth.config;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
+import me.zhyd.oauth.request.AuthDefaultRequest;
 
 /**
  * OAuth平台的API地址的统一接口，提供以下方法：
@@ -73,4 +74,11 @@ public interface AuthSource {
         }
         return this.getClass().getSimpleName();
     }
+
+    /**
+     * 平台对应的 AuthRequest 实现类，必须继承自 {@link AuthDefaultRequest}
+     *
+     * @return class
+     */
+    Class<? extends AuthDefaultRequest> getTargetClass();
 }

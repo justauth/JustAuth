@@ -61,7 +61,7 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 
 ## 快速开始
 
-- 引入依赖
+### 引入依赖
 ```xml
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
@@ -69,7 +69,43 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
     <version>1.16.2</version>
 </dependency>
 ```
-- 调用api
+
+如下**任选一种** HTTP 工具 依赖，_项目内如果已有，请忽略。另外需要特别注意，如果项目中已经引入了低版本的依赖，请先排除低版本依赖后，引入高版本或者最新版本的依赖_
+
+- hutool-http
+
+  ```xml
+  <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-http</artifactId>
+      <version>5.7.7</version>
+  </dependency>
+  ```
+
+- httpclient
+
+  ```xml
+  <dependency>
+  	<groupId>org.apache.httpcomponents</groupId>
+    	<artifactId>httpclient</artifactId>
+    	<version>4.5.13</version>
+  </dependency>
+  ```
+
+- okhttp
+
+  ```xml
+  <dependency>
+    <groupId>com.squareup.okhttp3</groupId>
+    <artifactId>okhttp</artifactId>
+    <version>4.9.1</version>
+  </dependency>
+  ```
+  
+### 调用api
+
+#### 普通方式
+
 ```java
 // 创建授权request
 AuthRequest authRequest = new AuthGiteeRequest(AuthConfig.builder()
@@ -84,37 +120,56 @@ authRequest.authorize("state");
 authRequest.login(callback);
 ```
 
-如下**任选一种** HTTP 工具 依赖，_项目内如果已有，请忽略。另外需要特别注意，如果项目中已经引入了低版本的依赖，请先排除低版本以后来，引入高版本或者最新版本的依赖_
+#### Builder 方式一
 
-- hutool-http
+静态配置 `AuthConfig`
 
-  ```xml
-  <dependency>
-      <groupId>cn.hutool</groupId>
-      <artifactId>hutool-http</artifactId>
-      <version>5.2.5</version>
-  </dependency>
-  ```
+```java
+AuthRequest authRequest = AuthRequestBuilder.builder()
+    .source("github")
+    .authConfig(AuthConfig.builder()
+        .clientId("clientId")
+        .clientSecret("clientSecret")
+        .redirectUri("redirectUri")
+        .build())
+    .build();
+// 生成授权页面
+  authRequest.authorize("state");
+// 授权登录后会返回code（auth_code（仅限支付宝））、state，1.8.0版本后，可以用AuthCallback类作为回调接口的参数
+// 注：JustAuth默认保存state的时效为3分钟，3分钟内未使用则会自动清除过期的state
+  authRequest.login(callback);
+```
 
-- httpclient
+#### Builder 方式二
 
-  ```xml
-  <dependency>
-  	<groupId>org.apache.httpcomponents</groupId>
-    	<artifactId>httpclient</artifactId>
-    	<version>4.5.12</version>
-  </dependency>
-  ```
+静态获取并配置 `AuthConfig`
 
-- okhttp
+```java
+AuthRequest authRequest = AuthRequestBuilder.builder()
+    .source("gitee")
+    .authConfig((source) -> {
+        // 通过 source 动态获取 AuthConfig
+        // 此处可以灵活的从 sql 中取配置也可以从配置文件中取配置
+        return AuthConfig.builder()
+            .clientId("clientId")
+            .clientSecret("clientSecret")
+            .redirectUri("redirectUri")
+            .build();
+    })
+    .build();
+Assert.assertTrue(authRequest instanceof AuthGiteeRequest);
+System.out.println(authRequest.authorize(AuthStateUtils.createState()));
+```
 
-  ```xml
-  <dependency>
-    <groupId>com.squareup.okhttp3</groupId>
-    <artifactId>okhttp</artifactId>
-    <version>4.4.1</version>
-  </dependency>
-  ```
+#### Builder 方式支持自定义的平台
+
+```java
+AuthRequest authRequest = AuthRequestBuilder.builder()
+    // 关键点：将自定义实现的 AuthSource 配置上
+    .extendSource(AuthExtendSource.values())
+    // ... 其他内容不变，参考上面的示例
+    .build();
+```
 
 ## 赞助和支持
 
