@@ -167,6 +167,8 @@ System.out.println(authRequest.authorize(AuthStateUtils.createState()));
 AuthRequest authRequest = AuthRequestBuilder.builder()
     // 关键点：将自定义实现的 AuthSource 配置上
     .extendSource(AuthExtendSource.values())
+    // source 对应 AuthExtendSource 中的枚举 name
+    .source("other")
     // ... 其他内容不变，参考上面的示例
     .build();
 ```
