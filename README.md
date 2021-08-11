@@ -142,7 +142,7 @@ AuthRequest authRequest = AuthRequestBuilder.builder()
 
 #### Builder 方式二
 
-静态获取并配置 `AuthConfig`
+动态获取并配置 `AuthConfig`
 
 ```java
 AuthRequest authRequest = AuthRequestBuilder.builder()
