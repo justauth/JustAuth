@@ -16,6 +16,7 @@ import java.util.function.Function;
  * 快捷的构建 AuthRequest
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
+ * @author ngcly
  * @version 1.0.0
  * @since 1.16.3
  */
