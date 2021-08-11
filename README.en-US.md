@@ -56,7 +56,7 @@ These artifacts are available from Maven Central:
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.16.2</version>
+    <version>1.16.3</version>
 </dependency>
 ```
 - Using JustAuth

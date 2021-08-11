@@ -66,7 +66,7 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.16.2</version>
+    <version>1.16.3</version>
 </dependency>
 ```
 
