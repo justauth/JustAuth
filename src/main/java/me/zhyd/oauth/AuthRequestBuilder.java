@@ -4,6 +4,7 @@ import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.config.AuthSource;
+import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.request.AuthDefaultRequest;
 import me.zhyd.oauth.request.AuthRequest;
@@ -60,11 +61,8 @@ public class AuthRequestBuilder {
     }
 
     public AuthRequest build() {
-        if (StringUtils.isEmpty(this.source)) {
-            throw new AuthException("未配置 source");
-        }
-        if (null == this.authConfig) {
-            throw new AuthException("未配置 AuthConfig");
+        if (StringUtils.isEmpty(this.source) || null == this.authConfig) {
+            throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
         }
         // 合并 JustAuth 默认的 AuthDefaultSource 和 开发者自定义的 AuthSource
         AuthSource[] sources = this.concat(AuthDefaultSource.values(), extendSource);
@@ -72,8 +70,12 @@ public class AuthRequestBuilder {
         AuthSource source = Arrays.stream(sources).distinct()
             .filter(authSource -> authSource.getName().equalsIgnoreCase(this.source))
             .findAny()
-            .orElseThrow(() -> new AuthException("未获取到有效的 AuthSource 配置"));
+            .orElseThrow(() -> new AuthException(AuthResponseStatus.NOT_IMPLEMENTED));
+
         Class<? extends AuthDefaultRequest> targetClass = source.getTargetClass();
+        if (null == targetClass) {
+            throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
+        }
         try {
             if (this.authStateCache == null) {
                 return targetClass.getDeclaredConstructor(AuthConfig.class).newInstance(this.authConfig);
@@ -82,7 +84,7 @@ public class AuthRequestBuilder {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new AuthException("未获取到有效的 Auth 配置");
+            throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
         }
     }
 
