@@ -4,7 +4,8 @@
 
 - 发布 v1.16.3
 - PR
-  - 合并 Gitee PR ([#27](https://gitee.com/yadong.zhang/JustAuth/pulls/27))
+  - `AuthRequst` 增加 `Builder` 构建方式，使用起来更简单。 ([#27](https://gitee.com/yadong.zhang/JustAuth/pulls/27))
+  - 使用 Github Action 添加发布快照的 workflow。 ([#126](https://github.com/justauth/JustAuth/pull/126))
 - 修改
   在 Gitee PR ([#27](https://gitee.com/yadong.zhang/JustAuth/pulls/27)) 的基础上重构代码，增加 Builder 方式创建 AuthRequest
   

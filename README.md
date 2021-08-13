@@ -8,6 +8,9 @@
 	<a target="_blank" href="https://search.maven.org/search?q=JustAuth">
 		<img src="https://img.shields.io/github/v/release/justauth/JustAuth?style=flat-square" ></img>
 	</a>
+	<a target="_blank" href="https://oss.sonatype.org/content/repositories/snapshots/me/zhyd/oauth/JustAuth/">
+		<img src="https://img.shields.io/nexus/s/https/oss.sonatype.org/me.zhyd.oauth/JustAuth.svg?style=flat-square" ></img>
+	</a>
 	<a target="_blank" href="https://gitee.com/yadong.zhang/JustAuth/blob/master/LICENSE">
 		<img src="https://img.shields.io/apm/l/vim-mode.svg?color=yellow" ></img>
 	</a>
