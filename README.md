@@ -69,11 +69,15 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 <dependency>
     <groupId>me.zhyd.oauth</groupId>
     <artifactId>JustAuth</artifactId>
-    <version>1.16.3</version>
+    <version>{latest-version}</version>
 </dependency>
 ```
 
-如下**任选一种** HTTP 工具 依赖，_项目内如果已有，请忽略。另外需要特别注意，如果项目中已经引入了低版本的依赖，请先排除低版本依赖后，引入高版本或者最新版本的依赖_
+> **latest-version** 可选：
+> - 稳定版：![](https://img.shields.io/github/v/release/justauth/JustAuth?style=flat-square) 
+> - 快照版：![](https://img.shields.io/nexus/s/https/oss.sonatype.org/me.zhyd.oauth/JustAuth.svg?style=flat-square)
+
+如下**任选一种** HTTP 工具 依赖，_项目内如果已有，请忽略。另外需要特别注意，如果项目中已经引入了低版本的依赖，请先排除低版本依赖后，再引入高版本或者最新版本的依赖_
 
 - hutool-http
 
