@@ -76,6 +76,36 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 > **latest-version** 可选：
 > - 稳定版：![](https://img.shields.io/github/v/release/justauth/JustAuth?style=flat-square) 
 > - 快照版：![](https://img.shields.io/nexus/s/https/oss.sonatype.org/me.zhyd.oauth/JustAuth.svg?style=flat-square)
+> > 注意：快照版本是功能的尝鲜，并不保证稳定性。请勿在生产环境中使用。
+>
+> <details>
+>   <summary>如何引入快照版本</summary>
+>
+> JustAuth 的快照版本托管在 ossrh 上，所以要指定下载地址。
+> 
+> ```xml
+> <repositories>
+>     <repository>
+>         <id>ossrh-snapshot</id>
+>         <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+>         <snapshots>
+>             <enabled>true</enabled>
+>         </snapshots>
+>     </repository>
+> </repositories>
+> ```
+> 
+> 如果你想第一时间获取 JustAuth 的最新快照，可以添加下列代码，每次构建时都检查是否有最新的快照（默认每天检查）。
+> 
+> ```diff
+>        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+>         <snapshots>
+> +           <updatePolicy>always</updatePolicy>
+>             <enabled>true</enabled>
+>         </snapshots>
+> ```
+> 
+> </details>
 
 如下**任选一种** HTTP 工具 依赖，_项目内如果已有，请忽略。另外需要特别注意，如果项目中已经引入了低版本的依赖，请先排除低版本依赖后，再引入高版本或者最新版本的依赖_
 
