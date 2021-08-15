@@ -19,7 +19,7 @@ import me.zhyd.oauth.utils.*;
  * </p>
  *
  * @author zhengjx
- * @since 1.10.0
+ * @since 1.16.3
  */
 public class AuthWeChatEnterpriseThirdQrcodeRequest extends AbstractAuthWeChatEnterpriseRequest {
     public AuthWeChatEnterpriseThirdQrcodeRequest(AuthConfig config) {
