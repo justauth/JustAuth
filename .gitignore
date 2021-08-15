@@ -28,8 +28,6 @@ hs_err_pid*
 bin/codecov.sh
 bin/deploy.sh
 bin/docsify-cli.sh
-bin/push.sh
-bin/push-dev.sh
 
 target
 /pom.xml.versionsBackup
