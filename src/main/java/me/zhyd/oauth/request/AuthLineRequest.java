@@ -37,7 +37,22 @@ public class AuthLineRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        return this.getToken(accessTokenUrl(authCallback.getCode()));
+        Map<String, String> params = new HashMap<>();
+        params.put("grant_type", "authorization_code");
+        params.put("code", authCallback.getCode());
+        params.put("redirect_uri", config.getRedirectUri());
+        params.put("client_id", config.getClientId());
+        params.put("client_secret", config.getClientSecret());
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), params, false);
+        JSONObject accessTokenObject = JSONObject.parseObject(response);
+        return AuthToken.builder()
+            .accessToken(accessTokenObject.getString("access_token"))
+            .refreshToken(accessTokenObject.getString("refresh_token"))
+            .expireIn(accessTokenObject.getIntValue("expires_in"))
+            .idToken(accessTokenObject.getString("id_token"))
+            .scope(accessTokenObject.getString("scope"))
+            .tokenType(accessTokenObject.getString("token_type"))
+            .build();
     }
 
     @Override
@@ -74,28 +89,23 @@ public class AuthLineRequest extends AuthDefaultRequest {
 
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
+        Map<String, String> params = new HashMap<>();
+        params.put("grant_type", "refresh_token");
+        params.put("refresh_token", oldToken.getRefreshToken());
+        params.put("client_id", config.getClientId());
+        params.put("client_secret", config.getClientSecret());
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), params, false);
+        JSONObject accessTokenObject = JSONObject.parseObject(response);
         return AuthResponse.builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
-            .data(this.getToken(refreshTokenUrl(oldToken.getRefreshToken())))
-            .build();
-    }
-
-    /**
-     * 获取token，适用于获取access_token和刷新token
-     *
-     * @param accessTokenUrl 实际请求token的地址
-     * @return token对象
-     */
-    private AuthToken getToken(String accessTokenUrl) {
-        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl);
-        JSONObject accessTokenObject = JSONObject.parseObject(response);
-        return AuthToken.builder()
-            .accessToken(accessTokenObject.getString("access_token"))
-            .refreshToken(accessTokenObject.getString("refresh_token"))
-            .expireIn(accessTokenObject.getIntValue("expires_in"))
-            .idToken(accessTokenObject.getString("id_token"))
-            .scope(accessTokenObject.getString("scope"))
-            .tokenType(accessTokenObject.getString("token_type"))
+            .data(AuthToken.builder()
+                .accessToken(accessTokenObject.getString("access_token"))
+                .refreshToken(accessTokenObject.getString("refresh_token"))
+                .expireIn(accessTokenObject.getIntValue("expires_in"))
+                .idToken(accessTokenObject.getString("id_token"))
+                .scope(accessTokenObject.getString("scope"))
+                .tokenType(accessTokenObject.getString("token_type"))
+                .build())
             .build();
     }
 
