@@ -3,11 +3,16 @@
 ### 2021/8/**
 
 - 发布 v1.16.3
+- 新增
+  - 集成“企业微信的第三方应用”平台登录
 - PR
   - `AuthRequst` 增加 `Builder` 构建方式，使用起来更简单。 ([#27](https://gitee.com/yadong.zhang/JustAuth/pulls/27))
   - 使用 Github Action 添加发布快照的 workflow。 ([#126](https://github.com/justauth/JustAuth/pull/126))
+  - 新增了企业微信的第三方应用登录，`AuthWeChatEnterpriseThirdQrcodeRequest`。 ([#127](https://github.com/justauth/JustAuth/pull/127))
+  - 添加快照版本对应更详细的文档。 ([#128](https://github.com/justauth/JustAuth/pull/128))
 - 修改
-  在 Gitee PR ([#27](https://gitee.com/yadong.zhang/JustAuth/pulls/27)) 的基础上重构代码，增加 Builder 方式创建 AuthRequest
+  - 在 Gitee PR ([#27](https://gitee.com/yadong.zhang/JustAuth/pulls/27)) 的基础上重构代码，增加 Builder 方式创建 AuthRequest
+  - 解决 Line 登录的错误。[#122](https://github.com/justauth/JustAuth/issues/122)
   
 
 ## 1.16.2
