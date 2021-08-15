@@ -66,6 +66,13 @@ public class AuthConfig {
     private String agentId;
 
     /**
+     * 企业微信第三方授权用户类型，member|admin
+     *
+     * @since 1.10.0
+     */
+    private String usertype;
+
+    /**
      * 域名前缀。
      * <p>
      * 使用 Coding 登录和 Okta 登录时，需要传该值。
