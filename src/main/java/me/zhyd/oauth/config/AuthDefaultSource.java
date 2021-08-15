@@ -769,6 +769,11 @@ public enum AuthDefaultSource implements AuthSource {
         public String userInfo() {
             return "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info";
         }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthWeChatEnterpriseThirdQrcodeRequest.class;
+        }
     },
     /**
      * 企业微信网页登录
