@@ -92,7 +92,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @param e 具体的异常
      * @return AuthResponse
      */
-    private AuthResponse responseError(Exception e) {
+    AuthResponse responseError(Exception e) {
         int errorCode = AuthResponseStatus.FAILURE.getCode();
         String errorMsg = e.getMessage();
         if (e instanceof AuthException) {

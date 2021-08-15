@@ -600,7 +600,40 @@ public enum AuthDefaultSource implements AuthSource {
             return "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo";
         }
     },
+    /**
+     * 企业微信二维码第三方登录
+     */
+    WECHAT_ENTERPRISE_QRCODE_THIRD {
+        /**
+         * 授权的api
+         *
+         * @return url
+         */
+        @Override
+        public String authorize() {
+            return "https://open.work.weixin.qq.com/wwopen/sso/3rd_qrConnect";
+        }
 
+        /**
+         * 获取accessToken的api
+         *
+         * @return url
+         */
+        @Override
+        public String accessToken() {
+            return "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
+        }
+
+        /**
+         * 获取用户信息的api
+         *
+         * @return url
+         */
+        @Override
+        public String userInfo() {
+            return "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info";
+        }
+    },
     /**
      * 企业微信网页登录
      */
