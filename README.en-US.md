@@ -68,6 +68,37 @@ These artifacts are available from Maven Central:
 > **latest-version** ：
 > - CURRENT: ![](https://img.shields.io/github/v/release/justauth/JustAuth?style=flat-square)
 > - SNAPSHOT: ![](https://img.shields.io/nexus/s/https/oss.sonatype.org/me.zhyd.oauth/JustAuth.svg?style=flat-square)
+>
+> > NOTE：The snapshot version is not being released and does not guarantee stability. Do not use in a production environment.
+>
+> <details>
+>   <summary>How to introduce snapshot?</summary>
+>
+> The snapshot version of JustAuth is hosted on ossrh, so specify the download address.
+> 
+> ```xml
+> <repositories>
+>     <repository>
+>         <id>ossrh-snapshot</id>
+>         <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+>         <snapshots>
+>             <enabled>true</enabled>
+>         </snapshots>
+>     </repository>
+> </repositories>
+> ```
+> 
+> If you want to get the latest snapshot of JustAuth the first time, you can add the following code to check whether there is the latest snapshot every time you build (check every day by **default**).
+> 
+> ```diff
+>        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+>         <snapshots>
+> +           <updatePolicy>always</updatePolicy>
+>             <enabled>true</enabled>
+>         </snapshots>
+> ```
+> 
+> </details>
 
 
 - Add http dependency（Only need one）
