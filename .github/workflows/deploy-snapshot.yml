@@ -1,4 +1,4 @@
-name: Deploy SNAPSHOT
+name: Deploy snapshot for dev branch
 
 on: 
   push:
@@ -6,14 +6,29 @@ on:
     paths:
       - src/**
       - pom.xml
-  pull_request:
-    branches: [ dev ]
-    paths:
-      - src/**
-      - pom.xml
 
 jobs:
-  get-latest-tag:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.2.0
+      - name: Set up Java and Maven
+        uses: actions/setup-java@v2
+        with:
+          java-version: '8'
+          distribution: 'adopt'
+      - name: Cache m2 package
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - run: mvn test
+
+  deploy-snapshot:
+    needs: test
+    if: ${{ success() }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.2.0
@@ -38,7 +53,7 @@ jobs:
         if: ${{ !endsWith( env.VERSION , '-SNAPSHOT') }} 
         run: mvn versions:set -DnewVersion=${{ env.VERSION }}-SNAPSHOT
       - name: deploy snapshot to ossrh repository
-        run: mvn -B deploy -P snapshot
+        run: mvn -B deploy -P snapshot -DskipTests
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
