@@ -1,4 +1,4 @@
-name: Deploy snapshot for dev branch
+name: Deploy
 
 on: 
   push:
@@ -47,11 +47,17 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: get current project version to set env.VERSION
-        run: echo "VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`" >> $GITHUB_ENV
-      - name: set snapshot version
-        if: ${{ !endsWith( env.VERSION , '-SNAPSHOT') }} 
-        run: mvn versions:set -DnewVersion=${{ env.VERSION }}-SNAPSHOT
+      - name: setting snapshot version
+        run: |
+          import xml.etree.ElementTree as ET
+          tree = ET.parse("pom.xml")
+          version = tree.find("{http://maven.apache.org/POM/4.0.0}version")
+          print(version.text + "-SNAPSHOT")
+          if version.text.endswith("-SNAPSHOT") == False:
+            tree.find("{http://maven.apache.org/POM/4.0.0}version").text = version.text + "-SNAPSHOT"
+            ET.register_namespace("", "http://maven.apache.org/POM/4.0.0")
+            tree.write("pom.xml", "utf-8", True)
+        shell: python
       - name: deploy snapshot to ossrh repository
         run: mvn -B deploy -P snapshot -DskipTests
         env:

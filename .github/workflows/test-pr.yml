@@ -2,7 +2,6 @@ name: test pull_request
 
 on: 
   pull_request:
-    branches: [ dev ]
     paths:
       - src/**
       - pom.xml
