@@ -175,6 +175,19 @@ public class GlobalAuthUtils {
         return StringUtils.isEmpty(url) || url.contains("127.0.0.1") || url.contains("localhost");
     }
 
+    /**
+     * 是否为https协议或本地主机（域名）
+     *
+     * @param url 待验证的url
+     * @return true: https协议或本地主机 false: 非https协议或本机主机
+     */
+    public static boolean isHttpsProtocolOrLocalHost(String url) {
+        if (StringUtils.isEmpty(url)) {
+            return false;
+        }
+        return isHttpsProtocol(url) || isLocalHost(url);
+    }
+
 
     /**
      * Generate nonce with given length

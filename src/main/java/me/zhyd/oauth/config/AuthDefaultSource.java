@@ -516,6 +516,33 @@ public enum AuthDefaultSource implements AuthSource {
         }
     },
     /**
+     * 微软中国(世纪互联)
+     */
+    MICROSOFT_CN {
+        @Override
+        public String authorize() {
+            return "https://login.partner.microsoftonline.cn/common/oauth2/v2.0/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://login.partner.microsoftonline.cn/common/oauth2/v2.0/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://microsoftgraph.chinacloudapi.cn/v1.0/me";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://login.partner.microsoftonline.cn/common/oauth2/v2.0/token";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() { return AuthMicrosoftCnRequest.class; }
+    },
+    /**
      * 小米
      */
     MI {
