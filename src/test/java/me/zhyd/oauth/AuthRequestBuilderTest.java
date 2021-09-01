@@ -3,10 +3,7 @@ package me.zhyd.oauth;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.config.AuthExtendSource;
-import me.zhyd.oauth.request.AuthExtendRequest;
-import me.zhyd.oauth.request.AuthGiteeRequest;
-import me.zhyd.oauth.request.AuthGithubRequest;
-import me.zhyd.oauth.request.AuthRequest;
+import me.zhyd.oauth.request.*;
 import me.zhyd.oauth.utils.AuthStateUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -75,31 +72,39 @@ public class AuthRequestBuilderTest {
      */
     @Test
     public void build4() {
+        AuthConfig config = AuthConfig.builder()
+            .clientId("a")
+            .clientSecret("a")
+            .redirectUri("https://www.justauth.cn")
+            .authServerId("asd")
+            .agentId("asd")
+            .domainPrefix("asd")
+            .stackOverflowKey("asd")
+            .deviceId("asd")
+            .clientOsType(3)
+            .build();
+
         for (AuthDefaultSource value : AuthDefaultSource.values()) {
-            if (value == AuthDefaultSource.TWITTER) {
-                System.out.println(value.getTargetClass());
-                System.out.println("忽略 twitter");
-                continue;
+            switch (value) {
+                case TWITTER:
+                    System.out.println(value.getTargetClass());
+                    System.out.println("忽略 twitter");
+                    continue;
+                case ALIPAY: {
+                    // 单独给Alipay执行测试
+                    AuthRequest authRequest = new AuthAlipayRequest(config, "asd");
+                    System.out.println(value.getTargetClass());
+                    System.out.println(authRequest.authorize(AuthStateUtils.createState()));
+                    continue;
+                }
+                default:
+                    AuthRequest authRequest = AuthRequestBuilder.builder()
+                        .source(value.getName())
+                        .authConfig(config)
+                        .build();
+                    System.out.println(value.getTargetClass());
+                    System.out.println(authRequest.authorize(AuthStateUtils.createState()));
             }
-            AuthRequest authRequest = AuthRequestBuilder.builder()
-                .source(value.getName())
-                .authConfig(AuthConfig.builder()
-                    .clientId("a")
-                    .clientSecret("a")
-                    .redirectUri("https://www.justauth.cn")
-                    .alipayPublicKey("asd")
-                    .authServerId("asd")
-                    .agentId("asd")
-                    .domainPrefix("asd")
-                    .stackOverflowKey("asd")
-
-                    .deviceId("asd")
-                    .clientOsType(3)
-                    .build())
-                .build();
-            System.out.println(value.getTargetClass());
-            System.out.println(authRequest.authorize(AuthStateUtils.createState()));
         }
-
     }
 }

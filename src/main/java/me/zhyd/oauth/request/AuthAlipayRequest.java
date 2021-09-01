@@ -18,6 +18,8 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
+import me.zhyd.oauth.utils.AuthChecker;
+import me.zhyd.oauth.utils.GlobalAuthUtils;
 import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
@@ -31,31 +33,115 @@ import java.net.InetSocketAddress;
  */
 public class AuthAlipayRequest extends AuthDefaultRequest {
 
-    private AlipayClient alipayClient;
+    /**
+     * 支付宝公钥：当选择支付宝登录时，该值可用
+     * 对应“RSA2(SHA256)密钥”中的“支付宝公钥”
+     */
+    private final String alipayPublicKey;
 
+    private final AlipayClient alipayClient;
+
+    /**
+     * @see AuthAlipayRequest#AuthAlipayRequest(me.zhyd.oauth.config.AuthConfig, java.lang.String)
+     * @deprecated 请使用带有"alipayPublicKey"参数的构造方法
+     */
+    @Deprecated
     public AuthAlipayRequest(AuthConfig config) {
-        super(config, AuthDefaultSource.ALIPAY);
-        this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", config
-            .getAlipayPublicKey(), "RSA2");
+        this(config, (String) null);
     }
 
+    /**
+     * @see AuthAlipayRequest#AuthAlipayRequest(me.zhyd.oauth.config.AuthConfig, java.lang.String, me.zhyd.oauth.cache.AuthStateCache)
+     * @deprecated 请使用带有"alipayPublicKey"参数的构造方法
+     */
+    @Deprecated
     public AuthAlipayRequest(AuthConfig config, AuthStateCache authStateCache) {
+        this(config, null, authStateCache);
+    }
+
+    /**
+     * @see AuthAlipayRequest#AuthAlipayRequest(me.zhyd.oauth.config.AuthConfig, java.lang.String, me.zhyd.oauth.cache.AuthStateCache, java.lang.String, java.lang.Integer)
+     * @deprecated 请使用带有"alipayPublicKey"参数的构造方法
+     */
+    @Deprecated
+    public AuthAlipayRequest(AuthConfig config, AuthStateCache authStateCache, String proxyHost, Integer proxyPort) {
+        this(config, null, authStateCache, proxyHost, proxyPort);
+    }
+
+    /**
+     * 构造方法，需要设置"alipayPublicKey"
+     *
+     * @param config          公共的OAuth配置
+     * @param alipayPublicKey 支付宝公钥
+     * @see AuthAlipayRequest#AuthAlipayRequest(me.zhyd.oauth.config.AuthConfig)
+     */
+    public AuthAlipayRequest(AuthConfig config, String alipayPublicKey) {
+        super(config, AuthDefaultSource.ALIPAY);
+        this.alipayPublicKey = determineAlipayPublicKey(alipayPublicKey, config);
+        this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", alipayPublicKey, "RSA2");
+        check(config);
+    }
+
+    /**
+     * 构造方法，需要设置"alipayPublicKey"
+     *
+     * @param config          公共的OAuth配置
+     * @param alipayPublicKey 支付宝公钥
+     * @see AuthAlipayRequest#AuthAlipayRequest(me.zhyd.oauth.config.AuthConfig, me.zhyd.oauth.cache.AuthStateCache)
+     */
+    public AuthAlipayRequest(AuthConfig config, String alipayPublicKey, AuthStateCache authStateCache) {
         super(config, AuthDefaultSource.ALIPAY, authStateCache);
+        this.alipayPublicKey = determineAlipayPublicKey(alipayPublicKey, config);
         if (config.getHttpConfig() != null && config.getHttpConfig().getProxy() != null
             && config.getHttpConfig().getProxy().address() instanceof InetSocketAddress) {
             InetSocketAddress address = (InetSocketAddress) config.getHttpConfig().getProxy().address();
             this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
-                "json", "UTF-8", config.getAlipayPublicKey(), "RSA2", address.getHostName(), address.getPort());
+                "json", "UTF-8", alipayPublicKey, "RSA2", address.getHostName(), address.getPort());
         } else {
             this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
-                "json", "UTF-8", config.getAlipayPublicKey(), "RSA2");
+                "json", "UTF-8", alipayPublicKey, "RSA2");
+        }
+        check(config);
+    }
+
+    /**
+     * 构造方法，需要设置"alipayPublicKey"
+     *
+     * @param config          公共的OAuth配置
+     * @param alipayPublicKey 支付宝公钥
+     * @see AuthAlipayRequest#AuthAlipayRequest(me.zhyd.oauth.config.AuthConfig, me.zhyd.oauth.cache.AuthStateCache, java.lang.String, java.lang.Integer)
+     */
+    public AuthAlipayRequest(AuthConfig config, String alipayPublicKey, AuthStateCache authStateCache, String proxyHost, Integer proxyPort) {
+        super(config, AuthDefaultSource.ALIPAY, authStateCache);
+        this.alipayPublicKey = determineAlipayPublicKey(alipayPublicKey, config);
+        this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
+            "json", "UTF-8", alipayPublicKey, "RSA2", proxyHost, proxyPort);
+        check(config);
+    }
+
+    private String determineAlipayPublicKey(String alipayPublicKey, AuthConfig config) {
+        return alipayPublicKey != null ? alipayPublicKey : config.getAlipayPublicKey();
+    }
+
+    protected void check(AuthConfig config) {
+        AuthChecker.checkConfig(config, AuthDefaultSource.ALIPAY);
+
+        if (!StringUtils.isNotEmpty(alipayPublicKey)) {
+            throw new AuthException(AuthResponseStatus.PARAMETER_INCOMPLETE, AuthDefaultSource.ALIPAY);
+        }
+
+        // 支付宝在创建回调地址时，不允许使用localhost或者127.0.0.1
+        if (GlobalAuthUtils.isLocalHost(config.getRedirectUri())) {
+            // The redirect uri of alipay is forbidden to use localhost or 127.0.0.1
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, AuthDefaultSource.ALIPAY);
         }
     }
 
-    public AuthAlipayRequest(AuthConfig config, AuthStateCache authStateCache, String proxyHost, Integer proxyPort) {
-        super(config, AuthDefaultSource.ALIPAY, authStateCache);
-        this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
-            "json", "UTF-8", config.getAlipayPublicKey(), "RSA2", proxyHost, proxyPort);
+    @Override
+    protected void checkCode(AuthCallback authCallback) {
+        if (StringUtils.isEmpty(authCallback.getAuth_code())) {
+            throw new AuthException(AuthResponseStatus.ILLEGAL_CODE, source);
+        }
     }
 
     @Override
