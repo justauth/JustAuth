@@ -56,7 +56,8 @@ public class AuthWeiboRequest extends AuthDefaultRequest {
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add("Authorization", "OAuth2 " + oauthParam);
         httpHeader.add("API-RemoteIP", IpUtils.getLocalIp());
-        String userInfo = new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken), null, httpHeader, false);
+        String userInfo = new HttpUtils(config.getHttpConfig())
+            .get(userInfoUrl(authToken), null, httpHeader, false).getBody();
         JSONObject object = JSONObject.parseObject(userInfo);
         if (object.containsKey("error")) {
             throw new AuthException(object.getString("error"));

@@ -41,7 +41,7 @@ public class AuthProginnRequest extends AuthDefaultRequest {
         params.put("client_secret", config.getClientSecret());
         params.put("grant_type", "authorization_code");
         params.put("redirect_uri", config.getRedirectUri());
-        String response = new HttpUtils(config.getHttpConfig()).post(AuthDefaultSource.PROGINN.accessToken(), params, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(AuthDefaultSource.PROGINN.accessToken(), params, false).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         this.checkResponse(accessTokenObject);
         return AuthToken.builder()

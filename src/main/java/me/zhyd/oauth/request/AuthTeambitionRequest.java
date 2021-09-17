@@ -45,7 +45,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
         form.put("code", authCallback.getCode());
         form.put("grant_type", "code");
 
-        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), form, false).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(accessTokenObject);
@@ -63,7 +63,8 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add("Authorization", "OAuth2 " + accessToken);
 
-        String response = new HttpUtils(config.getHttpConfig()).get(source.userInfo(), null, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig())
+            .get(source.userInfo(), null, httpHeader, false).getBody();
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
@@ -93,7 +94,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
         Map<String, String> form = new HashMap<>(4);
         form.put("_userId", uid);
         form.put("refresh_token", refreshToken);
-        String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), form, false).getBody();
         JSONObject refreshTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(refreshTokenObject);

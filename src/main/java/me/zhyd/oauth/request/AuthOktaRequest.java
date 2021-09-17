@@ -50,7 +50,7 @@ public class AuthOktaRequest extends AuthDefaultRequest {
             .add("accept", "application/json")
             .add("content-type", "application/x-www-form-urlencoded")
             .add("Authorization", "Basic " + Base64Utils.encode(config.getClientId().concat(":").concat(config.getClientSecret())));
-        String response = new HttpUtils(config.getHttpConfig()).post(tokenUrl, null, header, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(tokenUrl, null, header, false).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         this.checkResponse(accessTokenObject);
         return AuthToken.builder()
@@ -82,7 +82,7 @@ public class AuthOktaRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         HttpHeader header = new HttpHeader()
             .add("Authorization", "Bearer " + authToken.getAccessToken());
-        String response = new HttpUtils(config.getHttpConfig()).post(userInfoUrl(authToken), null, header, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(userInfoUrl(authToken), null, header, false).getBody();
         JSONObject object = JSONObject.parseObject(response);
         this.checkResponse(object);
         JSONObject address = object.getJSONObject("address");

@@ -87,7 +87,7 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
      * @return token对象
      */
     private AuthToken getToken(String accessTokenUrl) {
-        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl);
+        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl).getBody();
         JSONObject object = JSONObject.parseObject(response);
         this.checkResponse(object);
         JSONObject dataObj = object.getJSONObject("data");

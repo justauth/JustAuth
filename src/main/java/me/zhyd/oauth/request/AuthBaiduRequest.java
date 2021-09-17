@@ -88,7 +88,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
             .queryParam("client_id", this.config.getClientId())
             .queryParam("client_secret", this.config.getClientSecret())
             .build();
-        String response = new HttpUtils(config.getHttpConfig()).get(refreshUrl);
+        String response = new HttpUtils(config.getHttpConfig()).get(refreshUrl).getBody();
         return AuthResponse.builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(this.getAuthToken(response))

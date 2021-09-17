@@ -43,7 +43,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
     }
 
     private AuthToken getToken(String accessTokenUrl) {
-        String response = new HttpUtils(config.getHttpConfig()).get(accessTokenUrl);
+        String response = new HttpUtils(config.getHttpConfig()).get(accessTokenUrl).getBody();
         String jsonStr = response.replace(PREFIX, Constants.EMPTY);
         JSONObject accessTokenObject = JSONObject.parseObject(jsonStr);
 
@@ -91,7 +91,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
         String emailPhoneUrl = MessageFormat.format("{0}?clientId={1}&token={2}", "https://open.account.xiaomi.com/user/phoneAndEmail", config
             .getClientId(), authToken.getAccessToken());
 
-        String emailResponse = new HttpUtils(config.getHttpConfig()).get(emailPhoneUrl);
+        String emailResponse = new HttpUtils(config.getHttpConfig()).get(emailPhoneUrl).getBody();
         JSONObject userEmailPhone = JSONObject.parseObject(emailResponse);
         if (!"error".equalsIgnoreCase(userEmailPhone.getString("result"))) {
             JSONObject emailPhone = userEmailPhone.getJSONObject("data");

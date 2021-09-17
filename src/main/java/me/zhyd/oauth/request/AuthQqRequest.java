@@ -40,7 +40,7 @@ public class AuthQqRequest extends AuthDefaultRequest {
 
     @Override
     public AuthResponse refresh(AuthToken authToken) {
-        String response = new HttpUtils(config.getHttpConfig()).get(refreshTokenUrl(authToken.getRefreshToken()));
+        String response = new HttpUtils(config.getHttpConfig()).get(refreshTokenUrl(authToken.getRefreshToken())).getBody();
         return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(getAuthToken(response)).build();
     }
 
@@ -82,7 +82,7 @@ public class AuthQqRequest extends AuthDefaultRequest {
         String response = new HttpUtils(config.getHttpConfig()).get(UrlBuilder.fromBaseUrl("https://graph.qq.com/oauth2.0/me")
             .queryParam("access_token", authToken.getAccessToken())
             .queryParam("unionid", config.isUnionId() ? 1 : 0)
-            .build());
+            .build()).getBody();
         String removePrefix = response.replace("callback(", "");
         String removeSuffix = removePrefix.replace(");", "");
         String openId = removeSuffix.trim();

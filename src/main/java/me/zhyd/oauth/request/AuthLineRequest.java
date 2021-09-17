@@ -43,7 +43,7 @@ public class AuthLineRequest extends AuthDefaultRequest {
         params.put("redirect_uri", config.getRedirectUri());
         params.put("client_id", config.getClientId());
         params.put("client_secret", config.getClientSecret());
-        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), params, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), params, false).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         return AuthToken.builder()
             .accessToken(accessTokenObject.getString("access_token"))
@@ -59,7 +59,7 @@ public class AuthLineRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String userInfo = new HttpUtils(config.getHttpConfig()).get(source.userInfo(), null, new HttpHeader()
             .add("Content-Type", "application/x-www-form-urlencoded")
-            .add("Authorization", "Bearer ".concat(authToken.getAccessToken())), false);
+            .add("Authorization", "Bearer ".concat(authToken.getAccessToken())), false).getBody();
         JSONObject object = JSONObject.parseObject(userInfo);
         return AuthUser.builder()
             .rawUserInfo(object)
@@ -80,7 +80,7 @@ public class AuthLineRequest extends AuthDefaultRequest {
         params.put("access_token", authToken.getAccessToken());
         params.put("client_id", config.getClientId());
         params.put("client_secret", config.getClientSecret());
-        String userInfo = new HttpUtils(config.getHttpConfig()).post(source.revoke(), params, false);
+        String userInfo = new HttpUtils(config.getHttpConfig()).post(source.revoke(), params, false).getBody();
         JSONObject object = JSONObject.parseObject(userInfo);
         // 返回1表示取消授权成功，否则失败
         AuthResponseStatus status = object.getBooleanValue("revoked") ? AuthResponseStatus.SUCCESS : AuthResponseStatus.FAILURE;
@@ -94,7 +94,7 @@ public class AuthLineRequest extends AuthDefaultRequest {
         params.put("refresh_token", oldToken.getRefreshToken());
         params.put("client_id", config.getClientId());
         params.put("client_secret", config.getClientSecret());
-        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), params, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), params, false).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         return AuthResponse.builder()
             .code(AuthResponseStatus.SUCCESS.getCode())

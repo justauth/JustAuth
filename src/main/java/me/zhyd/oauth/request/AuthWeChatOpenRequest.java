@@ -94,7 +94,7 @@ public class AuthWeChatOpenRequest extends AuthDefaultRequest {
      * @return token对象
      */
     private AuthToken getToken(String accessTokenUrl) {
-        String response = new HttpUtils(config.getHttpConfig()).get(accessTokenUrl);
+        String response = new HttpUtils(config.getHttpConfig()).get(accessTokenUrl).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(accessTokenObject);

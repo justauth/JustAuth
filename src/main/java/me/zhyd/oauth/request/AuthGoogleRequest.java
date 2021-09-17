@@ -50,7 +50,7 @@ public class AuthGoogleRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add("Authorization", "Bearer " + authToken.getAccessToken());
-        String userInfo = new HttpUtils(config.getHttpConfig()).post(userInfoUrl(authToken), null, httpHeader);
+        String userInfo = new HttpUtils(config.getHttpConfig()).post(userInfoUrl(authToken), null, httpHeader).getBody();
         JSONObject object = JSONObject.parseObject(userInfo);
         this.checkResponse(object);
         return AuthUser.builder()

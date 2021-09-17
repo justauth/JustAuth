@@ -41,7 +41,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
         form.put("code", authCallback.getCode());
         form.put("grant_type", "authorization_code");
 
-        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), form, false).getBody();
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
@@ -60,7 +60,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
         form.put("secret", config.getClientSecret());
         form.put("access_token", authToken.getAccessToken());
 
-        String response = new HttpUtils(config.getHttpConfig()).post(source.userInfo(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.userInfo(), form, false).getBody();
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
@@ -85,7 +85,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
         form.put("refresh_token", oldToken.getRefreshToken());
         form.put("grant_type", "refresh_token");
 
-        String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), form, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), form, false).getBody();
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);

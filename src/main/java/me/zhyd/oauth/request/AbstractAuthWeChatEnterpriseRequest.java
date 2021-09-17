@@ -130,7 +130,7 @@ public abstract class AbstractAuthWeChatEnterpriseRequest extends AuthDefaultReq
             .queryParam("access_token", accessToken)
             .queryParam("userid", userId)
             .build();
-        return new HttpUtils(config.getHttpConfig()).get(userDetailUrl);
+        return new HttpUtils(config.getHttpConfig()).get(userDetailUrl).getBody();
     }
 
 }

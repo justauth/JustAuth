@@ -211,7 +211,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return Response
      */
     protected String doPostAuthorizationCode(String code) {
-        return new HttpUtils(config.getHttpConfig()).post(accessTokenUrl(code));
+        return new HttpUtils(config.getHttpConfig()).post(accessTokenUrl(code)).getBody();
     }
 
     /**
@@ -221,7 +221,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return Response
      */
     protected String doGetAuthorizationCode(String code) {
-        return new HttpUtils(config.getHttpConfig()).get(accessTokenUrl(code));
+        return new HttpUtils(config.getHttpConfig()).get(accessTokenUrl(code)).getBody();
     }
 
     /**
@@ -232,7 +232,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     @Deprecated
     protected String doPostUserInfo(AuthToken authToken) {
-        return new HttpUtils(config.getHttpConfig()).post(userInfoUrl(authToken));
+        return new HttpUtils(config.getHttpConfig()).post(userInfoUrl(authToken)).getBody();
     }
 
     /**
@@ -242,7 +242,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return Response
      */
     protected String doGetUserInfo(AuthToken authToken) {
-        return new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken));
+        return new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken)).getBody();
     }
 
     /**
@@ -253,7 +253,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      */
     @Deprecated
     protected String doPostRevoke(AuthToken authToken) {
-        return new HttpUtils(config.getHttpConfig()).post(revokeUrl(authToken));
+        return new HttpUtils(config.getHttpConfig()).post(revokeUrl(authToken)).getBody();
     }
 
     /**
@@ -263,7 +263,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return Response
      */
     protected String doGetRevoke(AuthToken authToken) {
-        return new HttpUtils(config.getHttpConfig()).get(revokeUrl(authToken));
+        return new HttpUtils(config.getHttpConfig()).get(revokeUrl(authToken)).getBody();
     }
 
     /**

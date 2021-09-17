@@ -50,7 +50,7 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String userinfoUrl = userInfoUrl(authToken);
         // TODO: 是否需要 .setFollowRedirects(true)
-        String response = new HttpUtils(config.getHttpConfig()).get(userinfoUrl);
+        String response = new HttpUtils(config.getHttpConfig()).get(userinfoUrl).getBody();
         JSONObject object = JSONObject.parseObject(response);
         this.checkResponse(object);
         JSONObject userObj = object.getJSONObject("data");

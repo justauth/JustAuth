@@ -68,7 +68,7 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
     }
 
     private AuthToken getToken(String url) {
-        String response = new HttpUtils(config.getHttpConfig()).post(url);
+        String response = new HttpUtils(config.getHttpConfig()).post(url).getBody();
         JSONObject jsonObject = JSONObject.parseObject(response);
         if (jsonObject.containsKey("error")) {
             throw new AuthException("Failed to get token from Renren: " + jsonObject);

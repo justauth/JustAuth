@@ -75,7 +75,7 @@ public class AuthWeChatEnterpriseThirdQrcodeRequest extends AbstractAuthWeChatEn
         JSONObject data = new JSONObject();
         data.put("corpid", config.getClientId());
         data.put("provider_secret", config.getClientSecret());
-        return new HttpUtils(config.getHttpConfig()).post(accessTokenUrl(code), data.toJSONString());
+        return new HttpUtils(config.getHttpConfig()).post(accessTokenUrl(code), data.toJSONString()).getBody();
     }
 
     /**
@@ -96,13 +96,15 @@ public class AuthWeChatEnterpriseThirdQrcodeRequest extends AbstractAuthWeChatEn
             .build();
     }
 
+    @Override
     protected String doGetUserInfo(AuthToken authToken) {
         JSONObject data = new JSONObject();
         data.put("auth_code", authToken.getCode());
         return new HttpUtils(config.getHttpConfig())
-            .post(userInfoUrl(authToken), data.toJSONString());
+            .post(userInfoUrl(authToken), data.toJSONString()).getBody();
     }
 
+    @Override
     protected String userInfoUrl(AuthToken authToken) {
         return UrlBuilder.fromBaseUrl(source.userInfo())
             .queryParam("access_token", authToken.getAccessToken()).

@@ -6,7 +6,7 @@
 
   <groupId>me.zhyd.oauth</groupId>
   <artifactId>JustAuth</artifactId>
-  <version>1.16.3</version>
+  <version>1.16.4</version>
 
   <name>JustAuth</name>
   <url>https://gitee.com/yadong.zhang/JustAuth</url>
@@ -57,7 +57,7 @@
     <maven-surefire-version>2.20</maven-surefire-version>
     <maven-gpg-version>1.6</maven-gpg-version>
     <maven.test.skip>false</maven.test.skip>
-    <simple-http.version>1.0.3</simple-http.version>
+    <simple-http.version>1.0.5</simple-http.version>
     <lombok-version>1.18.10</lombok-version>
     <junit-version>4.13.1</junit-version>
     <fastjson-version>1.2.76</fastjson-version>

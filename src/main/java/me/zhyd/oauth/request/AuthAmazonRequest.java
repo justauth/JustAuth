@@ -111,7 +111,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add("Host", "api.amazon.com");
         httpHeader.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded;charset=UTF-8");
-        String response = new HttpUtils(config.getHttpConfig()).post(url, param, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(url, param, httpHeader, false).getBody();
         JSONObject jsonObject = JSONObject.parseObject(response);
         this.checkResponse(jsonObject);
         return AuthToken.builder()
@@ -147,7 +147,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add("Host", "api.amazon.com");
         httpHeader.add("Authorization", "bearer " + accessToken);
-        String userInfo = new HttpUtils(config.getHttpConfig()).get(this.source.userInfo(), new HashMap<>(0), httpHeader, false);
+        String userInfo = new HttpUtils(config.getHttpConfig()).get(this.source.userInfo(), new HashMap<>(0), httpHeader, false).getBody();
         JSONObject jsonObject = JSONObject.parseObject(userInfo);
         this.checkResponse(jsonObject);
 
@@ -164,7 +164,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
     }
 
     private void checkToken(String accessToken) {
-        String tokenInfo = new HttpUtils(config.getHttpConfig()).get("https://api.amazon.com/auth/o2/tokeninfo?access_token=" + UrlUtil.urlEncode(accessToken));
+        String tokenInfo = new HttpUtils(config.getHttpConfig()).get("https://api.amazon.com/auth/o2/tokeninfo?access_token=" + UrlUtil.urlEncode(accessToken)).getBody();
         JSONObject jsonObject = JSONObject.parseObject(tokenInfo);
         if (!config.getClientId().equals(jsonObject.getString("aud"))) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_TOKEN);

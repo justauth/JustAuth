@@ -52,7 +52,7 @@ public class AuthElemeRequest extends AuthDefaultRequest {
         form.put("grant_type", "authorization_code");
 
         HttpHeader httpHeader = this.buildHeader(CONTENT_TYPE_FORM, this.getRequestId(), true);
-        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), form, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), form, httpHeader, false).getBody();
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
@@ -91,7 +91,7 @@ public class AuthElemeRequest extends AuthDefaultRequest {
         paramsMap.put("signature", signature);
 
         HttpHeader httpHeader = this.buildHeader(CONTENT_TYPE_JSON, requestId, false);
-        String response = new HttpUtils(config.getHttpConfig()).post(source.userInfo(), JSONObject.toJSONString(paramsMap), httpHeader);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.userInfo(), JSONObject.toJSONString(paramsMap), httpHeader).getBody();
 
         JSONObject object = JSONObject.parseObject(response);
 
@@ -123,7 +123,7 @@ public class AuthElemeRequest extends AuthDefaultRequest {
         form.put("grant_type", "refresh_token");
 
         HttpHeader httpHeader = this.buildHeader(CONTENT_TYPE_FORM, this.getRequestId(), true);
-        String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), form, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), form, httpHeader, false).getBody();
 
         JSONObject object = JSONObject.parseObject(response);
 

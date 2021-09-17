@@ -50,7 +50,7 @@ public class AuthXmlyRequest extends AuthDefaultRequest {
         map.put("device_id", config.getDeviceId());
         map.put("grant_type", "authorization_code");
         map.put("redirect_uri", config.getRedirectUri());
-        String response = HttpUtil.post(source.accessToken(), map, true);
+        String response = HttpUtil.post(source.accessToken(), map, true).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         this.checkResponse(accessTokenObject);
 
@@ -97,7 +97,7 @@ public class AuthXmlyRequest extends AuthDefaultRequest {
         map.put("pack_id", config.getPackId());
         map.put("access_token", authToken.getAccessToken());
         map.put("sig", GlobalAuthUtils.generateXmlySignature(map, config.getClientSecret()));
-        String rawUserInfo = HttpUtil.get(source.userInfo(), map, false);
+        String rawUserInfo = HttpUtil.get(source.userInfo(), map, false).getBody();
         JSONObject object = JSONObject.parseObject(rawUserInfo);
         checkResponse(object);
         return AuthUser.builder()

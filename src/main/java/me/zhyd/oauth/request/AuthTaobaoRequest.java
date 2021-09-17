@@ -81,7 +81,7 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
     @Override
     public AuthResponse refresh(AuthToken oldToken) {
         String tokenUrl = refreshTokenUrl(oldToken.getRefreshToken());
-        String response = new HttpUtils(config.getHttpConfig()).post(tokenUrl);
+        String response = new HttpUtils(config.getHttpConfig()).post(tokenUrl).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         return AuthResponse.builder()
             .code(AuthResponseStatus.SUCCESS.getCode())

@@ -48,7 +48,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
         httpHeader.add("Connection", "Keep-Alive");
         httpHeader.add("Authorization", "Bearer " + accessToken);
 
-        String response = new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken), null, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken), null, httpHeader, false).getBody();
         JSONObject userInfoObject = JSONObject.parseObject(response);
 
         this.checkResponse(userInfoObject);
@@ -138,7 +138,9 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
         httpHeader.add("Connection", "Keep-Alive");
         httpHeader.add("Authorization", "Bearer " + accessToken);
 
-        String emailResponse = new HttpUtils(config.getHttpConfig()).get("https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))", null, httpHeader, false);
+        String emailResponse = new HttpUtils(config.getHttpConfig())
+            .get("https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))", null, httpHeader, false)
+            .getBody();
         JSONObject emailObj = JSONObject.parseObject(emailResponse);
 
         this.checkResponse(emailObj);
@@ -178,7 +180,7 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
         httpHeader.add("Host", "www.linkedin.com");
         httpHeader.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded");
 
-        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl, null, httpHeader);
+        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl, null, httpHeader).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(accessTokenObject);

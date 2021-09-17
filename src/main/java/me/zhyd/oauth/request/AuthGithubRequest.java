@@ -52,7 +52,7 @@ public class AuthGithubRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         HttpHeader header = new HttpHeader();
         header.add("Authorization", "token " + authToken.getAccessToken());
-        String response = new HttpUtils(config.getHttpConfig()).get(UrlBuilder.fromBaseUrl(source.userInfo()).build(), null, header, false);
+        String response = new HttpUtils(config.getHttpConfig()).get(UrlBuilder.fromBaseUrl(source.userInfo()).build(), null, header, false).getBody();
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object.containsKey("error"), object.getString("error_description"));

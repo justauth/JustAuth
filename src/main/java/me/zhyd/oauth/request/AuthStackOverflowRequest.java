@@ -42,7 +42,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
         Map<String, String> form = MapUtil.parseStringToMap(accessTokenUrl, false);
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded");
-        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl, form, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl, form, httpHeader, false).getBody();
 
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         this.checkResponse(accessTokenObject);
@@ -60,7 +60,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
             .queryParam("site", "stackoverflow")
             .queryParam("key", this.config.getStackOverflowKey())
             .build();
-        String response = new HttpUtils(config.getHttpConfig()).get(userInfoUrl);
+        String response = new HttpUtils(config.getHttpConfig()).get(userInfoUrl).getBody();
         JSONObject object = JSONObject.parseObject(response);
         this.checkResponse(object);
         JSONObject userObj = object.getJSONArray("items").getJSONObject(0);

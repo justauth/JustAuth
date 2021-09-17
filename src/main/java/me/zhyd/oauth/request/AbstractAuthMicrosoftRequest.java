@@ -53,7 +53,7 @@ public abstract class AbstractAuthMicrosoftRequest extends AuthDefaultRequest {
 
         Map<String, String> form = MapUtil.parseStringToMap(accessTokenUrl, false);
 
-        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl, form, httpHeader, false);
+        String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl, form, httpHeader, false).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
 
         this.checkResponse(accessTokenObject);
@@ -87,7 +87,7 @@ public abstract class AbstractAuthMicrosoftRequest extends AuthDefaultRequest {
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add("Authorization", jwt);
 
-        String userInfo = new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken), null, httpHeader, false);
+        String userInfo = new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken), null, httpHeader, false).getBody();
         JSONObject object = JSONObject.parseObject(userInfo);
         this.checkResponse(object);
         return AuthUser.builder()

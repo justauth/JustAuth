@@ -38,7 +38,8 @@ public class AuthSlackRequest extends AuthDefaultRequest {
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         HttpHeader header = new HttpHeader()
             .add("Content-Type", "application/x-www-form-urlencoded");
-        String response = new HttpUtils(config.getHttpConfig()).get(accessTokenUrl(authCallback.getCode()), null, header, false);
+        String response = new HttpUtils(config.getHttpConfig())
+            .get(accessTokenUrl(authCallback.getCode()), null, header, false).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         this.checkResponse(accessTokenObject);
         return AuthToken.builder()
@@ -54,7 +55,8 @@ public class AuthSlackRequest extends AuthDefaultRequest {
         HttpHeader header = new HttpHeader()
             .add("Content-Type", "application/x-www-form-urlencoded")
             .add("Authorization", "Bearer ".concat(authToken.getAccessToken()));
-        String userInfo = new HttpUtils(config.getHttpConfig()).get(userInfoUrl(authToken), null, header, false);
+        String userInfo = new HttpUtils(config.getHttpConfig())
+            .get(userInfoUrl(authToken), null, header, false).getBody();
         JSONObject object = JSONObject.parseObject(userInfo);
         this.checkResponse(object);
         JSONObject user = object.getJSONObject("user");
@@ -77,7 +79,8 @@ public class AuthSlackRequest extends AuthDefaultRequest {
         HttpHeader header = new HttpHeader()
             .add("Content-Type", "application/x-www-form-urlencoded")
             .add("Authorization", "Bearer ".concat(authToken.getAccessToken()));
-        String userInfo = new HttpUtils(config.getHttpConfig()).get(source.revoke(), null, header, false);
+        String userInfo = new HttpUtils(config.getHttpConfig())
+            .get(source.revoke(), null, header, false).getBody();
         JSONObject object = JSONObject.parseObject(userInfo);
         this.checkResponse(object);
         // 返回1表示取消授权成功，否则失败
