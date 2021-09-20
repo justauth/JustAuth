@@ -2,6 +2,14 @@
 
 ### 2021/9/**
 
+- 添加微软中国(世纪华联)第三方登录，新增微软方式登录的redirectUri校验。[Gitee PR #28](https://gitee.com/yadong.zhang/JustAuth/pulls/28)
+- 升级第三方的依赖
+  -  simple-http > 1.0.5 
+  -  lombok > 1.18.20
+  -  junit > 4.13.2
+  -  fastjson > 1.2.78
+  -  alipay-sdk > 4.16.38.ALL
+
 ## 1.16.3
 
 ### 2021/8/15
