@@ -58,10 +58,10 @@
     <maven-gpg-version>1.6</maven-gpg-version>
     <maven.test.skip>false</maven.test.skip>
     <simple-http.version>1.0.5</simple-http.version>
-    <lombok-version>1.18.10</lombok-version>
-    <junit-version>4.13.1</junit-version>
-    <fastjson-version>1.2.76</fastjson-version>
-    <alipay-sdk-version>4.8.10.ALL</alipay-sdk-version>
+    <lombok-version>1.18.20</lombok-version>
+    <junit-version>4.13.2</junit-version>
+    <fastjson-version>1.2.78</fastjson-version>
+    <alipay-sdk-version>4.16.38.ALL</alipay-sdk-version>
     <jacoco-version>0.8.2</jacoco-version>
   </properties>
 
