@@ -72,7 +72,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     @Override
     public AuthResponse login(AuthCallback authCallback) {
         try {
-            AuthChecker.checkCode(source, authCallback);
+            checkCode(authCallback);
             if (!config.isIgnoreCheckState()) {
                 AuthChecker.checkState(authCallback.getState(), source, authStateCache);
             }
@@ -84,6 +84,10 @@ public abstract class AuthDefaultRequest implements AuthRequest {
             Log.error("Failed to login with oauth authorization.", e);
             return this.responseError(e);
         }
+    }
+
+    protected void checkCode(AuthCallback authCallback) {
+        AuthChecker.checkCode(source, authCallback);
     }
 
     /**

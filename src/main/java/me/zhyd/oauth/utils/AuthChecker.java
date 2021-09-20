@@ -27,9 +27,6 @@ public class AuthChecker {
     public static boolean isSupportedAuth(AuthConfig config, AuthSource source) {
         boolean isSupported = StringUtils.isNotEmpty(config.getClientId())
             && StringUtils.isNotEmpty(config.getClientSecret());
-        if (isSupported && AuthDefaultSource.ALIPAY == source) {
-            isSupported = StringUtils.isNotEmpty(config.getAlipayPublicKey());
-        }
         if (isSupported && AuthDefaultSource.STACK_OVERFLOW == source) {
             isSupported = StringUtils.isNotEmpty(config.getStackOverflowKey());
         }
@@ -71,18 +68,13 @@ public class AuthChecker {
             // Facebook's redirect uri must use the HTTPS protocol
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }
-        // 支付宝在创建回调地址时，不允许使用localhost或者127.0.0.1
-        if (AuthDefaultSource.ALIPAY == source && GlobalAuthUtils.isLocalHost(redirectUri)) {
-            // The redirect uri of alipay is forbidden to use localhost or 127.0.0.1
-            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
-        }
         // 微软的回调地址必须为https的链接或者localhost,不允许使用http
-        if(AuthDefaultSource.MICROSOFT== source && !GlobalAuthUtils.isHttpsProtocolOrLocalHost(redirectUri) ){
+        if (AuthDefaultSource.MICROSOFT == source && !GlobalAuthUtils.isHttpsProtocolOrLocalHost(redirectUri)) {
             // Microsoft's redirect uri must use the HTTPS or localhost
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }
         // 微软中国的回调地址必须为https的链接或者localhost,不允许使用http
-        if(AuthDefaultSource.MICROSOFT_CN== source && !GlobalAuthUtils.isHttpsProtocolOrLocalHost(redirectUri) ){
+        if (AuthDefaultSource.MICROSOFT_CN == source && !GlobalAuthUtils.isHttpsProtocolOrLocalHost(redirectUri)) {
             // Microsoft's redirect uri must use the HTTPS or localhost
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }
@@ -103,9 +95,7 @@ public class AuthChecker {
             return;
         }
         String code = callback.getCode();
-        if (source == AuthDefaultSource.ALIPAY) {
-            code = callback.getAuth_code();
-        } else if (source == AuthDefaultSource.HUAWEI) {
+        if (source == AuthDefaultSource.HUAWEI) {
             code = callback.getAuthorization_code();
         }
         if (StringUtils.isEmpty(code)) {
