@@ -219,7 +219,7 @@ AuthRequest authRequest = AuthRequestBuilder.builder()
 ## JustAuth 的用户
 有很多公司、组织和个人把 JustAuth 用于学习、研究、生产环境和商业产品中，包括（但不限于）：
 
-![](docs/users/col.png)![](docs/users/bjgyol.png)![](docs/users/foresealife.png)![](docs/users/sevnce.png)
+[![](docs/users/col.png)](https://www.mochiwang.com "给作者提供云写作的一个工具")![](docs/users/bjgyol.png)![](docs/users/foresealife.png)![](docs/users/sevnce.png)
 
 ![](docs/users/bladex.png)![](docs/users/gun.png)![](docs/users/sika.jpg)![](docs/users/maxkey.png)![](docs/users/shiroaction.png)![](docs/users/xkcoding.png)
 
