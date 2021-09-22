@@ -56,7 +56,7 @@ public class AuthFeishuRequest extends AuthDefaultRequest {
         requestObject.put("app_id", config.getClientId());
         requestObject.put("app_secret", config.getClientSecret());
         String response = new HttpUtils(config.getHttpConfig()).post(url, requestObject.toJSONString(), new HttpHeader()
-            .add("Content-Type", "application/json"));
+            .add("Content-Type", "application/json")).getBody();
         JSONObject jsonObject = JSON.parseObject(response);
         this.checkResponse(jsonObject);
         String appAccessToken = jsonObject.getString("app_access_token");
@@ -80,7 +80,7 @@ public class AuthFeishuRequest extends AuthDefaultRequest {
         String accessToken = authToken.getAccessToken();
         String response = new HttpUtils(config.getHttpConfig()).get(source.userInfo(), null, new HttpHeader()
             .add("Content-Type", "application/json")
-            .add("Authorization", "Bearer " + accessToken), false);
+            .add("Authorization", "Bearer " + accessToken), false).getBody();
         JSONObject object = JSON.parseObject(response);
         this.checkResponse(object);
         JSONObject data = object.getJSONObject("data");
@@ -112,7 +112,7 @@ public class AuthFeishuRequest extends AuthDefaultRequest {
 
     private AuthToken getToken(JSONObject param, String url) {
         String response = new HttpUtils(config.getHttpConfig()).post(url, param.toJSONString(), new HttpHeader()
-            .add("Content-Type", "application/json"));
+            .add("Content-Type", "application/json")).getBody();
         JSONObject jsonObject = JSON.parseObject(response);
         this.checkResponse(jsonObject);
         JSONObject data = jsonObject.getJSONObject("data");
