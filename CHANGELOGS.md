@@ -1,7 +1,12 @@
 ## 1.16.4
 
-### 2021/9/**
+### 2021/9/22
 
+- 合并 PR 
+  - [Github #134](https://github.com/justauth/JustAuth/pull/134)
+  - [Github #133](https://github.com/justauth/JustAuth/pull/133)
+  - [Github #132](https://github.com/justauth/JustAuth/pull/132)
+  - [Github #131](https://github.com/justauth/JustAuth/pull/131)
 - 添加微软中国(世纪华联)第三方登录，新增微软方式登录的redirectUri校验。[Gitee PR #28](https://gitee.com/yadong.zhang/JustAuth/pulls/28)
 - 升级第三方的依赖
   -  simple-http > 1.0.5 
