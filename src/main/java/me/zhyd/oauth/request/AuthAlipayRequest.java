@@ -41,6 +41,8 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
 
     private final AlipayClient alipayClient;
 
+    private static final String GATEWAY = "https://openapi.alipay.com/gateway.do";
+
     /**
      * @see AuthAlipayRequest#AuthAlipayRequest(me.zhyd.oauth.config.AuthConfig, java.lang.String)
      * @deprecated 请使用带有"alipayPublicKey"参数的构造方法
@@ -78,8 +80,8 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
     public AuthAlipayRequest(AuthConfig config, String alipayPublicKey) {
         super(config, AuthDefaultSource.ALIPAY);
         this.alipayPublicKey = determineAlipayPublicKey(alipayPublicKey, config);
-        this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(), "json", "UTF-8", alipayPublicKey, "RSA2");
         check(config);
+        this.alipayClient = new DefaultAlipayClient(GATEWAY, config.getClientId(), config.getClientSecret(), "json", "UTF-8", this.alipayPublicKey, "RSA2");
     }
 
     /**
@@ -92,16 +94,16 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
     public AuthAlipayRequest(AuthConfig config, String alipayPublicKey, AuthStateCache authStateCache) {
         super(config, AuthDefaultSource.ALIPAY, authStateCache);
         this.alipayPublicKey = determineAlipayPublicKey(alipayPublicKey, config);
+        check(config);
         if (config.getHttpConfig() != null && config.getHttpConfig().getProxy() != null
             && config.getHttpConfig().getProxy().address() instanceof InetSocketAddress) {
             InetSocketAddress address = (InetSocketAddress) config.getHttpConfig().getProxy().address();
-            this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
-                "json", "UTF-8", alipayPublicKey, "RSA2", address.getHostName(), address.getPort());
+            this.alipayClient = new DefaultAlipayClient(GATEWAY, config.getClientId(), config.getClientSecret(),
+                "json", "UTF-8", this.alipayPublicKey, "RSA2", address.getHostName(), address.getPort());
         } else {
-            this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
-                "json", "UTF-8", alipayPublicKey, "RSA2");
+            this.alipayClient = new DefaultAlipayClient(GATEWAY, config.getClientId(), config.getClientSecret(),
+                "json", "UTF-8", this.alipayPublicKey, "RSA2");
         }
-        check(config);
     }
 
     /**
@@ -114,9 +116,9 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
     public AuthAlipayRequest(AuthConfig config, String alipayPublicKey, AuthStateCache authStateCache, String proxyHost, Integer proxyPort) {
         super(config, AuthDefaultSource.ALIPAY, authStateCache);
         this.alipayPublicKey = determineAlipayPublicKey(alipayPublicKey, config);
-        this.alipayClient = new DefaultAlipayClient(AuthDefaultSource.ALIPAY.accessToken(), config.getClientId(), config.getClientSecret(),
-            "json", "UTF-8", alipayPublicKey, "RSA2", proxyHost, proxyPort);
         check(config);
+        this.alipayClient = new DefaultAlipayClient(GATEWAY, config.getClientId(), config.getClientSecret(),
+            "json", "UTF-8", this.alipayPublicKey, "RSA2", proxyHost, proxyPort);
     }
 
     private String determineAlipayPublicKey(String alipayPublicKey, AuthConfig config) {
