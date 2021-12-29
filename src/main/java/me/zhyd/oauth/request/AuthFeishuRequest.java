@@ -142,7 +142,7 @@ public class AuthFeishuRequest extends AuthDefaultRequest {
      */
     private void checkResponse(JSONObject jsonObject) {
         if (jsonObject.getIntValue("code") != 0) {
-            throw new AuthException(jsonObject.getString("message"));
+            throw new AuthException(jsonObject.getString("msg"));
         }
     }
 
