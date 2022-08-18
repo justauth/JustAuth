@@ -79,7 +79,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
         Map<String, String> form = new HashMap<>(9);
-        form.put("grant_type", "authorization_code");
+        form.put("grant_type", "Authorization_code");
         form.put("code", authCallback.getCode());
         form.put("redirect_uri", config.getRedirectUri());
         form.put("client_id", config.getClientId());
