@@ -5,6 +5,7 @@ import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.enums.scope.AuthWeChatEnterpriseWebScope;
 import me.zhyd.oauth.utils.AuthScopeUtils;
+import me.zhyd.oauth.utils.GlobalAuthUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -28,7 +29,7 @@ public class AuthWeChatEnterpriseWebRequest extends AbstractAuthWeChatEnterprise
     public String authorize(String state) {
         return UrlBuilder.fromBaseUrl(source.authorize())
             .queryParam("appid", config.getClientId())
-            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("redirect_uri", GlobalAuthUtils.urlEncode(config.getRedirectUri()))
             .queryParam("response_type", "code")
             .queryParam("scope", this.getScopes(",", false, AuthScopeUtils.getDefaultScopes(AuthWeChatEnterpriseWebScope.values())))
             .queryParam("state", getRealState(state).concat("#wechat_redirect"))
