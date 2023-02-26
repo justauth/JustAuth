@@ -3,7 +3,6 @@ package me.zhyd.oauth.request;
 import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
-import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.config.AuthSource;
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
@@ -12,6 +11,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.HttpUtils;
+import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -56,8 +56,8 @@ public abstract class AbstractAuthWeChatEnterpriseRequest extends AuthDefaultReq
             throw new AuthException(AuthResponseStatus.UNIDENTIFIED_PLATFORM, source);
         }
         String userId = object.getString("UserId");
-        String userDetailResponse = getUserDetail(authToken.getAccessToken(), userId);
-        JSONObject userDetail = this.checkResponse(userDetailResponse);
+        String userTicket = object.getString("user_ticket");
+        JSONObject userDetail = getUserDetail(authToken.getAccessToken(), userId, userTicket);
 
         return AuthUser.builder()
             .rawUserInfo(userDetail)
@@ -123,14 +123,31 @@ public abstract class AbstractAuthWeChatEnterpriseRequest extends AuthDefaultReq
      *
      * @param accessToken accessToken
      * @param userId      企业内用户id
+     * @param userTicket  成员票据，用于获取用户信息或敏感信息
      * @return 用户详情
      */
-    private String getUserDetail(String accessToken, String userId) {
-        String userDetailUrl = UrlBuilder.fromBaseUrl("https://qyapi.weixin.qq.com/cgi-bin/user/get")
+    private JSONObject getUserDetail(String accessToken, String userId, String userTicket) {
+        // 用户基础信息
+        String userInfoUrl = UrlBuilder.fromBaseUrl("https://qyapi.weixin.qq.com/cgi-bin/user/get")
             .queryParam("access_token", accessToken)
             .queryParam("userid", userId)
             .build();
-        return new HttpUtils(config.getHttpConfig()).get(userDetailUrl).getBody();
+        String userInfoResponse = new HttpUtils(config.getHttpConfig()).get(userInfoUrl).getBody();
+        JSONObject userInfo = checkResponse(userInfoResponse);
+
+        // 用户敏感信息
+        if (StringUtils.isNotEmpty(userTicket)) {
+            String userDetailUrl = UrlBuilder.fromBaseUrl("https://qyapi.weixin.qq.com/cgi-bin/auth/getuserdetail")
+                .queryParam("access_token", accessToken)
+                .build();
+            JSONObject param = new JSONObject();
+            param.put("user_ticket", userTicket);
+            String userDetailResponse = new HttpUtils(config.getHttpConfig()).post(userDetailUrl, param.toJSONString()).getBody();
+            JSONObject userDetail = checkResponse(userDetailResponse);
+
+            userInfo.putAll(userDetail);
+        }
+        return userInfo;
     }
 
 }
