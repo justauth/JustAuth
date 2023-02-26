@@ -1,3 +1,13 @@
+## 1.16.5
+
+### 2021/10/18
+
+- 合并 PR [Github #138](https://github.com/justauth/JustAuth/pull/138)
+- 升级alipay-sdk-version的依赖版本
+- 修改用户logo的尺寸
+- 修复 alipay 登录失败的 BUG [Gitee Issue #I4E4ML](https://gitee.com/yadong.zhang/JustAuth/issues/I4E4ML)
+
+
 ## 1.16.4
 
 ### 2021/9/22
