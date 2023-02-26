@@ -29,6 +29,7 @@ public class AuthWeChatEnterpriseWebRequest extends AbstractAuthWeChatEnterprise
     public String authorize(String state) {
         return UrlBuilder.fromBaseUrl(source.authorize())
             .queryParam("appid", config.getClientId())
+            .queryParam("agentid", config.getAgentId())
             .queryParam("redirect_uri", GlobalAuthUtils.urlEncode(config.getRedirectUri()))
             .queryParam("response_type", "code")
             .queryParam("scope", this.getScopes(",", false, AuthScopeUtils.getDefaultScopes(AuthWeChatEnterpriseWebScope.values())))
