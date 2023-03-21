@@ -1272,6 +1272,30 @@ public enum AuthDefaultSource implements AuthSource {
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return AuthProginnRequest.class;
         }
+    },
+    /**
+     * 爱发电 <a href="https://afdian.net/">爱发电</a>
+     */
+    AFDIAN {
+        @Override
+        public String authorize() {
+            return "https://afdian.net/oauth2/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://afdian.net/api/oauth2/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthProginnRequest.class;
+        }
     }
 
 }
