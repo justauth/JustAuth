@@ -40,7 +40,7 @@
 
 QQ 群：230017570    
 微信群：justauth （备注`justauth`或者`ja`）    
-帮助文档：[justauth.wiki](https://www.justauth.cn)    
+帮助文档：[www.justauth.cn](https://www.justauth.cn)    
 
 ## 什么是 JustAuth？
 
