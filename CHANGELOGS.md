@@ -161,7 +161,7 @@
     - 新增 [微信企业版登录](oauth/wechatEnterprise.md)文档
     - 新增 [Facebook 登录](oauth/facebook.md)文档
     - 完善 [JustAuth 使用者](users.md)文档
-    - 替换“帮助文档”域名，由[https://docs.justauth.whnb.wang](https://docs.justauth.whnb.wang)迁移到[https://justauth.wiki](https://justauth.wiki)
+    - 替换“帮助文档”域名，由[https://docs.justauth.whnb.wang](https://docs.justauth.whnb.wang)迁移到[https://www.justauth.cn](https://www.justauth.cn)
 - 新增
     - 增加阿里云授权登录中刷新授权token的接口，by “QQ群用户需求”
     - AuthConfig 增加忽略校验 state 的参数，详情参考：[Github#Issue#83](https://github.com/justauth/JustAuth/issues/83)
@@ -214,7 +214,7 @@ new AuthGoogleRequest(AuthConfig.builder()
 - 修复
     - 解决 Twitter 授权失败的BUG
 - 文档
-    - 完善 [https://justauth.wiki](https://justauth.wiki/) 的404引导页内容
+    - 完善 [https://www.justauth.cn](https://www.justauth.cn/) 的404引导页内容
     - 增加名词解释： `uuid`
     - 补充 [Q&A](Q&A.md)
     - 新增 [参考文档](references.md)，包含 OAuth 授权和第三方平台的API文档等内容
@@ -294,9 +294,9 @@ System.setProperty("proxyHost", "127.0.0.1");
 - 新增
     - 增加微信、QQ、支付宝、微博授权登录的帮助文档
     - 合并[PR#57](https://github.com/justauth/JustAuth/pull/57)，增加微信公众号登录 by [@xkcoding](https://github.com/xkcoding)
-    - [帮助文档](https://justauth.wiki)中增加自定义的404页面
-    - [帮助文档](https://justauth.wiki)中增加Gittalk插件
-    - [帮助文档](https://justauth.wiki)中增加Java代码高亮的插件
+    - [帮助文档](https://www.justauth.cn)中增加自定义的404页面
+    - [帮助文档](https://www.justauth.cn)中增加Gittalk插件
+    - [帮助文档](https://www.justauth.cn)中增加Java代码高亮的插件
     - 增加`AuthUserGender#getWechatRealGender`方法，兼容获取微信平台的用户性别
 - 修改
     - 修复抖音登录取值取错层级的问题（[issue#I15SIG@Gitee](https://gitee.com/yadong.zhang/JustAuth/issues/I15SIG)）
@@ -305,7 +305,7 @@ System.setProperty("proxyHost", "127.0.0.1");
     - `AuthResponseStatus`枚举类中增加`ILLEGAL_STATUS`、`REQUIRED_REFRESH_TOKEN`两个枚举值
     - `AuthSource`接口中增加`getName`方法，用来对外提供实际`source`的字符串值
     - `AuthWeiboRequest`微博授权登录中实现`revoke`方法，支持手动回收授权
-    - [帮助文档](https://justauth.wiki)中修复[腾讯云登录]链接错误的问题
+    - [帮助文档](https://www.justauth.cn)中修复[腾讯云登录]链接错误的问题
 - 升级
     - 升级相关依赖：lombok@v1.18.10，hutool@5.0.5，fastjson@1.2.62，alipay@4.8.10.ALL（[PR#11@Gitee](https://gitee.com/yadong.zhang/JustAuth/pulls/11)）
 

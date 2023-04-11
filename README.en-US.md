@@ -1,5 +1,5 @@
 <p align="center">
-	<a href="https://justauth.wiki"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
+	<a href="https://www.justauth.cn"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
 </p>
 <p align="center">
 	<strong>Login, so easy.</strong>
@@ -17,7 +17,7 @@
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
 	</a>
-	<a target="_blank" href="https://justauth.wiki" title="参考文档">
+	<a target="_blank" href="https://www.justauth.cn" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
 	</a>
 	<a href="https://codecov.io/gh/justauth/JustAuth">
@@ -43,7 +43,7 @@
 `JustAuth`, as you see, It is just a Java library of third-party authorized login, It's smaller and easier to use. JustAuth is the best third-party login tool written in JAVA.
 
 Source Code：[gitee](https://gitee.com/yadong.zhang/JustAuth) | [github](https://github.com/zhangyd-c/JustAuth)    
-Docs：[Reference Doc](https://justauth.wiki)
+Docs：[Reference Doc](https://www.justauth.cn)
 
 ## Features
 
@@ -180,11 +180,11 @@ I look forward to your joining us.
 
 ## Contributors
 
-[contributors](https://justauth.wiki/contributors.html)
+[contributors](https://www.justauth.cn/contributors.html)
 
 ## Change Logs
 
-[CHANGELOGS](https://justauth.wiki/update.html)
+[CHANGELOGS](https://www.justauth.cn/update.html)
 
 ## Recommend
 
