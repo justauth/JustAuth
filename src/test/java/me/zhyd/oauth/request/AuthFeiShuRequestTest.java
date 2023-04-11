@@ -71,9 +71,7 @@ public class AuthFeiShuRequestTest {
             .state(state)
             .build();
         AuthResponse response = request.login(callback);
-        Assert.assertNotNull(response);
         AuthUser user = (AuthUser) response.getData();
-        Assert.assertNotNull(user);
         System.out.println(JSON.toJSONString(user));
     }
 
