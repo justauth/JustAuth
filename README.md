@@ -40,7 +40,7 @@
 
 QQ 群：230017570    
 微信群：justauth （备注`justauth`或者`ja`）    
-帮助文档：[https://www.justauth.cn](https://www.justauth.cn)    
+帮助文档：[justauth.wiki](https://www.justauth.cn)
 
 ## 什么是 JustAuth？
 
@@ -74,7 +74,7 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 ```
 
 > **latest-version** 可选：
-> - 稳定版：![](https://img.shields.io/github/v/release/justauth/JustAuth?style=flat-square) 
+> - 稳定版：![](https://img.shields.io/github/v/release/justauth/JustAuth?style=flat-square)
 > - 快照版：![](https://img.shields.io/nexus/s/https/oss.sonatype.org/me.zhyd.oauth/JustAuth.svg?style=flat-square)
 > > 注意：快照版本是功能的尝鲜，并不保证稳定性。请勿在生产环境中使用。
 >
@@ -82,7 +82,7 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 >   <summary>如何引入快照版本</summary>
 >
 > JustAuth 的快照版本托管在 ossrh 上，所以要指定下载地址。
-> 
+>
 > ```xml
 > <repositories>
 >     <repository>
@@ -94,9 +94,9 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 >     </repository>
 > </repositories>
 > ```
-> 
+>
 > 如果你想第一时间获取 JustAuth 的最新快照，可以添加下列代码，每次构建时都检查是否有最新的快照（默认每天检查）。
-> 
+>
 > ```diff
 >        <url>https://oss.sonatype.org/content/repositories/snapshots</url>
 >         <snapshots>
@@ -104,7 +104,7 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 >             <enabled>true</enabled>
 >         </snapshots>
 > ```
-> 
+>
 > </details>
 
 如下**任选一种** HTTP 工具 依赖，_项目内如果已有，请忽略。另外需要特别注意，如果项目中已经引入了低版本的依赖，请先排除低版本依赖后，再引入高版本或者最新版本的依赖_
@@ -138,7 +138,7 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
     <version>4.9.1</version>
   </dependency>
   ```
-  
+
 ### 调用api
 
 #### 普通方式
@@ -233,7 +233,7 @@ AuthRequest authRequest = AuthRequestBuilder.builder()
 - `spring-boot-demo` 深度学习并实战 spring boot 的项目: [https://github.com/xkcoding/spring-boot-demo](https://github.com/xkcoding/spring-boot-demo)
 - `mica` SpringBoot 微服务高效开发工具集: [https://github.com/lets-mica/mica](https://github.com/lets-mica/mica)
 - `sureness` 面向restful api的高性能认证鉴权框架：[sureness](https://github.com/usthe/sureness)
-  
+
 更多推荐，请参考：[JustAuth - 开源推荐](https://www.justauth.cn)
 
 ## 鸣谢
