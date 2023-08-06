@@ -65,6 +65,7 @@ public class AuthWeChatMpRequest extends AuthDefaultRequest {
             .avatar(object.getString("headimgurl"))
             .location(location)
             .uuid(openId)
+            .snapshotUser(authToken.isSnapshotUser())
             .gender(AuthUserGender.getWechatRealGender(object.getString("sex")))
             .token(authToken)
             .source(source.toString())
@@ -108,6 +109,7 @@ public class AuthWeChatMpRequest extends AuthDefaultRequest {
             .expireIn(accessTokenObject.getIntValue("expires_in"))
             .openId(accessTokenObject.getString("openid"))
             .scope(accessTokenObject.getString("scope"))
+            .snapshotUser(accessTokenObject.getIntValue("is_snapshotuser") == 1)
             .build();
     }
 

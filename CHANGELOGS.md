@@ -1,3 +1,15 @@
+## 1.16.6
+
+### 2023/08/06
+
+- 企业微信网页登录--获取用户敏感信。 [Github #155](https://github.com/justauth/JustAuth/pull/155)
+- 添加飞书单元测试。 [Github #159](https://github.com/justauth/JustAuth/pull/159)
+- 升级fastjson版本到1.2.83，1.2.83版本之前存在代码执行漏洞风险 ，CVE-2022-25845。[Gitee PR #31](https://gitee.com/yadong.zhang/JustAuth/pulls/31)
+- 添加微软中国(世纪华联)第三方登录，新增微软方式登录的redirectUri校验。[Gitee PR #33](https://gitee.com/yadong.zhang/JustAuth/pulls/33)
+- 微信公众平台支持返回快照标识（快照标识为 true 时，标识当前获取到的微信用户信息都是虚拟的）
+- 新增爱发电平台 [Gitee #35](https://gitee.com/yadong.zhang/JustAuth/pulls/35)
+
+
 ## 1.16.5
 
 ### 2021/10/18
