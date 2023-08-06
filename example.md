@@ -96,6 +96,10 @@ _注：非全部平台，部分平台可能不存在图例_
 
 ![授权Stack Overflow](https://images.gitee.com/uploads/images/2019/0718/192639_cc301ba7_784199.png "授权Stack Overflow")
 
+#### 授权afdian
+
+![授权afdian](https://img.fastmirror.net/s/2023/03/24/641d63a8c19b5.png "授权afDian")
+
 #### 授权Twitter
 
 ![授权Twitter]( "授权Twitter")

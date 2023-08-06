@@ -1,5 +1,5 @@
 <p align="center">
-	<a href="https://justauth.wiki"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
+	<a href="https://www.justauth.cn"><img src="https://gitee.com/yadong.zhang/static/raw/master/JustAuth/Justauth.png" width="400"></a>
 </p>
 <p align="center">
 	<strong>Login, so easy.</strong>
@@ -17,7 +17,7 @@
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
 		<img src="https://img.shields.io/badge/JDK-1.8+-green.svg" ></img>
 	</a>
-	<a target="_blank" href="https://justauth.wiki" title="参考文档">
+	<a target="_blank" href="https://www.justauth.cn" title="参考文档">
 		<img src="https://img.shields.io/badge/Docs-latest-blueviolet.svg" ></img>
 	</a>
 	<a href="https://codecov.io/gh/justauth/JustAuth">
@@ -40,13 +40,13 @@
 
 QQ 群：230017570    
 微信群：justauth （备注`justauth`或者`ja`）    
-帮助文档：[justauth.wiki](https://justauth.wiki)    
+帮助文档：[www.justauth.cn](https://www.justauth.cn)    
 
 ## 什么是 JustAuth？
 
 JustAuth，如你所见，它仅仅是一个**第三方授权登录**的**工具类库**，它可以让我们脱离繁琐的第三方登录 SDK，让登录变得**So easy!**
 
-JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、Google、Facebook、Twitter、StackOverflow等国内外数十家第三方平台。更多请参考<a href="https://justauth.wiki" target="_blank">已集成的平台</a>
+JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、Google、Facebook、Twitter、StackOverflow等国内外数十家第三方平台。更多请参考<a href="https://www.justauth.cn" target="_blank">已集成的平台</a>
 
 ## 有哪些特点？
 
@@ -55,12 +55,12 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 
 ## 有哪些功能？
 
-- 集成国内外数十家第三方平台，实现快速接入。<a href="https://justauth.wiki/quickstart/how-to-use.html" target="_blank">参考文档</a>
-- 自定义 State 缓存，支持各种分布式缓存组件。<a href="https://justauth.wiki/features/customize-the-state-cache.html" target="_blank">参考文档</a>
-- 自定义 OAuth 平台，更容易适配自有的 OAuth 服务。<a href="https://justauth.wiki/features/customize-the-oauth.html" target="_blank">参考文档</a>
-- 自定义 Http 实现，选择权完全交给开发者，不会单独依赖某一具体实现。<a href="https://justauth.wiki/quickstart/how-to-use.html#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F" target="_blank">参考文档</a>
-- 自定义 Scope，支持更完善的授权体系。<a href="https://justauth.wiki/features/customize-scopes.html" target="_blank">参考文档</a>
-- 更多...<a href="https://justauth.wiki" target="_blank">参考文档</a>
+- 集成国内外数十家第三方平台，实现快速接入。<a href="https://www.justauth.cn/quickstart/how-to-use.html" target="_blank">参考文档</a>
+- 自定义 State 缓存，支持各种分布式缓存组件。<a href="https://www.justauth.cn/features/customize-the-state-cache.html" target="_blank">参考文档</a>
+- 自定义 OAuth 平台，更容易适配自有的 OAuth 服务。<a href="https://www.justauth.cn/features/customize-the-oauth.html" target="_blank">参考文档</a>
+- 自定义 Http 实现，选择权完全交给开发者，不会单独依赖某一具体实现。<a href="https://www.justauth.cn/quickstart/how-to-use.html#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F" target="_blank">参考文档</a>
+- 自定义 Scope，支持更完善的授权体系。<a href="https://www.justauth.cn/features/customize-scopes.html" target="_blank">参考文档</a>
+- 更多...<a href="https://www.justauth.cn" target="_blank">参考文档</a>
 
 ## 快速开始
 
@@ -214,7 +214,7 @@ AuthRequest authRequest = AuthRequestBuilder.builder()
 
 感谢以下赞助商的支持：
 
-[我要赞助](https://justauth.wiki/sponsor.html)
+[我要赞助](https://www.justauth.cn/sponsor.html)
 
 ## JustAuth 的用户
 有很多公司、组织和个人把 JustAuth 用于学习、研究、生产环境和商业产品中，包括（但不限于）：
@@ -234,7 +234,7 @@ AuthRequest authRequest = AuthRequestBuilder.builder()
 - `mica` SpringBoot 微服务高效开发工具集: [https://github.com/lets-mica/mica](https://github.com/lets-mica/mica)
 - `sureness` 面向restful api的高性能认证鉴权框架：[sureness](https://github.com/usthe/sureness)
   
-更多推荐，请参考：[JustAuth - 开源推荐](https://justauth.wiki)
+更多推荐，请参考：[JustAuth - 开源推荐](https://www.justauth.cn)
 
 ## 鸣谢
 
@@ -246,8 +246,8 @@ AuthRequest authRequest = AuthRequestBuilder.builder()
 
 ## 其他
 
-- [CONTRIBUTORS](https://justauth.wiki/contributors.html)
-- [CHANGELOGS](https://justauth.wiki/update.html)
+- [CONTRIBUTORS](https://www.justauth.cn/contributors.html)
+- [CHANGELOGS](https://www.justauth.cn/update.html)
 - [PLAN](https://gitee.com/yadong.zhang/JustAuth/issues/IUGRK)
 
 ## 贡献者列表
