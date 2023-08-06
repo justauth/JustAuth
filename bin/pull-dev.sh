@@ -1,1 +1,1 @@
-git pull origin dev && git pull github dev && git pull cc dev
+git pull origin dev && git pull github dev
