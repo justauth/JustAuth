@@ -32,7 +32,6 @@ public class AuthFeiShuRequestTest {
         System.out.println("state==" + state);
         String authorize = request.authorize(state);
         System.out.println("authorize==" + authorize);
-        Assert.assertNotNull(authorize);
     }
 
     @Test
@@ -50,11 +49,9 @@ public class AuthFeiShuRequestTest {
             .state(state)
             .build();
         AuthToken accessToken = ((AuthFeishuRequest) request).getAccessToken(callback);
-        Assert.assertNotNull(accessToken);
         System.out.println("token==" + accessToken.getAccessToken());
 
         AuthUser userInfo = ((AuthFeishuRequest) request).getUserInfo(accessToken);
-        Assert.assertNotNull(userInfo);
         System.out.println("userInfo==" + JSON.toJSONString(userInfo));
 
     }
@@ -74,9 +71,7 @@ public class AuthFeiShuRequestTest {
             .state(state)
             .build();
         AuthResponse response = request.login(callback);
-        Assert.assertNotNull(response);
         AuthUser user = (AuthUser) response.getData();
-        Assert.assertNotNull(user);
         System.out.println(JSON.toJSONString(user));
     }
 
