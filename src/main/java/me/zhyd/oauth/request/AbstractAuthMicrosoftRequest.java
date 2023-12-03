@@ -16,6 +16,7 @@ import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.AuthScopeUtils;
 import me.zhyd.oauth.utils.HttpUtils;
+import me.zhyd.oauth.utils.StringUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 import java.util.Map;
@@ -126,9 +127,16 @@ public abstract class AbstractAuthMicrosoftRequest extends AuthDefaultRequest {
      */
     @Override
     public String authorize(String state) {
-        return UrlBuilder.fromBaseUrl(super.authorize(state))
+        // 兼容 Microsoft Entra ID 登录（原微软 AAD）
+        // @since 1.16.6
+        String tenantId = StringUtils.isEmpty(config.getTenantId()) ? "common" : config.getTenantId();
+        return UrlBuilder.fromBaseUrl(String.format(source.authorize(), tenantId))
+            .queryParam("response_type", "code")
+            .queryParam("client_id", config.getClientId())
+            .queryParam("redirect_uri", config.getRedirectUri())
+            .queryParam("state", getRealState(state))
             .queryParam("response_mode", "query")
-            .queryParam("scope", this.getScopes(" ", true, AuthScopeUtils.getDefaultScopes(AuthMicrosoftScope.values())))
+            .queryParam("scope", this.getScopes(" ", false, AuthScopeUtils.getDefaultScopes(AuthMicrosoftScope.values())))
             .build();
     }
 
@@ -140,12 +148,13 @@ public abstract class AbstractAuthMicrosoftRequest extends AuthDefaultRequest {
      */
     @Override
     protected String accessTokenUrl(String code) {
-        return UrlBuilder.fromBaseUrl(source.accessToken())
+        String tenantId = StringUtils.isEmpty(config.getTenantId()) ? "common" : config.getTenantId();
+        return UrlBuilder.fromBaseUrl(String.format(source.accessToken(), tenantId))
             .queryParam("code", code)
             .queryParam("client_id", config.getClientId())
             .queryParam("client_secret", config.getClientSecret())
             .queryParam("grant_type", "authorization_code")
-            .queryParam("scope", this.getScopes(" ", true, AuthScopeUtils.getDefaultScopes(AuthMicrosoftScope.values())))
+            .queryParam("scope", this.getScopes(" ", false, AuthScopeUtils.getDefaultScopes(AuthMicrosoftScope.values())))
             .queryParam("redirect_uri", config.getRedirectUri())
             .build();
     }
@@ -169,12 +178,13 @@ public abstract class AbstractAuthMicrosoftRequest extends AuthDefaultRequest {
      */
     @Override
     protected String refreshTokenUrl(String refreshToken) {
-        return UrlBuilder.fromBaseUrl(source.refresh())
+        String tenantId = StringUtils.isEmpty(config.getTenantId()) ? "common" : config.getTenantId();
+        return UrlBuilder.fromBaseUrl(String.format(source.refresh(), tenantId))
             .queryParam("client_id", config.getClientId())
             .queryParam("client_secret", config.getClientSecret())
             .queryParam("refresh_token", refreshToken)
             .queryParam("grant_type", "refresh_token")
-            .queryParam("scope", this.getScopes(" ", true, AuthScopeUtils.getDefaultScopes(AuthMicrosoftScope.values())))
+            .queryParam("scope", this.getScopes(" ", false, AuthScopeUtils.getDefaultScopes(AuthMicrosoftScope.values())))
             .queryParam("redirect_uri", config.getRedirectUri())
             .build();
     }

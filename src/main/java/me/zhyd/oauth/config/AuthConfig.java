@@ -181,4 +181,9 @@ public class AuthConfig {
     public String getAuthServerId() {
         return StringUtils.isEmpty(authServerId) ? "default" : authServerId;
     }
+
+    /**
+     * Microsoft Entra ID（原微软 AAD）中的租户 ID
+     */
+    private String tenantId;
 }

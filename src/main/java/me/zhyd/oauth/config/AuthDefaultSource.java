@@ -410,17 +410,17 @@ public enum AuthDefaultSource implements AuthSource {
     FACEBOOK {
         @Override
         public String authorize() {
-            return "https://www.facebook.com/v10.0/dialog/oauth";
+            return "https://www.facebook.com/v18.0/dialog/oauth";
         }
 
         @Override
         public String accessToken() {
-            return "https://graph.facebook.com/v10.0/oauth/access_token";
+            return "https://graph.facebook.com/v18.0/oauth/access_token";
         }
 
         @Override
         public String userInfo() {
-            return "https://graph.facebook.com/v10.0/me";
+            return "https://graph.facebook.com/v18.0/me";
         }
 
         @Override
@@ -492,12 +492,12 @@ public enum AuthDefaultSource implements AuthSource {
     MICROSOFT {
         @Override
         public String authorize() {
-            return "https://login.microsoftonline.com/common/oauth2/v2.0/authorize";
+            return "https://login.microsoftonline.com/%s/oauth2/v2.0/authorize";
         }
 
         @Override
         public String accessToken() {
-            return "https://login.microsoftonline.com/common/oauth2/v2.0/token";
+            return "https://login.microsoftonline.com/%s/oauth2/v2.0/token";
         }
 
         @Override
@@ -507,7 +507,7 @@ public enum AuthDefaultSource implements AuthSource {
 
         @Override
         public String refresh() {
-            return "https://login.microsoftonline.com/common/oauth2/v2.0/token";
+            return "https://login.microsoftonline.com/%s/oauth2/v2.0/token";
         }
 
         @Override
@@ -521,12 +521,12 @@ public enum AuthDefaultSource implements AuthSource {
     MICROSOFT_CN {
         @Override
         public String authorize() {
-            return "https://login.partner.microsoftonline.cn/common/oauth2/v2.0/authorize";
+            return "https://login.partner.microsoftonline.cn/%s/oauth2/v2.0/authorize";
         }
 
         @Override
         public String accessToken() {
-            return "https://login.partner.microsoftonline.cn/common/oauth2/v2.0/token";
+            return "https://login.partner.microsoftonline.cn/%s/oauth2/v2.0/token";
         }
 
         @Override
@@ -536,7 +536,7 @@ public enum AuthDefaultSource implements AuthSource {
 
         @Override
         public String refresh() {
-            return "https://login.partner.microsoftonline.cn/common/oauth2/v2.0/token";
+            return "https://login.partner.microsoftonline.cn/%s/oauth2/v2.0/token";
         }
 
         @Override
