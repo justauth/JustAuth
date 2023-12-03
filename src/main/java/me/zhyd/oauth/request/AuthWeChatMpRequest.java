@@ -12,10 +12,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
-import me.zhyd.oauth.utils.AuthScopeUtils;
-import me.zhyd.oauth.utils.GlobalAuthUtils;
-import me.zhyd.oauth.utils.HttpUtils;
-import me.zhyd.oauth.utils.UrlBuilder;
+import me.zhyd.oauth.utils.*;
 
 /**
  * 微信公众平台登录
@@ -47,17 +44,26 @@ public class AuthWeChatMpRequest extends AuthDefaultRequest {
     protected AuthUser getUserInfo(AuthToken authToken) {
         String openId = authToken.getOpenId();
 
+        String scope = authToken.getScope();
+        if (!StringUtils.isEmpty(scope) && !scope.contains("snsapi_userinfo")) {
+            return AuthUser.builder()
+                .rawUserInfo(JSONObject.parseObject(JSONObject.toJSONString(authToken)))
+                .uuid(openId)
+                .snapshotUser(authToken.isSnapshotUser())
+                .token(authToken)
+                .source(source.toString())
+                .build();
+        }
+
         String response = doGetUserInfo(authToken);
         JSONObject object = JSONObject.parseObject(response);
 
         this.checkResponse(object);
-
         String location = String.format("%s-%s-%s", object.getString("country"), object.getString("province"), object.getString("city"));
 
         if (object.containsKey("unionid")) {
             authToken.setUnionId(object.getString("unionid"));
         }
-
         return AuthUser.builder()
             .rawUserInfo(object)
             .username(object.getString("nickname"))
