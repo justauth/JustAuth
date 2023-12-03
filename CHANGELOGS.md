@@ -1,14 +1,19 @@
 ## 1.16.6
 
-### 2023/08/06
-
-- 企业微信网页登录--获取用户敏感信。 [Github #155](https://github.com/justauth/JustAuth/pull/155)
-- 添加飞书单元测试。 [Github #159](https://github.com/justauth/JustAuth/pull/159)
-- 升级fastjson版本到1.2.83，1.2.83版本之前存在代码执行漏洞风险 ，CVE-2022-25845。[Gitee PR #31](https://gitee.com/yadong.zhang/JustAuth/pulls/31)
-- 添加微软中国(世纪华联)第三方登录，新增微软方式登录的redirectUri校验。[Gitee PR #33](https://gitee.com/yadong.zhang/JustAuth/pulls/33)
-- 微信公众平台支持返回快照标识（快照标识为 true 时，标识当前获取到的微信用户信息都是虚拟的）
-- 新增爱发电平台 [Gitee #35](https://gitee.com/yadong.zhang/JustAuth/pulls/35)
-
+### 2023/12/03
+- 优化
+  - 微信公众平台支持返回快照标识（快照标识为 true 时，标识当前获取到的微信用户信息都是虚拟的）
+  - 企业微信网页登录--获取用户敏感信。 [Github #155](https://github.com/justauth/JustAuth/pull/155)
+  - 添加飞书单元测试。 [Github #159](https://github.com/justauth/JustAuth/pull/159)
+  - 升级fastjson版本到1.2.83，1.2.83版本之前存在代码执行漏洞风险 ，CVE-2022-25845。[Gitee PR #31](https://gitee.com/yadong.zhang/JustAuth/pulls/31)
+- 新增
+  - 添加微软中国(世纪华联)第三方登录，新增微软方式登录的redirectUri校验。[Gitee PR #33](https://gitee.com/yadong.zhang/JustAuth/pulls/33)
+  - 新增爱发电平台 [Gitee #35](https://gitee.com/yadong.zhang/JustAuth/pulls/35)
+  - 微软平台适配 AzureAD（目前改名为 Microsoft Entra ID）登录认证
+- Fixed
+  - 修复 twitter 平台在 Java11 环境下登录失败的问题。[#174](https://github.com/justauth/JustAuth/issues/174)
+  - 修复 Facebook 平台无法登录的问题（facebook 平台 API 进行了升级）
+  - 修复微信公众平台 scope 为 snsapi_base 登录报错的问题 [181](https://github.com/justauth/JustAuth/issues/181)
 
 ## 1.16.5
 
