@@ -54,13 +54,6 @@ public abstract class AbstractAuthMicrosoftRequest extends AuthDefaultRequest {
 
         Map<String, String> form = MapUtil.parseStringToMap(accessTokenUrl, false);
 
-        //scope在微软最新的文档中要求必须用空格隔开,form构建时候空格会被强制转换为%20,所以此处重新覆盖
-        String scope = form.get("scope");
-        if (scope != null){
-            String replace = scope.replaceAll("%20"," ");
-            form.put("scope",replace);
-        }
-
         String response = new HttpUtils(config.getHttpConfig()).post(accessTokenUrl, form, httpHeader, false).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
 
