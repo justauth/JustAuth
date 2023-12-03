@@ -69,9 +69,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
 
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add("Authorization", header);
-        httpHeader.add("User-Agent", "themattharris' HTTP Client");
-        httpHeader.add("Host", "api.twitter.com");
-        httpHeader.add("Accept", "*/*");
+        httpHeader.add("User-Agent", "'JustAuth' HTTP Client Simple-Http");
         String requestToken = new HttpUtils(config.getHttpConfig()).post(baseUrl, null, httpHeader).getBody();
 
         Map<String, String> res = MapUtil.parseStringToMap(requestToken, false);
