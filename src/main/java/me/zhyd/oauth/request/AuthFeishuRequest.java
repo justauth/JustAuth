@@ -98,12 +98,12 @@ public class AuthFeishuRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
         JSONObject requestObject = new JSONObject();
         requestObject.put("app_access_token", this.getAppAccessToken());
         requestObject.put("grant_type", "refresh_token");
         requestObject.put("refresh_token", authToken.getRefreshToken());
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(getToken(requestObject, this.source.refresh()))
             .build();

@@ -59,8 +59,8 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
-        return AuthResponse.builder()
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(getToken(refreshTokenUrl(oldToken.getRefreshToken())))
             .build();

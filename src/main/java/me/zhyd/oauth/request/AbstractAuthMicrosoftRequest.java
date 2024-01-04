@@ -111,8 +111,8 @@ public abstract class AbstractAuthMicrosoftRequest extends AuthDefaultRequest {
      * @return AuthResponse
      */
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
-        return AuthResponse.builder()
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(getToken(refreshTokenUrl(authToken.getRefreshToken())))
             .build();

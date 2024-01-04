@@ -60,8 +60,8 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
-        return AuthResponse.builder()
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
+        return AuthResponse.<AuthToken>builder()
             .code(SUCCESS.getCode())
             .data(getToken(this.refreshTokenUrl(authToken.getRefreshToken())))
             .build();

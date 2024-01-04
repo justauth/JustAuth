@@ -94,13 +94,13 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
         Map<String, String> form = new HashMap<>(7);
         form.put("grant_type", "refresh_token");
         form.put("refresh_token", authToken.getRefreshToken());
         form.put("client_id", config.getClientId());
         form.put("client_secret", config.getClientSecret());
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(getToken(form, this.source.refresh()))
             .build();
