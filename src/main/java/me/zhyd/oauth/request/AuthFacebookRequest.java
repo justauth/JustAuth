@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
+import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.enums.AuthUserGender;
 import me.zhyd.oauth.enums.scope.AuthFacebookScope;
 import me.zhyd.oauth.exception.AuthException;
@@ -11,6 +12,7 @@ import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthToken;
 import me.zhyd.oauth.model.AuthUser;
 import me.zhyd.oauth.utils.AuthScopeUtils;
+import me.zhyd.oauth.utils.GlobalAuthUtils;
 import me.zhyd.oauth.utils.UrlBuilder;
 
 /**
@@ -85,6 +87,16 @@ public class AuthFacebookRequest extends AuthDefaultRequest {
             .queryParam("access_token", authToken.getAccessToken())
             .queryParam("fields", "id,name,birthday,gender,hometown,email,devices,picture.width(400),link")
             .build();
+    }
+
+    @Override
+    protected void checkConfig(AuthConfig config) {
+        super.checkConfig(config);
+        // facebook的回调地址必须为https的链接
+        if (AuthDefaultSource.FACEBOOK == source && !GlobalAuthUtils.isHttpsProtocol(config.getRedirectUri())) {
+            // Facebook's redirect uri must use the HTTPS protocol
+            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
+        }
     }
 
     /**
