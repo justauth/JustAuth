@@ -40,7 +40,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
             throw new AuthException(AuthResponseStatus.PARAMETER_INCOMPLETE, source);
         }
         // 校验配置合法性
-        AuthChecker.checkConfig(config, source);
+        this.checkConfig(config);
     }
 
     /**
@@ -293,6 +293,10 @@ public abstract class AuthDefaultRequest implements AuthRequest {
         }
         String scopeStr = String.join(separator, scopes);
         return encode ? UrlUtil.urlEncode(scopeStr) : scopeStr;
+    }
+
+    protected void checkConfig(AuthConfig config) {
+        AuthChecker.checkConfig(config, source);
     }
 
 }

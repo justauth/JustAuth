@@ -63,21 +63,6 @@ public class AuthChecker {
         if (!GlobalAuthUtils.isHttpProtocol(redirectUri) && !GlobalAuthUtils.isHttpsProtocol(redirectUri)) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
         }
-        // facebook的回调地址必须为https的链接
-        if (AuthDefaultSource.FACEBOOK == source && !GlobalAuthUtils.isHttpsProtocol(redirectUri)) {
-            // Facebook's redirect uri must use the HTTPS protocol
-            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
-        }
-        // 微软的回调地址必须为https的链接或者localhost,不允许使用http
-        if (AuthDefaultSource.MICROSOFT == source && !GlobalAuthUtils.isHttpsProtocolOrLocalHost(redirectUri)) {
-            // Microsoft's redirect uri must use the HTTPS or localhost
-            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
-        }
-        // 微软中国的回调地址必须为https的链接或者localhost,不允许使用http
-        if (AuthDefaultSource.MICROSOFT_CN == source && !GlobalAuthUtils.isHttpsProtocolOrLocalHost(redirectUri)) {
-            // Microsoft's redirect uri must use the HTTPS or localhost
-            throw new AuthException(AuthResponseStatus.ILLEGAL_REDIRECT_URI, source);
-        }
     }
 
     /**
