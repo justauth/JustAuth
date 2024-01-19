@@ -51,7 +51,7 @@ public class AuthAppleRequest extends AuthDefaultRequest {
 
     @Override
     protected AuthToken getAccessToken(AuthCallback authCallback) {
-        if (authCallback.getError() != null) {
+        if (!StringUtils.isEmpty(authCallback.getError())) {
             throw new AuthException(authCallback.getError());
         }
         this.config.setClientSecret(this.getToken());
@@ -67,7 +67,7 @@ public class AuthAppleRequest extends AuthDefaultRequest {
             .idToken(accessTokenObject.getString("id_token"));
         if (!StringUtils.isEmpty(authCallback.getUser())) {
             try {
-                AppleUserInfo userInfo = JSONObject.parseObject(response, AppleUserInfo.class);
+                AppleUserInfo userInfo = JSONObject.parseObject(authCallback.getUser(), AppleUserInfo.class);
                 builder.username(userInfo.getName().getFirstName() + " " + userInfo.getName().getLastName());
             } catch (Exception ignored) {
             }
