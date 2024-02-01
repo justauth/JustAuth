@@ -175,7 +175,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
      * @return AuthResponse
      */
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
         AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest();
         request.setGrantType("refresh_token");
         request.setRefreshToken(authToken.getRefreshToken());
@@ -188,7 +188,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
         if (!response.isSuccess()) {
             throw new AuthException(response.getSubMsg());
         }
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(AuthToken.builder()
                 .accessToken(response.getAccessToken())

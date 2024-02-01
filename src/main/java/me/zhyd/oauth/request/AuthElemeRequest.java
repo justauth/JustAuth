@@ -117,7 +117,7 @@ public class AuthElemeRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
         Map<String, String> form = new HashMap<>(4);
         form.put("refresh_token", oldToken.getRefreshToken());
         form.put("grant_type", "refresh_token");
@@ -129,7 +129,7 @@ public class AuthElemeRequest extends AuthDefaultRequest {
 
         this.checkResponse(object);
 
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(AuthToken.builder()
                 .accessToken(object.getString("access_token"))

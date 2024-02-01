@@ -79,8 +79,8 @@ public class AuthWeChatMpRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
-        return AuthResponse.builder()
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(this.getToken(refreshTokenUrl(oldToken.getRefreshToken())))
             .build();

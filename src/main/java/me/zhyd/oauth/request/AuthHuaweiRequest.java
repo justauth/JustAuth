@@ -99,7 +99,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
      * @return AuthResponse
      */
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
         Map<String, String> form = new HashMap<>(7);
         form.put("client_id", config.getClientId());
         form.put("client_secret", config.getClientSecret());
@@ -107,7 +107,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
         form.put("grant_type", "refresh_token");
 
         String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), form, false).getBody();
-        return AuthResponse.builder().code(SUCCESS.getCode()).data(getAuthToken(response)).build();
+        return AuthResponse.<AuthToken>builder().code(SUCCESS.getCode()).data(getAuthToken(response)).build();
     }
 
     private AuthToken getAuthToken(String response) {

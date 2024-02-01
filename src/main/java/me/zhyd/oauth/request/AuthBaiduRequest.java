@@ -81,7 +81,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
         String refreshUrl = UrlBuilder.fromBaseUrl(this.source.refresh())
             .queryParam("grant_type", "refresh_token")
             .queryParam("refresh_token", authToken.getRefreshToken())
@@ -89,7 +89,7 @@ public class AuthBaiduRequest extends AuthDefaultRequest {
             .queryParam("client_secret", this.config.getClientSecret())
             .build();
         String response = new HttpUtils(config.getHttpConfig()).get(refreshUrl).getBody();
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(this.getAuthToken(response))
             .build();
