@@ -6,9 +6,9 @@ import me.zhyd.oauth.config.AuthDefaultSource;
 
 /**
  * 微软登录
+ * update 2021-08-24  mroldx (xzfqq5201314@gmail.com)
  *
  * @author yangkai.shen (https://xkcoding.com)
- * @update:2021-08-24  mroldx (xzfqq5201314@gmail.com)
  * @since 1.5.0
  */
 public class AuthMicrosoftRequest extends AbstractAuthMicrosoftRequest {

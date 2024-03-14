@@ -81,7 +81,7 @@ public class AuthWeChatEnterpriseThirdQrcodeRequest extends AbstractAuthWeChatEn
     /**
      * 获取token的URL
      *
-     * @return
+     * @return accessTokenUrl
      */
     protected String accessTokenUrl() {
         return UrlBuilder.fromBaseUrl(source.accessToken())
