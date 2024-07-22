@@ -1296,6 +1296,32 @@ public enum AuthDefaultSource implements AuthSource {
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return AuthProginnRequest.class;
         }
-    }
+    },
 
+    FIGMA{
+        @Override
+        public String authorize() {
+            return "https://www.figma.com/oauth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://www.figma.com/api/oauth/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.figma.com/v1/me";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://www.figma.com/api/oauth/refresh";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return null;
+        }
+    }
 }
