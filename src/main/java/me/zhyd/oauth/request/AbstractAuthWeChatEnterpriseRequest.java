@@ -34,7 +34,7 @@ public abstract class AbstractAuthWeChatEnterpriseRequest extends AuthDefaultReq
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         String response = doGetAuthorizationCode(accessTokenUrl(null));
 
         JSONObject object = this.checkResponse(response);
@@ -47,7 +47,7 @@ public abstract class AbstractAuthWeChatEnterpriseRequest extends AuthDefaultReq
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String response = doGetUserInfo(authToken);
         JSONObject object = this.checkResponse(response);
 

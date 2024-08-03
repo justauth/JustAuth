@@ -88,7 +88,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
      * @return access token
      */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         Map<String, String> oauthParams = buildOauthParams();
         oauthParams.put("oauth_token", authCallback.getOauth_token());
         oauthParams.put("oauth_verifier", authCallback.getOauth_verifier());
@@ -115,7 +115,7 @@ public class AuthTwitterRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         Map<String, String> queryParams = new HashMap<>(5);
         queryParams.put("include_entities", Boolean.toString(true));
         queryParams.put("include_email", Boolean.toString(true));

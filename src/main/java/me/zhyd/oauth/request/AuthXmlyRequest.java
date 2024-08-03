@@ -42,7 +42,7 @@ public class AuthXmlyRequest extends AuthDefaultRequest {
      * @see AuthDefaultRequest#authorize(String)
      */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         Map<String, String> map = new HashMap<>(9);
         map.put("code", authCallback.getCode());
         map.put("client_id", config.getClientId());

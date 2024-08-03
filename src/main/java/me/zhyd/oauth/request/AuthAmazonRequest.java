@@ -77,7 +77,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
      * @return access token
      */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         Map<String, String> form = new HashMap<>(9);
         form.put("grant_type", "authorization_code");
         form.put("code", authCallback.getCode());
@@ -140,7 +140,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
      * @return AuthUser
      */
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         this.checkToken(accessToken);
 

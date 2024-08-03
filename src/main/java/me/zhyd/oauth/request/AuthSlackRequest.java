@@ -35,7 +35,7 @@ public class AuthSlackRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         HttpHeader header = new HttpHeader()
             .add("Content-Type", "application/x-www-form-urlencoded");
         String response = new HttpUtils(config.getHttpConfig())
@@ -51,7 +51,7 @@ public class AuthSlackRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         HttpHeader header = new HttpHeader()
             .add("Content-Type", "application/x-www-form-urlencoded")
             .add("Authorization", "Bearer ".concat(authToken.getAccessToken()));

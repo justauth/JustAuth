@@ -40,7 +40,7 @@ public class AuthOktaRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         String tokenUrl = accessTokenUrl(authCallback.getCode());
         return getAuthToken(tokenUrl);
     }
@@ -79,7 +79,7 @@ public class AuthOktaRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         HttpHeader header = new HttpHeader()
             .add("Authorization", "Bearer " + authToken.getAccessToken());
         String response = new HttpUtils(config.getHttpConfig()).post(userInfoUrl(authToken), null, header, false).getBody();

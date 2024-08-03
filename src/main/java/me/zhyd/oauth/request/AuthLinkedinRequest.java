@@ -36,12 +36,12 @@ public class AuthLinkedinRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         return this.getToken(accessTokenUrl(authCallback.getCode()));
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         HttpHeader httpHeader = new HttpHeader();
         httpHeader.add("Host", "api.linkedin.com");

@@ -36,12 +36,12 @@ public class AuthWeChatMpRequest extends AuthDefaultRequest {
      * @return 所有信息
      */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         return this.getToken(accessTokenUrl(authCallback.getCode()));
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String openId = authToken.getOpenId();
 
         String scope = authToken.getScope();

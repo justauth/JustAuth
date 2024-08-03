@@ -36,7 +36,7 @@ public class AuthExtendRequest extends AuthDefaultRequest {
      * @see AuthDefaultRequest#authorize(String)
      */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         return AuthToken.builder()
             .openId("openId")
             .expireIn(1000)
@@ -56,7 +56,7 @@ public class AuthExtendRequest extends AuthDefaultRequest {
      * @see AuthDefaultRequest#getAccessToken(AuthCallback)
      */
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         return AuthUser.builder()
             .username("test")
             .nickname("test")

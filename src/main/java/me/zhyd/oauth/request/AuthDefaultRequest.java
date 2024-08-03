@@ -44,25 +44,6 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     }
 
     /**
-     * 获取access token
-     *
-     * @param authCallback 授权成功后的回调参数
-     * @return token
-     * @see AuthDefaultRequest#authorize()
-     * @see AuthDefaultRequest#authorize(String)
-     */
-    protected abstract AuthToken getAccessToken(AuthCallback authCallback);
-
-    /**
-     * 使用token换取用户信息
-     *
-     * @param authToken token信息
-     * @return 用户信息
-     * @see AuthDefaultRequest#getAccessToken(AuthCallback)
-     */
-    protected abstract AuthUser getUserInfo(AuthToken authToken);
-
-    /**
      * 统一的登录入口。当通过{@link AuthDefaultRequest#authorize(String)}授权成功后，会跳转到调用方的相关回调方法中
      * 方法的入参可以使用{@code AuthCallback}，{@code AuthCallback}类中封装好了OAuth2授权回调所需要的参数
      *

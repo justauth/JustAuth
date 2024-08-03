@@ -33,7 +33,7 @@ public class AuthQqRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         String response = doGetAuthorizationCode(authCallback.getCode());
         return getAuthToken(response);
     }
@@ -45,7 +45,7 @@ public class AuthQqRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String openId = this.getOpenId(authToken);
         String response = doGetUserInfo(authToken);
         JSONObject object = JSONObject.parseObject(response);

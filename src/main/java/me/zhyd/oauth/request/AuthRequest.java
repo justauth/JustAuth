@@ -45,6 +45,25 @@ public interface AuthRequest {
     }
 
     /**
+     * 获取access token
+     *
+     * @param authCallback 授权成功后的回调参数
+     * @return token
+     * @see AuthDefaultRequest#authorize()
+     * @see AuthDefaultRequest#authorize(String)
+     */
+    AuthToken getAccessToken(AuthCallback authCallback);
+
+    /**
+     * 使用token换取用户信息
+     *
+     * @param authToken token信息
+     * @return 用户信息
+     * @see AuthDefaultRequest#getAccessToken(AuthCallback)
+     */
+     AuthUser getUserInfo(AuthToken authToken);
+
+    /**
      * 第三方登录
      *
      * @param authCallback 用于接收回调参数的实体
