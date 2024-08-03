@@ -18,6 +18,9 @@ case "$1" in
   'ppd')
     bin/pull-dev.sh
 	;;
+  'pp')
+    bin/pull.sh
+	;;
   'pd')
     bin/push-dev.sh
 	;;
