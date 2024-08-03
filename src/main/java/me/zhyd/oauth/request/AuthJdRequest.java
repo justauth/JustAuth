@@ -103,7 +103,7 @@ public class AuthJdRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
         Map<String, String> params = new HashMap<>(7);
         params.put("app_key", config.getClientId());
         params.put("app_secret", config.getClientSecret());
@@ -114,7 +114,7 @@ public class AuthJdRequest extends AuthDefaultRequest {
 
         this.checkResponse(object);
 
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(AuthToken.builder()
                 .accessToken(object.getString("access_token"))

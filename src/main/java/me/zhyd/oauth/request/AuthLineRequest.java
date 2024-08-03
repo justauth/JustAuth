@@ -88,7 +88,7 @@ public class AuthLineRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
         Map<String, String> params = new HashMap<>();
         params.put("grant_type", "refresh_token");
         params.put("refresh_token", oldToken.getRefreshToken());
@@ -96,7 +96,7 @@ public class AuthLineRequest extends AuthDefaultRequest {
         params.put("client_secret", config.getClientSecret());
         String response = new HttpUtils(config.getHttpConfig()).post(source.accessToken(), params, false).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(AuthToken.builder()
                 .accessToken(accessTokenObject.getString("access_token"))

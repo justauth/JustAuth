@@ -87,7 +87,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
         String uid = oldToken.getUid();
         String refreshToken = oldToken.getRefreshToken();
 
@@ -99,7 +99,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
 
         this.checkResponse(refreshTokenObject);
 
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(AuthToken.builder()
                 .accessToken(refreshTokenObject.getString("access_token"))

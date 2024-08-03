@@ -64,15 +64,15 @@ public class AuthOktaRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
         if (null == authToken.getRefreshToken()) {
-            return AuthResponse.builder()
+            return AuthResponse.<AuthToken>builder()
                 .code(AuthResponseStatus.ILLEGAL_TOKEN.getCode())
                 .msg(AuthResponseStatus.ILLEGAL_TOKEN.getMsg())
                 .build();
         }
         String refreshUrl = refreshTokenUrl(authToken.getRefreshToken());
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(this.getAuthToken(refreshUrl))
             .build();

@@ -70,7 +70,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return AuthResponse
      */
     @Override
-    public AuthResponse login(AuthCallback authCallback) {
+    public AuthResponse<AuthUser> login(AuthCallback authCallback) {
         try {
             checkCode(authCallback);
             if (!config.isIgnoreCheckState()) {
@@ -79,7 +79,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
 
             AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
-            return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
+            return AuthResponse.<AuthUser>builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
         } catch (Exception e) {
             Log.error("Failed to login with oauth authorization.", e);
             return this.responseError(e);
@@ -96,7 +96,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @param e 具体的异常
      * @return AuthResponse
      */
-    AuthResponse responseError(Exception e) {
+    AuthResponse<AuthUser> responseError(Exception e) {
         int errorCode = AuthResponseStatus.FAILURE.getCode();
         String errorMsg = e.getMessage();
         if (e instanceof AuthException) {
@@ -106,7 +106,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
                 errorMsg = authException.getErrorMsg();
             }
         }
-        return AuthResponse.builder().code(errorCode).msg(errorMsg).build();
+        return AuthResponse.<AuthUser>builder().code(errorCode).msg(errorMsg).build();
     }
 
     /**

@@ -41,14 +41,14 @@ public class AuthWeChatEnterpriseThirdQrcodeRequest extends AbstractAuthWeChatEn
     }
 
     @Override
-    public AuthResponse login(AuthCallback authCallback) {
+    public AuthResponse<AuthUser> login(AuthCallback authCallback) {
         try {
             if (!config.isIgnoreCheckState()) {
                 AuthChecker.checkState(authCallback.getState(), source, authStateCache);
             }
             AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
-            return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
+            return AuthResponse.<AuthUser>builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
         } catch (Exception e) {
             Log.error("Failed to login with oauth authorization.", e);
             return this.responseError(e);
