@@ -186,4 +186,16 @@ public class AuthConfig {
      * Microsoft Entra ID（原微软 AAD）中的租户 ID
      */
     private String tenantId;
+
+    /**
+     * 苹果开发者账号中的密钥标识符
+     * @see <a href="https://developer.apple.com/help/account/configure-app-capabilities/create-a-sign-in-with-apple-private-key/">create-a-sign-in-with-apple-private-key</a>
+     */
+    private String kid;
+
+    /**
+     * 苹果开发者账号中的团队ID
+     * @see <a href="https://developer.apple.com/help/glossary/team-id/">team id</a>
+     */
+    private String teamId;
 }

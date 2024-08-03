@@ -63,6 +63,8 @@
     <fastjson-version>1.2.83</fastjson-version>
     <alipay-sdk-version>4.17.5.ALL</alipay-sdk-version>
     <jacoco-version>0.8.2</jacoco-version>
+    <jwt.version>0.12.3</jwt.version>
+    <bcpkix-jdk18on.version>1.77</bcpkix-jdk18on.version>
   </properties>
 
   <dependencies>
@@ -99,6 +101,26 @@
           <groupId>com.alibaba</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-api</artifactId>
+      <version>${jwt.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-impl</artifactId>
+      <version>${jwt.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt-jackson</artifactId>
+      <version>${jwt.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcpkix-jdk18on</artifactId>
+      <version>${bcpkix-jdk18on.version}</version>
     </dependency>
   </dependencies>
 
