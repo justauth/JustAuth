@@ -382,6 +382,7 @@ public enum AuthDefaultSource implements AuthSource {
     },
     /**
      * Google
+     * 端点地址：https://accounts.google.com/.well-known/openid-configuration
      */
     GOOGLE {
         @Override
@@ -391,12 +392,12 @@ public enum AuthDefaultSource implements AuthSource {
 
         @Override
         public String accessToken() {
-            return "https://www.googleapis.com/oauth2/v4/token";
+            return "https://oauth2.googleapis.com/token";
         }
 
         @Override
         public String userInfo() {
-            return "https://www.googleapis.com/oauth2/v3/userinfo";
+            return "https://openidconnect.googleapis.com/v1/userinfo";
         }
 
         @Override
