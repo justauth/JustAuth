@@ -765,6 +765,32 @@ public enum AuthDefaultSource implements AuthSource {
         }
     },
     /**
+     * 新版企业微信 Web 登录（扫码），参考 <a href="https://developer.work.weixin.qq.com/document/path/98152">https://developer.work.weixin.qq.com/document/path/98152</a>
+     *
+     * @since 1.16.7
+     */
+    WECHAT_ENTERPRISE_V2 {
+        @Override
+        public String authorize() {
+            return "https://login.work.weixin.qq.com/wwlogin/sso/login";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://qyapi.weixin.qq.com/cgi-bin/gettoken";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://qyapi.weixin.qq.com/cgi-bin/auth/getuserinfo";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthWeChatEnterpriseQrcodeV2Request.class;
+        }
+    },
+    /**
      * 企业微信二维码第三方登录
      */
     WECHAT_ENTERPRISE_QRCODE_THIRD {

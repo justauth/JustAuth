@@ -31,6 +31,7 @@ public class AuthWeChatEnterpriseQrcodeRequest extends AbstractAuthWeChatEnterpr
             .queryParam("agentid", config.getAgentId())
             .queryParam("redirect_uri", config.getRedirectUri())
             .queryParam("state", getRealState(state))
+            .queryParam("lang", config.getLang())
             .build();
     }
 }

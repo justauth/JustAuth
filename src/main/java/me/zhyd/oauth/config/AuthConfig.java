@@ -198,4 +198,20 @@ public class AuthConfig {
      * @see <a href="https://developer.apple.com/help/glossary/team-id/">team id</a>
      */
     private String teamId;
+
+    /**
+     * 新版企业微信 Web 登录时的参数，
+     *
+     * 登录类型。ServiceApp：服务商登录；CorpApp：企业自建/代开发应用登录。
+     * @see <a href="https://developer.work.weixin.qq.com/document/path/98152">https://developer.work.weixin.qq.com/document/path/98152</a>
+     * @since 1.16.7
+     */
+    private String loginType = "CorpApp";
+
+    /**
+     * 语言编码
+     *
+     * @since 1.16.7
+     */
+    private String lang = "zh";
 }
