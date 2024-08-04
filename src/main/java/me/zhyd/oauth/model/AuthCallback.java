@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.zhyd.oauth.utils.StringUtils;
 
 import java.io.Serializable;
 
@@ -68,4 +69,8 @@ public class AuthCallback implements Serializable {
      * @see <a href="https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_js/incorporating_sign_in_with_apple_into_other_platforms">error response</a>
      */
     private String error;
+
+    public String getCode() {
+        return StringUtils.isEmpty(code) ? auth_code : code;
+    }
 }
