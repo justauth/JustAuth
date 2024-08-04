@@ -1373,7 +1373,7 @@ public enum AuthDefaultSource implements AuthSource {
 
         @Override
         public Class<? extends AuthDefaultRequest> getTargetClass() {
-            return null;
+            return AuthFigmaRequest.class;
         }
     }
 

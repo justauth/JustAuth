@@ -82,6 +82,8 @@ public class AuthRequestBuilderTest {
             .stackOverflowKey("asd")
             .deviceId("asd")
             .clientOsType(3)
+            .kid("kid")
+            .teamId("teamid")
             .build();
 
         for (AuthDefaultSource value : AuthDefaultSource.values()) {
