@@ -1,6 +1,6 @@
 package me.zhyd.oauth.request;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.impl.security.AbstractJwk;
 import lombok.Data;

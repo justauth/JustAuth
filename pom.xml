@@ -60,7 +60,7 @@
     <simple-http.version>1.0.5</simple-http.version>
     <lombok-version>1.18.30</lombok-version>
     <junit-version>4.13.2</junit-version>
-    <fastjson-version>1.2.83</fastjson-version>
+    <fastjson-version>2.0.52</fastjson-version>
     <alipay-sdk-version>4.17.5.ALL</alipay-sdk-version>
     <jacoco-version>0.8.2</jacoco-version>
     <jwt.version>0.12.3</jwt.version>
@@ -86,8 +86,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>fastjson</artifactId>
+      <groupId>com.alibaba.fastjson2</groupId>
+      <artifactId>fastjson2</artifactId>
       <version>${fastjson-version}</version>
     </dependency>
     <dependency>
