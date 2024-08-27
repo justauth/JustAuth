@@ -1301,17 +1301,17 @@ public enum AuthDefaultSource implements AuthSource {
         }
     },
     /**
-     * 爱发电 <a href="https://afdian.net/">爱发电</a>
+     * 爱发电 <a href="https://afdian.com/">爱发电</a>
      */
     AFDIAN {
         @Override
         public String authorize() {
-            return "https://afdian.net/oauth2/authorize";
+            return "https://afdian.com/oauth2/authorize";
         }
 
         @Override
         public String accessToken() {
-            return "https://afdian.net/api/oauth2/access_token";
+            return "https://afdian.com/api/oauth2/access_token";
         }
 
         @Override
