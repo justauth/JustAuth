@@ -63,6 +63,7 @@ public class AuthWeChatEnterpriseThirdQrcodeRequest extends AbstractAuthWeChatEn
             AuthToken authToken = AuthToken.builder()
                 .accessToken(object.getString("provider_access_token"))
                 .expireIn(object.getIntValue("expires_in"))
+                .code(authCallback.getCode())
                 .build();
             return authToken;
         } catch (Exception e) {
