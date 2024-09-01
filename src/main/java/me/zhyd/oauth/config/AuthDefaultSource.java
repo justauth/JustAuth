@@ -113,6 +113,30 @@ public enum AuthDefaultSource implements AuthSource {
         }
     },
     /**
+     * 新版钉钉扫码登录
+     */
+    DINGTALK_V2 {
+        @Override
+        public String authorize() {
+            return "https://login.dingtalk.com/oauth2/challenge.htm";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://api.dingtalk.com/v1.0/oauth2/userAccessToken";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.dingtalk.com/v1.0/contact/users/me";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthDingTalkV2Request.class;
+        }
+    },
+    /**
      * 钉钉账号登录
      */
     DINGTALK_ACCOUNT {

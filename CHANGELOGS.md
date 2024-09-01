@@ -1,11 +1,12 @@
 ## 1.16.7
 
 ### 2024/08/03
-:
+
 - 新增
   - 添加`appleid`社交登录能力。 [Github#192](https://github.com/justauth/JustAuth/pull/192)
   - 添加`figma`社交登录能力。 [Gitee#41](https://gitee.com/yadong.zhang/JustAuth/pulls/41)
   - 添加新版`企业微信扫码`登录能力。 [Github Issue#165](https://github.com/justauth/JustAuth/issues/165)
+  - 添加新版`钉钉扫码`登录能力。 [Gitee Issue#I73FZL](https://gitee.com/yadong.zhang/JustAuth/issues/I73FZL)
   - 添加新版`华为`登录能力，原`AuthHuaweiRequest`会在后面版本被弃用，如有使用，请切换到`AuthHuaweiV3Request`
   - 新增微信小程序授权登录
 - 优化
