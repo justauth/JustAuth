@@ -709,8 +709,11 @@ public enum AuthDefaultSource implements AuthSource {
     /**
      * 华为
      *
+     * 当前方式未来可能被废弃，建议使用 {@link this#HUAWEI_V3}
+     *
      * @since 1.10.0
      */
+    @Deprecated
     HUAWEI {
         @Override
         public String authorize() {
@@ -735,6 +738,38 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return AuthHuaweiRequest.class;
+        }
+    },
+
+    /**
+     * 华为最新版本的 API
+     *
+     * @since 1.16.7
+     */
+    HUAWEI_V3 {
+        @Override
+        public String authorize() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v3/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v3/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://account.cloud.huawei.com/rest.php";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v3/token";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthHuaweiV3Request.class;
         }
     },
 

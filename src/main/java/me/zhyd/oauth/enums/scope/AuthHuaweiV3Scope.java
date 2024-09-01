@@ -4,19 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 华为平台 OAuth 授权范围
- *
- * 当前方式未来可能被废弃，建议使用 {@link AuthHuaweiV3Scope}
+ * 华为平台 V3 版本 OAuth 授权范围
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0.0
- * @since 1.0.0
+ * @since 1.16.7
  */
 @Getter
 @AllArgsConstructor
-@Deprecated
-public enum AuthHuaweiScope implements AuthScope {
+public enum AuthHuaweiV3Scope implements AuthScope {
 
+    /**
+     * {@code scope} 含义，以{@code description} 为准
+     */
+    OPENID("openid", "基础scope，v3必选", true),
     /**
      * {@code scope} 含义，以{@code description} 为准
      */
@@ -40,6 +41,7 @@ public enum AuthHuaweiScope implements AuthScope {
     SCOPE_DRIVE_METADATA_READONLY("https://www.huawei.com/auth/drive.metadata.readonly", "只允许访问由应用程序创建或打开的文件", false),
 
 
+    ;
     ;
 
     private final String scope;

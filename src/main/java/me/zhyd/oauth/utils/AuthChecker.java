@@ -80,7 +80,7 @@ public class AuthChecker {
             return;
         }
         String code = callback.getCode();
-        if (source == AuthDefaultSource.HUAWEI) {
+        if (StringUtils.isEmpty(code) && source == AuthDefaultSource.HUAWEI) {
             code = callback.getAuthorization_code();
         }
         if (StringUtils.isEmpty(code)) {

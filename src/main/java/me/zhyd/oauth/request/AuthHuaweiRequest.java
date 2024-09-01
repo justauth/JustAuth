@@ -23,10 +23,13 @@ import static me.zhyd.oauth.enums.AuthResponseStatus.SUCCESS;
 /**
  * 华为授权登录
  *
+ * 当前方式未来可能被废弃，建议使用 {@link AuthHuaweiV3Request}
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @since 1.10.0
  */
+@Deprecated
 public class AuthHuaweiRequest extends AuthDefaultRequest {
 
     public AuthHuaweiRequest(AuthConfig config) {
@@ -71,7 +74,9 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
         form.put("nsp_ts", System.currentTimeMillis() + "");
         form.put("access_token", authToken.getAccessToken());
         form.put("nsp_fmt", "JS");
-        form.put("nsp_svc", "OpenUP.User.getInfo");
+        form.put("open_id", "OPENID");
+        // form.put("nsp_svc", "OpenUP.User.getInfo");
+        form.put("nsp_svc", "huawei.oauth2.user.getTokenInfo");
 
         String response = new HttpUtils(config.getHttpConfig()).post(source.userInfo(), form, false).getBody();
         JSONObject object = JSONObject.parseObject(response);
