@@ -1,6 +1,6 @@
 package me.zhyd.oauth.model;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import lombok.*;
 import me.zhyd.oauth.enums.AuthUserGender;
 import java.io.Serializable;

@@ -1,6 +1,6 @@
 package me.zhyd.oauth.model;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import me.zhyd.oauth.config.AuthDefaultSource;
 import me.zhyd.oauth.config.AuthExtendSource;
 import me.zhyd.oauth.config.AuthSource;
