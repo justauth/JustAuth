@@ -55,11 +55,11 @@ JustAuth 集成了诸如：Github、Gitee、支付宝、新浪微博、微信、
 
 ## 有哪些功能？
 
-- 集成国内外数十家第三方平台，实现快速接入。<a href="https://www.justauth.cn/quickstart/how-to-use.html" target="_blank">参考文档</a>
-- 自定义 State 缓存，支持各种分布式缓存组件。<a href="https://www.justauth.cn/features/customize-the-state-cache.html" target="_blank">参考文档</a>
-- 自定义 OAuth 平台，更容易适配自有的 OAuth 服务。<a href="https://www.justauth.cn/features/customize-the-oauth.html" target="_blank">参考文档</a>
-- 自定义 Http 实现，选择权完全交给开发者，不会单独依赖某一具体实现。<a href="https://www.justauth.cn/quickstart/how-to-use.html#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F" target="_blank">参考文档</a>
-- 自定义 Scope，支持更完善的授权体系。<a href="https://www.justauth.cn/features/customize-scopes.html" target="_blank">参考文档</a>
+- 集成国内外数十家第三方平台，实现快速接入。<a href="https://www.justauth.cn/guide/" target="_blank">参考文档</a>
+- 自定义 State 缓存，支持各种分布式缓存组件。<a href="https://www.justauth.cn/features/using-state/" target="_blank">参考文档</a>
+- 自定义 OAuth 平台，更容易适配自有的 OAuth 服务。<a href="https://www.justauth.cn/features/customize-the-oauth/" target="_blank">参考文档</a>
+- 自定义 Http 实现，选择权完全交给开发者，不会单独依赖某一具体实现。<a href="https://www.justauth.cn/guide/quickstart/how-to-use/#%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4" target="_blank">参考文档</a>
+- 自定义 Scope，支持更完善的授权体系。<a href="https://www.justauth.cn/features/customize-scopes/#%E5%85%B3%E4%BA%8E-scope" target="_blank">参考文档</a>
 - 更多...<a href="https://www.justauth.cn" target="_blank">参考文档</a>
 
 ## 快速开始
