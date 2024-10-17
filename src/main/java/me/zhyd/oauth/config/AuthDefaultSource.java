@@ -1464,6 +1464,35 @@ public enum AuthDefaultSource implements AuthSource {
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return AuthWechatMiniProgramRequest.class;
         }
+    },
+
+    /**
+     * QQ小程序授权登录
+     */
+    QQ_MINI_PROGRAM {
+        @Override
+        public String authorize() {
+            // 参见 https://q.qq.com/wiki/develop/miniprogram/frame/open_ability/open_userinfo.html 文档
+            throw new UnsupportedOperationException("不支持获取授权 url，请使用小程序内置函数 qq.login() 登录获取 code");
+        }
+
+        @Override
+        public String accessToken() {
+            // 参见 https://q.qq.com/wiki/develop/miniprogram/server/open_port/port_login.html 文档
+            // 获取 openid, unionId , session_key 等字段
+            return "https://api.q.qq.com/sns/jscode2session";
+        }
+
+        @Override
+        public String userInfo() {
+            // 参见 https://q.qq.com/wiki/develop/miniprogram/API/open_port/port_userinfo.html 文档
+            throw new UnsupportedOperationException("不支持获取用户信息 url，请使用小程序内置函数 qq.getUserInfo() 获取用户信息");
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return null;
+        }
     }
 
 }
