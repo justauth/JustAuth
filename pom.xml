@@ -61,7 +61,7 @@
     <lombok-version>1.18.30</lombok-version>
     <junit-version>4.13.2</junit-version>
     <fastjson-version>1.2.83</fastjson-version>
-    <alipay-sdk-version>4.17.5.ALL</alipay-sdk-version>
+    <alipay-sdk-version>4.39.165.ALL</alipay-sdk-version>
     <jacoco-version>0.8.2</jacoco-version>
     <jwt.version>0.12.3</jwt.version>
     <bcpkix-jdk18on.version>1.78</bcpkix-jdk18on.version>

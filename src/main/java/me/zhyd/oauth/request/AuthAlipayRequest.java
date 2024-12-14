@@ -26,7 +26,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
 import java.net.InetSocketAddress;
 
 /**
- * 支付宝登录
+ * 支付宝公钥模式登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @since 1.0.1
