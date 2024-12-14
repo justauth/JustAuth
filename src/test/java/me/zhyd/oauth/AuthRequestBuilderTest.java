@@ -107,6 +107,12 @@ public class AuthRequestBuilderTest {
                     System.out.println(value.getTargetClass());
                     continue;
                 }
+                case QQ_MINI_PROGRAM: {
+                    // 小程序不支持获取调用 authorize
+                    AuthRequest authRequest = new AuthQQMiniProgramRequest(config);
+                    System.out.println(value.getTargetClass());
+                    continue;
+                }
                 default:
                     AuthRequest authRequest = AuthRequestBuilder.builder()
                         .source(value.getName())
