@@ -82,6 +82,10 @@ public class AuthRequestBuilderTest {
             .stackOverflowKey("asd")
             .deviceId("asd")
             .clientOsType(3)
+            .kid("kid")
+            .teamId("teamid")
+            .ignoreCheckState(true)
+            .ignoreCheckRedirectUri(true)
             .build();
 
         for (AuthDefaultSource value : AuthDefaultSource.values()) {
@@ -95,6 +99,18 @@ public class AuthRequestBuilderTest {
                     AuthRequest authRequest = new AuthAlipayRequest(config, "asd");
                     System.out.println(value.getTargetClass());
                     System.out.println(authRequest.authorize(AuthStateUtils.createState()));
+                    continue;
+                }
+                case WECHAT_MINI_PROGRAM: {
+                    // 小程序不支持获取调用 authorize
+                    AuthRequest authRequest = new AuthWechatMiniProgramRequest(config);
+                    System.out.println(value.getTargetClass());
+                    continue;
+                }
+                case QQ_MINI_PROGRAM: {
+                    // 小程序不支持获取调用 authorize
+                    AuthRequest authRequest = new AuthQQMiniProgramRequest(config);
+                    System.out.println(value.getTargetClass());
                     continue;
                 }
                 default:

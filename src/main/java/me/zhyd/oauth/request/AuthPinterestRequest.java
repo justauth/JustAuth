@@ -36,7 +36,7 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         String response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         this.checkResponse(accessTokenObject);
@@ -47,7 +47,7 @@ public class AuthPinterestRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String userinfoUrl = userInfoUrl(authToken);
         // TODO: 是否需要 .setFollowRedirects(true)
         String response = new HttpUtils(config.getHttpConfig()).get(userinfoUrl).getBody();

@@ -36,12 +36,12 @@ public class AuthWeChatOpenRequest extends AuthDefaultRequest {
      * @return 所有信息
      */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         return this.getToken(accessTokenUrl(authCallback.getCode()));
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String openId = authToken.getOpenId();
 
         String response = doGetUserInfo(authToken);
@@ -69,8 +69,8 @@ public class AuthWeChatOpenRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
-        return AuthResponse.builder()
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(this.getToken(refreshTokenUrl(oldToken.getRefreshToken())))
             .build();

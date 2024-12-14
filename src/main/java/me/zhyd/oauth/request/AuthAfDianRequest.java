@@ -30,7 +30,7 @@ public class AuthAfDianRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         Map<String, String> params = new HashMap<>();
         params.put("grant_type", "authorization_code");
         params.put("client_id", config.getClientId());
@@ -44,7 +44,7 @@ public class AuthAfDianRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         return AuthUser.builder()
             .uuid(authToken.getUserId())
             .gender(AuthUserGender.UNKNOWN)

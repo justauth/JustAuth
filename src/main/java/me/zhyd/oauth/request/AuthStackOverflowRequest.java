@@ -37,7 +37,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         String accessTokenUrl = accessTokenUrl(authCallback.getCode());
         Map<String, String> form = MapUtil.parseStringToMap(accessTokenUrl, false);
         HttpHeader httpHeader = new HttpHeader();
@@ -54,7 +54,7 @@ public class AuthStackOverflowRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String userInfoUrl = UrlBuilder.fromBaseUrl(this.source.userInfo())
             .queryParam("access_token", authToken.getAccessToken())
             .queryParam("site", "stackoverflow")

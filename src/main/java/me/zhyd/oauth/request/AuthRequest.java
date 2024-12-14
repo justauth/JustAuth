@@ -5,6 +5,7 @@ import me.zhyd.oauth.exception.AuthException;
 import me.zhyd.oauth.model.AuthCallback;
 import me.zhyd.oauth.model.AuthResponse;
 import me.zhyd.oauth.model.AuthToken;
+import me.zhyd.oauth.model.AuthUser;
 
 /**
  * JustAuth {@code Request}公共接口，所有平台的{@code Request}都需要实现该接口
@@ -44,12 +45,31 @@ public interface AuthRequest {
     }
 
     /**
+     * 获取access token
+     *
+     * @param authCallback 授权成功后的回调参数
+     * @return token
+     * @see AuthDefaultRequest#authorize()
+     * @see AuthDefaultRequest#authorize(String)
+     */
+    AuthToken getAccessToken(AuthCallback authCallback);
+
+    /**
+     * 使用token换取用户信息
+     *
+     * @param authToken token信息
+     * @return 用户信息
+     * @see AuthDefaultRequest#getAccessToken(AuthCallback)
+     */
+     AuthUser getUserInfo(AuthToken authToken);
+
+    /**
      * 第三方登录
      *
      * @param authCallback 用于接收回调参数的实体
      * @return 返回登录成功后的用户信息
      */
-    default AuthResponse login(AuthCallback authCallback) {
+    default AuthResponse<AuthUser> login(AuthCallback authCallback) {
         throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 
@@ -69,7 +89,7 @@ public interface AuthRequest {
      * @param authToken 登录成功后返回的Token信息
      * @return AuthResponse
      */
-    default AuthResponse refresh(AuthToken authToken) {
+    default AuthResponse<AuthToken> refresh(AuthToken authToken) {
         throw new AuthException(AuthResponseStatus.NOT_IMPLEMENTED);
     }
 }

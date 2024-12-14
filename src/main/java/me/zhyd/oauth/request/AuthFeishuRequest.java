@@ -66,7 +66,7 @@ public class AuthFeishuRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         JSONObject requestObject = new JSONObject();
         requestObject.put("app_access_token", this.getAppAccessToken());
         requestObject.put("grant_type", "authorization_code");
@@ -76,7 +76,7 @@ public class AuthFeishuRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         String response = new HttpUtils(config.getHttpConfig()).get(source.userInfo(), null, new HttpHeader()
             .add("Content-Type", "application/json")
@@ -98,12 +98,12 @@ public class AuthFeishuRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
         JSONObject requestObject = new JSONObject();
         requestObject.put("app_access_token", this.getAppAccessToken());
         requestObject.put("grant_type", "refresh_token");
         requestObject.put("refresh_token", authToken.getRefreshToken());
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(getToken(requestObject, this.source.refresh()))
             .build();

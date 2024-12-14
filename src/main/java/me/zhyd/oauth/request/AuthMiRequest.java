@@ -38,7 +38,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         return getToken(accessTokenUrl(authCallback.getCode()));
     }
 
@@ -64,7 +64,7 @@ public class AuthMiRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         // 获取用户信息
         String userResponse = doGetUserInfo(authToken);
 
@@ -110,8 +110,8 @@ public class AuthMiRequest extends AuthDefaultRequest {
      * @return AuthResponse
      */
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
-        return AuthResponse.builder()
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(getToken(refreshTokenUrl(authToken.getRefreshToken())))
             .build();

@@ -33,7 +33,7 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         return AuthToken.builder().accessCode(authCallback.getCode()).build();
     }
 
@@ -58,7 +58,7 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String response = doPostAuthorizationCode(authToken.getAccessCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         if (accessTokenObject.containsKey("error")) {
@@ -79,11 +79,11 @@ public class AuthTaobaoRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
         String tokenUrl = refreshTokenUrl(oldToken.getRefreshToken());
         String response = new HttpUtils(config.getHttpConfig()).post(tokenUrl).getBody();
         JSONObject accessTokenObject = JSONObject.parseObject(response);
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(this.getAuthToken(accessTokenObject))
             .build();

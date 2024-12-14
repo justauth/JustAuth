@@ -26,7 +26,7 @@ public class AuthAliyunRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         String response = doPostAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response);
         return AuthToken.builder()
@@ -39,7 +39,7 @@ public class AuthAliyunRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String userInfo = doGetUserInfo(authToken);
         JSONObject object = JSONObject.parseObject(userInfo);
         return AuthUser.builder()

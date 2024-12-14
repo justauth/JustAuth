@@ -1,11 +1,25 @@
-## 1.16.6
+## 1.16.7
 
-### 2024/08/03
+### 2024/12/14
 
 - 新增
-  - 添加 appleid 社交登录能力。 [Github #192](https://github.com/justauth/JustAuth/pull/192)
-- Fixed
+  - 添加`微信小程序`登录能力。
+  - 添加`支付宝证书模式`登录能力（原支持的公钥登录模式依然可用）。
+  - 添加`appleid`社交登录能力。 [Github#192](https://github.com/justauth/JustAuth/pull/192)
+  - 添加`QQ小程序`社交登录能力。 [Github#223](https://github.com/justauth/JustAuth/pull/223)
+  - 添加`figma`社交登录能力。 [Gitee#41](https://gitee.com/yadong.zhang/JustAuth/pulls/41)
+  - 添加新版`企业微信扫码`登录能力。 [Github Issue#165](https://github.com/justauth/JustAuth/issues/165)
+  - 添加新版`钉钉扫码`登录能力。 [Gitee Issue#I73FZL](https://gitee.com/yadong.zhang/JustAuth/issues/I73FZL)
+  - 添加新版`华为`登录能力，原`AuthHuaweiRequest`会在后面版本被弃用，如有使用，请切换到`AuthHuaweiV3Request`
 - 优化
+  - 修复文档错误。[Github #222](https://github.com/justauth/JustAuth/pull/222)
+  - 更新 Google 端点地址。[Github #198](https://github.com/justauth/JustAuth/pull/198)
+  - Amazon PKCE 中的 `code_verifier` 基于 `state` 缓存
+  - `AuthRequest`响应时携带泛型，避免二次解析。[Gitee#38](https://gitee.com/yadong.zhang/JustAuth/pulls/38)
+  - 优化业务调用方式：`getAccessToken`和`getUserInfo`两个方法从`AuthDefaultRequest`提升至`AuthRequest`中，部分场景下可以减少一次网络请求。[Github Issue#194](https://github.com/justauth/JustAuth/issues/194)
+    - ***注意：如果有基于 JustAuth 规范自定义实现的三方平台 Request（[自定义第三方平台的OAuth](https://justauth.cn/features/customize-the-oauth/)），需要注意`getAccessToken`和`getUserInfo`接口的访问级别是否正确！！！***
+- 其他
+  -  补充单侧，[Gitee#39](https://gitee.com/yadong.zhang/JustAuth/pulls/39)
 
 ## 1.16.6
 

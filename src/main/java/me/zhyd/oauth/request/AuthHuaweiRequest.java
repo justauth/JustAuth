@@ -23,10 +23,13 @@ import static me.zhyd.oauth.enums.AuthResponseStatus.SUCCESS;
 /**
  * 华为授权登录
  *
+ * 当前方式未来可能被废弃，建议使用 {@link AuthHuaweiV3Request}
+ *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @version 1.0
  * @since 1.10.0
  */
+@Deprecated
 public class AuthHuaweiRequest extends AuthDefaultRequest {
 
     public AuthHuaweiRequest(AuthConfig config) {
@@ -46,7 +49,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
      * @see AuthDefaultRequest#authorize(String)
      */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         Map<String, String> form = new HashMap<>(8);
         form.put("grant_type", "authorization_code");
         form.put("code", authCallback.getAuthorization_code());
@@ -66,12 +69,14 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
      * @see AuthDefaultRequest#getAccessToken(AuthCallback)
      */
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         Map<String, String> form = new HashMap<>(7);
         form.put("nsp_ts", System.currentTimeMillis() + "");
         form.put("access_token", authToken.getAccessToken());
         form.put("nsp_fmt", "JS");
-        form.put("nsp_svc", "OpenUP.User.getInfo");
+        form.put("open_id", "OPENID");
+        // form.put("nsp_svc", "OpenUP.User.getInfo");
+        form.put("nsp_svc", "huawei.oauth2.user.getTokenInfo");
 
         String response = new HttpUtils(config.getHttpConfig()).post(source.userInfo(), form, false).getBody();
         JSONObject object = JSONObject.parseObject(response);
@@ -99,7 +104,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
      * @return AuthResponse
      */
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
         Map<String, String> form = new HashMap<>(7);
         form.put("client_id", config.getClientId());
         form.put("client_secret", config.getClientSecret());
@@ -107,7 +112,7 @@ public class AuthHuaweiRequest extends AuthDefaultRequest {
         form.put("grant_type", "refresh_token");
 
         String response = new HttpUtils(config.getHttpConfig()).post(source.refresh(), form, false).getBody();
-        return AuthResponse.builder().code(SUCCESS.getCode()).data(getAuthToken(response)).build();
+        return AuthResponse.<AuthToken>builder().code(SUCCESS.getCode()).data(getAuthToken(response)).build();
     }
 
     private AuthToken getAuthToken(String response) {

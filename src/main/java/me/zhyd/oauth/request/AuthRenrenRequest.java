@@ -38,12 +38,12 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         return this.getToken(accessTokenUrl(authCallback.getCode()));
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String response = doGetUserInfo(authToken);
         JSONObject userObj = JSONObject.parseObject(response).getJSONObject("response");
 
@@ -60,8 +60,8 @@ public class AuthRenrenRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
-        return AuthResponse.builder()
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
+        return AuthResponse.<AuthToken>builder()
             .code(SUCCESS.getCode())
             .data(getToken(this.refreshTokenUrl(authToken.getRefreshToken())))
             .build();

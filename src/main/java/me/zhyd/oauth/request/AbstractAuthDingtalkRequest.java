@@ -34,12 +34,12 @@ public abstract class AbstractAuthDingtalkRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         return AuthToken.builder().accessCode(authCallback.getCode()).build();
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String code = authToken.getAccessCode();
         JSONObject param = new JSONObject();
         param.put("tmp_auth_code", code);

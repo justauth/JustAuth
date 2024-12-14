@@ -35,7 +35,7 @@ public class AuthGithubRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         String response = doPostAuthorizationCode(authCallback.getCode());
         Map<String, String> res = GlobalAuthUtils.parseStringToMap(response);
 
@@ -49,7 +49,7 @@ public class AuthGithubRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         HttpHeader header = new HttpHeader();
         header.add("Authorization", "token " + authToken.getAccessToken());
         String response = new HttpUtils(config.getHttpConfig()).get(UrlBuilder.fromBaseUrl(source.userInfo()).build(), null, header, false).getBody();

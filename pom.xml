@@ -58,10 +58,10 @@
     <maven-gpg-version>1.6</maven-gpg-version>
     <maven.test.skip>false</maven.test.skip>
     <simple-http.version>1.0.5</simple-http.version>
-    <lombok-version>1.18.20</lombok-version>
+    <lombok-version>1.18.30</lombok-version>
     <junit-version>4.13.2</junit-version>
     <fastjson-version>1.2.83</fastjson-version>
-    <alipay-sdk-version>4.17.5.ALL</alipay-sdk-version>
+    <alipay-sdk-version>4.39.165.ALL</alipay-sdk-version>
     <jacoco-version>0.8.2</jacoco-version>
     <jwt.version>0.12.3</jwt.version>
     <bcpkix-jdk18on.version>1.78</bcpkix-jdk18on.version>
@@ -106,21 +106,25 @@
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-api</artifactId>
       <version>${jwt.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-impl</artifactId>
       <version>${jwt.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-jackson</artifactId>
       <version>${jwt.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcpkix-jdk18on</artifactId>
       <version>${bcpkix-jdk18on.version}</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 

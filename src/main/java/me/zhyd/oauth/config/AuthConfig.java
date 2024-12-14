@@ -198,4 +198,58 @@ public class AuthConfig {
      * @see <a href="https://developer.apple.com/help/glossary/team-id/">team id</a>
      */
     private String teamId;
+
+    /**
+     * 新版企业微信 Web 登录时的参数，
+     *
+     * 登录类型。ServiceApp：服务商登录；CorpApp：企业自建/代开发应用登录。
+     * @see <a href="https://developer.work.weixin.qq.com/document/path/98152">https://developer.work.weixin.qq.com/document/path/98152</a>
+     * @since 1.16.7
+     */
+    private String loginType = "CorpApp";
+
+    /**
+     * 企业微信平台的语言编码
+     *
+     * @since 1.16.7
+     */
+    private String lang = "zh";
+
+    /**
+     * 钉钉平台参数：控制输出特定类型的组织列表，org_type=management 表示只输出有管理权限的组织。
+     *
+     * scope包含corpid时该参数存在意义。
+     *
+     * @see <a href="https://open.dingtalk.com/document/orgapp/obtain-identity-credentials#title-4up-u8w-5ug">https://open.dingtalk.com/document/orgapp/obtain-identity-credentials#title-4up-u8w-5ug</a>
+     * @since 1.16.7
+     */
+    private String dingTalkOrgType;
+
+    /**
+     * 钉钉平台参数：用于指定用户需要选择的组织。
+     *
+     * scope包含corpid时该参数存在意义。传入的corpId需要是当前用户所在的组织。
+     *
+     * @see <a href="https://open.dingtalk.com/document/orgapp/obtain-identity-credentials#title-4up-u8w-5ug">https://open.dingtalk.com/document/orgapp/obtain-identity-credentials#title-4up-u8w-5ug</a>
+     * @since 1.16.7
+     */
+    private String dingTalkCorpId;
+
+    /**
+     * 钉钉平台参数：true表示专属帐号登录，展示组织代码输入页。
+     *
+     * @see <a href="https://open.dingtalk.com/document/orgapp/obtain-identity-credentials#title-4up-u8w-5ug">https://open.dingtalk.com/document/orgapp/obtain-identity-credentials#title-4up-u8w-5ug</a>
+     * @since 1.16.7
+     */
+    private boolean dingTalkExclusiveLogin;
+
+    /**
+     * 钉钉平台参数：开启了专属帐号功能的组织corpId。
+     *
+     * scope包含corpid时该参数存在意义。传入的corpId需要是当前用户所在的组织。
+     *
+     * @see <a href="https://open.dingtalk.com/document/orgapp/obtain-identity-credentials#title-4up-u8w-5ug">https://open.dingtalk.com/document/orgapp/obtain-identity-credentials#title-4up-u8w-5ug</a>
+     * @since 1.16.7
+     */
+    private String dingTalkExclusiveCorpId;
 }

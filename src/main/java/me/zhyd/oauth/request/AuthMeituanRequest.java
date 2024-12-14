@@ -34,7 +34,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         Map<String, String> form = new HashMap<>(7);
         form.put("app_id", config.getClientId());
         form.put("secret", config.getClientSecret());
@@ -54,7 +54,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         Map<String, String> form = new HashMap<>(5);
         form.put("app_id", config.getClientId());
         form.put("secret", config.getClientSecret());
@@ -78,7 +78,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
         Map<String, String> form = new HashMap<>(7);
         form.put("app_id", config.getClientId());
         form.put("secret", config.getClientSecret());
@@ -90,7 +90,7 @@ public class AuthMeituanRequest extends AuthDefaultRequest {
 
         this.checkResponse(object);
 
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(AuthToken.builder()
                 .accessToken(object.getString("access_token"))

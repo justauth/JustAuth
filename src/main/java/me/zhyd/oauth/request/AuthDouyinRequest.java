@@ -34,16 +34,17 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         return this.getToken(accessTokenUrl(authCallback.getCode()));
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String response = doGetUserInfo(authToken);
         JSONObject userInfoObject = JSONObject.parseObject(response);
         this.checkResponse(userInfoObject);
         JSONObject object = userInfoObject.getJSONObject("data");
+        authToken.setUnionId(object.getString("union_id"));
         return AuthUser.builder()
             .rawUserInfo(object)
             .uuid(object.getString("union_id"))
@@ -59,8 +60,8 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
-        return AuthResponse.builder()
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(getToken(refreshTokenUrl(oldToken.getRefreshToken())))
             .build();
@@ -96,6 +97,7 @@ public class AuthDouyinRequest extends AuthDefaultRequest {
             .openId(dataObj.getString("open_id"))
             .expireIn(dataObj.getIntValue("expires_in"))
             .refreshToken(dataObj.getString("refresh_token"))
+            .refreshTokenExpireIn(dataObj.getIntValue("refresh_expires_in"))
             .scope(dataObj.getString("scope"))
             .build();
     }

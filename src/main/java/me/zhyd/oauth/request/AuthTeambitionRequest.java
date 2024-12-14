@@ -38,7 +38,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
      * @return 所有信息
      */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         Map<String, String> form = new HashMap<>(7);
         form.put("client_id", config.getClientId());
         form.put("client_secret", config.getClientSecret());
@@ -57,7 +57,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
 
         HttpHeader httpHeader = new HttpHeader();
@@ -87,7 +87,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken oldToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken oldToken) {
         String uid = oldToken.getUid();
         String refreshToken = oldToken.getRefreshToken();
 
@@ -99,7 +99,7 @@ public class AuthTeambitionRequest extends AuthDefaultRequest {
 
         this.checkResponse(refreshTokenObject);
 
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(AuthToken.builder()
                 .accessToken(refreshTokenObject.getString("access_token"))

@@ -45,10 +45,10 @@ public class AuthExtendRequestTest {
             .code("code")
             .state(state)
             .build();
-        AuthResponse response = request.login(callback);
+        AuthResponse<AuthUser> response = request.login(callback);
         Assert.assertNotNull(response);
 
-        AuthUser user = (AuthUser) response.getData();
+        AuthUser user = response.getData();
         Assert.assertNotNull(user);
         System.out.println(JSON.toJSONString(user));
     }
@@ -74,7 +74,7 @@ public class AuthExtendRequestTest {
             .redirectUri("http://redirectUri")
             .build());
 
-        AuthResponse response = request.refresh(AuthToken.builder().build());
+        AuthResponse<AuthToken> response = request.refresh(AuthToken.builder().build());
         Assert.assertNotNull(response);
         System.out.println(JSON.toJSONString(response.getData()));
 

@@ -29,7 +29,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         String response = doGetAuthorizationCode(authCallback.getCode());
         JSONObject accessTokenObject = JSONObject.parseObject(response);
 
@@ -43,7 +43,7 @@ public class AuthToutiaoRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String userResponse = doGetUserInfo(authToken);
 
         JSONObject userProfile = JSONObject.parseObject(userResponse);

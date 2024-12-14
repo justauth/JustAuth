@@ -50,15 +50,16 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
      */
     @Override
     public String authorize(String state) {
+        String realState = getRealState(state);
         UrlBuilder builder = UrlBuilder.fromBaseUrl(source.authorize())
             .queryParam("client_id", config.getClientId())
             .queryParam("scope", this.getScopes(" ", true, AuthScopeUtils.getDefaultScopes(AuthAmazonScope.values())))
             .queryParam("redirect_uri", config.getRedirectUri())
             .queryParam("response_type", "code")
-            .queryParam("state", getRealState(state));
+            .queryParam("state", realState);
 
         if (config.isPkce()) {
-            String cacheKey = this.source.getName().concat(":code_verifier:").concat(config.getClientId());
+            String cacheKey = this.source.getName().concat(":code_verifier:").concat(realState);
             String codeVerifier = PkceUtil.generateCodeVerifier();
             String codeChallengeMethod = "S256";
             String codeChallenge = PkceUtil.generateCodeChallenge(codeChallengeMethod, codeVerifier);
@@ -77,7 +78,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
      * @return access token
      */
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         Map<String, String> form = new HashMap<>(9);
         form.put("grant_type", "authorization_code");
         form.put("code", authCallback.getCode());
@@ -86,7 +87,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
         form.put("client_secret", config.getClientSecret());
 
         if (config.isPkce()) {
-            String cacheKey = this.source.getName().concat(":code_verifier:").concat(config.getClientId());
+            String cacheKey = this.source.getName().concat(":code_verifier:").concat(authCallback.getState());
             String codeVerifier = this.authStateCache.get(cacheKey);
             form.put("code_verifier", codeVerifier);
         }
@@ -94,13 +95,13 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
     }
 
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
         Map<String, String> form = new HashMap<>(7);
         form.put("grant_type", "refresh_token");
         form.put("refresh_token", authToken.getRefreshToken());
         form.put("client_id", config.getClientId());
         form.put("client_secret", config.getClientSecret());
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(getToken(form, this.source.refresh()))
             .build();
@@ -140,7 +141,7 @@ public class AuthAmazonRequest extends AuthDefaultRequest {
      * @return AuthUser
      */
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         this.checkToken(accessToken);
 

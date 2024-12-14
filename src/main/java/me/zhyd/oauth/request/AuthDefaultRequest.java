@@ -44,25 +44,6 @@ public abstract class AuthDefaultRequest implements AuthRequest {
     }
 
     /**
-     * 获取access token
-     *
-     * @param authCallback 授权成功后的回调参数
-     * @return token
-     * @see AuthDefaultRequest#authorize()
-     * @see AuthDefaultRequest#authorize(String)
-     */
-    protected abstract AuthToken getAccessToken(AuthCallback authCallback);
-
-    /**
-     * 使用token换取用户信息
-     *
-     * @param authToken token信息
-     * @return 用户信息
-     * @see AuthDefaultRequest#getAccessToken(AuthCallback)
-     */
-    protected abstract AuthUser getUserInfo(AuthToken authToken);
-
-    /**
      * 统一的登录入口。当通过{@link AuthDefaultRequest#authorize(String)}授权成功后，会跳转到调用方的相关回调方法中
      * 方法的入参可以使用{@code AuthCallback}，{@code AuthCallback}类中封装好了OAuth2授权回调所需要的参数
      *
@@ -70,7 +51,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @return AuthResponse
      */
     @Override
-    public AuthResponse login(AuthCallback authCallback) {
+    public AuthResponse<AuthUser> login(AuthCallback authCallback) {
         try {
             checkCode(authCallback);
             if (!config.isIgnoreCheckState()) {
@@ -79,7 +60,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
 
             AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
-            return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
+            return AuthResponse.<AuthUser>builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
         } catch (Exception e) {
             Log.error("Failed to login with oauth authorization.", e);
             return this.responseError(e);
@@ -96,7 +77,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
      * @param e 具体的异常
      * @return AuthResponse
      */
-    AuthResponse responseError(Exception e) {
+    AuthResponse<AuthUser> responseError(Exception e) {
         int errorCode = AuthResponseStatus.FAILURE.getCode();
         String errorMsg = e.getMessage();
         if (e instanceof AuthException) {
@@ -106,7 +87,7 @@ public abstract class AuthDefaultRequest implements AuthRequest {
                 errorMsg = authException.getErrorMsg();
             }
         }
-        return AuthResponse.builder().code(errorCode).msg(errorMsg).build();
+        return AuthResponse.<AuthUser>builder().code(errorCode).msg(errorMsg).build();
     }
 
     /**

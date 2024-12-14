@@ -41,14 +41,14 @@ public class AuthWeChatEnterpriseThirdQrcodeRequest extends AbstractAuthWeChatEn
     }
 
     @Override
-    public AuthResponse login(AuthCallback authCallback) {
+    public AuthResponse<AuthUser> login(AuthCallback authCallback) {
         try {
             if (!config.isIgnoreCheckState()) {
                 AuthChecker.checkState(authCallback.getState(), source, authStateCache);
             }
             AuthToken authToken = this.getAccessToken(authCallback);
             AuthUser user = this.getUserInfo(authToken);
-            return AuthResponse.builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
+            return AuthResponse.<AuthUser>builder().code(AuthResponseStatus.SUCCESS.getCode()).data(user).build();
         } catch (Exception e) {
             Log.error("Failed to login with oauth authorization.", e);
             return this.responseError(e);
@@ -56,13 +56,14 @@ public class AuthWeChatEnterpriseThirdQrcodeRequest extends AbstractAuthWeChatEn
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         try {
             String response = doGetAuthorizationCode(accessTokenUrl());
             JSONObject object = this.checkResponse(response);
             AuthToken authToken = AuthToken.builder()
                 .accessToken(object.getString("provider_access_token"))
                 .expireIn(object.getIntValue("expires_in"))
+                .code(authCallback.getCode())
                 .build();
             return authToken;
         } catch (Exception e) {
@@ -89,7 +90,7 @@ public class AuthWeChatEnterpriseThirdQrcodeRequest extends AbstractAuthWeChatEn
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         JSONObject response = this.checkResponse(doGetUserInfo(authToken));
         return AuthUser.builder()
             .rawUserInfo(response)

@@ -113,6 +113,30 @@ public enum AuthDefaultSource implements AuthSource {
         }
     },
     /**
+     * 新版钉钉扫码登录
+     */
+    DINGTALK_V2 {
+        @Override
+        public String authorize() {
+            return "https://login.dingtalk.com/oauth2/challenge.htm";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://api.dingtalk.com/v1.0/oauth2/userAccessToken";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.dingtalk.com/v1.0/contact/users/me";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthDingTalkV2Request.class;
+        }
+    },
+    /**
      * 钉钉账号登录
      */
     DINGTALK_ACCOUNT {
@@ -382,6 +406,7 @@ public enum AuthDefaultSource implements AuthSource {
     },
     /**
      * Google
+     * 端点地址：https://accounts.google.com/.well-known/openid-configuration
      */
     GOOGLE {
         @Override
@@ -391,12 +416,12 @@ public enum AuthDefaultSource implements AuthSource {
 
         @Override
         public String accessToken() {
-            return "https://www.googleapis.com/oauth2/v4/token";
+            return "https://oauth2.googleapis.com/token";
         }
 
         @Override
         public String userInfo() {
-            return "https://www.googleapis.com/oauth2/v3/userinfo";
+            return "https://openidconnect.googleapis.com/v1/userinfo";
         }
 
         @Override
@@ -708,8 +733,11 @@ public enum AuthDefaultSource implements AuthSource {
     /**
      * 华为
      *
+     * 当前方式未来可能被废弃，建议使用 {@link this#HUAWEI_V3}
+     *
      * @since 1.10.0
      */
+    @Deprecated
     HUAWEI {
         @Override
         public String authorize() {
@@ -738,6 +766,38 @@ public enum AuthDefaultSource implements AuthSource {
     },
 
     /**
+     * 华为最新版本的 API
+     *
+     * @since 1.16.7
+     */
+    HUAWEI_V3 {
+        @Override
+        public String authorize() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v3/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v3/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://account.cloud.huawei.com/rest.php";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://oauth-login.cloud.huawei.com/oauth2/v3/token";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthHuaweiV3Request.class;
+        }
+    },
+
+    /**
      * 企业微信二维码登录
      *
      * @since 1.10.0
@@ -761,6 +821,32 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return AuthWeChatEnterpriseQrcodeRequest.class;
+        }
+    },
+    /**
+     * 新版企业微信 Web 登录（扫码），参考 <a href="https://developer.work.weixin.qq.com/document/path/98152">https://developer.work.weixin.qq.com/document/path/98152</a>
+     *
+     * @since 1.16.7
+     */
+    WECHAT_ENTERPRISE_V2 {
+        @Override
+        public String authorize() {
+            return "https://login.work.weixin.qq.com/wwlogin/sso/login";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://qyapi.weixin.qq.com/cgi-bin/gettoken";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://qyapi.weixin.qq.com/cgi-bin/auth/getuserinfo";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthWeChatEnterpriseQrcodeV2Request.class;
         }
     },
     /**
@@ -1320,6 +1406,92 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return AuthAppleRequest.class;
+        }
+    },
+
+    FIGMA{
+        @Override
+        public String authorize() {
+            return "https://www.figma.com/oauth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://www.figma.com/api/oauth/token";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://api.figma.com/v1/me";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://www.figma.com/api/oauth/refresh";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthFigmaRequest.class;
+        }
+    },
+    /**
+     * 微信小程序授权登录
+     * @since yudaocode
+     */
+    WECHAT_MINI_PROGRAM {
+
+        @Override
+        public String authorize() {
+            // 参见 https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html 文档
+            throw new UnsupportedOperationException("不支持获取授权 url，请使用小程序内置函数 wx.login() 登录获取 code");
+        }
+
+        @Override
+        public String accessToken() {
+            // 参见 https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/login/auth.code2Session.html 文档
+            // 获取 openid, unionId , session_key 等字段
+            return "https://api.weixin.qq.com/sns/jscode2session";
+        }
+
+        @Override
+        public String userInfo() {
+            // 参见 https://developers.weixin.qq.com/miniprogram/dev/api/open-api/user-info/wx.getUserProfile.html 文档
+            throw new UnsupportedOperationException("不支持获取用户信息 url，请使用小程序内置函数 wx.getUserProfile() 获取用户信息");
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthWechatMiniProgramRequest.class;
+        }
+    },
+
+    /**
+     * QQ小程序授权登录
+     */
+    QQ_MINI_PROGRAM {
+        @Override
+        public String authorize() {
+            // 参见 https://q.qq.com/wiki/develop/miniprogram/frame/open_ability/open_userinfo.html 文档
+            throw new UnsupportedOperationException("不支持获取授权 url，请使用小程序内置函数 qq.login() 登录获取 code");
+        }
+
+        @Override
+        public String accessToken() {
+            // 参见 https://q.qq.com/wiki/develop/miniprogram/server/open_port/port_login.html 文档
+            // 获取 openid, unionId , session_key 等字段
+            return "https://api.q.qq.com/sns/jscode2session";
+        }
+
+        @Override
+        public String userInfo() {
+            // 参见 https://q.qq.com/wiki/develop/miniprogram/API/open_port/port_userinfo.html 文档
+            throw new UnsupportedOperationException("不支持获取用户信息 url，请使用小程序内置函数 qq.getUserInfo() 获取用户信息");
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return null;
         }
     }
 

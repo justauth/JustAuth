@@ -66,4 +66,11 @@ public class AuthToken implements Serializable {
      * Apple附带属性
      */
     private String username;
+
+    /**
+     * 新版钉钉附带属性
+     *
+     * @since 1.16.7
+     */
+    private String corpId;
 }

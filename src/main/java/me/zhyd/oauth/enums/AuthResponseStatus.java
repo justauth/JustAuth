@@ -33,6 +33,7 @@ public enum AuthResponseStatus {
     ILLEGAL_TEAM_ID(5013, "Invalid team id"),
     ILLEGAL_CLIENT_ID(5014, "Invalid client id"),
     ILLEGAL_CLIENT_SECRET(5015, "Invalid client secret"),
+    ILLEGAL_WECHAT_AGENT_ID(5016, "Illegal wechat agent id"),
     ;
 
     private final int code;

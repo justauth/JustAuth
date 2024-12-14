@@ -39,7 +39,7 @@ public abstract class AbstractAuthMicrosoftRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         return getToken(accessTokenUrl(authCallback.getCode()));
     }
 
@@ -80,7 +80,7 @@ public abstract class AbstractAuthMicrosoftRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String token = authToken.getAccessToken();
         String tokenType = authToken.getTokenType();
         String jwt = tokenType + " " + token;
@@ -111,8 +111,8 @@ public abstract class AbstractAuthMicrosoftRequest extends AuthDefaultRequest {
      * @return AuthResponse
      */
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
-        return AuthResponse.builder()
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(getToken(refreshTokenUrl(authToken.getRefreshToken())))
             .build();

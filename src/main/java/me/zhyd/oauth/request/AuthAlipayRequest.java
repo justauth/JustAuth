@@ -26,7 +26,7 @@ import me.zhyd.oauth.utils.UrlBuilder;
 import java.net.InetSocketAddress;
 
 /**
- * 支付宝登录
+ * 支付宝公钥模式登录
  *
  * @author yadong.zhang (yadong.zhang0415(a)gmail.com)
  * @since 1.0.1
@@ -147,7 +147,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthToken getAccessToken(AuthCallback authCallback) {
+    public AuthToken getAccessToken(AuthCallback authCallback) {
         AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest();
         request.setGrantType("authorization_code");
         request.setCode(authCallback.getAuth_code());
@@ -175,7 +175,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
      * @return AuthResponse
      */
     @Override
-    public AuthResponse refresh(AuthToken authToken) {
+    public AuthResponse<AuthToken> refresh(AuthToken authToken) {
         AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest();
         request.setGrantType("refresh_token");
         request.setRefreshToken(authToken.getRefreshToken());
@@ -188,7 +188,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
         if (!response.isSuccess()) {
             throw new AuthException(response.getSubMsg());
         }
-        return AuthResponse.builder()
+        return AuthResponse.<AuthToken>builder()
             .code(AuthResponseStatus.SUCCESS.getCode())
             .data(AuthToken.builder()
                 .accessToken(response.getAccessToken())
@@ -200,7 +200,7 @@ public class AuthAlipayRequest extends AuthDefaultRequest {
     }
 
     @Override
-    protected AuthUser getUserInfo(AuthToken authToken) {
+    public AuthUser getUserInfo(AuthToken authToken) {
         String accessToken = authToken.getAccessToken();
         AlipayUserInfoShareRequest request = new AlipayUserInfoShareRequest();
         AlipayUserInfoShareResponse response = null;
