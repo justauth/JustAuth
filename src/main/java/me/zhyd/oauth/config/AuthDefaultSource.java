@@ -1493,6 +1493,36 @@ public enum AuthDefaultSource implements AuthSource {
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return null;
         }
+    },
+
+    /**
+     * 小红书商业开放平台授权登录
+     */
+    XHS {
+        @Override
+        public String authorize() {
+            return "  https://ad-market.xiaohongshu.com/auth";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://adapi.xiaohongshu.com/api/open/oauth2/access_token";
+        }
+
+        @Override
+        public String userInfo() {
+            throw new UnsupportedOperationException("不支持获取用户信息 url");
+        }
+
+        @Override
+        public String refresh() {
+            return "https://adapi.xiaohongshu.com/api/open/oauth2/refresh_token";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthXiaohongshuMarketingRequest.class;
+        }
     }
 
 }
