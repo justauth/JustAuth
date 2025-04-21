@@ -28,6 +28,11 @@ public class AuthCallback implements Serializable {
     private String code;
 
     /**
+     * 该参数目前只使用于抖音小程序匿名登录
+     */
+    private String anonymous_code;
+
+    /**
      * 访问AuthorizeUrl后回调时带的参数auth_code，该参数目前只使用于支付宝登录
      */
     private String auth_code;
@@ -60,12 +65,14 @@ public class AuthCallback implements Serializable {
 
     /**
      * 苹果仅在用户首次授权应用程序时返回此值。如果您的应用程序已经获得了用户的授权，那么苹果将不会再次返回此值
+     *
      * @see <a href="https://developer.apple.com/documentation/sign_in_with_apple/useri">user info</a>
      */
     private String user;
 
     /**
      * 苹果错误信息，仅在用户取消授权时返回此值
+     *
      * @see <a href="https://developer.apple.com/documentation/sign_in_with_apple/sign_in_with_apple_js/incorporating_sign_in_with_apple_into_other_platforms">error response</a>
      */
     private String error;

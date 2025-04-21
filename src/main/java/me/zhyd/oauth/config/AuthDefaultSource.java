@@ -2,7 +2,58 @@ package me.zhyd.oauth.config;
 
 import me.zhyd.oauth.enums.AuthResponseStatus;
 import me.zhyd.oauth.exception.AuthException;
-import me.zhyd.oauth.request.*;
+import me.zhyd.oauth.request.AuthAlipayRequest;
+import me.zhyd.oauth.request.AuthAliyunRequest;
+import me.zhyd.oauth.request.AuthAmazonRequest;
+import me.zhyd.oauth.request.AuthAppleRequest;
+import me.zhyd.oauth.request.AuthBaiduRequest;
+import me.zhyd.oauth.request.AuthCodingRequest;
+import me.zhyd.oauth.request.AuthCsdnRequest;
+import me.zhyd.oauth.request.AuthDefaultRequest;
+import me.zhyd.oauth.request.AuthDingTalkAccountRequest;
+import me.zhyd.oauth.request.AuthDingTalkRequest;
+import me.zhyd.oauth.request.AuthDingTalkV2Request;
+import me.zhyd.oauth.request.AuthDouyinMiniProgramRequest;
+import me.zhyd.oauth.request.AuthDouyinRequest;
+import me.zhyd.oauth.request.AuthElemeRequest;
+import me.zhyd.oauth.request.AuthFacebookRequest;
+import me.zhyd.oauth.request.AuthFeishuRequest;
+import me.zhyd.oauth.request.AuthFigmaRequest;
+import me.zhyd.oauth.request.AuthGiteeRequest;
+import me.zhyd.oauth.request.AuthGithubRequest;
+import me.zhyd.oauth.request.AuthGitlabRequest;
+import me.zhyd.oauth.request.AuthGoogleRequest;
+import me.zhyd.oauth.request.AuthHuaweiRequest;
+import me.zhyd.oauth.request.AuthHuaweiV3Request;
+import me.zhyd.oauth.request.AuthJdRequest;
+import me.zhyd.oauth.request.AuthKujialeRequest;
+import me.zhyd.oauth.request.AuthLineRequest;
+import me.zhyd.oauth.request.AuthLinkedinRequest;
+import me.zhyd.oauth.request.AuthMeituanRequest;
+import me.zhyd.oauth.request.AuthMiRequest;
+import me.zhyd.oauth.request.AuthMicrosoftCnRequest;
+import me.zhyd.oauth.request.AuthMicrosoftRequest;
+import me.zhyd.oauth.request.AuthOktaRequest;
+import me.zhyd.oauth.request.AuthOschinaRequest;
+import me.zhyd.oauth.request.AuthPinterestRequest;
+import me.zhyd.oauth.request.AuthProginnRequest;
+import me.zhyd.oauth.request.AuthQqRequest;
+import me.zhyd.oauth.request.AuthRenrenRequest;
+import me.zhyd.oauth.request.AuthSlackRequest;
+import me.zhyd.oauth.request.AuthStackOverflowRequest;
+import me.zhyd.oauth.request.AuthTaobaoRequest;
+import me.zhyd.oauth.request.AuthTeambitionRequest;
+import me.zhyd.oauth.request.AuthToutiaoRequest;
+import me.zhyd.oauth.request.AuthTwitterRequest;
+import me.zhyd.oauth.request.AuthWeChatEnterpriseQrcodeRequest;
+import me.zhyd.oauth.request.AuthWeChatEnterpriseQrcodeV2Request;
+import me.zhyd.oauth.request.AuthWeChatEnterpriseThirdQrcodeRequest;
+import me.zhyd.oauth.request.AuthWeChatEnterpriseWebRequest;
+import me.zhyd.oauth.request.AuthWeChatMpRequest;
+import me.zhyd.oauth.request.AuthWeChatOpenRequest;
+import me.zhyd.oauth.request.AuthWechatMiniProgramRequest;
+import me.zhyd.oauth.request.AuthWeiboRequest;
+import me.zhyd.oauth.request.AuthXmlyRequest;
 
 /**
  * JustAuth内置的各api需要的url， 用枚举类分平台类型管理
@@ -565,7 +616,9 @@ public enum AuthDefaultSource implements AuthSource {
         }
 
         @Override
-        public Class<? extends AuthDefaultRequest> getTargetClass() { return AuthMicrosoftCnRequest.class; }
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthMicrosoftCnRequest.class;
+        }
     },
     /**
      * 小米
@@ -732,7 +785,7 @@ public enum AuthDefaultSource implements AuthSource {
 
     /**
      * 华为
-     *
+     * <p>
      * 当前方式未来可能被废弃，建议使用 {@link this#HUAWEI_V3}
      *
      * @since 1.10.0
@@ -1409,7 +1462,7 @@ public enum AuthDefaultSource implements AuthSource {
         }
     },
 
-    FIGMA{
+    FIGMA {
         @Override
         public String authorize() {
             return "https://www.figma.com/oauth";
@@ -1437,10 +1490,10 @@ public enum AuthDefaultSource implements AuthSource {
     },
     /**
      * 微信小程序授权登录
+     *
      * @since yudaocode
      */
     WECHAT_MINI_PROGRAM {
-
         @Override
         public String authorize() {
             // 参见 https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html 文档
@@ -1492,6 +1545,55 @@ public enum AuthDefaultSource implements AuthSource {
         @Override
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return null;
+        }
+    },
+
+    /**
+     * 抖音小程序授权
+     */
+    DOUYIN_MINI_PROGRAM {
+        /**
+         * 授权的api
+         *
+         * @return url
+         */
+        @Override
+        public String authorize() {
+            // 参见 https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/api/open-capacity/log-in/tt-login 文档
+            throw new UnsupportedOperationException("不支持获取授权 url，请使用小程序内置函数 tt.login() 登录获取 code");
+        }
+
+        /**
+         * 获取accessToken的api
+         *
+         * @return url
+         */
+        @Override
+        public String accessToken() {
+            // 参见 https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/server/log-in/code-2-session 文档
+            // 获取 openid, unionId , session_key 等字段
+            return "https://minigame.zijieapi.com/mgplatform/api/apps/jscode2session";
+        }
+
+        /**
+         * 获取用户信息的api
+         *
+         * @return url
+         */
+        @Override
+        public String userInfo() {
+            // 参见 https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/guide/open-api/info/tt-get-user-info 文档
+            throw new UnsupportedOperationException("不支持获取用户信息 url，请使用小程序内置函数 tt.getUserInfo() 获取用户信息");
+        }
+
+        /**
+         * 平台对应的 AuthRequest 实现类，必须继承自 {@link AuthDefaultRequest}
+         *
+         * @return class
+         */
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthDouyinMiniProgramRequest.class;
         }
     }
 
