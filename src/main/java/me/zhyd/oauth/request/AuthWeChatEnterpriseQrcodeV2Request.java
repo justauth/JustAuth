@@ -1,5 +1,6 @@
 package me.zhyd.oauth.request;
 
+import com.alibaba.fastjson.JSONObject;
 import me.zhyd.oauth.cache.AuthStateCache;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.config.AuthDefaultSource;
@@ -47,5 +48,22 @@ public class AuthWeChatEnterpriseQrcodeV2Request extends AbstractAuthWeChatEnter
         if ("CorpApp".equals(config.getLoginType()) && StringUtils.isEmpty(config.getAgentId())) {
             throw new AuthException(AuthResponseStatus.ILLEGAL_WECHAT_AGENT_ID, source);
         }
+    }
+
+    /**
+     * 检查用户平台的方法
+     * 新版本企业微信用户ID接口返回字段为全小写, fix issues #277
+     *
+     * @param object 包含用户信息的 JSONObject 对象
+     * @return 返回用户的 userid，若不存在则抛出异常
+     * @throws AuthException 若用户信息不存在，则抛出 AuthException 异常
+     */
+    @Override
+    protected String checkUserPlatform(JSONObject object) {
+        // 返回 OpenId 或其他，均代表非当前企业用户，不支持
+        if (!object.containsKey("userid")) {
+            throw new AuthException(AuthResponseStatus.UNIDENTIFIED_PLATFORM, source);
+        }
+        return object.getString("userid");
     }
 }

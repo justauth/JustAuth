@@ -51,11 +51,8 @@ public abstract class AbstractAuthWeChatEnterpriseRequest extends AuthDefaultReq
         String response = doGetUserInfo(authToken);
         JSONObject object = this.checkResponse(response);
 
-        // 返回 OpenId 或其他，均代表非当前企业用户，不支持
-        if (!object.containsKey("UserId")) {
-            throw new AuthException(AuthResponseStatus.UNIDENTIFIED_PLATFORM, source);
-        }
-        String userId = object.getString("UserId");
+        // fix issues #277
+        String userId = checkUserPlatform(object);
         String userTicket = object.getString("user_ticket");
         JSONObject userDetail = getUserDetail(authToken.getAccessToken(), userId, userTicket);
 
@@ -148,6 +145,21 @@ public abstract class AbstractAuthWeChatEnterpriseRequest extends AuthDefaultReq
             userInfo.putAll(userDetail);
         }
         return userInfo;
+    }
+
+    /**
+     * 根据用户ID检查平台
+     *
+     * @param object 包含用户信息的JSONObject对象
+     * @return 返回用户ID字符串
+     * @throws AuthException 当用户ID不存在时抛出认证异常
+     */
+    protected String checkUserPlatform(JSONObject object) {
+        // 返回 OpenId 或其他，均代表非当前企业用户，不支持
+        if (!object.containsKey("UserId")) {
+            throw new AuthException(AuthResponseStatus.UNIDENTIFIED_PLATFORM, source);
+        }
+        return object.getString("UserId");
     }
 
 }
