@@ -21,7 +21,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthCallback implements Serializable {
-
+    /**
+     * 设备id
+     */
+    private String device_id;
     /**
      * 访问AuthorizeUrl后回调时带的参数code
      */

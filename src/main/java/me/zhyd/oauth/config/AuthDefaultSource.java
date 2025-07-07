@@ -1493,6 +1493,42 @@ public enum AuthDefaultSource implements AuthSource {
         public Class<? extends AuthDefaultRequest> getTargetClass() {
             return null;
         }
+    },
+    VK {
+        @Override
+        public String authorize() {
+            return "https://id.vk.com/authorize";
+        }
+
+        @Override
+        public String accessToken() {
+            return "https://id.vk.com/oauth2/auth";
+        }
+
+        @Override
+        public String userInfo() {
+            return "https://id.vk.com/oauth2/user_info";
+        }
+
+        @Override
+        public String revoke() {
+            return "https://id.vk.com/oauth2/revoke";
+        }
+
+        @Override
+        public String refresh() {
+            return "https://id.vk.com/oauth2/auth";
+        }
+
+        @Override
+        public String getName() {
+            return "VK";
+        }
+
+        @Override
+        public Class<? extends AuthDefaultRequest> getTargetClass() {
+            return AuthVKRequest.class;
+        }
     }
 
 }
