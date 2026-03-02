@@ -31,10 +31,13 @@
 	</a>
 </p>
 
+[![Maintainability](https://cloud.quality-gate.com/dashboard/api/badge?projectName=justauth_JustAuth&branchName=master)](https://cloud.quality-gate.com/dashboard/branches/83479#overview)
+
 -------------------------------------------------------------------------------
 <p align="center">
 <img src='./docs/media/75a3c076.png' alt='star'></img>
 </p>
+
 
 -------------------------------------------------------------------------------
 
